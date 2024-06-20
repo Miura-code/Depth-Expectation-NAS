@@ -1,0 +1,16 @@
+.vscode
+.VSCodeCounter
+augments
+
+*.pyc
+
+plots/
+tb/
+
+!/**/DAG/*.gif
+!/**/DAG/*.pickle
+/**/DAG/*.png
+/**/DAG/*-DAG
+/**/DAG/*-DAG[1-3]
+
+# history_*.png
