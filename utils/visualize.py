@@ -12,6 +12,8 @@ from graphviz import Digraph
 from PIL import Image
 import glob
 
+from utils.data_prefetcher import data_prefetcher
+
 
 def plot(genotype, file_path, caption=None):
     """ make DAG plot and save to file_path as .png """
@@ -139,3 +141,12 @@ def png2gif(dir_path:str, file_name="DAG_Histtory", size=(1000, 130), pattern="*
         img = img.resize(size)
         images.append(img)
     images[0].save(os.path.join(dir_path, file_name)+'.gif' , save_all = True , append_images = images[1:] , duration = 400 , loop = 1)
+
+def showModelOnTensorboard(tb_writer, model, dataloader):
+    """
+        write model visualization on tensorboad
+    """
+    prefetcher = data_prefetcher(dataloader)
+    images, _ = prefetcher.next()
+    tb_writer.add_graph(model, images)
+
