@@ -58,8 +58,8 @@ class RecordDataclass:
 
   def _init_record(self, types):
     self.records = {}
-    for type in types:
-       self.records[type] = []
+    for ty in types:
+       self.records[ty] = []
 
   def add(self, types:list, datas:list):
     """
@@ -67,30 +67,29 @@ class RecordDataclass:
       types: str type list for adding datas to record
       datas: list type list(like [[],[],[]]). This must be same order with types variables
     """
-    print()
-    for j, type in enumerate(types):
-       self.records[type] += [datas[j]]
+    for j, ty in enumerate(types):
+       self.records[ty] += [datas[j]]
 
   def save(self, path):
     """ 各リストをCSVで保存する """
     with open(path+'/history.csv', 'w', newline='') as file:
       writer = csv.writer(file)
-      for type in self.records.keys():
-         writer.writerow(self.records[type])
+      for ty in self.records.keys():
+         writer.writerow(self.records[ty])
 
     self._plot(path)
     
   def _plot(self, path):
     fig1, ax1 = plt.subplots()
-    for type in self.loss_types:
-      ax1.plot(self.records[type][1:], label=type)
+    for ty in self.loss_types:
+      ax1.plot(self.records[ty], label=ty)
     ax1.set_title("loss")
     ax1.legend()
     fig1.savefig(path + "/history_loss.png")
 
     fig2, ax2 = plt.subplots()
-    for type in self.acc_types:
-      ax2.plot(self.records[type][1:], label=type)
+    for ty in self.acc_types:
+      ax2.plot(self.records[ty], label=ty)
     ax2.set_title("accuracy")
     ax2.legend()
     fig2.savefig(path + "/history_accuracy.png")
