@@ -11,8 +11,7 @@ from utils.eval_util import AverageMeter, accuracy
 from utils.data_prefetcher import data_prefetcher
 from utils.visualize import showModelOnTensorboard
 from timm_.models import create_model, resume_checkpoint
-
-
+from timm.models import create_model as timm_create_model
 
 class TrainTeacherTrainer():
     def __init__(self, config):
@@ -77,9 +76,13 @@ class TrainTeacherTrainer():
         # ================= define criteria ==================
         self.criterion = nn.CrossEntropyLoss().to(self.device)
         # ================= load model from timm ==================
-        model = create_model(self.config.model_name, pretrained=True, num_classes=n_classes)
+        try:
+            model = create_model(self.config.model_name, pretrained=True, num_classes=n_classes)
+        except RuntimeError as e:
+            model = timm_create_model(self.config.model_name, pretrained=True, num_classes=n_classes)
         # Do not freeze model
         # self.freeze_model(model)
+
         self.model = model.to(self.device)
         showModelOnTensorboard(self.writer, self.model, self.train_loader)
         print("load model end!")
