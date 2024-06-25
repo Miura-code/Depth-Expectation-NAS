@@ -51,44 +51,50 @@ class AverageMeter():
 
 @dataclasses.dataclass
 class RecordDataclass:
-  train_loss = ["train loss"]
-  valid_loss = ["valid loss"]
-  train_acc = ["train acc"]
-  valid_acc = ["valid acc"]
+  def __init__(self, loss_types:list, acc_types:list):
+    self._init_record(loss_types + acc_types)
+    self.loss_types = loss_types
+    self.acc_types = acc_types
 
-  def add(self, train_loss, valid_loss, train_acc, valid_acc):
-    self.train_loss += [train_loss]
-    self.valid_loss += [valid_loss]
-    self.train_acc += [train_acc]
-    self.valid_acc += [valid_acc]
+  def _init_record(self, types):
+    self.records = {}
+    for type in types:
+       self.records[type] = []
 
+  def add(self, types:list, datas:list):
+    """
+    Args:
+      types: str type list for adding datas to record
+      datas: list type list(like [[],[],[]]). This must be same order with types variables
+    """
+    print()
+    for j, type in enumerate(types):
+       self.records[type] += [datas[j]]
 
   def save(self, path):
     """ 各リストをCSVで保存する """
     with open(path+'/history.csv', 'w', newline='') as file:
       writer = csv.writer(file)
-      writer.writerow(self.train_loss)
-      writer.writerow(self.valid_loss)
-      writer.writerow(self.train_acc)
-      writer.writerow(self.valid_acc)
+      for type in self.records.keys():
+         writer.writerow(self.records[type])
 
     self._plot(path)
     
   def _plot(self, path):
     fig1, ax1 = plt.subplots()
-    ax1.plot(self.train_loss[1:], label="training")
-    ax1.plot(self.valid_loss[1:], label="validation")
+    for type in self.loss_types:
+      ax1.plot(self.records[type][1:], label=type)
     ax1.set_title("loss")
     ax1.legend()
     fig1.savefig(path + "/history_loss.png")
 
     fig2, ax2 = plt.subplots()
-    ax2.plot(self.train_acc[1:], label="training")
-    ax2.plot(self.valid_acc[1:], label="validation")
+    for type in self.acc_types:
+      ax2.plot(self.records[type][1:], label=type)
     ax2.set_title("accuracy")
     ax2.legend()
     fig2.savefig(path + "/history_accuracy.png")
 
 
   def _len(self):
-    return  len(self.train_loss)
+    return  len(self.records[self.records.keys()[0]])
