@@ -210,10 +210,6 @@ class TrainTeacherTrainer():
                 
                 X, y = prefetcher.next()
 
-        self.writer.add_scalar('val/loss', losses.avg, self.steps)
-        self.writer.add_scalar('val/top1', top1.avg, self.steps)
-        self.writer.add_scalar('val/top5', top5.avg, self.steps)
-
         printer("Valid: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
         
         return top1.avg, losses.avg

@@ -6,6 +6,7 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 import os
+import time
 from utils.parser import get_parser, parse_gpus, BaseConfig
 import genotypes.genotypes as gt
 
@@ -37,8 +38,13 @@ class SearchCellConfig(BaseConfig):
                             help='weight decay for alpha')
         parser.add_argument('--local_rank', default=0)
         parser.add_argument('--resume_path', type=str, default=None)
-
+        parser.add_argument('--teacher_path', type=str, default=None)
         parser.add_argument('--train_portion', type=float, default=0.5, help='portion of training data')
+        parser.add_argument('--teacher_name', type=str, default='densenet121', help='teacher model name')
+        parser.add_argument('--T', type=float, default=10, help='temperature of softmax with temperature')
+        parser.add_argument('--l', type=float, default=0.5, help='ratio between soft target loss and hard target loss')
+        parser.add_argument('--cutout_length', type=int, default=0, help='cutout length')
+        parser.add_argument('--save', type=str, default='EXP', help='experiment name')
 
 
         return parser
@@ -49,6 +55,11 @@ class SearchCellConfig(BaseConfig):
         super().__init__(**vars(args))
 
         self.data_path = '../data/'
-        self.path = os.path.join('results/search_cell_HcDAS/cifar/', self.name)
+        
+        self.path = os.path.join(f'results/search_cell_KD/{self.dataset}', self.name)
+        self.exp_name = '{}-{}'.format(args.save, time.strftime("%Y%m%d-%H%M%S"))
+        self.path = os.path.join(self.path, self.exp_name)
+        self.DAG_path = os.path.join(self.path, 'DAG')
+        
         self.plot_path = os.path.join(self.path, 'plots')
         self.gpus = parse_gpus(self.gpus)

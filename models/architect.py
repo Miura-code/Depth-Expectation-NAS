@@ -11,9 +11,11 @@ import torch
 
 
 class Architect():
-    def __init__(self, net, w_momentum, w_weight_decay):
+    def __init__(self, net, teacher_net, w_momentum, w_weight_decay):
         self.net = net
+        self.teacher_net = teacher_net
         self.v_net = copy.deepcopy(net)
+        self.v_teacher_net = copy.deepcopy(teacher_net)
         self.w_momentum = w_momentum
         self.w_weight_decay = w_weight_decay
     
@@ -24,7 +26,8 @@ class Architect():
             xi: learning rate for virtual gradient step (same as net lr)
             w_optim: weights optimizer - for virtual step
         """
-        loss = self.v_net.loss(val_X, val_y)
+        logits_guide = self.v_teacher_net.forward(val_X)
+        loss = self.v_net.loss(val_X, logits_guide, val_y)
         v_alphas = tuple(self.v_net.alphas())
         v_weights = tuple(self.v_net.weights())
         v_grads = torch.autograd.grad(loss, v_alphas + v_weights)
@@ -45,7 +48,8 @@ class Architect():
         self.virtual_step(trn_X, trn_y, xi, w_optim)
 
         # calculate unrolled loss
-        loss = self.v_net.loss(val_X, val_y)
+        logits_guide = self.v_teacher_net.forward(val_X)
+        loss = self.v_net.loss(val_X, logits_guide, val_y)
 
         # compute gradient
         v_alphas = tuple(self.v_net.alphas())
@@ -76,7 +80,8 @@ class Architect():
             w_optim: weights optimizer
         """
         # forward & calc loss
-        loss = self.net.loss(trn_X, trn_y)
+        logits_guide = self.v_teacher_net.forward(trn_X)
+        loss = self.net.loss(trn_X, logits_guide, trn_y)
 
         # compute gradient
         gradients = torch.autograd.grad(loss, self.net.weights())
@@ -104,13 +109,15 @@ class Architect():
         with torch.no_grad():
             for p, d in zip(self.net.weights(), dw):
                 p += eps * d
-        loss = self.net.loss(trn_X, trn_y)
+        logits_guide = self.v_teacher_net.forward(trn_X)
+        loss = self.net.loss(trn_X, logits_guide, trn_y)
         dalpha_pos = torch.autograd.grad(loss, self.net.alphas())
 
         with torch.no_grad():
             for p, d in zip(self.net.weights(), dw):
                 p -= 2. * eps * d
-        loss = self.net.loss(trn_X, trn_y)
+        logits_guide = self.v_teacher_net.forward(trn_X)
+        loss = self.net.loss(trn_X, logits_guide, trn_y)
         dalpha_neg = torch.autograd.grad(loss, self.net.alphas())
 
         with torch.no_grad():
