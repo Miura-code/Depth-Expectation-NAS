@@ -49,12 +49,13 @@ def run_task(config):
         else:
             is_best = False
         trainer.save_checkpoint(epoch, is_best=is_best)
+        Record.add(LOSS_TYPES+ACC_TYPES, [train_loss, val_loss, train_top1, val_top1])
+        Record.save(config.path)
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
     
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
     
-    Record.add(LOSS_TYPES+ACC_TYPES, [train_loss, val_loss, train_top1, val_top1])
-    Record.save(config.path)
+
     
 
 def main():
