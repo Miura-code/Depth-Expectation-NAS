@@ -3,9 +3,10 @@
 augments
 
 *.pyc
+*.cpython-39.pyc
+*/**/__pycache__/
 
 plots/
-tb/
 
 !/**/DAG/*.gif
 !/**/DAG/*.pickle

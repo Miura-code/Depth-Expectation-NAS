@@ -1,28 +1,39 @@
 #!/bin/bash
 
 name=$1
+
+# ===== セルレベル探索　=====
+teacher_model=$2
+teacher_path=$3
+dataset=cifar10
+cutout=0
+lambda=0.5
+T=10
 batch_size=64
 epoch=50
 train_portion=0.5 # searchの場合train_portionは0.5が最大値
 seed=0
-# ===== セルレベル探索　=====
- python searchStage_main.py \
+python searchCell_KD_main.py \
     --name $name \
+    --teacher_name $teacher_model\
+    --teacher_path $teacher_path \
+    --l $lambda\
+    --T $T \
+    --dataset $dataset\
+    --cutout_length $cutout\
     --batch_size $batch_size \
-    --dataset CIFAR10 \
     --epochs $epoch \
-    --genotype HC_DAS \
     --train_portion $train_portion \
     --seed $seed \
-    --spec_cell
+    --save test
 
-stage_architecture=("HS_DAS_CIFAR" "HS_DAS_CIFAR_SKIP" "STAGE_HSDAS_V1" "STAGE_HSDAS_V2" "STAGE_HSDAS_V3" "STAGE_SHALLOW" "STAGE_MIDDLE" "STAGE_DEEP" "STAGE_DARTS" )
-stage_architecture=("HS_DAS_CIFAR" "HS_DAS_CIFAR_SKIP" "STAGE_SHALLOW" "STAGE_MIDDLE" "STAGE_DEEP" "STAGE_DARTS" "STAGE_FULL_CASCADE")
+# stage_architecture=("HS_DAS_CIFAR" "HS_DAS_CIFAR_SKIP" "STAGE_HSDAS_V1" "STAGE_HSDAS_V2" "STAGE_HSDAS_V3" "STAGE_SHALLOW" "STAGE_MIDDLE" "STAGE_DEEP" "STAGE_DARTS" )
+# stage_architecture=("HS_DAS_CIFAR" "HS_DAS_CIFAR_SKIP" "STAGE_SHALLOW" "STAGE_MIDDLE" "STAGE_DEEP" "STAGE_DARTS" "STAGE_FULL_CASCADE")
 
-batch_size=64
-epoch=50
-train_portion=0.5 # searchの場合train_portionは0.5が最大値
-seed=0
+# batch_size=64
+# epoch=50
+# train_portion=0.5 # searchの場合train_portionは0.5が最大値
+# seed=0
 
 # ステージの探索
 # python searchStage_main.py \
@@ -35,18 +46,18 @@ seed=0
 #     --seed $seed \
 #     --spec_cell
 
-for seed in 0 1 2 3; do
-    echo $arch
-    python searchStage_main.py \
-        --name $name \
-        --batch_size $batch_size \
-        --dataset CIFAR10 \
-        --epochs $epoch \
-        --genotype PDARTS \
-        --train_portion $train_portion \
-        --seed $seed \
-        --spec_cell
-done
+# for seed in 0 1 2 3; do
+#     echo $arch
+#     python searchStage_main.py \
+#         --name $name \
+#         --batch_size $batch_size \
+#         --dataset CIFAR10 \
+#         --epochs $epoch \
+#         --genotype PDARTS \
+#         --train_portion $train_portion \
+#         --seed $seed \
+#         --spec_cell
+# done
 
 ## 事前学習アーキテクチャからステージの探索
 # checkpoint_path=$2
