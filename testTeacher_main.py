@@ -12,7 +12,6 @@ import torch.nn as nn
 import numpy as np
 import utils
 import torch.backends.cudnn as cudnn
-from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
 from utils.data_util import get_data
@@ -36,8 +35,6 @@ logger = get_std_logging(os.path.join(config.path, "{}.log".format(config.name))
 config.logger = logger
 config.print_params(logger.info)
 
-writer = SummaryWriter(log_dir=os.path.join(config.path, "tb"))
-writer.add_text('config', config.as_markdown(), 0)
 
 def main():
     logger.info("Logger is set - test start")
@@ -67,7 +64,6 @@ def main():
     # ================= load checkpoint ==================
     _, _ = load_teacher_checkpoint_state(model, None, config.resume_path)
     model = nn.DataParallel(model, device_ids=config.gpus).to(device)
-    showModelOnTensorboard(writer, model, test_loader)
 
     logger.info(f"--> Loaded checkpoint '{config.resume_path}'")
     logger.info("param size = %fMB", utils.measurement_utils.count_parameters_in_MB(model))
@@ -104,10 +100,6 @@ def validate(valid_loader, model, criterion):
             losses.update(loss.item(), N)
             top1.update(prec1.item(), N)
             top5.update(prec5.item(), N)
-
-            writer.add_scalar('test/loss', loss, step)
-            writer.add_scalar('test/top1', prec1, step)
-            writer.add_scalar('test/top5', prec5, step)
 
             if step % config.print_freq == 0 or step == len(valid_loader) - 1:
                 logger.info(
