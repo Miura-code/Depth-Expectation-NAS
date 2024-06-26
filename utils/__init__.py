@@ -30,3 +30,11 @@ def create_exp_dir(path, scripts_to_save=None):
     for script in scripts_to_save:
       dst_file = os.path.join(path, 'scripts', os.path.basename(script))
       shutil.copyfile(script, dst_file)
+
+def ListToMarkdownTable(name_list, value_list):
+  """ Return list as markdown format of table"""
+  text = "|name|value|  \n|-|-|  \n"
+  for attr, value in zip(name_list, value_list):
+      text += "|{}|{}|  \n".format(attr, value)
+
+  return text

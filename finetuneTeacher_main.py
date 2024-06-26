@@ -54,6 +54,7 @@ def run_task(config):
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
     
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
+    trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
     
 
     

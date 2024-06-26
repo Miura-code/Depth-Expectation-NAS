@@ -13,6 +13,7 @@ import numpy as np
 import utils
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm
+from torch.utils.tensorboard import SummaryWriter
 
 from utils.data_util import get_data
 from utils.logging_util import get_std_logging
@@ -24,8 +25,6 @@ import utils.measurement_utils
 from timm_.models import create_model
 from timm.models import create_model as timm_create_model
 
-from utils.visualize import showModelOnTensorboard
-
 
 config = TestTeacherConfig()
 
@@ -34,6 +33,10 @@ device = torch.device("cuda")
 logger = get_std_logging(os.path.join(config.path, "{}.log".format(config.name)))
 config.logger = logger
 config.print_params(logger.info)
+
+writer = SummaryWriter(log_dir=os.path.join(config.path, "tb"))
+writer.add_text('config', config.as_markdown(), 0)
+
 
 
 def main():
@@ -79,6 +82,9 @@ def main():
 
     logger.info("Test Prec(@1, @5) = ({:.4%}, {:.4%})".format(test_top1, test_top5))
     logger.info("Time to Test = ({}, {}, {})".format(start, end, diff))
+
+    writer.add_text('result/acc', utils.ListToMarkdownTable(["ACC_TOP1", "ACC_TOP5"], [test_top1, test_top5]), 0)
+
 
 def validate(valid_loader, model, criterion):
     top1 = AverageMeter()
