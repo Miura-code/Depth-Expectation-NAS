@@ -16,7 +16,7 @@ class TestTeacherConfig(BaseConfig):
     def build_parser(self):
         # ===========================================cifar10==========================================
         parser = get_parser("Test final model of H^s-DAS config")
-        parser.add_argument('--name', required=True)
+        parser.add_argument('--save', required=True)
         parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
         parser.add_argument('--batch_size', type=int, default=96, help='batch size')
         parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
@@ -50,4 +50,4 @@ class TestTeacherConfig(BaseConfig):
         self.amp_sync_bn = True
         self.amp_opt_level = "O0"
 
-        self.path = '{}/{}-{}'.format(self.path, args.name, time.strftime("%Y%m%d-%H%M%S"))
+        self.path = '{}/{}-{}'.format(self.path, args.save, time.strftime("%Y%m%d-%H%M%S"))
