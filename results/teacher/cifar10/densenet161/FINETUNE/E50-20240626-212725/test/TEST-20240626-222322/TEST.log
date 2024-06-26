@@ -1,0 +1,30 @@
+06/26 10:23:22PM parser.py:28 [INFO] 
+06/26 10:23:22PM parser.py:29 [INFO] Parameters:
+06/26 10:23:22PM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+06/26 10:23:22PM parser.py:31 [INFO] AMP_SYNC_BN=True
+06/26 10:23:22PM parser.py:31 [INFO] BATCH_SIZE=96
+06/26 10:23:22PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+06/26 10:23:22PM parser.py:31 [INFO] DATA_PATH=../data/
+06/26 10:23:22PM parser.py:31 [INFO] DATASET=cifar10
+06/26 10:23:22PM parser.py:31 [INFO] GPUS=[0]
+06/26 10:23:22PM parser.py:31 [INFO] INIT_CHANNELS=36
+06/26 10:23:22PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+06/26 10:23:22PM parser.py:31 [INFO] MODEL_NAME=densenet161
+06/26 10:23:22PM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/teacher/cifar10/densenet161/FINETUNE/E50-20240626-212725/test/TEST-20240626-222322
+06/26 10:23:22PM parser.py:31 [INFO] PRINT_FREQ=50
+06/26 10:23:22PM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar10/densenet161/FINETUNE/E50-20240626-212725/best.pth.tar
+06/26 10:23:22PM parser.py:31 [INFO] SAVE=TEST
+06/26 10:23:22PM parser.py:31 [INFO] SEED=0
+06/26 10:23:22PM parser.py:31 [INFO] TRAIN_PORTION=1.0
+06/26 10:23:22PM parser.py:31 [INFO] WORKERS=4
+06/26 10:23:22PM parser.py:32 [INFO] 
+06/26 10:23:22PM testTeacher_main.py:41 [INFO] Logger is set - test start
+06/26 10:23:35PM testTeacher_main.py:69 [INFO] --> Loaded checkpoint '/home/miura/lab/KD-hdas/results/teacher/cifar10/densenet161/FINETUNE/E50-20240626-212725/best.pth.tar'
+06/26 10:23:35PM testTeacher_main.py:70 [INFO] param size = 26.494090MB
+06/26 10:23:47PM testTeacher_main.py:72 [INFO] param size = 26.49 MMB, mac = 160.19 MMac
+06/26 10:23:58PM testTeacher_main.py:110 [INFO] Test: Step 000/104 Prec@(1,5) (92.7%, 100.0%)
+06/26 10:24:01PM testTeacher_main.py:110 [INFO] Test: Step 050/104 Prec@(1,5) (90.4%, 99.6%)
+06/26 10:24:05PM testTeacher_main.py:110 [INFO] Test: Step 100/104 Prec@(1,5) (90.1%, 99.6%)
+06/26 10:24:16PM testTeacher_main.py:110 [INFO] Test: Step 104/104 Prec@(1,5) (90.1%, 99.6%)
+06/26 10:24:16PM testTeacher_main.py:81 [INFO] Test Prec(@1, @5) = (90.1400%, 99.5800%)
+06/26 10:24:16PM testTeacher_main.py:82 [INFO] Time to Test = (1719408227.2337763, 1719408256.6566086, 29.422832250595093)

@@ -1,0 +1,30 @@
+06/26 08:26:31PM parser.py:28 [INFO] 
+06/26 08:26:31PM parser.py:29 [INFO] Parameters:
+06/26 08:26:31PM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+06/26 08:26:31PM parser.py:31 [INFO] AMP_SYNC_BN=True
+06/26 08:26:31PM parser.py:31 [INFO] BATCH_SIZE=96
+06/26 08:26:31PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+06/26 08:26:31PM parser.py:31 [INFO] DATA_PATH=../data/
+06/26 08:26:31PM parser.py:31 [INFO] DATASET=cifar100
+06/26 08:26:31PM parser.py:31 [INFO] GPUS=[0]
+06/26 08:26:31PM parser.py:31 [INFO] INIT_CHANNELS=36
+06/26 08:26:31PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+06/26 08:26:31PM parser.py:31 [INFO] MODEL_NAME=resnet50
+06/26 08:26:31PM parser.py:31 [INFO] NAME=FINETUNE
+06/26 08:26:31PM parser.py:31 [INFO] PATH=results/teacher/cifar100/resnet50/FINETUNE/E50-20240626-014606/test/FINETUNE-20240626-202631
+06/26 08:26:31PM parser.py:31 [INFO] PRINT_FREQ=50
+06/26 08:26:31PM parser.py:31 [INFO] RESUME_PATH=results/teacher/cifar100/resnet50/FINETUNE/E50-20240626-014606/best.pth.tar
+06/26 08:26:31PM parser.py:31 [INFO] SEED=0
+06/26 08:26:31PM parser.py:31 [INFO] TRAIN_PORTION=1.0
+06/26 08:26:31PM parser.py:31 [INFO] WORKERS=4
+06/26 08:26:31PM parser.py:32 [INFO] 
+06/26 08:26:31PM testTeacher_main.py:40 [INFO] Logger is set - test start
+06/26 08:26:33PM testTeacher_main.py:68 [INFO] --> Loaded checkpoint 'results/teacher/cifar100/resnet50/FINETUNE/E50-20240626-014606/best.pth.tar'
+06/26 08:26:33PM testTeacher_main.py:69 [INFO] param size = 23.712932MB
+06/26 08:26:33PM testTeacher_main.py:71 [INFO] param size = 23.71 MMB, mac = 84.5 MMac
+06/26 08:26:34PM testTeacher_main.py:105 [INFO] Test: Step 000/104 Prec@(1,5) (71.9%, 92.7%)
+06/26 08:26:34PM testTeacher_main.py:105 [INFO] Test: Step 050/104 Prec@(1,5) (66.3%, 88.2%)
+06/26 08:26:34PM testTeacher_main.py:105 [INFO] Test: Step 100/104 Prec@(1,5) (65.6%, 87.9%)
+06/26 08:26:35PM testTeacher_main.py:105 [INFO] Test: Step 104/104 Prec@(1,5) (65.5%, 87.8%)
+06/26 08:26:35PM testTeacher_main.py:80 [INFO] Test Prec(@1, @5) = (65.5400%, 87.8400%)
+06/26 08:26:35PM testTeacher_main.py:81 [INFO] Time to Test = (1719401193.9369967, 1719401195.2393103, 1.3023135662078857)
