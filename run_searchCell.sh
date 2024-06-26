@@ -6,12 +6,11 @@ name=$1
 teacher_model=$2
 teacher_path=$3
 dataset=cifar10
-cutout=0
 lambda=0.5
 T=10
 batch_size=64
-epoch=50
-train_portion=0.5 # searchの場合train_portionは0.5が最大値
+epoch=2
+train_portion=0.1 # searchの場合train_portionは0.5が最大値
 seed=0
 python searchCell_KD_main.py \
     --name $name \
@@ -20,12 +19,11 @@ python searchCell_KD_main.py \
     --l $lambda\
     --T $T \
     --dataset $dataset\
-    --cutout_length $cutout\
     --batch_size $batch_size \
     --epochs $epoch \
     --train_portion $train_portion \
     --seed $seed \
-    --save test
+    --save l${lambda}T${T}
 
 # stage_architecture=("HS_DAS_CIFAR" "HS_DAS_CIFAR_SKIP" "STAGE_HSDAS_V1" "STAGE_HSDAS_V2" "STAGE_HSDAS_V3" "STAGE_SHALLOW" "STAGE_MIDDLE" "STAGE_DEEP" "STAGE_DARTS" )
 # stage_architecture=("HS_DAS_CIFAR" "HS_DAS_CIFAR_SKIP" "STAGE_SHALLOW" "STAGE_MIDDLE" "STAGE_DEEP" "STAGE_DARTS" "STAGE_FULL_CASCADE")

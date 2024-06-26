@@ -36,41 +36,40 @@
 # done
 
 ## ===== 複数モデルをファインチューニングする =====
-# name=$1
-# teacher_model=$2
-# dataset=cifar10
-# cutout=0
-# batch_size=64
-# epoch=50
-# seed=0
-# train_portion=1.0
-# # teachers=("densenet121" "densenet161" "resnet50" "resnet152")
-# teachers=("wide_resnet50_2" "tf_efficientnetv2_s" "tf_efficientnetv2_m")
-# for teacher_model in "${teachers[@]}"; do
-#     python finetuneTeacher_main.py \
-#         --name $name \
-#         --model_name $teacher_model\
-#         --dataset $dataset\
-#         --cutout_length $cutout\
-#         --batch_size $batch_size \
-#         --epochs $epoch \
-#         --seed $seed \
-#         --save E$epoch \
-#         --train_portion $train_portion
-# done
+name=$1
+dataset=cifar100
+cutout=0
+batch_size=64
+epoch=100
+seed=0
+train_portion=1.0
+# teachers=("densenet121" "densenet161" "resnet50" "resnet152")
+teachers=("wide_resnet50_2" "tf_efficientnetv2_s" "tf_efficientnetv2_m")
+for teacher_model in "${teachers[@]}"; do
+    python finetuneTeacher_main.py \
+        --name $name \
+        --model_name $teacher_model\
+        --dataset $dataset\
+        --cutout_length $cutout\
+        --batch_size $batch_size \
+        --epochs $epoch \
+        --seed $seed \
+        --save E$epoch \
+        --train_portion $train_portion
+done
 
 ## ===== モデルをテスト =====
-save=$1
-teacher_model=$2
-resume_path=$3
-dataset=cifar10
-seed=0
-python testTeacher_main.py \
-        --save $save \
-        --model_name $teacher_model \
-        --resume_path $resume_path \
-        --dataset $dataset\
-        --seed $seed
+# save=$1
+# teacher_model=$2
+# resume_path=$3
+# dataset=cifar10
+# seed=0
+# python testTeacher_main.py \
+#         --save $save \
+#         --model_name $teacher_model \
+#         --resume_path $resume_path \
+#         --dataset $dataset\
+#         --seed $seed
 
 ## ===== 複数モデルをテスト =====
 # name=$1

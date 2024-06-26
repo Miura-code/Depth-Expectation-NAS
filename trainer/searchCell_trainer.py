@@ -16,13 +16,15 @@ from torch.utils.tensorboard import SummaryWriter
 
 from timm_.loss.distillation_losses import KD_Loss, SoftTargetKLLoss
 from utils.data_util import get_data
-from utils.params_util import collect_params
 from utils.eval_util import AverageMeter, accuracy
 from models.architect import Architect
 from utils.data_prefetcher import data_prefetcher
 from utils.file_management import load_teacher_checkpoint_state
 from models.search_cellcnn import SearchCellController
+
 from timm_.models import create_model, resume_checkpoint
+from timm.models import create_model as timm_create_model
+
 from utils.visualize import showModelOnTensorboard
 
 
@@ -118,13 +120,15 @@ class SearchCellTrainer_WithSimpleKD():
             load pretrained teacher model
             and Freeze all parameter to be not learnable
         """
-        model = create_model(self.config.teacher_name, pretrained=False, num_classes=n_classes)
+        try:
+            model = create_model(self.config.teacher_name, pretrained=False, num_classes=n_classes)
+        except RuntimeError as e:
+            model = timm_create_model(self.config.teacher_name, pretrained=False, num_classes=n_classes)
         _, _ = load_teacher_checkpoint_state(model=model, optimizer=None, checkpoint_path=self.config.teacher_path)
         for name, param in model.named_parameters():
             param.requires_grad = False
-        self.logger.info(f"--> Loaded teacher model '{self.config.teacher_path}' and Freezed parameters)")
+        self.logger.info(f"--> Loaded teacher model '{self.config.teacher_name}' and Freezed parameters)")
         return model
-
     
     def resume_model(self, model_path=None):
         if model_path is None and not self.resume_path:
