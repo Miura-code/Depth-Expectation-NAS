@@ -50,7 +50,7 @@ def run_task(config):
     Record = RecordDataclass(LOSS_TYPES, ACC_TYPES)
     best_top1 = 0.
     for epoch in range(start_epoch, trainer.total_epochs):
-        train_top1, train_hardloss, train_softloss, train_loss = trainer.train_epoch(epoch, printer=logger.info)
+        train_top1, train_hardloss, train_softloss, train_loss, arch_train_hardloss, arch_train_softloss, arch_train_loss = trainer.train_epoch(epoch, printer=logger.info)
         val_top1, val_loss = trainer.val_epoch(epoch, printer=logger.info)
         trainer.lr_scheduler.step()
         
@@ -71,6 +71,9 @@ def run_task(config):
         trainer.writer.add_scalar('train/hardloss', train_hardloss, epoch)
         trainer.writer.add_scalar('train/softloss', train_softloss, epoch)
         trainer.writer.add_scalar('train/loss', train_loss, epoch)
+        trainer.writer.add_scalar('train/archhardloss', arch_train_hardloss, epoch)
+        trainer.writer.add_scalar('train/archsoftloss', arch_train_softloss, epoch)
+        trainer.writer.add_scalar('train/archloss', arch_train_loss, epoch)
         trainer.writer.add_scalar('train/top1', train_top1, epoch)
         # trainer.writer.add_scalar('train/top5', prec5.item(), epoch)
         trainer.writer.add_scalar('val/loss', val_loss, epoch)

@@ -119,9 +119,9 @@ class SearchCellController(nn.Module):
                                              devices=self.device_ids)
         return nn.parallel.gather(outputs, self.device_ids[0])
     
-    def loss(self, X, guide_y, y):
+    def loss(self, X, guide_y, y, return_detail=False):
         logits = self.forward(X)
-        return self.criterion(logits, guide_y, y)
+        return self.criterion(logits, guide_y, y, return_detail=return_detail)
     
     def print_alphas(self, logger):
         # remove formats

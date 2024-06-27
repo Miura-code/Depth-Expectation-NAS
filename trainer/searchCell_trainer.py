@@ -164,6 +164,9 @@ class SearchCellTrainer_WithSimpleKD():
         losses = AverageMeter()
         hard_losses = AverageMeter()
         soft_losses = AverageMeter()
+        arch_losses = AverageMeter()
+        arch_hard_losses = AverageMeter()
+        arch_soft_losses = AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
 
@@ -183,7 +186,7 @@ class SearchCellTrainer_WithSimpleKD():
 
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
-            self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
             self.alpha_optim.step()
 
             # ================= optimize network parameter ==================
@@ -200,6 +203,9 @@ class SearchCellTrainer_WithSimpleKD():
             losses.update(loss.item(), N)
             hard_losses.update(hard_loss.item(), N)
             soft_losses.update(soft_loss.item(), N)
+            arch_losses.update(arch_loss.item(), N)
+            arch_hard_losses.update(arch_hard_loss.item(), N)
+            arch_soft_losses.update(arch_soft_loss.item(), N)
             top1.update(prec1.item(), N)
             top5.update(prec5.item(), N)
 
@@ -210,6 +216,9 @@ class SearchCellTrainer_WithSimpleKD():
                         f'Loss {losses.val:.4f} ({losses.avg:.4f})\t'
                         f'Hard Loss {hard_losses.val:.4f} ({hard_losses.avg:.4f})\t'
                         f'Soft Loss {soft_losses.val:.4f} ({soft_losses.avg:.4f})\t'
+                        f'Arch Loss {arch_losses.val:.4f} ({arch_losses.avg:.4f})\t'
+                        f'Arch Hard Loss {arch_hard_losses.val:.4f} ({arch_hard_losses.avg:.4f})\t'
+                        f'Arch Soft Loss {arch_soft_losses.val:.4f} ({arch_soft_losses.avg:.4f})\t'
                         f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})\t'
                         )
             
@@ -218,7 +227,7 @@ class SearchCellTrainer_WithSimpleKD():
         
         printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
 
-        return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg
+        return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg, arch_hard_losses.avg, arch_soft_losses.avg, arch_losses.avg
 
     def val_epoch(self, epoch, printer):
         top1 = AverageMeter()
