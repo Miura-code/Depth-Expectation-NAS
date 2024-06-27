@@ -100,6 +100,7 @@ def run_task(config):
     png2gif(config.DAG_path, file_name="reduce2_history", pattern="*reduce2*")
     png2gif(config.DAG_path, file_name="normal3_history", pattern="*normal3*")
 
+    trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
 
 
 def main():
