@@ -35,7 +35,7 @@ class SoftTargetKLLoss(nn.Module):
         logits = logits / self.T
         targets = targets / self.T
 
-        loss = F.kl_div(F.log_softmax(logits), F.softmax(targets))
+        loss = F.kl_div(F.log_softmax(logits, dim=-1), F.softmax(targets, dim=-1))
         return loss
     
 class KD_Loss(nn.Module):

@@ -9,8 +9,8 @@ dataset=cifar10
 lambda=0.5
 T=10
 batch_size=64
-epoch=2
-train_portion=0.1 # searchの場合train_portionは0.5が最大値
+epoch=50
+train_portion=0.5 # searchの場合train_portionは0.5が最大値
 seed=0
 python searchCell_KD_main.py \
     --name $name \
