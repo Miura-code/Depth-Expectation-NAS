@@ -10,6 +10,7 @@ import os
 import torch
 import torch.nn as nn
 import numpy as np
+from models.augment_cellcnn import AugmentCellCNN
 import utils
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm
@@ -19,7 +20,7 @@ from utils.data_util import get_data
 from utils.logging_util import get_std_logging
 from utils.eval_util import AverageMeter, accuracy
 from utils.measurement_utils import TimeKeeper
-from utils.file_management import load_teacher_checkpoint_state
+from utils.file_management import load_evaluated_checkpoint_state, load_teacher_checkpoint_state
 from config.testTeacher_config import TestConfig
 import utils.measurement_utils
 from timm_.models import create_model
@@ -58,13 +59,10 @@ def main():
                                                pin_memory=True)
 
     # ================= load model from timm ==================
-    try:
-        model = create_model(config.model_name, pretrained=False, num_classes=n_classes)
-    except RuntimeError as e:
-        model = timm_create_model(config.model_name, pretrained=False, num_classes=n_classes)
+    use_aux = config.aux_weight > 0.
+    model = AugmentCellCNN(input_size, input_channels, config.init_channels, n_classes, config.layers, use_aux, config.genotype).to(device)
     # ================= load checkpoint ==================
-    _, _ = load_teacher_checkpoint_state(model, None, config.resume_path)
-    model = nn.DataParallel(model, device_ids=config.gpus).to(device)
+    load_evaluated_checkpoint_state(model=model, optimizer=None, checkpoint_path=config.resume_path)
 
     logger.info(f"--> Loaded checkpoint '{config.resume_path}'")
     logger.info("param size = %fMB", utils.measurement_utils.count_parameters_in_MB(model))
@@ -97,7 +95,7 @@ def validate(valid_loader, model, criterion):
             X, y = X.to(device, non_blocking=True), y.to(device, non_blocking=True)
             N = X.size(0)
 
-            logits = model(X)
+            logits, _ = model(X)
             loss = criterion(logits, y)
 
             prec1, prec5 = accuracy(logits, y, topk=(1,5))

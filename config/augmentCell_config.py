@@ -33,8 +33,6 @@ class AugmentCellConfig(BaseConfig):
         parser.add_argument('--drop_path_prob', type=float, default=0.2, help='drop path prob')
 
         parser.add_argument('--genotype', required=True, help='Cell genotype')
-        parser.add_argument('--dist', action='store_true', help='use multiprocess_distributed training')
-        parser.add_argument('--local_rank', default=0)
         parser.add_argument('--resume_path', type=str, default=None)
         parser.add_argument('--exclude_bias_and_bn', type=bool, default=True)
 

@@ -26,3 +26,15 @@ def load_teacher_checkpoint_state(model, optimizer, checkpoint_path):
     epoch = checkpoint_state['epoch']
 
     return step, epoch
+
+def load_evaluated_checkpoint_state(model, optimizer, checkpoint_path):
+    checkpoint_state = torch.load(checkpoint_path)
+    step = checkpoint_state['steps']
+    epoch = checkpoint_state['epoch']
+    config = checkpoint_state['config']
+    if model:
+        model.load_state_dict(checkpoint_state['model'], strict=True)
+    if optimizer:
+        optimizer.load_state_dict(checkpoint_state['optimizer'], strict=True)
+
+    return step, epoch, config

@@ -12,7 +12,7 @@ from utils.parser import get_parser, parse_gpus, BaseConfig
 import genotypes.genotypes as gt
 
 
-class TestTeacherConfig(BaseConfig):
+class TestConfig(BaseConfig):
     def build_parser(self):
         # ===========================================cifar10==========================================
         parser = get_parser("Test final model of H^s-DAS config")
@@ -23,14 +23,16 @@ class TestTeacherConfig(BaseConfig):
         parser.add_argument('--gpus', default='0', help='gpu device ids separated by comma. '
                             '`all` indicates use all gpus.')
         parser.add_argument('--init_channels', type=int, default=36)
+        parser.add_argument('--layers', type=int, default=20, help='# of layers')
         parser.add_argument('--seed', type=int, default=2, help='random seed')
         parser.add_argument('--workers', type=int, default=4, help='# of workers')
+        parser.add_argument('--aux_weight', type=float, default=0.4, help='auxiliary loss weight for testing searched cell architecture')
         parser.add_argument('--cutout_length', type=int, default=0, help='cutout length')
-        parser.add_argument('--model_name', type=str, default='densenet121', help='teacher model name')
-
-        parser.add_argument('--resume_path', type=str, default=None)
-
         parser.add_argument('--train_portion', type=float, default=1.0, help='portion of training data')
+
+        parser.add_argument('--model_name', type=str, default=None, help='teacher model name for testing finetuned teacher')
+        parser.add_argument('--resume_path', type=str, default=None)
+        parser.add_argument('--genotype', type=str, default=None, help='Cell genotype for testing searched cell architecture')
 
         return parser
 
@@ -45,6 +47,9 @@ class TestTeacherConfig(BaseConfig):
         directory, _ = os.path.split(args.resume_path)
         directory = directory.rstrip(os.path.sep)
         self.path = os.path.join(directory, "test")
+
+        if self.genotype is not None:
+            self.genotype = gt.from_str(self.genotype)
 
         self.gpus = parse_gpus(self.gpus)
         self.amp_sync_bn = True
