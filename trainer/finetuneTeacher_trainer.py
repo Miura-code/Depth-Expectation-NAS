@@ -56,11 +56,10 @@ class TrainTeacherTrainer():
         )
 
         n_train = len(train_data)
-        split_half = n_train // 2
         split = int(np.floor(self.config.train_portion * n_train))
         indices = list(range(n_train))
         train_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[:split])
-        valid_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[split_half:split_half+split])
+        valid_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[split:])
         self.train_loader = torch.utils.data.DataLoader(train_data,
                                                         batch_size=self.config.batch_size,
                                                         sampler=train_sampler,
