@@ -26,8 +26,12 @@ class Architect():
             xi: learning rate for virtual gradient step (same as net lr)
             w_optim: weights optimizer - for virtual step
         """
-        logits_guide = self.v_teacher_net.forward(val_X)
-        hard_loss, soft_loss, loss = self.v_net.loss(val_X, logits_guide, val_y, return_detail=True)
+        # logits_guide = self.v_teacher_net(val_X)
+        logits = self.v_net(val_X)
+        # hard_loss, soft_loss, loss = self.v_net.criterion(logits, logits_guide, val_y)
+        loss = self.v_net.criterion.hard_criteria(logits, val_y)
+
+        # hard_loss, soft_loss, loss = self.v_net.loss(val_X, logits_guide, val_y, return_detail=True)
         v_alphas = tuple(self.v_net.alphas())
         v_weights = tuple(self.v_net.weights())
         v_grads = torch.autograd.grad(loss, v_alphas + v_weights)
@@ -37,7 +41,8 @@ class Architect():
             for alpha, da in zip(self.net.alphas(), dalpha):
                 alpha.grad = da
 
-        return hard_loss, soft_loss, loss
+        # return hard_loss, soft_loss, loss
+        return loss
 
     def unrolled_backward_2nd(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
         """ Second Order!
