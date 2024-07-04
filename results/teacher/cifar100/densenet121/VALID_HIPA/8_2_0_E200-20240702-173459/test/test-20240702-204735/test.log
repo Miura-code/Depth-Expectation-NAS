@@ -1,0 +1,33 @@
+07/02 08:47:35PM parser.py:28 [INFO] 
+07/02 08:47:35PM parser.py:29 [INFO] Parameters:
+07/02 08:47:35PM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+07/02 08:47:35PM parser.py:31 [INFO] AMP_SYNC_BN=True
+07/02 08:47:35PM parser.py:31 [INFO] AUX_WEIGHT=0.4
+07/02 08:47:35PM parser.py:31 [INFO] BATCH_SIZE=96
+07/02 08:47:35PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+07/02 08:47:35PM parser.py:31 [INFO] DATA_PATH=../data/
+07/02 08:47:35PM parser.py:31 [INFO] DATASET=cifar100
+07/02 08:47:35PM parser.py:31 [INFO] GENOTYPE=None
+07/02 08:47:35PM parser.py:31 [INFO] GPUS=[0]
+07/02 08:47:35PM parser.py:31 [INFO] INIT_CHANNELS=36
+07/02 08:47:35PM parser.py:31 [INFO] LAYERS=20
+07/02 08:47:35PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+07/02 08:47:35PM parser.py:31 [INFO] MODEL_NAME=densenet121
+07/02 08:47:35PM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/densenet121/8_2_0/E200-20240702-173459/test/test-20240702-204735
+07/02 08:47:35PM parser.py:31 [INFO] PRINT_FREQ=50
+07/02 08:47:35PM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/densenet121/8_2_0/E200-20240702-173459/best.pth.tar
+07/02 08:47:35PM parser.py:31 [INFO] SAVE=test
+07/02 08:47:35PM parser.py:31 [INFO] SEED=0
+07/02 08:47:35PM parser.py:31 [INFO] TRAIN_PORTION=1.0
+07/02 08:47:35PM parser.py:31 [INFO] WORKERS=4
+07/02 08:47:35PM parser.py:32 [INFO] 
+07/02 08:47:35PM testTeacher_main.py:41 [INFO] Logger is set - test start
+07/02 08:47:38PM testTeacher_main.py:69 [INFO] --> Loaded checkpoint '/home/miura/lab/KD-hdas/results/teacher/cifar100/densenet121/8_2_0/E200-20240702-173459/best.pth.tar'
+07/02 08:47:38PM testTeacher_main.py:70 [INFO] param size = 7.056356MB
+07/02 08:47:39PM testTeacher_main.py:72 [INFO] param size = 7.06 MMB, mac = 59.26 MMac
+07/02 08:47:41PM testTeacher_main.py:110 [INFO] Test: Step 000/104 Prec@(1,5) (64.6%, 88.5%)
+07/02 08:47:42PM testTeacher_main.py:110 [INFO] Test: Step 050/104 Prec@(1,5) (62.8%, 85.8%)
+07/02 08:47:42PM testTeacher_main.py:110 [INFO] Test: Step 100/104 Prec@(1,5) (63.9%, 86.3%)
+07/02 08:47:44PM testTeacher_main.py:110 [INFO] Test: Step 104/104 Prec@(1,5) (63.8%, 86.2%)
+07/02 08:47:44PM testTeacher_main.py:81 [INFO] Test Prec(@1, @5) = (63.8400%, 86.2200%)
+07/02 08:47:44PM testTeacher_main.py:82 [INFO] Time to Test = (1719920859.5831413, 1719920864.3739417, 4.790800333023071)

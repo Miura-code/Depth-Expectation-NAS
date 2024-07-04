@@ -76,7 +76,7 @@ class TrainTeacherTrainer():
         self.criterion = nn.CrossEntropyLoss().to(self.device)
         # ================= load model from timm ==================
         try:
-            model = create_model(self.config.model_name, pretrained=True, num_classes=n_classes)
+            model = create_model(self.config.model_name, pretrained=False, num_classes=n_classes)
         except RuntimeError as e:
             model = timm_create_model(self.config.model_name, pretrained=True, num_classes=n_classes)
         # Do not freeze model
@@ -90,7 +90,9 @@ class TrainTeacherTrainer():
         print("get optimizer")
         self.w_optim = torch.optim.SGD(self.model.parameters(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
 
-        self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
+        # self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
+        self.lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(self.w_optim, milestones=[int(0.5*self.total_epochs), int(0.75*self.total_epochs)], gamma=0.1)
+
 
     def freeze_model(self, model):
         """
