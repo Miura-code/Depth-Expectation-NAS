@@ -35,15 +35,16 @@ def run_task(config):
     start_epoch = trainer.start_epoch
     # ================= record initial genotype ==================
     previous_arch = genotype = trainer.model.genotype()
-    plot_path = os.path.join(config.DAG_path, "EP00")
+    DAG_path = os.path.join(config.DAG_path, "EP00")
+    plot_path = os.path.join(config.plot_path, "EP00")
     caption = "Initial genotype"
     
-    plot2(genotype.normal1, plot_path + '-normal1', caption)
-    plot2(genotype.reduce1, plot_path + '-reduce1', caption)
-    plot2(genotype.normal2, plot_path + '-normal2', caption)
-    plot2(genotype.reduce2, plot_path + '-reduce2', caption)
-    plot2(genotype.normal3, plot_path + '-normal3', caption)
-    save_DAG(genotype, plot_path)
+    plot(genotype.normal1, plot_path + '-normal1', caption)
+    plot(genotype.reduce1, plot_path + '-reduce1', caption)
+    plot(genotype.normal2, plot_path + '-normal2', caption)
+    plot(genotype.reduce2, plot_path + '-reduce2', caption)
+    plot(genotype.normal3, plot_path + '-normal3', caption)
+    save_DAG(genotype, DAG_path)
 
     # ================= start training ==================
     # loss, accを格納する配列
@@ -59,12 +60,13 @@ def run_task(config):
         logger.info("genotype = {}".format(genotype))
         
         plot_path = os.path.join(config.plot_path, "EP{:02d}".format(epoch + 1))
+        DAG_path = os.path.join(config.DAG_path, "EP{:02d}".format(epoch + 1))
         caption = "Epoch {}".format(epoch + 1)
-        plot2(genotype.normal1, plot_path + '-normal1', caption)
-        plot2(genotype.reduce1, plot_path + '-reduce1', caption)
-        plot2(genotype.normal2, plot_path + '-normal2', caption)
-        plot2(genotype.reduce2, plot_path + '-reduce2', caption)
-        plot2(genotype.normal3, plot_path + '-normal3', caption)
+        plot(genotype.normal1, plot_path + '-normal1', caption)
+        plot(genotype.reduce1, plot_path + '-reduce1', caption)
+        plot(genotype.normal2, plot_path + '-normal2', caption)
+        plot(genotype.reduce2, plot_path + '-reduce2', caption)
+        plot(genotype.normal3, plot_path + '-normal3', caption)
 
         # ================= write tensorboard ==================
         trainer.writer.add_scalar('train/lr', round(trainer.lr_scheduler.get_last_lr()[0], 5), epoch)
@@ -81,13 +83,13 @@ def run_task(config):
         # trainer.writer.add_scalar('val/top5', top5.avg, epoch)
 
         # ================= record genotype and checkpoint ==================
-        if previous_arch != genotype:
-            save_DAG(genotype, plot_path + '-DAG')
         if best_top1 < val_top1:
             best_top1, is_best = val_top1, True
             best_genotype = genotype
         else:
             is_best = False
+        if previous_arch != genotype:
+            save_DAG(genotype, DAG_path, is_best=is_best)
         trainer.save_checkpoint(epoch, is_best=is_best)
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
     
