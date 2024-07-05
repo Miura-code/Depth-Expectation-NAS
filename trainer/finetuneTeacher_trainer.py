@@ -13,6 +13,8 @@ from utils.visualize import showModelOnTensorboard
 from timm_.models import create_model, resume_checkpoint
 from timm.models import create_model as timm_create_model
 
+from torchvision.models import densenet121
+
 class TrainTeacherTrainer():
     def __init__(self, config):
         self.config = config
@@ -76,7 +78,8 @@ class TrainTeacherTrainer():
         self.criterion = nn.CrossEntropyLoss().to(self.device)
         # ================= load model from timm ==================
         try:
-            model = create_model(self.config.model_name, pretrained=False, num_classes=n_classes)
+            # model = create_model(self.config.model_name, pretrained=False, num_classes=n_classes)
+            model = densenet121()
         except RuntimeError as e:
             model = timm_create_model(self.config.model_name, pretrained=True, num_classes=n_classes)
         # Do not freeze model
@@ -91,7 +94,8 @@ class TrainTeacherTrainer():
         self.w_optim = torch.optim.SGD(self.model.parameters(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
 
         # self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
-        self.lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(self.w_optim, milestones=[int(0.5*self.total_epochs), int(0.75*self.total_epochs)], gamma=0.1)
+        milestone = [int(0.15*self.total_epochs), int(0.25*self.total_epochs), int(0.5*self.total_epochs), int(0.75*self.total_epochs)]
+        self.lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(self.w_optim, milestones=milestone, gamma=0.5)
 
 
     def freeze_model(self, model):
