@@ -75,7 +75,10 @@ def from_str(s):
             reduce_concat=range(2, 6))"
     """
 
-    genotype = eval(s)
+    if s.endswith(".pickle"):
+        genotype = load_DAG(s)
+    else:
+        genotype = eval(s)
 
     return genotype
 
