@@ -3,216 +3,43 @@
 name=$1
 
 # ===== セルレベル探索　=====
-teacher_model=$2
-teacher_path=$3
-dataset=cifar10
-lambda=0.5
-T=10
-batch_size=64
-epoch=50
-train_portion=0.5 # searchの場合train_portionは0.5が最大値
-seed=0
-python searchCell_KD_main.py \
-    --name $name \
-    --teacher_name $teacher_model\
-    --teacher_path $teacher_path \
-    --l $lambda\
-    --T $T \
-    --dataset $dataset\
-    --batch_size $batch_size \
-    --epochs $epoch \
-    --train_portion $train_portion \
-    --seed $seed \
-    --save l${lambda}T${T}
-
-# stage_architecture=("HS_DAS_CIFAR" "HS_DAS_CIFAR_SKIP" "STAGE_HSDAS_V1" "STAGE_HSDAS_V2" "STAGE_HSDAS_V3" "STAGE_SHALLOW" "STAGE_MIDDLE" "STAGE_DEEP" "STAGE_DARTS" )
-# stage_architecture=("HS_DAS_CIFAR" "HS_DAS_CIFAR_SKIP" "STAGE_SHALLOW" "STAGE_MIDDLE" "STAGE_DEEP" "STAGE_DARTS" "STAGE_FULL_CASCADE")
-
+# teacher_model=$2
+# teacher_path=$3
+# dataset=cifar10
+# lambda=0.5
+# T=10
 # batch_size=64
 # epoch=50
 # train_portion=0.5 # searchの場合train_portionは0.5が最大値
 # seed=0
-
-# ステージの探索
-# python searchStage_main.py \
+# python searchCell_KD_main.py \
 #     --name $name \
+#     --teacher_name $teacher_model\
+#     --teacher_path $teacher_path \
+#     --l $lambda\
+#     --T $T \
+#     --dataset $dataset\
 #     --batch_size $batch_size \
-#     --dataset CIFAR10 \
 #     --epochs $epoch \
-#     --genotype HC_DAS \
 #     --train_portion $train_portion \
 #     --seed $seed \
-#     --spec_cell
-
-# for seed in 0 1 2 3; do
-#     echo $arch
-#     python searchStage_main.py \
-#         --name $name \
-#         --batch_size $batch_size \
-#         --dataset CIFAR10 \
-#         --epochs $epoch \
-#         --genotype PDARTS \
-#         --train_portion $train_portion \
-#         --seed $seed \
-#         --spec_cell
-# done
-
-## 事前学習アーキテクチャからステージの探索
-# checkpoint_path=$2
-# python searchStage_main.py \
-#     --name $name \
-#     --batch_size $batch_size \
-#     --dataset CIFAR10 \
-#     --epochs $epoch \
-#     --genotype DARTS_V1 \
-#     --train_portion $train_portion \
-#     --seed $seed
-
-# for seed in 0 1 2 3; do
-#     echo $arch
-#     python searchStage_main.py \
-#         --name $name \
-#         --batch_size $batch_size \
-#         --dataset CIFAR10 \
-#         --epochs $epoch \
-#         --genotype DARTS_V1 \
-#         --train_portion $train_portion \
-#         --seed $seed \
-# done
-
-## 事前学習アーキテクチャからステージの探索
-# checkpoint_path=$2
-# python searchStage_main.py \
-#     --name $name \
-#     --batch_size $batch_size \
-#     --dataset CIFAR10 \
-#     --epochs $epoch \
-#     --genotype DARTS_V1 \
-#     --train_portion $train_portion \
-#     --seed $seed \
-#     --share_stage \
-#     --resume_path $checkpoint_path \
-#     --checkpoint_reset
-
-# checkpoints=(/home/miura/lab/research-hdas/results/search_Stage/mnist/SCRATCH/EXP-20240525-152620/best.pth.tar /home/miura/lab/research-hdas/results/search_Stage/mnist/SCRATCH/EXP-20240525-175220/best.pth.tar /home/miura/lab/research-hdas/results/search_Stage/mnist/SCRATCH/EXP-20240525-201945/best.pth.tar /home/miura/lab/research-hdas/results/search_Stage/mnist/SCRATCH/EXP-20240525-224521/best.pth.tar)
-# for checkpoint_path in "${checkpoints[@]}"; do
-#     echo $checkpoint_path
-#     exp_id=$(echo "$checkpoint_path" | grep -oP '\d{8}-\d{6}')  
-#     echo "EXP($exp_id)"
-#     python searchStage_main.py \
-#         --name $name \
-#         --batch_size $batch_size \
-#         --dataset CIFAR10 \
-#         --epochs $epoch \
-#         --genotype DARTS_V1 \
-#         --train_portion $train_portion \
-#         --seed $seed \
-#         --share_stage \
-#         --resume_path $checkpoint_path \
-#         --checkpoint_reset \
-#         --save "EXP($exp_id)"
-# done
-
-## ステージの評価・ファインチューニング
-# python augmentStage_main.py \
-#     --name $name  \
-#     --batch_size $batch_size \
-#     --dataset cifar10 \
-#     --epochs $epoch \
-#     --genotype DARTS_V1 \
-#     --DAG HS_DAS_CIFAR \
-#     --train_portion $train_portion \
-#     --seed $seed \
-
-# for seed in 1 2; do
-#     for arch in "${stage_architecture[@]}"; do
-#         echo $arch
-#         python augmentStage_main.py \
-#         --name $arch  \
-#         --batch_size $batch_size \
-#         --dataset cifar10 \
-#         --epochs $epoch \
-#         --genotype DARTS_V1 \
-#         --DAG $arch \
-#         --train_portion $train_portion \
-#         --seed $seed \
-#         --save E600
-#     done
-# done
-
-# for arch in "${stage_architecture[@]}"; do
-#     echo $arch
-#     python augmentStage_main.py \
-#     --name $arch  \
-#     --batch_size $batch_size \
-#     --dataset cifar10 \
-#     --epochs $epoch \
-#     --genotype DARTS_V1 \
-#     --DAG $arch \
-#     --train_portion $train_portion \
-#     --seed $seed
-# done
+#     --save l${lambda}T${T}
 
 
-# python searchStage_main.py \
-#     --name macro-cifar10-test \
-#     --w_weight_decay 0.0027  \
-#     --dataset cifar10 \
-#     --batch_size 64 \
-#     --workers 0  \
-#     --genotype DARTS_V1
-
-# ## ステージのテスト
-# arch=$1
-# seed=0
-
-# path=$2
-# python testStage_main.py \
-#     --name test \
-#     --dataset cifar10 \
-#     --batch_size 128 \
-#     --genotype DARTS_V1 \
-#     --DAG $arch \
-#     --seed $seed \
-#     --resume_path $path
-
-# ディレクトリパスを指定
-# arch=$1
-# target_directory=/home/miura/lab/research-hdas/results/search_Stage/CIFAR10/SCRATCH
-# specific_name="EXP-"
-# seed=0
-# layer=20
-
-# # # # ディレクトリ内の全てのディレクトリ名を取得し、test.pyを実行する
-# for directory in "$target_directory"/*; do
-#     # ディレクトリ名を変数に格納
-#     directory_path="$directory"
-#     if [[ "$directory_path" == *"$specific_name"* ]]; then
-#         # ディレクトリ名を表示
-#         echo "Directory name: $directory_path"
-#         resume_path=$directory_path/best.pth.tar
-#         echo $resume_path
-    
-#         python testStage_main.py \
-#             --name test \
-#             --dataset cifar10 \
-#             --batch_size 128 \
-#             --genotype DARTS_V1 \
-#             --DAG $arch \
-#             --seed $seed \
-#             --resume_path $resume_path \
-#             --layer $layer
-#     fi
-# done
-#         python testStage_main.py \
-#             --name test \
-#             --dataset cifar10 \
-#             --batch_size 128 \
-#             --genotype DARTS_V1 \
-#             --DAG $arch \
-#             --seed $seed \
-#             --resume_path $resume_path \
-#             --layer $layer
-#     fi
-# done
-# done
+## ===== モデルをテスト =====
+save=$1
+resume_path=$2
+genotype=$3
+dataset=cifar100
+cutout=0
+batch_size=64
+seed=0
+train_portion=1.0
+# teachers=("densenet121" "densenet161" "resnet50" "resnet152")
+teachers=("wide_resnet50_2" "tf_efficientnetv2_s" "tf_efficientnetv2_m")
+python testCell_main.py \
+        --save $save \
+        --resume_path $resume_path \
+        --genotype $genotype \
+        --dataset $dataset\
+        --seed $seed
