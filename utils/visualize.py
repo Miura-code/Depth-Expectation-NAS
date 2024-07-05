@@ -133,14 +133,16 @@ def plot2(genotype, file_path, caption=None, concat=None):
     g.render(file_path, view=False)
 
 
-def png2gif(dir_path:str, file_name="DAG_Histtory", size=(1000, 130), pattern="*"):
+def png2gif(dir_path:str, save_path="", file_name="DAG_History", size=(1000, 130), pattern="*"):
+    if save_path == "":
+        save_path = dir_path
     files = sorted(glob.glob(dir_path + '/' + pattern + '.png'))
     images = []
     for file in files:
         img = Image.open(file)
         img = img.resize(size)
         images.append(img)
-    images[0].save(os.path.join(dir_path, file_name)+'.gif' , save_all = True , append_images = images[1:] , duration = 400 , loop = 1)
+    images[0].save(os.path.join(save_path, file_name)+'.gif' , save_all = True , append_images = images[1:] , duration = 400 , loop = 1)
 
 def showModelOnTensorboard(tb_writer, model, dataloader):
     """

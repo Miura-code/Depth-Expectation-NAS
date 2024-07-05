@@ -29,7 +29,7 @@ class EvaluateCellConfig(BaseConfig):
         parser.add_argument('--gpus', default='0', help='gpu device ids separated by comma. '
                             '`all` indicates use all gpus.')
         parser.add_argument('--epochs', type=int, default=50, help='# of training epochs')
-        parser.add_argument('--init_channels', type=int, default=36)
+        parser.add_argument('--init_channels', type=int, default=32)
         parser.add_argument('--layers', type=int, default=20, help='# of layers')
         parser.add_argument('--seed', type=int, default=0, help='random seed')
         parser.add_argument('--workers', type=int, default=4, help='# of workers')
@@ -49,7 +49,7 @@ class EvaluateCellConfig(BaseConfig):
         parser.add_argument('--dist', action='store_true', help='use multiprocess_distributed training')
         parser.add_argument('--local_rank', default=0)
         parser.add_argument('--exclude_bias_and_bn', type=bool, default=True)
-
+        parser.add_argument('--nonkd', action='store_true', help='execute KD learning')
 
         return parser
     

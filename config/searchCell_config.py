@@ -62,3 +62,10 @@ class SearchCellConfig(BaseConfig):
         self.DAG_path = os.path.join(self.path, 'DAG')
         self.plot_path = os.path.join(self.path, 'plots')
         self.gpus = parse_gpus(self.gpus)
+
+        if not os.path.isdir((self.plot_path)):
+            os.makedirs((self.plot_path))
+            print("make dirs")
+        if not os.path.isdir((self.DAG_path)):
+            os.makedirs((self.DAG_path))
+            print("make dirs")

@@ -99,11 +99,11 @@ def run_task(config):
     Record.add(LOSS_TYPES+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
     Record.save(config.path)
     
-    png2gif(config.DAG_path, file_name="normal1_history", pattern="*normal1*")
-    png2gif(config.DAG_path, file_name="reduce1_history", pattern="*reduce1*")
-    png2gif(config.DAG_path, file_name="normal2_history", pattern="*normal2*")
-    png2gif(config.DAG_path, file_name="reduce2_history", pattern="*reduce2*")
-    png2gif(config.DAG_path, file_name="normal3_history", pattern="*normal3*")
+    png2gif(dir_path=config.plot_path, save_path=config.DAG_path, file_name="normal1_history", pattern="*normal1*")
+    png2gif(dir_path=config.plot_path, save_path=config.DAG_path, file_name="normal2_history", pattern="*normal2*")
+    png2gif(dir_path=config.plot_path, save_path=config.DAG_path, file_name="normal3_history", pattern="*normal3*")
+    png2gif(dir_path=config.plot_path, save_path=config.DAG_path, file_name="reduce1_history", pattern="*reduce1*")
+    png2gif(dir_path=config.plot_path, save_path=config.DAG_path, file_name="reduce2_history", pattern="*reduce2*")
 
     trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
 
