@@ -148,7 +148,7 @@ class EvaluateCellTrainer():
             logits, aux_logits = self.model(X)
             loss = self.criterion(logits, y)
             if self.use_aux:
-                loss += self.config.aux_weight * self.hard_criterion(aux_logits, y)
+                loss += self.config.aux_weight * self.criterion(aux_logits, y)
             
             self.optimizer.zero_grad()
             loss.backward()
@@ -192,7 +192,7 @@ class EvaluateCellTrainer():
                 i += 1
 
                 logits, _ = self.model(X)
-                loss = self.hard_criterion(logits, y)
+                loss = self.criterion(logits, y)
 
                 prec1, prec5 = accuracy(logits, y, topk=(1, 5))
                 losses.update(loss.item(), N)
