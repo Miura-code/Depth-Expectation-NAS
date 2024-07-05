@@ -49,7 +49,7 @@ class EvaluateCellConfig(BaseConfig):
         parser.add_argument('--dist', action='store_true', help='use multiprocess_distributed training')
         parser.add_argument('--local_rank', default=0)
         parser.add_argument('--exclude_bias_and_bn', type=bool, default=True)
-
+        parser.add_argument('--nonkd', action='store_true', help='execute KD learning')
 
         return parser
     
