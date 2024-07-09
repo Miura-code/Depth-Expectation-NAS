@@ -8,7 +8,7 @@ import torchvision.datasets as dset
 import torchvision.transforms as transforms
 import torch.backends.cudnn as cudnn
 
-def set_seed_gpu(seed, gpu):
+def set_seed_gpu(seed, gpus:list):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
@@ -17,9 +17,16 @@ def set_seed_gpu(seed, gpu):
     torch.backends.cudnn.deterministic = True
     torch.use_deterministic_algorithms = True
 
-    torch.cuda.set_device(gpu)
     cudnn.benchmark = True
     cudnn.enabled=True
+    if torch.cuda.is_available():
+      torch.cuda.set_device(gpus[0])
+      device = torch.device('cuda')
+    else:
+      device = torch.device('cpu')
+
+    return device
+    
 
 def create_exp_dir(path, scripts_to_save=None):
   if not os.path.exists(path):
