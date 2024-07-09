@@ -81,7 +81,7 @@ class TrainTeacherTrainer():
             model = create_model(self.config.model_name, pretrained=False, num_classes=n_classes)
             # model = densenet121()
         except RuntimeError as e:
-            model = timm_create_model(self.config.model_name, pretrained=True, num_classes=n_classes)
+            model = timm_create_model(self.config.model_name, pretrained=False, num_classes=n_classes)
         # Do not freeze model
         # self.freeze_model(model)
 

@@ -42,7 +42,7 @@ class Config(BaseConfig):
         parser.add_argument('--epochs', type=int, default=200, help='# of training epochs')
         parser.add_argument('--seed', type=int, default=2, help='random seed')
         parser.add_argument('--workers', type=int, default=4, help='# of workers')
-        parser.add_argument('--train_portion', type=float, default=0.5, help='portion of training data')
+        parser.add_argument('--train_portion', type=float, default=0.9, help='portion of training data')
         parser.add_argument('--model_name', type=str, default='densenet121', help='teacher model name')
         parser.add_argument('--cutout_length', type=int, default=0, help='cutout length')
         parser.add_argument('--save', type=str, default='EXP', help='experiment name')
@@ -72,7 +72,7 @@ def run_task(config):
 
     # ================= define data loader ==================
     input_size, input_channels, n_classes, train_data = get_data(
-        config.dataset, config.data_path, cutout_length=config.cutout_length, validation=False, advanced=True
+        config.dataset, config.data_path, cutout_length=config.cutout_length, validation=False, advanced=False
     )
     n_train = len(train_data)
     split = int(np.floor(config.train_portion * n_train))
