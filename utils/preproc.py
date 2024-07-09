@@ -9,7 +9,13 @@ import torch
 import torch.nn as nn
 import numpy as np
 import torchvision.transforms as transforms
+import utils.setting as setting
 
+class SETTING():
+    def __init__(self):
+        for attr in dir(setting):
+            if attr.isupper():
+                setattr(self, attr, getattr(setting, attr))
 
 class Cutout(object):
     def __init__(self, length):
@@ -69,6 +75,57 @@ def data_transforms(dataset, cutout_length):
     elif dataset == 'fashionmnist':
         MEAN = [0.28604063146254594]
         STD = [0.35302426207299326]
+        transf = [
+            transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
+            transforms.RandomVerticalFlip()
+        ]
+    else:
+        raise ValueError('not expected dataset = {}'.format(dataset))
+
+    normalize = [
+        transforms.ToTensor(),
+        transforms.Normalize(MEAN, STD)
+    ]
+
+    train_transform = transforms.Compose(transf + normalize)
+    valid_transform = transforms.Compose(normalize)
+
+    if cutout_length > 0:
+        train_transform.transforms.append(Cutout(cutout_length))
+
+    return train_transform, valid_transform
+
+
+def data_transforms_advanced(dataset, cutout_length):
+    dataset = dataset.lower()
+    stat_setting = SETTING()
+    if dataset == 'cifar10':
+        MEAN = stat_setting.CIFAT10_MEAN
+        STD = stat_setting.CIFAT10_STD
+        transf = [
+            transforms.RandomCrop(32, padding=4, fill=128),
+            transforms.RandomHorizontalFlip()
+        ]
+    elif dataset == 'cifar100':
+        MEAN = stat_setting.CIFAT100_MEAN
+        STD = stat_setting.CIFAT100_STD
+        transf = [
+            transforms.RandomResizedCrop(setting.IMAGENET_SIZE),
+            transforms.RandomRotation(15),
+            # transforms.RandomCrop(32, padding=4, fill=128),
+            transforms.RandomHorizontalFlip()
+        ]
+    elif dataset == 'mnist':
+        MEAN = stat_setting.MNIST_MEAN
+        STD = stat_setting.MNIST_STD
+        transf = [
+            transforms.Resize(size=(32, 32)),
+            transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
+            GrayToRGB()
+        ]
+    elif dataset == 'fashionmnist':
+        MEAN = stat_setting.FASHIONMNIST_MEAN
+        STD = stat_setting.FASHIONMNIST_STD
         transf = [
             transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
             transforms.RandomVerticalFlip()
