@@ -94,8 +94,9 @@ class TrainTeacherTrainer():
         self.w_optim = torch.optim.SGD(self.model.parameters(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
 
         # self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
-        milestone = [int(0.15*self.total_epochs), int(0.25*self.total_epochs), int(0.5*self.total_epochs), int(0.75*self.total_epochs)]
-        self.lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(self.w_optim, milestones=milestone, gamma=0.5)
+        # milestone = [int(0.15*self.total_epochs), int(0.25*self.total_epochs), int(0.5*self.total_epochs), int(0.75*self.total_epochs)]
+        milestone = [int(0.5*self.total_epochs), int(0.75*self.total_epochs)]
+        self.lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(self.w_optim, milestones=milestone, gamma=0.1)
 
 
     def freeze_model(self, model):
