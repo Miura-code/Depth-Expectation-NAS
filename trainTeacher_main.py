@@ -20,13 +20,13 @@ from utils.logging_util import get_std_logging
 from timm_.models import create_model
 from timm.models import create_model as timm_create_model
 
-from utils.parser import get_parser, parse_gpus
+from utils.parser import BaseConfig, get_parser, parse_gpus
 from utils.visualize import showModelOnTensorboard
 
 LOSS_TYPES = ["training_loss", "validation_loss"]
 ACC_TYPES = ["training_accuracy", "validation_accuracy"]
 
-class Config():
+class Config(BaseConfig):
     def build_parser(self):
         parser = get_parser("Search cells of H-DAS config")
         parser.add_argument('--name', required=True)
@@ -68,7 +68,7 @@ def run_task(config):
     config.print_params(logger.info)
     
     # set seed
-    device = utils.set_seed_gpu(config.seed, config.gpus[0])
+    device = utils.set_seed_gpu(config.seed, config.gpus)
 
     # ================= define data loader ==================
     input_size, input_channels, n_classes, train_data = get_data(
@@ -114,8 +114,9 @@ def run_task(config):
     Record = RecordDataclass(LOSS_TYPES, ACC_TYPES)
 
     best_top1 = 0.
+    steps = 0
     for epoch in tqdm(range(0, config.epochs)):
-        train_top1, train_loss = train(epoch, config.epochs, model, train_loader, optimizer, criterion, printer=logger.info)
+        train_top1, train_loss, steps = train(epoch, config.epochs, steps, model, train_loader, optimizer, criterion, printer=logger.info)
         val_top1, val_loss = valid(epoch, config.epochs, model, valid_loader, criterion, printer=logger.info)
         lr_scheduler.step()
 
@@ -131,7 +132,13 @@ def run_task(config):
             best_top1, is_best = val_top1, True
         else:
             is_best = False
-        save_checkpoint(epoch, is_best=is_best)
+        model_state = {'config': config,
+                     'epoch': epoch,
+                     'steps': steps,
+                     'model': model.state_dict(),
+                     'w_optim': optimizer.state_dict(),
+        }
+        save_checkpoint(model_state, config.path, is_best=is_best)
 
         Record.add(LOSS_TYPES+ACC_TYPES, [train_loss, val_loss, train_top1, val_top1])
         Record.save(config.path)
@@ -140,7 +147,7 @@ def run_task(config):
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
     writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
 
-def train(epoch, total_epoch, model, train_loader, optimizer, criterion, printer):
+def train(epoch, total_epoch, step, model, train_loader, optimizer, criterion, printer):
     model.train()
     top1 = AverageMeter()
     top5 = AverageMeter()
@@ -150,6 +157,7 @@ def train(epoch, total_epoch, model, train_loader, optimizer, criterion, printer
     trn_X, trn_y = prefetcher_trn.next()
     while trn_X is not None:
         N = trn_X.size(0)
+        step += 1
         
         # ================= optimize network parameter ==================
         optimizer.zero_grad()
@@ -167,7 +175,7 @@ def train(epoch, total_epoch, model, train_loader, optimizer, criterion, printer
 
     printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, total_epoch - 1, top1.avg))
 
-    return top1.avg, losses.avg
+    return top1.avg, losses.avg, step
 
 def valid(epoch, total_epochs, model, valid_loader, criterion, printer):
     top1 = AverageMeter()
