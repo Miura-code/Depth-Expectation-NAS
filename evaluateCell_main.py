@@ -30,7 +30,7 @@ def run_task(config):
     config.print_params(logger.info)
     
     # set seed
-    utils.set_seed_gpu(config.seed, config.gpus[0])
+    utils.set_seed_gpu(config.seed, config.gpus)
     # ================= define trainer ==================
     if config.nonkd:
         trainer = EvaluateCellTrainer(config)

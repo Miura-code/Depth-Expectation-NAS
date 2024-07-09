@@ -13,7 +13,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 from timm_.loss.distillation_losses import KD_Loss, SoftTargetKLLoss
 from utils.data_util import get_data
 from utils.file_management import load_teacher_checkpoint_state
