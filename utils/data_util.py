@@ -13,7 +13,7 @@ import utils.preproc as prep
 from utils.preproc import Cutout
 
 
-def get_data(dataset, data_path, cutout_length, validation):
+def get_data(dataset, data_path, cutout_length, validation, advanced=False):
     dataset = dataset.lower()
     if dataset == 'cifar10':
         dset_cls = dset.CIFAR10
@@ -29,7 +29,7 @@ def get_data(dataset, data_path, cutout_length, validation):
     else:
         raise ValueError(dataset)
 
-    trn_transform, val_transform = prep.data_transforms(dataset, cutout_length)
+    trn_transform, val_transform = prep.data_transforms(dataset, cutout_length) if not advanced else prep.data_transforms_advanced(dataset, cutout_length)
     trn_data = dset_cls(root=data_path, train=True, download=True, transform=trn_transform)
 
     # assuming shape is NHW or NHWC

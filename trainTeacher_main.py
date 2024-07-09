@@ -72,7 +72,7 @@ def run_task(config):
 
     # ================= define data loader ==================
     input_size, input_channels, n_classes, train_data = get_data(
-        config.dataset, config.data_path, cutout_length=config.cutout_length, validation=False
+        config.dataset, config.data_path, cutout_length=config.cutout_length, validation=False, advanced=True
     )
     n_train = len(train_data)
     split = int(np.floor(config.train_portion * n_train))

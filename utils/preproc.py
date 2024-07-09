@@ -100,15 +100,15 @@ def data_transforms_advanced(dataset, cutout_length):
     dataset = dataset.lower()
     stat_setting = SETTING()
     if dataset == 'cifar10':
-        MEAN = stat_setting.CIFAT10_MEAN
-        STD = stat_setting.CIFAT10_STD
+        MEAN = stat_setting.CIFAR10_MEAN
+        STD = stat_setting.CIFAR10_STD
         transf = [
             transforms.RandomCrop(32, padding=4, fill=128),
             transforms.RandomHorizontalFlip()
         ]
     elif dataset == 'cifar100':
-        MEAN = stat_setting.CIFAT100_MEAN
-        STD = stat_setting.CIFAT100_STD
+        MEAN = stat_setting.CIFAR100_MEAN
+        STD = stat_setting.CIFAR100_STD
         transf = [
             transforms.RandomResizedCrop(setting.IMAGENET_SIZE),
             transforms.RandomRotation(15),
