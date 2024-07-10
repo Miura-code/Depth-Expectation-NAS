@@ -68,7 +68,7 @@ def run_task(config):
     config.print_params(logger.info)
     
     # set seed
-    device = utils.set_seed_gpu(config.seed, config.gpus[0])
+    device = utils.set_seed_gpu(config.seed, config.gpus)
 
     # ================= define data loader ==================
     input_size, input_channels, n_classes, train_data = get_data(

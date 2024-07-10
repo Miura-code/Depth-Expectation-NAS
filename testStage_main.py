@@ -12,7 +12,7 @@ import torch.nn as nn
 import numpy as np
 import utils
 import torch.backends.cudnn as cudnn
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
 from utils.data_util import get_data
@@ -37,7 +37,7 @@ def main():
     logger.info("Logger is set - test start")
 
     # set seed
-    utils.set_seed_gpu(config.seed, config.gpus[0])
+    utils.set_seed_gpu(config.seed, config.gpus)
 
     # get data with meta info
     input_size, input_channels, n_classes, _, valid_data = get_data(

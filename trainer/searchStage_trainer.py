@@ -14,7 +14,7 @@ from torch.cuda import current_blas_handle, device
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 
 from utils.data_util import get_data
 from utils.params_util import collect_params
@@ -45,7 +45,7 @@ class SearchStageTrainer():
         """construct the whole network"""
         self.resume_path = self.config.resume_path
         if torch.cuda.is_available():
-            torch.cuda.set_device(self.config.gpus[0])
+            torch.cuda.set_device(self.config.gpus)
             self.device = torch.device('cuda')
         else:
             self.device = torch.device('cpu')

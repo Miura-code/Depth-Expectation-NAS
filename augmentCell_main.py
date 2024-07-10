@@ -12,7 +12,7 @@ import torch.nn as nn
 import numpy as np
 import utils
 from utils.data_util import get_data
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 from config.augmentCell_config import AugmentCellConfig
 from utils.logging_util import get_std_logging
 from models.augment_cellcnn import AugmentCellCNN
@@ -35,7 +35,7 @@ def main():
     logger.info("Logger is set - training start")
 
     # set default gpu device id
-    torch.cuda.set_device(config.gpus[0])
+    torch.cuda.set_device(config.gpus)
 
     # set seed
     np.random.seed(config.seed)

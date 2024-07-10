@@ -42,7 +42,7 @@ def main():
     logger.info("Logger is set - test start")
 
     # ================= set gpu ==================
-    utils.set_seed_gpu(config.seed, config.gpus[0])
+    utils.set_seed_gpu(config.seed, config.gpus)
 
     # ================= get dataset ==================
     input_size, input_channels, n_classes, _, valid_data = get_data(
