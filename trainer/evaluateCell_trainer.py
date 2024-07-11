@@ -28,7 +28,7 @@ class EvaluateCellTrainer():
     def __init__(self, config):
         self.config = config
 
-        self.gpu = self.config.local_rank
+        self.gpu = self.config.gpus
 
         """get the train parameters"""
         self.total_epochs = self.config.epochs

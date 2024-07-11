@@ -22,7 +22,7 @@ from utils.logging_util import get_std_logging
 from utils.eval_util import AverageMeter, accuracy
 from utils.measurement_utils import TimeKeeper
 from utils.file_management import load_teacher_checkpoint_state
-from config.testTeacher_config import TestConfig
+from config.test_config import TestConfig
 from trainTeacher_main import Config
 import utils.measurement_utils
 from timm_.models import create_model

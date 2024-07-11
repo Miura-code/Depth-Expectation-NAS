@@ -15,9 +15,19 @@ class EvaluateCellConfig(BaseConfig):
     def build_parser(self):
         # ======== cifar10 ============
         parser = get_parser("Evaluate searched cells of H-DAS+KD config")
+        # ================= file settings ==================
         parser.add_argument('--name', required=True)
-        parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
-        parser.add_argument('--batch_size', type=int, default=64, help='batch size')
+        parser.add_argument('--save', type=str, default='EXP', help='experiment name')
+        # ================= model settings ==================
+        parser.add_argument('--genotype', required=True, help='Cell genotype')
+        parser.add_argument('--init_channels', type=int, default=32)
+        parser.add_argument('--layers', type=int, default=20, help='# of layers')
+        parser.add_argument('--resume_path', type=str, default=None)
+        parser.add_argument('--teacher_name', type=str, default='densenet121', help='teacher model name')
+        parser.add_argument('--teacher_path', type=str, default=None)
+        parser.add_argument('--aux_weight', type=float, default=0.4, help='auxiliary loss weight')
+        parser.add_argument('--drop_path_prob', type=float, default=0.2, help='drop path prob')
+        # ================= optimizer settings ==================
         parser.add_argument('--lr', type=float, default=0.025, help='lr for weights')
         parser.add_argument('--lr_min', type=float, default=0.001, help='minimum lr for weights')
         parser.add_argument('--momentum', type=float, default=0.9, help='momentum for weights')
@@ -25,31 +35,24 @@ class EvaluateCellConfig(BaseConfig):
                             help='weight decay for weights')
         parser.add_argument('--grad_clip', type=float, default=5.,
                             help='gradient clipping for weights')
-        parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
-        parser.add_argument('--gpus', default='0', help='gpu device ids separated by comma. '
-                            '`all` indicates use all gpus.')
-        parser.add_argument('--epochs', type=int, default=50, help='# of training epochs')
-        parser.add_argument('--init_channels', type=int, default=32)
-        parser.add_argument('--layers', type=int, default=20, help='# of layers')
-        parser.add_argument('--seed', type=int, default=0, help='random seed')
-        parser.add_argument('--workers', type=int, default=4, help='# of workers')
-        parser.add_argument('--resume_path', type=str, default=None)
-        parser.add_argument('--teacher_path', type=str, default=None)
+        # ================= dataset settings ==================
+        parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
+        parser.add_argument('--batch_size', type=int, default=64, help='batch size')
         parser.add_argument('--train_portion', type=float, default=0.5, help='portion of training data')
-        parser.add_argument('--teacher_name', type=str, default='densenet121', help='teacher model name')
+        parser.add_argument('--cutout_length', type=int, default=16, help='cutout length')
+        # ================= training settings ==================
+        parser.add_argument('--epochs', type=int, default=50, help='# of training epochs')
         parser.add_argument('--T', type=float, default=10, help='temperature of softmax with temperature')
         parser.add_argument('--l', type=float, default=0.5, help='ratio between soft target loss and hard target loss')
-        parser.add_argument('--cutout_length', type=int, default=16, help='cutout length')
-        parser.add_argument('--save', type=str, default='EXP', help='experiment name')
-
-        parser.add_argument('--aux_weight', type=float, default=0.4, help='auxiliary loss weight')
-        parser.add_argument('--drop_path_prob', type=float, default=0.2, help='drop path prob')
-
-        parser.add_argument('--genotype', required=True, help='Cell genotype')
-        parser.add_argument('--dist', action='store_true', help='use multiprocess_distributed training')
-        parser.add_argument('--local_rank', default=0)
-        parser.add_argument('--exclude_bias_and_bn', type=bool, default=True)
+        parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
         parser.add_argument('--nonkd', action='store_true', help='execute KD learning')
+        # ================= description ==================
+        parser.add_argument('--description', type=str, default='', help='experiment details')
+        # ================= others ==================        
+        parser.add_argument('--gpus', default='0', help='gpu device ids separated by comma. '
+                            '`all` indicates use all gpus.')
+        parser.add_argument('--seed', type=int, default=0, help='random seed')
+        parser.add_argument('--workers', type=int, default=4, help='# of workers')
 
         return parser
     

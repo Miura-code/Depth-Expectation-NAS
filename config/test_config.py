@@ -16,23 +16,29 @@ class TestConfig(BaseConfig):
     def build_parser(self):
         # ===========================================cifar10==========================================
         parser = get_parser("Test final model of H^s-DAS config")
+        # ================= file settings ==================
         parser.add_argument('--save', required=True)
+        # ================= dataset settings ==================
         parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
         parser.add_argument('--batch_size', type=int, default=96, help='batch size')
-        parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
-        parser.add_argument('--gpus', default='0', help='gpu device ids separated by comma. '
-                            '`all` indicates use all gpus.')
-        parser.add_argument('--init_channels', type=int, default=32)
-        parser.add_argument('--layers', type=int, default=20, help='# of layers')
-        parser.add_argument('--seed', type=int, default=2, help='random seed')
-        parser.add_argument('--workers', type=int, default=4, help='# of workers')
-        parser.add_argument('--aux_weight', type=float, default=0.4, help='auxiliary loss weight for testing searched cell architecture')
         parser.add_argument('--cutout_length', type=int, default=0, help='cutout length')
         parser.add_argument('--train_portion', type=float, default=1.0, help='portion of training data')
-
+        # ================= model settings ==================
         parser.add_argument('--model_name', type=str, default=None, help='teacher model name for testing finetuned teacher')
-        parser.add_argument('--resume_path', type=str, default=None)
         parser.add_argument('--genotype', type=str, default=None, help='Cell genotype for testing searched cell architecture')
+        parser.add_argument('--resume_path', type=str, default=None)
+        parser.add_argument('--init_channels', type=int, default=32)
+        parser.add_argument('--layers', type=int, default=20, help='# of layers')
+        parser.add_argument('--aux_weight', type=float, default=0.4, help='auxiliary loss weight for testing searched cell architecture')
+        # ================= test settings ==================
+        parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
+        # ================= description ==================
+        parser.add_argument('--description', type=str, default='', help='experiment details')
+        # ================= others ==================
+        parser.add_argument('--gpus', default='0', help='gpu device ids separated by comma. '
+                            '`all` indicates use all gpus.')        
+        parser.add_argument('--seed', type=int, default=2, help='random seed')
+        parser.add_argument('--workers', type=int, default=4, help='# of workers')
 
         return parser
 

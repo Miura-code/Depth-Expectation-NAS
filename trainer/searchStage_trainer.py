@@ -31,7 +31,7 @@ class SearchStageTrainer():
         self.config = config
 
         self.world_size = 1
-        self.gpu = self.config.local_rank
+        self.gpu = self.config.gpus
         self.save_epoch = 1
         self.ckpt_path = self.config.path
 
