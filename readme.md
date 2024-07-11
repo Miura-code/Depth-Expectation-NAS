@@ -13,7 +13,7 @@ PyTorch implementation of [Unchain the Search Space with Hierarchical Differenti
 ```shell
 python>=3.6
 pytorch>=1.4
-tensorboardX
+torch.utils.tensorboard
 apex
 numpy
 graphviz

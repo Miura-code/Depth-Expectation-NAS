@@ -28,7 +28,7 @@ import utils.measurement_utils
 from timm_.models import create_model
 from timm.models import create_model as timm_create_model
 
-from torchvision.models import densenet121
+from models.densenet import densenet121
 
 
 config = TestConfig()
@@ -70,7 +70,8 @@ def main():
     except RuntimeError as e:
         model = torchvision.models.__dict__[config.model_name](num_classes = n_classes)
     # ================= load checkpoint ==================
-    _, _ = load_teacher_checkpoint_state(model, None, config.resume_path)
+    # _, _ = load_teacher_checkpoint_state(model, None, config.resume_path)
+    model.load_state_dict(torch.load(config.resume_path))
     model = nn.DataParallel(model, device_ids=config.gpus).to(device)
 
     logger.info(f"--> Loaded checkpoint '{config.resume_path}'")

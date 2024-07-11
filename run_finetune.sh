@@ -24,6 +24,29 @@
 #     --w_lr 0.1 \
 #     --w_grad_clip 100.
 
+# ===== モデルをファインチューニング =====
+# name=$1
+
+# teacher_model=$2
+# save=$3
+# dataset=cifar100
+# cutout=16
+# batch_size=64
+# epoch=300
+# seed=0
+# train_portion=0.9
+# python trainTeacher_main.py \
+#     --name $name \
+#     --model_name $teacher_model\
+#     --dataset $dataset\
+#     --cutout_length $cutout\
+#     --batch_size $batch_size \
+#     --epochs $epoch \
+#     --seed $seed \
+#     --save $save \
+#     --train_portion $train_portion \
+#     --lr 0.1 \
+
 ## ===== 複数エポック数でファインチューニングする =====
 # for epoch in 100 200 300; do
 #     python finetuneTeacher_main.py \

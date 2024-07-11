@@ -164,7 +164,7 @@ dependencies:
   - sqlite=3.45.3=h5eee18b_0
   - sympy=1.12=py312h06a4308_0
   - tbb=2021.8.0=hdb19cb5_0
-  - tensorboardx=2.2=pyhd3eb1b0_0
+  - torch.utils.tensorboard=2.2=pyhd3eb1b0_0
   - tk=8.6.12=h1ccaba5_0
   - torchaudio=2.3.0=py312_cu118
   - torchvision=0.18.0=py312_cu118
