@@ -1,6 +1,7 @@
 
 '''
 Fine tune teacher model for knowledge distillation using timm
+2024/07/11 このスクリプトはtrainTeacher_main.pyに代替されることにしたので、今日以降の開発を行わない
 '''
 import os
 from config.trainTeacher_config import TrainTeacherConfig

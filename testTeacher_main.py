@@ -10,8 +10,10 @@ import os
 import torch
 import torch.nn as nn
 import numpy as np
+import teacher_models
 import utils
 import torch.backends.cudnn as cudnn
+import torchvision.models
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 
@@ -48,7 +50,7 @@ def main():
 
     # ================= get dataset ==================
     input_size, input_channels, n_classes, _, valid_data = get_data(
-        config.dataset, config.data_path, config.cutout_length, validation=True)
+        config.dataset, config.data_path, config.cutout_length, validation=True, advanced=False)
     # ================= define dataloader ==================
     n_val = len(valid_data)
     split = int(np.floor(config.train_portion * n_val))
@@ -62,10 +64,11 @@ def main():
 
     # ================= load model from timm ==================
     try:
-        model = create_model(config.model_name, pretrained=False, num_classes=n_classes)
+        model = teacher_models.__dict__[config.model_name](num_classes = n_classes, cifar = True if "cifar" in config.dataset else False)
+        # model = teacher_models.densenet_cifar(num_classes = n_classes, blocks=(6,12,24,16), growth_rate=32, cifar=True)
         # model = densenet121()
     except RuntimeError as e:
-        model = timm_create_model(config.model_name, pretrained=False, num_classes=n_classes)
+        model = torchvision.models.__dict__[config.model_name](num_classes = n_classes)
     # ================= load checkpoint ==================
     _, _ = load_teacher_checkpoint_state(model, None, config.resume_path)
     model = nn.DataParallel(model, device_ids=config.gpus).to(device)
