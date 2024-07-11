@@ -104,15 +104,13 @@ def data_transforms_advanced(dataset, cutout_length):
         MEAN = stat_setting.CIFAR10_MEAN
         STD = stat_setting.CIFAR10_STD
         transf = [
-            transforms.RandomCrop(32, padding=4, fill=128),
+            transforms.RandomRotation(15),
             transforms.RandomHorizontalFlip()
         ]
     elif dataset == 'cifar100':
         MEAN = stat_setting.CIFAR100_MEAN
         STD = stat_setting.CIFAR100_STD
         transf = [
-            transforms.Resize(setting.IMAGENET_SIZE),
-            transforms.RandomCrop(128),
             transforms.RandomRotation(15),
             transforms.RandomHorizontalFlip()
         ]
@@ -136,6 +134,7 @@ def data_transforms_advanced(dataset, cutout_length):
 
     normalize = [
         transforms.ToTensor(),
+        transforms.Resize(224),
         transforms.Normalize(MEAN, STD)
     ]
 

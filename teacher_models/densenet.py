@@ -178,7 +178,7 @@ class DenseNet(nn.Module):
                     ("conv0", nn.Conv2d(3, num_init_features, kernel_size=3, stride=2, padding=3, bias=False)),
                     ("norm0", nn.BatchNorm2d(num_init_features)),
                     ("relu0", nn.ReLU(inplace=True)),
-                    ("pool0", nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
+                    # ("pool0", nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
                 ]
             )
         )
