@@ -3,6 +3,7 @@ import time
 import numpy as np
 import torch
 import torch.nn as nn
+import torchvision.models 
 from torch.utils.tensorboard import SummaryWriter
 
 from utils.data_util import get_data
@@ -13,7 +14,6 @@ from utils.visualize import showModelOnTensorboard
 from timm_.models import create_model, resume_checkpoint
 from timm.models import create_model as timm_create_model
 
-from torchvision.models import densenet121
 
 class TrainTeacherTrainer():
     def __init__(self, config):
@@ -54,7 +54,7 @@ class TrainTeacherTrainer():
     def construct_model(self):
         # ================= define data loader ==================
         input_size, input_channels, n_classes, train_data = get_data(
-            self.config.dataset, self.config.data_path, cutout_length=self.config.cutout_length, validation=False
+            self.config.dataset, self.config.data_path, cutout_length=self.config.cutout_length, validation=False, advanced=True
         )
 
         n_train = len(train_data)
@@ -78,8 +78,8 @@ class TrainTeacherTrainer():
         self.criterion = nn.CrossEntropyLoss().to(self.device)
         # ================= load model from timm ==================
         try:
-            model = create_model(self.config.model_name, pretrained=False, num_classes=n_classes)
-            # model = densenet121()
+            # model = create_model(self.config.model_name, pretrained=False, num_classes=n_classes)
+            model = torchvision.models.__dict__[self.config.model_name](num_classes = n_classes, pretrained=False)
         except RuntimeError as e:
             model = timm_create_model(self.config.model_name, pretrained=False, num_classes=n_classes)
         # Do not freeze model

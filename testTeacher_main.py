@@ -21,6 +21,7 @@ from utils.eval_util import AverageMeter, accuracy
 from utils.measurement_utils import TimeKeeper
 from utils.file_management import load_teacher_checkpoint_state
 from config.testTeacher_config import TestConfig
+from trainTeacher_main import Config
 import utils.measurement_utils
 from timm_.models import create_model
 from timm.models import create_model as timm_create_model
@@ -43,7 +44,7 @@ def main():
     logger.info("Logger is set - test start")
 
     # ================= set gpu ==================
-    utils.set_seed_gpu(config.seed, config.gpus[0])
+    utils.set_seed_gpu(config.seed, config.gpus)
 
     # ================= get dataset ==================
     input_size, input_channels, n_classes, _, valid_data = get_data(
