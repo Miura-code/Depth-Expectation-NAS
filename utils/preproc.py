@@ -50,31 +50,32 @@ class GrayToRGB:
 
 def data_transforms(dataset, cutout_length):
     dataset = dataset.lower()
+    stat_setting = SETTING()
     if dataset == 'cifar10':
-        MEAN = [0.49139968, 0.48215827, 0.44653124]
-        STD = [0.24703233, 0.24348505, 0.26158768]
+        MEAN = stat_setting.CIFAR10_MEAN
+        STD = stat_setting.CIFAR10_STD
         transf = [
             transforms.RandomCrop(32, padding=4, fill=128),
             transforms.RandomHorizontalFlip()
         ]
     elif dataset == 'cifar100':
-        MEAN = [0.5071, 0.4867, 0.4408]
-        STD = [0.2675, 0.2565, 0.2761]
+        MEAN = stat_setting.CIFAR100_MEAN
+        STD = stat_setting.CIFAR100_STD
         transf = [
             transforms.RandomCrop(32, padding=4, fill=128),
             transforms.RandomHorizontalFlip()
         ]
     elif dataset == 'mnist':
-        MEAN = [0.13066051707548254]
-        STD = [0.30810780244715075]
+        MEAN = stat_setting.MNIST_MEAN
+        STD = stat_setting.MNIST_STD
         transf = [
             transforms.Resize(size=(32, 32)),
             transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
             GrayToRGB()
         ]
     elif dataset == 'fashionmnist':
-        MEAN = [0.28604063146254594]
-        STD = [0.35302426207299326]
+        MEAN = stat_setting.FASHIONMNIST_MEAN
+        STD = stat_setting.FASHIONMNIST_STD
         transf = [
             transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
             transforms.RandomVerticalFlip()
