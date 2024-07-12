@@ -13,6 +13,7 @@ import torchvision.models
 from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
+import teacher_models.utils
 import utils
 from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, RecordDataclass, accuracy
@@ -53,6 +54,7 @@ class Config(BaseConfig):
         parser.add_argument('--train_portion', type=float, default=0.9, help='portion of training data')
         # ================= model settings ==================
         parser.add_argument('--model_name', type=str, default='densenet121', help='teacher model name')
+        parser.add_argument('--pretrained', action='store_true', help='use pretrained model.(finetune)')
         # ================= details ==================
         parser.add_argument('--description', type=str, default='', help='experiment details')
 
@@ -71,6 +73,9 @@ class Config(BaseConfig):
         
         self.gpus = parse_gpus(self.gpus)
 
+        self.pretrained = True if args.pretrained else False
+        self.cifar = True if "cifar" in args.dataset else False
+
 def run_task(config):
     logger = get_std_logging(os.path.join(config.path, "{}.log".format(config.name)))
     config.logger = logger
@@ -87,10 +92,13 @@ def run_task(config):
 
     # ================= load model from timm ==================
     try:
-        model = teacher_models.__dict__[config.model_name](num_classes = n_classes, cifar = True if "cifar" in config.dataset else False)
+        model = teacher_models.__dict__[config.model_name](num_classes = n_classes, pretrained=config.pretrained, cifar=config.cifar)
     except RuntimeError as e:
-        model = torchvision.models.__dict__[config.model_name](num_classes = n_classes)
+        model = torchvision.models.__dict__[config.model_name](num_classes = n_classes, pretrained=config.pretrained)
 
+    # 最終層をつけかえる
+    if config.pretrained and config.cifar:
+        teacher_models.utils.replace_classifier_to_numClasses(model, n_classes)
     model = model.to(DEVICE)
 
     writer = SummaryWriter(log_dir=os.path.join(config.path, "tb"))

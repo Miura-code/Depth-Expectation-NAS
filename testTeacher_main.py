@@ -50,7 +50,7 @@ def main():
 
     # ================= get dataset ==================
     input_size, input_channels, n_classes, _, valid_data = get_data(
-        config.dataset, config.data_path, config.cutout_length, validation=True, advanced=False)
+        config.dataset, config.data_path, config.cutout_length, validation=True, advanced=config.advanced)
     # ================= define dataloader ==================
     n_val = len(valid_data)
     split = int(np.floor(config.train_portion * n_val))
@@ -64,7 +64,7 @@ def main():
 
     # ================= load model from timm ==================
     try:
-        model = teacher_models.__dict__[config.model_name](num_classes = n_classes, cifar = True if "cifar" in config.dataset else False)
+        model = teacher_models.__dict__[config.model_name](num_classes = n_classes, cifar=config.cifar)
         # model = teacher_models.densenet_cifar(num_classes = n_classes, blocks=(6,12,24,16), growth_rate=32, cifar=True)
         # model = densenet121()
     except RuntimeError as e:
@@ -89,7 +89,7 @@ def main():
     logger.info("Test Prec(@1, @5) = ({:.4%}, {:.4%})".format(test_top1, test_top5))
     logger.info("Time to Test = ({}, {}, {})".format(start, end, diff))
 
-    writer.add_text('result', utils.ListToMarkdownTable(["ACC_TOP1", "ACC_TOP5"], [test_top1, test_top5]), 0)
+    writer.add_text('test/result', utils.ListToMarkdownTable(["ACC_TOP1", "ACC_TOP5"], [test_top1, test_top5]), 0)
     writer.close()
 
 

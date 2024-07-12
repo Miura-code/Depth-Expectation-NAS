@@ -23,6 +23,7 @@ class TestConfig(BaseConfig):
         parser.add_argument('--batch_size', type=int, default=96, help='batch size')
         parser.add_argument('--cutout_length', type=int, default=0, help='cutout length')
         parser.add_argument('--train_portion', type=float, default=1.0, help='portion of training data')
+        parser.add_argument('--advanced', action='store_true', help='advanced data transform. apply resize (224,224)')
         # ================= model settings ==================
         parser.add_argument('--model_name', type=str, default=None, help='teacher model name for testing finetuned teacher')
         parser.add_argument('--genotype', type=str, default=None, help='Cell genotype for testing searched cell architecture')
@@ -62,3 +63,5 @@ class TestConfig(BaseConfig):
         self.amp_opt_level = "O0"
 
         self.path = '{}/{}-{}'.format(self.path, args.save, time.strftime("%Y%m%d-%H%M%S"))
+
+        self.cifar = True if "cifar" in args.dataset else False
