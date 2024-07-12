@@ -2,7 +2,7 @@
 # from .convnext import *
 from .densenet import *
 from .densenet import densenet_cifar
-# from .efficientnet import *
+from .efficientnet import *
 # from .googlenet import *
 # from .inception import *
 # from .mnasnet import *
