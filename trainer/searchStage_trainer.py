@@ -16,7 +16,7 @@ import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
 from tensorboardX import SummaryWriter
 
-from utils.data_util import get_data
+from utils.data_util import get_data, split_dataloader
 from utils.params_util import collect_params
 from utils.eval_util import AverageMeter, accuracy
 
@@ -63,23 +63,7 @@ class SearchStageTrainer():
         input_size, input_channels, n_classes, train_data = get_data(
             self.config.dataset, self.config.data_path, cutout_length=0, validation=False
         )
-
-        n_train = len(train_data)
-        split_half = n_train // 2
-        split = int(np.floor(self.config.train_portion * n_train))
-        indices = list(range(n_train))
-        train_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[:split])
-        valid_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[split_half:split_half+split])
-        self.train_loader = torch.utils.data.DataLoader(train_data,
-                                                        batch_size=self.config.batch_size,
-                                                        sampler=train_sampler,
-                                                        num_workers=self.config.workers,
-                                                        pin_memory=True)
-        self.valid_loader = torch.utils.data.DataLoader(train_data,
-                                                        batch_size=self.config.batch_size,
-                                                        sampler=valid_sampler,
-                                                        num_workers=self.config.workers,
-                                                        pin_memory=True)
+        self.train_loader, self.valid_loader = split_dataloader(train_data, self.config.train_portion, self.config.batch_size, self.config.workers)
         
         """build model"""
         print("init model")

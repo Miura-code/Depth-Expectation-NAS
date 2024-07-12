@@ -6,6 +6,12 @@
 #
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 import os
+from typing import Tuple
+import numpy as np
+import torch
+import torch.utils
+import torch.utils.data
+import torch.utils.data.sampler
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
 
@@ -95,3 +101,28 @@ def get_imagenet(dataset, data_path, cutout_length, validation):
         ret.append(val_data)
 
     return ret
+
+def split_dataloader(dataset, train_ratio: float, batch_size: int, workers: int):
+    """ Split the dataset into training and validation, and return dataloader
+    Args
+        dataset: torchvision.datasets class to be splited
+        train_ratio: Percentage of training data
+    """
+    n_train = len(dataset)
+    split = int(np.floor(train_ratio * n_train))
+    indices = list(range(n_train))
+    train_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[:split])
+    valid_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[split:])
+    train_loader = torch.utils.data.DataLoader(dataset,
+                                                    batch_size=batch_size,
+                                                    sampler=train_sampler,
+                                                    num_workers=workers,
+                                                    pin_memory=True)
+    valid_loader = torch.utils.data.DataLoader(dataset,
+                                                    batch_size=batch_size,
+                                                    sampler=valid_sampler,
+                                                    num_workers=workers,
+                                                    pin_memory=True)
+    
+    return train_loader, valid_loader
+    

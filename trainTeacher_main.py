@@ -14,7 +14,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
 import utils
-from utils.data_util import get_data
+from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, RecordDataclass, accuracy
 from utils.file_management import save_checkpoint
 from utils.logging_util import get_std_logging
@@ -37,6 +37,7 @@ class Config(BaseConfig):
         parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
         parser.add_argument('--batch_size', type=int, default=64, help='batch size')
         parser.add_argument('--cutout_length', type=int, default=0, help='cutout length')
+        parser.add_argument('--advanced', action='store_true', help='advanced data transform. apply resize (224,224)')
         # ================= optimizer settings ==================
         parser.add_argument('--lr', type=float, default=0.025, help='lr for weights')
         parser.add_argument('--lr_min', type=float, default=0.001, help='minimum lr for weights')
@@ -80,23 +81,10 @@ def run_task(config):
 
     # ================= define data loader ==================
     input_size, input_channels, n_classes, train_data = get_data(
-        config.dataset, config.data_path, cutout_length=config.cutout_length, validation=False, advanced=False
+        config.dataset, config.data_path, cutout_length=config.cutout_length, validation=False, advanced=config.advanced
     )
-    n_train = len(train_data)
-    split = int(np.floor(config.train_portion * n_train))
-    indices = list(range(n_train))
-    train_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[:split])
-    valid_sampler = torch.utils.data.sampler.SubsetRandomSampler(indices[split:])
-    train_loader = torch.utils.data.DataLoader(train_data,
-                                                    batch_size=config.batch_size,
-                                                    sampler=train_sampler,
-                                                    num_workers=config.workers,
-                                                    pin_memory=True)
-    valid_loader = torch.utils.data.DataLoader(train_data,
-                                                    batch_size=config.batch_size,
-                                                    sampler=valid_sampler,
-                                                    num_workers=config.workers,
-                                                    pin_memory=True)
+    train_loader, valid_loader = split_dataloader(train_data, config.train_portion, config.batch_size, config.workers)
+
     # ================= load model from timm ==================
     try:
         model = teacher_models.__dict__[config.model_name](num_classes = n_classes, cifar = True if "cifar" in config.dataset else False)
@@ -153,7 +141,7 @@ def run_task(config):
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
     
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
-    writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
+    writer.add_text('val/Top1-Acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
 
 def train(epoch, total_epoch, step, model, train_loader, optimizer, criterion, printer):
     model.train()
