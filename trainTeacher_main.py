@@ -3,6 +3,7 @@
 Fine tune teacher model for knowledge distillation using timm
 '''
 import os
+import sys
 import time
 import numpy as np
 from tqdm import tqdm
@@ -13,6 +14,7 @@ import torchvision.models
 from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
+from teacher_models.alert import Exception_pretrained_model
 import teacher_models.utils
 import utils
 from utils.data_util import get_data, split_dataloader
@@ -92,13 +94,24 @@ def run_task(config):
 
     # ================= load model from timm ==================
     try:
-        model = teacher_models.__dict__[config.model_name](num_classes = n_classes, pretrained=config.pretrained, cifar=config.cifar)
-    except RuntimeError as e:
-        model = torchvision.models.__dict__[config.model_name](num_classes = n_classes, pretrained=config.pretrained)
+        Exception_pretrained_model(model_name=config.model_name, cifar=config.cifar, pretrained=config.pretrained)
+    except Exception as e:
+        print(e)
+        sys.exit()
+    try:
+        model = teacher_models.__dict__[config.model_name](num_classes = 1000 if config.pretrained else n_classes, 
+                                                           weights="DEFAULT" if config.pretrained else None, 
+                                                           cifar = False if config.pretrained else config.cifar)
+    except (RuntimeError, KeyError) as e:
+        logger.info("model loading error!: {}\n \
+                    tring to load from torchvision.models".format(e))
+        model = torchvision.models.__dict__[config.model_name](num_classes = 1000 if config.pretrained else n_classes, 
+                                                               weights="DEFAULT" if config.pretrained else None)
 
-    # 最終層をつけかえる
+    # 最終層をつけかえ、最終層以外学習を止める
     if config.pretrained and config.cifar:
         teacher_models.utils.replace_classifier_to_numClasses(model, n_classes)
+        logger.info("model classifier is replaced to {}".format(model.classifier))
     model = model.to(DEVICE)
 
     writer = SummaryWriter(log_dir=os.path.join(config.path, "tb"))

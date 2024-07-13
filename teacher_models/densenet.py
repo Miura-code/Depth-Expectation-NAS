@@ -469,7 +469,7 @@ def densenet201(*, weights: Optional[DenseNet201_Weights] = None, progress: bool
     return _densenet(32, (6, 12, 48, 32), 64, weights, progress, **kwargs)
 
 @register_model()
-def densenet_cifar(*, blocks: Tuple[int, int, int] = (50, 50, 50), growth_rate: int = 12, weights = None, progress: bool = True, **kwargs: Any) -> DenseNet:
+def densenet_cifar(*, blocks: Tuple[int, int, int] = (50, 50, 50), growth_rate: int = 12, weights = None, progress: bool = True, cifar: bool = True, **kwargs: Any) -> DenseNet:
     r"""
     This model ,which is for cifar dataset, from 
     `Densely Connected Convolutional Networks <https://arxiv.org/abs/1608.06993>`_.
@@ -491,4 +491,4 @@ def densenet_cifar(*, blocks: Tuple[int, int, int] = (50, 50, 50), growth_rate: 
     """
     weights = DenseNet121_Weights.verify(weights)
 
-    return _densenet(growth_rate, blocks, 64, weights, progress, **kwargs)
+    return _densenet(growth_rate, blocks, 64, weights, progress, cifar=cifar, **kwargs)
