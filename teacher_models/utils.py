@@ -16,7 +16,7 @@ def replace_classifier_to_numClasses(model, num_classes):
 
 def freeze_model(model, unfreeze: bool = False):
     """
-        freeze the model parameter without last classification layer
+        freeze the model parameter excepting last classification layer
         Args:
             model: ニューラルネットモデル
             unfreeze: 指定することでモデルのすべての層の学習を開始する
