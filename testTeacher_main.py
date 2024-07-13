@@ -66,7 +66,6 @@ def main():
     try:
         model = teacher_models.__dict__[config.model_name](num_classes = n_classes, cifar=config.cifar)
         # model = teacher_models.densenet_cifar(num_classes = n_classes, blocks=(6,12,24,16), growth_rate=32, cifar=True)
-        # model = densenet121()
     except RuntimeError as e:
         model = torchvision.models.__dict__[config.model_name](num_classes = n_classes)
     # ================= load checkpoint ==================

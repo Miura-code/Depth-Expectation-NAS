@@ -12,4 +12,21 @@ def replace_classifier_to_numClasses(model, num_classes):
         for i, (name, module) in enumerate(classifier.named_modules()):
             if isinstance(module, nn.Linear):
                 in_features = module.in_features
-                model.classifier[i] = nn.Linear(in_features, num_classes)
+                model.classifier[i-1] = nn.Linear(in_features, num_classes)
+
+def freeze_model(model, unfreeze: bool = False):
+    """
+        freeze the model parameter without last classification layer
+        Args:
+            model: ニューラルネットモデル
+            unfreeze: 指定することでモデルのすべての層の学習を開始する
+    """
+    classifier_layer = model.get_classifier()
+    if unfreeze:
+        for name, params in model.named_parameters():
+            params.require_grad = True
+    else:
+        for name, param in model.named_parameters():
+            param.requires_grad = False
+        for name, param in classifier_layer.named_parameters():
+            param.requires_grad = True
