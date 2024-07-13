@@ -21,11 +21,11 @@ def freeze_model(model, unfreeze: bool = False):
             model: ニューラルネットモデル
             unfreeze: 指定することでモデルのすべての層の学習を開始する
     """
-    classifier_layer = model.get_classifier()
     if unfreeze:
         for name, params in model.named_parameters():
             params.require_grad = True
     else:
+        classifier_layer = model.get_classifier()
         for name, param in model.named_parameters():
             param.requires_grad = False
         for name, param in classifier_layer.named_parameters():
