@@ -1,7 +1,7 @@
 #!/bin/bash
 
 type=$1
-if [ ${train} = "train" ]; then
+if [ ${type} = "train" ]; then
 # ===== モデルをファインチューニング =====
         name=$2
         teacher_model=$3
@@ -9,7 +9,7 @@ if [ ${train} = "train" ]; then
         description=$5
         dataset=cifar100
         cutout=16
-        epoch=100
+        epoch=50
         seed=0
         train_portion=0.9
         python trainTeacher_main.py \
@@ -21,9 +21,11 @@ if [ ${train} = "train" ]; then
             --seed $seed \
             --save $save \
             --train_portion $train_portion \
-            --lr 0.1 \
+            --lr 0.001 \
+            --lr_min 0.0001 \
             --description $description \
-            --batch_size 16
+            --advanced \
+            --pretrained
 elif [ ${type} = "test" ]; then
 # ===== モデルをテスト =====
         save=$2
@@ -39,7 +41,8 @@ elif [ ${type} = "test" ]; then
                 --model_name $teacher_model \
                 --resume_path $resume_path \
                 --dataset $dataset\
-                --seed $seed
+                --seed $seed \
+                --advanced
 else
     echo ""
 fi

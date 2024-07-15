@@ -113,13 +113,23 @@ def run_task(config):
         teacher_models.utils.replace_classifier_to_numClasses(model, n_classes)
         logger.info("model classifier is replaced to {}".format(model.classifier))
     model = model.to(DEVICE)
+    # teacher_models.utils.freeze_model(model)
+    # logger.info("model parameters freezed excepting last classifier layer!")
 
     writer = SummaryWriter(log_dir=os.path.join(config.path, "tb"))
     writer.add_text('config', config.as_markdown(), 0)
     showModelOnTensorboard(writer, model, train_loader)
     print("load model end!")
     # ================= build Optimizer (CosineAnnealingLR, MultiStepLR) ==================
-    optimizer = torch.optim.SGD(model.parameters(), config.lr, momentum=config.momentum, weight_decay=config.weight_decay)
+    warmup_epoch = 0
+    params=[
+        {"params": model.features[:].parameters(), "lr": 0.001},
+        # {"params": model.features[4:].parameters(), "lr": 0.01},
+        {"params": model.classifier.parameters(), "lr": 0.01},
+    ]
+    optimizer = torch.optim.SGD(params, momentum=config.momentum, weight_decay=config.weight_decay)
+    # optimizer = torch.optim.SGD(model.parameters(), config.lr, momentum=config.momentum, weight_decay=config.weight_decay)
+    
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, config.epochs, eta_min=config.lr_min)
     # milestone = [int(0.5*config.epochs), int(0.75*config.epochs)]
     # gamma = 0.1
@@ -135,9 +145,17 @@ def run_task(config):
     for epoch in tqdm(range(0, config.epochs)):
         train_top1, train_loss, steps = train(epoch, config.epochs, steps, model, train_loader, optimizer, criterion, printer=logger.info)
         val_top1, val_loss = valid(epoch, config.epochs, model, valid_loader, criterion, printer=logger.info)
+        
         lr_scheduler.step()
+        # if epoch > warmup_epoch:  
+        #     lr_scheduler.step()
+        # elif epoch == warmup_epoch:
+        #     teacher_models.utils.freeze_model(model, unfreeze=True)
+        #     logger.info("warm up end! [{}]/[{}]".format(epoch, config.epochs))
+        #     logger.info("model parameters unfreezed!")
 
-        writer.add_scalar('train/lr', round(lr_scheduler.get_last_lr()[0], 5), epoch)
+        writer.add_scalar('train/lr_0', round(lr_scheduler.get_last_lr()[0], 5), epoch)
+        # writer.add_scalar('train/lr_1', round(lr_scheduler.get_last_lr()[1], 5), epoch)
         writer.add_scalar('train/loss', train_loss, epoch)
         writer.add_scalar('train/top1', train_top1, epoch)
 

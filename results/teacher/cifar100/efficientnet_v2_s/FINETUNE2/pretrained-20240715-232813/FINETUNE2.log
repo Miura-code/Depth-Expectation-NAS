@@ -1,0 +1,124 @@
+07/15 11:28:13PM parser.py:28 [INFO] 
+07/15 11:28:13PM parser.py:29 [INFO] Parameters:
+07/15 11:28:13PM parser.py:31 [INFO] ADVANCED=True
+07/15 11:28:13PM parser.py:31 [INFO] BATCH_SIZE=64
+07/15 11:28:13PM parser.py:31 [INFO] CIFAR=True
+07/15 11:28:13PM parser.py:31 [INFO] CUTOUT_LENGTH=16
+07/15 11:28:13PM parser.py:31 [INFO] DATA_PATH=../data/
+07/15 11:28:13PM parser.py:31 [INFO] DATASET=cifar100
+07/15 11:28:13PM parser.py:31 [INFO] DESCRIPTION=all_params_lr-0.001_cosine_warmup=0
+07/15 11:28:13PM parser.py:31 [INFO] EPOCHS=50
+07/15 11:28:13PM parser.py:31 [INFO] EXP_NAME=pretrained-20240715-232813
+07/15 11:28:13PM parser.py:31 [INFO] GPUS=[0]
+07/15 11:28:13PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+07/15 11:28:13PM parser.py:31 [INFO] LR=0.001
+07/15 11:28:13PM parser.py:31 [INFO] LR_MIN=0.0001
+07/15 11:28:13PM parser.py:31 [INFO] MODEL_NAME=efficientnet_v2_s
+07/15 11:28:13PM parser.py:31 [INFO] MOMENTUM=0.9
+07/15 11:28:13PM parser.py:31 [INFO] NAME=FINETUNE2
+07/15 11:28:13PM parser.py:31 [INFO] PATH=results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240715-232813
+07/15 11:28:13PM parser.py:31 [INFO] PRETRAINED=True
+07/15 11:28:13PM parser.py:31 [INFO] SAVE=pretrained
+07/15 11:28:13PM parser.py:31 [INFO] SEED=0
+07/15 11:28:13PM parser.py:31 [INFO] TRAIN_PORTION=0.9
+07/15 11:28:13PM parser.py:31 [INFO] WEIGHT_DECAY=0.0003
+07/15 11:28:13PM parser.py:31 [INFO] WORKERS=4
+07/15 11:28:13PM parser.py:32 [INFO] 
+07/15 11:28:14PM trainTeacher_main.py:114 [INFO] model classifier is replaced to Sequential(
+  (0): Dropout(p=0.2, inplace=True)
+  (1): Linear(in_features=1280, out_features=100, bias=True)
+)
+07/15 11:29:22PM trainTeacher_main.py:209 [INFO] Train: [  0/49] Final Prec@1 25.7822%
+07/15 11:29:24PM trainTeacher_main.py:237 [INFO] Valid: [  0/49] Final Prec@1 62.8200%
+07/15 11:29:24PM trainTeacher_main.py:153 [INFO] model parameters unfreezed!
+07/15 11:29:24午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 62.8200%
+07/15 11:30:29午後 trainTeacher_main.py:209 [INFO] Train: [  1/49] Final Prec@1 68.3644%
+07/15 11:30:31午後 trainTeacher_main.py:237 [INFO] Valid: [  1/49] Final Prec@1 75.6400%
+07/15 11:30:31午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 75.6400%
+07/15 11:31:36午後 trainTeacher_main.py:209 [INFO] Train: [  2/49] Final Prec@1 76.7422%
+07/15 11:31:38午後 trainTeacher_main.py:237 [INFO] Valid: [  2/49] Final Prec@1 79.2400%
+07/15 11:31:39午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 79.2400%
+07/15 11:32:43午後 trainTeacher_main.py:209 [INFO] Train: [  3/49] Final Prec@1 80.9800%
+07/15 11:32:45午後 trainTeacher_main.py:237 [INFO] Valid: [  3/49] Final Prec@1 81.2200%
+07/15 11:32:46午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 81.2200%
+07/15 11:33:50午後 trainTeacher_main.py:209 [INFO] Train: [  4/49] Final Prec@1 83.7467%
+07/15 11:33:52午後 trainTeacher_main.py:237 [INFO] Valid: [  4/49] Final Prec@1 81.7200%
+07/15 11:33:53午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 81.7200%
+07/15 11:34:57午後 trainTeacher_main.py:209 [INFO] Train: [  5/49] Final Prec@1 85.7000%
+07/15 11:34:59午後 trainTeacher_main.py:237 [INFO] Valid: [  5/49] Final Prec@1 83.2600%
+07/15 11:35:00午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 83.2600%
+07/15 11:36:05午後 trainTeacher_main.py:209 [INFO] Train: [  6/49] Final Prec@1 87.4867%
+07/15 11:36:06午後 trainTeacher_main.py:237 [INFO] Valid: [  6/49] Final Prec@1 83.3200%
+07/15 11:36:07午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 83.3200%
+07/15 11:37:11午後 trainTeacher_main.py:209 [INFO] Train: [  7/49] Final Prec@1 88.7956%
+07/15 11:37:13午後 trainTeacher_main.py:237 [INFO] Valid: [  7/49] Final Prec@1 83.8200%
+07/15 11:37:14午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 83.8200%
+07/15 11:38:19午後 trainTeacher_main.py:209 [INFO] Train: [  8/49] Final Prec@1 90.0378%
+07/15 11:38:21午後 trainTeacher_main.py:237 [INFO] Valid: [  8/49] Final Prec@1 84.4800%
+07/15 11:38:21午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 84.4800%
+07/15 11:39:26午後 trainTeacher_main.py:209 [INFO] Train: [  9/49] Final Prec@1 91.1244%
+07/15 11:39:28午後 trainTeacher_main.py:237 [INFO] Valid: [  9/49] Final Prec@1 84.5400%
+07/15 11:39:28午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 84.5400%
+07/15 11:40:33午後 trainTeacher_main.py:209 [INFO] Train: [ 10/49] Final Prec@1 91.9733%
+07/15 11:40:35午後 trainTeacher_main.py:237 [INFO] Valid: [ 10/49] Final Prec@1 84.7600%
+07/15 11:40:35午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 84.7600%
+07/15 11:41:40午後 trainTeacher_main.py:209 [INFO] Train: [ 11/49] Final Prec@1 92.9222%
+07/15 11:41:42午後 trainTeacher_main.py:237 [INFO] Valid: [ 11/49] Final Prec@1 84.6200%
+07/15 11:41:42午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 84.7600%
+07/15 11:42:47午後 trainTeacher_main.py:209 [INFO] Train: [ 12/49] Final Prec@1 93.3911%
+07/15 11:42:49午後 trainTeacher_main.py:237 [INFO] Valid: [ 12/49] Final Prec@1 84.1800%
+07/15 11:42:49午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 84.7600%
+07/15 11:43:54午後 trainTeacher_main.py:209 [INFO] Train: [ 13/49] Final Prec@1 94.1333%
+07/15 11:43:56午後 trainTeacher_main.py:237 [INFO] Valid: [ 13/49] Final Prec@1 85.2400%
+07/15 11:43:56午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.2400%
+07/15 11:45:01午後 trainTeacher_main.py:209 [INFO] Train: [ 14/49] Final Prec@1 94.7133%
+07/15 11:45:03午後 trainTeacher_main.py:237 [INFO] Valid: [ 14/49] Final Prec@1 85.2200%
+07/15 11:45:03午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.2400%
+07/15 11:46:08午後 trainTeacher_main.py:209 [INFO] Train: [ 15/49] Final Prec@1 95.0756%
+07/15 11:46:10午後 trainTeacher_main.py:237 [INFO] Valid: [ 15/49] Final Prec@1 85.1600%
+07/15 11:46:10午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.2400%
+07/15 11:47:14午後 trainTeacher_main.py:209 [INFO] Train: [ 16/49] Final Prec@1 95.4400%
+07/15 11:47:16午後 trainTeacher_main.py:237 [INFO] Valid: [ 16/49] Final Prec@1 84.9000%
+07/15 11:47:16午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.2400%
+07/15 11:48:21午後 trainTeacher_main.py:209 [INFO] Train: [ 17/49] Final Prec@1 95.8733%
+07/15 11:48:23午後 trainTeacher_main.py:237 [INFO] Valid: [ 17/49] Final Prec@1 85.3200%
+07/15 11:48:24午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.3200%
+07/15 11:49:28午後 trainTeacher_main.py:209 [INFO] Train: [ 18/49] Final Prec@1 96.2400%
+07/15 11:49:30午後 trainTeacher_main.py:237 [INFO] Valid: [ 18/49] Final Prec@1 85.2200%
+07/15 11:49:30午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.3200%
+07/15 11:50:35午後 trainTeacher_main.py:209 [INFO] Train: [ 19/49] Final Prec@1 96.5178%
+07/15 11:50:37午後 trainTeacher_main.py:237 [INFO] Valid: [ 19/49] Final Prec@1 85.5600%
+07/15 11:50:38午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.5600%
+07/15 11:51:42午後 trainTeacher_main.py:209 [INFO] Train: [ 20/49] Final Prec@1 96.9489%
+07/15 11:51:44午後 trainTeacher_main.py:237 [INFO] Valid: [ 20/49] Final Prec@1 85.4200%
+07/15 11:51:44午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.5600%
+07/15 11:52:49午後 trainTeacher_main.py:209 [INFO] Train: [ 21/49] Final Prec@1 96.9933%
+07/15 11:52:51午後 trainTeacher_main.py:237 [INFO] Valid: [ 21/49] Final Prec@1 84.9800%
+07/15 11:52:51午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.5600%
+07/15 11:53:56午後 trainTeacher_main.py:209 [INFO] Train: [ 22/49] Final Prec@1 97.2644%
+07/15 11:53:58午後 trainTeacher_main.py:237 [INFO] Valid: [ 22/49] Final Prec@1 85.7400%
+07/15 11:53:58午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.7400%
+07/15 11:55:03午後 trainTeacher_main.py:209 [INFO] Train: [ 23/49] Final Prec@1 97.5333%
+07/15 11:55:05午後 trainTeacher_main.py:237 [INFO] Valid: [ 23/49] Final Prec@1 85.2800%
+07/15 11:55:05午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.7400%
+07/15 11:56:10午後 trainTeacher_main.py:209 [INFO] Train: [ 24/49] Final Prec@1 97.6822%
+07/15 11:56:12午後 trainTeacher_main.py:237 [INFO] Valid: [ 24/49] Final Prec@1 85.5800%
+07/15 11:56:12午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.7400%
+07/15 11:57:17午後 trainTeacher_main.py:209 [INFO] Train: [ 25/49] Final Prec@1 97.7756%
+07/15 11:57:19午後 trainTeacher_main.py:237 [INFO] Valid: [ 25/49] Final Prec@1 85.7800%
+07/15 11:57:19午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.7800%
+07/15 11:58:24午後 trainTeacher_main.py:209 [INFO] Train: [ 26/49] Final Prec@1 97.8778%
+07/15 11:58:26午後 trainTeacher_main.py:237 [INFO] Valid: [ 26/49] Final Prec@1 85.5800%
+07/15 11:58:26午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.7800%
+07/15 11:59:31午後 trainTeacher_main.py:209 [INFO] Train: [ 27/49] Final Prec@1 98.0044%
+07/15 11:59:33午後 trainTeacher_main.py:237 [INFO] Valid: [ 27/49] Final Prec@1 85.6600%
+07/15 11:59:33午後 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.7800%
+07/16 12:00:38午前 trainTeacher_main.py:209 [INFO] Train: [ 28/49] Final Prec@1 98.1578%
+07/16 12:00:40午前 trainTeacher_main.py:237 [INFO] Valid: [ 28/49] Final Prec@1 85.5200%
+07/16 12:00:40午前 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.7800%
+07/16 12:01:45午前 trainTeacher_main.py:209 [INFO] Train: [ 29/49] Final Prec@1 98.2244%
+07/16 12:01:47午前 trainTeacher_main.py:237 [INFO] Valid: [ 29/49] Final Prec@1 85.7400%
+07/16 12:01:47午前 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.7800%
+07/16 12:02:52午前 trainTeacher_main.py:209 [INFO] Train: [ 30/49] Final Prec@1 98.2933%
+07/16 12:02:54午前 trainTeacher_main.py:237 [INFO] Valid: [ 30/49] Final Prec@1 85.8400%
+07/16 12:02:54午前 trainTeacher_main.py:179 [INFO] Until now, best Prec@1 = 85.8400%
