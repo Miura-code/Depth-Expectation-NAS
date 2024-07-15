@@ -46,6 +46,7 @@ elif [ ${type} = "test" ]; then
 else
     echo ""
 fi
+
 ## ===== 複数モデルをファインチューニングする =====
 # name=$1
 # dataset=cifar100
