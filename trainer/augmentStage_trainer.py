@@ -13,7 +13,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 # from ..utils import data_util, params_util, eval_util
 from utils.data_util import get_data
 from utils.params_util import collect_params

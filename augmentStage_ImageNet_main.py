@@ -10,7 +10,7 @@ import os
 import torch
 import torch.nn as nn
 import numpy as np
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 from config.augmentStage_ImageNet_config import AugmentStageImageNetConfig
 
 import utils
@@ -51,7 +51,7 @@ def main():
     logger.info("Logger is set - training start")
 
     # set default gpu device id
-    torch.cuda.set_device(config.gpus[0])
+    torch.cuda.set_device(config.gpus)
 
     # set seed
     np.random.seed(config.seed)

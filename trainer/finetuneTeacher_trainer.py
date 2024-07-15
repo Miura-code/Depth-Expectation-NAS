@@ -36,7 +36,7 @@ class TrainTeacherTrainer():
         if torch.cuda.is_available():
             # self.device = torch.device(f'cuda:{self.gpu}')
             # torch.cuda.set_device(self.device)
-            torch.cuda.set_device(self.config.gpus[0])
+            torch.cuda.set_device(self.config.gpus)
             # cudnn.benchmark = True
             self.device = torch.device('cuda')
         else:
