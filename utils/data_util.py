@@ -15,6 +15,7 @@ import torch.utils.data.sampler
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
 
+from utils import setting
 import utils.preproc as prep
 from utils.preproc import Cutout
 
@@ -39,7 +40,7 @@ def get_data(dataset, data_path, cutout_length, validation, advanced=False):
     trn_data = dset_cls(root=data_path, train=True, download=True, transform=trn_transform)
 
     # assuming shape is NHW or NHWC
-    shape = trn_data.data.shape
+    shape = trn_data.data.shape if not advanced else (3,setting.IMAGENET_SIZE,setting.IMAGENET_SIZE)
     # input_channels = 3 if len(shape) == 4 else 1
     input_channels = 3
     assert shape[1] == shape[2], "not expected shape = {}".format(shape)

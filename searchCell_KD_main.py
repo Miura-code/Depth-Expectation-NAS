@@ -27,8 +27,6 @@ def run_task(config):
 
     config.print_params(logger.info)
     
-    # set seed
-    utils.set_seed_gpu(config.seed, config.gpus)
     # ================= define trainer ==================
     trainer = SearchCellTrainer_WithSimpleKD(config)
     trainer.resume_model()

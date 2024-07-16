@@ -44,7 +44,6 @@ def run_task(config):
     # ================= start training ==================
     best_top1 = 0.
     for epoch in range(start_epoch, trainer.total_epochs):
-        trainer.lr_scheduler.step()
         drop_prob = config.drop_path_prob * epoch / config.epochs
         trainer.model.drop_path_prob(drop_prob)
 
@@ -75,6 +74,8 @@ def run_task(config):
             is_best = False
         trainer.save_checkpoint(epoch, is_best=is_best)
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
+
+        trainer.lr_scheduler.step()
     
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
 

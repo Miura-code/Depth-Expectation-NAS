@@ -6,6 +6,7 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 """ Cells for architecture search """
+from collections import OrderedDict
 import torch
 import logging
 import torch.nn as nn
@@ -14,10 +15,11 @@ import torch.nn.functional as F
 import genotypes.genotypes as gt
 from models.search_stage import broadcast_list
 from models.search_cell import SearchCell
+from utils import setting
 
 
 class SearchCellCNN(nn.Module):
-    def __init__(self, C_in, C, n_classes, n_layers, n_nodes=4, stem_multiplier=3):
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, n_nodes=4, stem_multiplier=3):
         super().__init__()
         self.C_in = C_in
         self.C = C
@@ -26,10 +28,39 @@ class SearchCellCNN(nn.Module):
         self.n_nodes = n_nodes
 
         C_cur = stem_multiplier * C
-        self.stem = nn.Sequential(
-            nn.Conv2d(C_in, C_cur, 3, 1, 1, bias=False),
-            nn.BatchNorm2d(C_cur)
-        )
+        if input_size == setting.IMAGENET_SIZE:
+            self.stem0 = nn.Sequential(
+                nn.Conv2d(3, C // 2, kernel_size=3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C // 2),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(C // 2, C, 3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C),
+            )
+            self.stem1 = nn.Sequential(
+                nn.ReLU(inplace=True),
+                nn.Conv2d(C, C_cur, 3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C_cur),
+            )
+            self.stem = nn.Sequential(
+                OrderedDict(
+                    [
+                        ("stem0", self.stem0),
+                        ("stem1", self.stem1)
+                    ]
+                )
+            )
+        else:
+            self.stem0 = nn.Sequential(
+                nn.Conv2d(C_in, C_cur, 3, 1, 1, bias=False),
+                nn.BatchNorm2d(C_cur)
+            )
+            self.stem = nn.Sequential(
+                OrderedDict(
+                    [
+                        ("stem0", self.stem0),
+                    ]
+                )
+            )
         C_pp, C_p, C_cur = C_cur, C_cur, C
 
         self.cells = nn.ModuleList()

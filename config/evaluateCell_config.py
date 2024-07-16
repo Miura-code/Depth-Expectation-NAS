@@ -40,6 +40,7 @@ class EvaluateCellConfig(BaseConfig):
         parser.add_argument('--batch_size', type=int, default=64, help='batch size')
         parser.add_argument('--train_portion', type=float, default=0.5, help='portion of training data')
         parser.add_argument('--cutout_length', type=int, default=16, help='cutout length')
+        parser.add_argument('--advanced', action='store_true', help='advanced data transform. apply resize (224,224)')
         # ================= training settings ==================
         parser.add_argument('--epochs', type=int, default=50, help='# of training epochs')
         parser.add_argument('--T', type=float, default=10, help='temperature of softmax with temperature')
