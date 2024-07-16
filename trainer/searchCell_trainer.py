@@ -16,7 +16,7 @@ import torchvision
 from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
-from utils.eval_util import validate
+from testTeacher_main import validate
 from timm_.loss.distillation_losses import KD_Loss, SoftTargetKLLoss
 import utils
 from utils.data_util import get_data, split_dataloader
@@ -91,6 +91,14 @@ class SearchCellTrainer_WithSimpleKD():
             showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)
         else:
             self.teacher_model = None
+
+        validate(self.valid_loader, 
+                self.teacher_model,
+                self.hard_criterion, 
+                self.device, 
+                print_freq=100000,
+                printer=self.logger.info, 
+                model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
 
         showModelOnTensorboard(self.writer, self.model, self.train_loader)
         print("init model end!")
