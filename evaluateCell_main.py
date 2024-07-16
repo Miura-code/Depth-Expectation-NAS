@@ -11,6 +11,8 @@ search specific cells of different stages.
 '''
 import os
 from config.evaluateCell_config import EvaluateCellConfig
+from trainTeacher_main import Config
+
 from genotypes.genotypes import save_DAG
 from trainer.evaluateCell_KD_trainer import EvaluateCellTrainer_WithSimpleKD
 from trainer.evaluateCell_trainer import EvaluateCellTrainer
@@ -29,8 +31,6 @@ def run_task(config):
 
     config.print_params(logger.info)
     
-    # set seed
-    utils.set_seed_gpu(config.seed, config.gpus)
     # ================= define trainer ==================
     if config.nonkd:
         trainer = EvaluateCellTrainer(config)
