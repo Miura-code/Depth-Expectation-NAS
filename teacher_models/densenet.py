@@ -31,6 +31,7 @@ __all__ = [
     "densenet161",
     "densenet169",
     "densenet201",
+    "densenet_cifar",
 ]
 
 
@@ -164,34 +165,22 @@ class DenseNet(nn.Module):
         drop_rate: float = 0,
         num_classes: int = 100,
         memory_efficient: bool = False,
-        cifar: bool = False
     ) -> None:
 
         super().__init__()
         _log_api_usage_once(self)
 
         # First convolution
-        if not cifar:
-            self.features = nn.Sequential(
-                OrderedDict(
-                    [
-                        ("conv0", nn.Conv2d(3, num_init_features, kernel_size=7, stride=2, padding=3, bias=False)),
-                        ("norm0", nn.BatchNorm2d(num_init_features)),
-                        ("relu0", nn.ReLU(inplace=True)),
-                        ("pool0", nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
-                    ]
-                )
+        self.features = nn.Sequential(
+            OrderedDict(
+                [
+                    ("conv0", nn.Conv2d(3, num_init_features, kernel_size=7, stride=2, padding=3, bias=False)),
+                    ("norm0", nn.BatchNorm2d(num_init_features)),
+                    ("relu0", nn.ReLU(inplace=True)),
+                    ("pool0", nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
+                ]
             )
-        else:
-            # Cifarデータセットの場合、入力画像がImageNetデータセットよりも小さいため、最初のConv層のカーネルサイズを小さく設定する
-            self.features = nn.Sequential(
-                OrderedDict(
-                    [
-                        ("conv0", nn.Conv2d(3, num_init_features, kernel_size=3, stride=1, padding=1, bias=False)),
-                    ]
-                )
-            )
-        
+        )     
 
         # Each denseblock
         num_features = num_init_features
@@ -469,7 +458,7 @@ def densenet201(*, weights: Optional[DenseNet201_Weights] = None, progress: bool
     return _densenet(32, (6, 12, 48, 32), 64, weights, progress, **kwargs)
 
 @register_model()
-def densenet_cifar(*, blocks: Tuple[int, int, int] = (50, 50, 50), growth_rate: int = 12, weights = None, progress: bool = True, cifar: bool = True, **kwargs: Any) -> DenseNet:
+def densenet_cifar(*, blocks: Tuple[int, int, int] = (50, 50, 50), growth_rate: int = 12, weights = None, progress: bool = True, **kwargs: Any) -> DenseNet:
     r"""
     This model ,which is for cifar dataset, from 
     `Densely Connected Convolutional Networks <https://arxiv.org/abs/1608.06993>`_.
@@ -491,4 +480,4 @@ def densenet_cifar(*, blocks: Tuple[int, int, int] = (50, 50, 50), growth_rate: 
     """
     weights = DenseNet121_Weights.verify(weights)
 
-    return _densenet(growth_rate, blocks, 64, weights, progress, cifar=cifar, **kwargs)
+    return _densenet(growth_rate, blocks, 64, weights, progress, **kwargs)
