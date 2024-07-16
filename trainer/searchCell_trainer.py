@@ -12,9 +12,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
+import torchvision
 from torch.utils.tensorboard import SummaryWriter
 
+import teacher_models
+from testTeacher_main import validate
 from timm_.loss.distillation_losses import KD_Loss, SoftTargetKLLoss
+import utils
 from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, accuracy
 from models.architect import Architect
@@ -27,8 +31,6 @@ from timm.models import create_model as timm_create_model
 
 from utils.visualize import showModelOnTensorboard
 
-
-
 class SearchCellTrainer_WithSimpleKD():
     def __init__(self, config):
         self.config = config
@@ -37,6 +39,7 @@ class SearchCellTrainer_WithSimpleKD():
         self.gpu = self.config.gpus
         self.save_epoch = 1
         self.ckpt_path = self.config.path
+        self.device = utils.set_seed_gpu(config.seed, config.gpus)
 
         """get the train parameters"""
         self.total_epochs = self.config.epochs
@@ -50,14 +53,6 @@ class SearchCellTrainer_WithSimpleKD():
 
         """construct the whole network"""
         self.resume_path = self.config.resume_path
-        if torch.cuda.is_available():
-            # self.device = torch.device(f'cuda:{self.gpu}')
-            # torch.cuda.set_device(self.device)
-            torch.cuda.set_device(self.config.gpus)
-            # cudnn.benchmark = True
-            self.device = torch.device('cuda')
-        else:
-            self.device = torch.device('cpu')
 
         self.steps = 0
         self.log_step = 10
@@ -81,11 +76,19 @@ class SearchCellTrainer_WithSimpleKD():
         self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
         self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
         # ================= Student model ==================
-        model = SearchCellController(input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, device_ids=self.config.gpus)
+        model = SearchCellController(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, device_ids=self.config.gpus)
         self.model = model.to(self.device)
         # ================= Teacher Model ==================
         teacher_model = self.load_teacher(n_classes)
         self.teacher_model = teacher_model.to(self.device)
+
+        validate(self.valid_loader, 
+                self.teacher_model,
+                self.hard_criterion, 
+                self.device, 
+                print_freq=100000,
+                printer=self.logger.info, 
+                model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
 
         showModelOnTensorboard(self.writer, self.model, self.train_loader)
         showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)
@@ -105,13 +108,18 @@ class SearchCellTrainer_WithSimpleKD():
             and Freeze all parameter to be not learnable
         """
         try:
-            model = create_model(self.config.teacher_name, pretrained=False, num_classes=n_classes)
-        except RuntimeError as e:
-            model = timm_create_model(self.config.teacher_name, pretrained=False, num_classes=n_classes)
+            model = teacher_models.__dict__[self.config.teacher_name](num_classes = n_classes)
+        except (RuntimeError, KeyError) as e:
+            self.logger.info("model loading error!: {}\n \
+                        tring to load from torchvision.models".format(e))
+        model = torchvision.models.__dict__[self.config.teacher_name](num_classes = n_classes)
+
         _, _ = load_teacher_checkpoint_state(model=model, optimizer=None, checkpoint_path=self.config.teacher_path)
+        
         for name, param in model.named_parameters():
             param.requires_grad = False
-        self.logger.info(f"--> Loaded teacher model '{self.config.teacher_name}' and Freezed parameters)")
+        self.logger.info(f"--> Loaded teacher model '{self.config.teacher_name}' from '{self.config.teacher_path}' and Freezed parameters)")
+        
         return model
     
     def resume_model(self, model_path=None):

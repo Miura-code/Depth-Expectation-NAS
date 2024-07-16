@@ -5,10 +5,13 @@
 #
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
+from collections import OrderedDict
 from models.augment_stage import AuxiliaryHead
 import torch.nn as nn
 from models import ops
 from models.augment_cell import AugmentCell
+from models.augment_stage_imagenet import AuxiliaryHeadImagenet
+from utils import setting
 
 
 class AugmentCellCNN(nn.Module):
@@ -22,10 +25,39 @@ class AugmentCellCNN(nn.Module):
         self.aux_pos = 2 * n_layers // 3 if auxiliary else -1
 
         C_cur = stem_multiplier * C
-        self.stem = nn.Sequential(
-            nn.Conv2d(C_in, C_cur, 3, 1, 1, bias=False),
-            nn.BatchNorm2d(C_cur)
-        )
+        if input_size == setting.IMAGENET_SIZE:
+            self.stem0 = nn.Sequential(
+                nn.Conv2d(3, C // 2, kernel_size=3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C // 2),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(C // 2, C, 3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C),
+            )
+            self.stem1 = nn.Sequential(
+                nn.ReLU(inplace=True),
+                nn.Conv2d(C, C_cur, 3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C_cur),
+            )
+            self.stem = nn.Sequential(
+                OrderedDict(
+                    [
+                        ("stem0", self.stem0),
+                        ("stem1", self.stem1)
+                    ]
+                )
+            )
+        else:
+            self.stem0 = nn.Sequential(
+                nn.Conv2d(C_in, C_cur, 3, 1, 1, bias=False),
+                nn.BatchNorm2d(C_cur)
+            )
+            self.stem = nn.Sequential(
+                OrderedDict(
+                    [
+                        ("stem0", self.stem0),
+                    ]
+                )
+            )
 
         C_pp, C_p, C_cur = C_cur, C_cur, C
 
@@ -45,7 +77,10 @@ class AugmentCellCNN(nn.Module):
             C_pp, C_p = C_p, C_cur_out
 
             if i == self.aux_pos:
-                self.aux_head = AuxiliaryHead(input_size // 4, C_p, n_classes)
+                if input_size == setting.IMAGENET_SIZE:
+                    self.aux_head = AuxiliaryHeadImagenet(14, 16 * C, n_classes)
+                else:
+                    self.aux_head = AuxiliaryHead(input_size // 4, C_p, n_classes)
         
         self.gap = nn.AdaptiveAvgPool2d(1)
         self.linear = nn.Linear(C_p, n_classes)

@@ -46,7 +46,7 @@ def main():
 
     # ================= get dataset ==================
     input_size, input_channels, n_classes, _, valid_data = get_data(
-        config.dataset, config.data_path, config.cutout_length, validation=True)
+        config.dataset, config.data_path, config.cutout_length, validation=True, advanced=config.advanced)
     # ================= define dataloader ==================
     n_val = len(valid_data)
     split = int(np.floor(config.train_portion * n_val))

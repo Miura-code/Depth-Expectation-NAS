@@ -5,22 +5,19 @@
 #
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
-import time
-import datetime
 import os
-import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.backends.cudnn as cudnn
 import torchvision
 from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm
+from models.augment_stage_imagenet import AugmentStageImageNet
 import teacher_models
+from utils.eval_util import validate
 from timm_.loss.distillation_losses import KD_Loss, SoftTargetKLLoss
 import utils
 from utils.data_util import get_data, split_dataloader
 from utils.file_management import load_teacher_checkpoint_state
-from utils.params_util import collect_params
 from utils.eval_util import AverageMeter, accuracy
 from models.augment_cellcnn import AugmentCellCNN
 from utils.data_prefetcher import data_prefetcher
@@ -61,7 +58,7 @@ class EvaluateCellTrainer_WithSimpleKD():
     def construct_model(self):
         # ================= define data loader ==================
         input_size, input_channels, n_classes, train_data, valid_data = get_data(
-            self.config.dataset, self.config.data_path, self.config.cutout_length, validation=True
+            self.config.dataset, self.config.data_path, self.config.cutout_length, validation=True, advanced=self.config.advanced
         )
         self.train_loader, self.valid_loader = split_dataloader(train_data, self.config.train_portion, self.config.batch_size, self.config.workers)
         
@@ -77,6 +74,14 @@ class EvaluateCellTrainer_WithSimpleKD():
         # ================= Teacher Model ==================
         teacher_model = self.load_teacher(n_classes)
         self.teacher_model = teacher_model.to(self.device)
+
+        validate(self.valid_loader, 
+                self.teacher_model,
+                self.hard_criterion, 
+                self.device, 
+                print_freq=100000,
+                printer=self.logger.info, 
+                model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
 
         # showModelOnTensorboard(self.writer, self.model, self.train_loader)
         showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)
@@ -148,13 +153,14 @@ class EvaluateCellTrainer_WithSimpleKD():
         self.model.train()
         self.teacher_model.train()
 
-        prefetcher = data_prefetcher(self.train_loader)
-        X, y = prefetcher.next()
         i = 0
-        while X is not None:
+        for X, y in tqdm(self.train_loader):
             i += 1
             N = X.size(0)
             self.steps += 1
+
+            X = X.to(self.device)
+            y = y.to(self.device)
 
             # ================= optimize network parameter ==================
             teacher_guide = self.teacher_model(X)
@@ -175,7 +181,7 @@ class EvaluateCellTrainer_WithSimpleKD():
             top1.update(prec1.item(), N)
             top5.update(prec5.item(), N)
 
-            if self.gpu == 0 and (i % self.config.print_freq == 0 or i == len(self.train_loader) - 1):
+            if (i % self.config.print_freq == 0 or i == len(self.train_loader) - 1):
                 printer(f'Train: Epoch: [{epoch}][{i}/{len(self.train_loader) - 1}]\t'
                         f'Step {self.steps}\t'
                         f'lr {round(cur_lr, 5)}\t'
@@ -185,10 +191,7 @@ class EvaluateCellTrainer_WithSimpleKD():
                         f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})\t'
                     )
 
-            X, y = prefetcher.next()
-
-        if self.gpu == 0:
-            printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
+        printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
 
         return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg
     
@@ -199,14 +202,15 @@ class EvaluateCellTrainer_WithSimpleKD():
 
         self.model.eval()
 
-        prefetcher = data_prefetcher(self.valid_loader)
-        X, y = prefetcher.next()
         i = 0
 
         with torch.no_grad():
-            while X is not None:
+            for X, y in tqdm(self.valid_loader):
                 N = X.size(0)
                 i += 1
+
+                X = X.to(self.device)
+                y = y.to(self.device)
 
                 logits, _ = self.model(X)
                 loss = self.hard_criterion(logits, y)
@@ -216,14 +220,12 @@ class EvaluateCellTrainer_WithSimpleKD():
                 top1.update(prec1.item(), N)
                 top5.update(prec5.item(), N)
                 
-                if (i % self.config.print_freq == 0 or i == len(self.valid_loader) - 1):
-                    printer(f'Valid: Epoch: [{epoch}][{i}/{len(self.valid_loader)}]\t'
-                            f'Step {self.steps}\t'
-                            f'Loss {losses.avg:.4f}\t'
-                            f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})')
-                
-                X, y = prefetcher.next()
-                
+                # if (i % self.config.print_freq == 0 or i == len(self.valid_loader) - 1):
+                #     printer(f'Valid: Epoch: [{epoch}][{i}/{len(self.valid_loader)}]\t'
+                #             f'Step {self.steps}\t'
+                #             f'Loss {losses.avg:.4f}\t'
+                #             f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})')
+                                
             printer("Valid: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
         
         return top1.avg, losses.avg

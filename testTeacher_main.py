@@ -30,17 +30,7 @@ from timm.models import create_model as timm_create_model
 
 from models.densenet import densenet121
 
-
-config = TestConfig()
-
 device = torch.device("cuda")
-
-logger = get_std_logging(os.path.join(config.path, "{}.log".format(config.save)))
-config.logger = logger
-config.print_params(logger.info)
-
-writer = SummaryWriter(log_dir=os.path.join(config.path, "tb"))
-writer.add_text('config', config.as_markdown(), 0)
 
 def main():
     logger.info("Logger is set - test start")
@@ -123,5 +113,15 @@ def validate(valid_loader, model, criterion):
 
 
 if __name__ == "__main__":
+    config = TestConfig()
+
+    device = torch.device("cuda")
+
+    logger = get_std_logging(os.path.join(config.path, "{}.log".format(config.save)))
+    config.logger = logger
+    config.print_params(logger.info)
+
+    writer = SummaryWriter(log_dir=os.path.join(config.path, "tb"))
+    writer.add_text('config', config.as_markdown(), 0)
     cudnn.benchmark = True
     main()

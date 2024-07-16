@@ -9,6 +9,7 @@ import csv
 import dataclasses
 import matplotlib.pyplot as plt
 import torch
+from tqdm import tqdm
 
 
 def accuracy(output, target, topk=(1,)):
@@ -97,3 +98,34 @@ class RecordDataclass:
 
   def _len(self):
     return  len(self.records[self.records.keys()[0]])
+
+def validate(valid_loader, model, criterion, device, print_freq=50, printer=print, model_description=""):
+    top1 = AverageMeter()
+    top5 = AverageMeter()
+    losses = AverageMeter()
+
+    model.eval()
+
+    with torch.no_grad():
+        for step, (X, y) in tqdm(enumerate(valid_loader)):
+            X, y = X.to(device, non_blocking=True), y.to(device, non_blocking=True)
+            N = X.size(0)
+
+            logits = model(X)
+            loss = criterion(logits, y)
+
+            prec1, prec5 = accuracy(logits, y, topk=(1,5))
+            # ================= record process ==================
+            losses.update(loss.item(), N)
+            top1.update(prec1.item(), N)
+            top5.update(prec5.item(), N)
+
+            if step % print_freq == 0 or step == len(valid_loader) - 1:
+                printer(
+                    "Test: Step {:03d}/{:03d} "
+                    "Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})".format(
+                        step, len(valid_loader) - 1, top1=top1, top5=top5))
+                
+    printer("Teacher=({}) achives Test Prec(@1, @5) = ({:.4%}, {:.4%})".format(model_description, top1.avg, top5.avg))
+
+    return top1.avg, top5.avg
