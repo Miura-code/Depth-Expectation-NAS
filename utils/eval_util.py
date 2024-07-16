@@ -86,6 +86,7 @@ class RecordDataclass:
     ax1.set_title("loss")
     ax1.legend()
     fig1.savefig(path + "/history_loss.png")
+    plt.close()
 
     fig2, ax2 = plt.subplots()
     for ty in self.acc_types:
@@ -93,7 +94,7 @@ class RecordDataclass:
     ax2.set_title("accuracy")
     ax2.legend()
     fig2.savefig(path + "/history_accuracy.png")
-
+    plt.close()
 
   def _len(self):
     return  len(self.records[self.records.keys()[0]])
