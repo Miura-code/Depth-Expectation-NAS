@@ -1,0 +1,36 @@
+07/16 05:47:00PM parser.py:28 [INFO] 
+07/16 05:47:00PM parser.py:29 [INFO] Parameters:
+07/16 05:47:00PM parser.py:31 [INFO] ADVANCED=True
+07/16 05:47:00PM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+07/16 05:47:00PM parser.py:31 [INFO] AMP_SYNC_BN=True
+07/16 05:47:00PM parser.py:31 [INFO] AUX_WEIGHT=0.4
+07/16 05:47:00PM parser.py:31 [INFO] BATCH_SIZE=96
+07/16 05:47:00PM parser.py:31 [INFO] CIFAR=True
+07/16 05:47:00PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+07/16 05:47:00PM parser.py:31 [INFO] DATA_PATH=../data/
+07/16 05:47:00PM parser.py:31 [INFO] DATASET=cifar100
+07/16 05:47:00PM parser.py:31 [INFO] DESCRIPTION=
+07/16 05:47:00PM parser.py:31 [INFO] GENOTYPE=None
+07/16 05:47:00PM parser.py:31 [INFO] GPUS=[0]
+07/16 05:47:00PM parser.py:31 [INFO] INIT_CHANNELS=32
+07/16 05:47:00PM parser.py:31 [INFO] LAYERS=20
+07/16 05:47:00PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+07/16 05:47:00PM parser.py:31 [INFO] MODEL_NAME=efficientnet_v2_m
+07/16 05:47:00PM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_m/FINETUNE2/pretrained-20240716-011701/test/test-20240716-174700
+07/16 05:47:00PM parser.py:31 [INFO] PRINT_FREQ=50
+07/16 05:47:00PM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_m/FINETUNE2/pretrained-20240716-011701/best.pth.tar
+07/16 05:47:00PM parser.py:31 [INFO] SAVE=test
+07/16 05:47:00PM parser.py:31 [INFO] SEED=0
+07/16 05:47:00PM parser.py:31 [INFO] TRAIN_PORTION=1.0
+07/16 05:47:00PM parser.py:31 [INFO] WORKERS=4
+07/16 05:47:00PM parser.py:32 [INFO] 
+07/16 05:47:00PM testTeacher_main.py:46 [INFO] Logger is set - test start
+07/16 05:47:02PM testTeacher_main.py:76 [INFO] --> Loaded checkpoint '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_m/FINETUNE2/pretrained-20240716-011701/best.pth.tar'
+07/16 05:47:02PM testTeacher_main.py:77 [INFO] param size = 52.986456MB
+07/16 05:47:02PM testTeacher_main.py:79 [INFO] param size = 52.99 MMB, mac = 120.64 MMac
+07/16 05:47:02PM testTeacher_main.py:117 [INFO] Test: Step 000/104 Prec@(1,5) (88.5%, 97.9%)
+07/16 05:47:06PM testTeacher_main.py:117 [INFO] Test: Step 050/104 Prec@(1,5) (89.1%, 98.5%)
+07/16 05:47:09PM testTeacher_main.py:117 [INFO] Test: Step 100/104 Prec@(1,5) (89.2%, 98.6%)
+07/16 05:47:10PM testTeacher_main.py:117 [INFO] Test: Step 104/104 Prec@(1,5) (89.2%, 98.6%)
+07/16 05:47:10PM testTeacher_main.py:88 [INFO] Test Prec(@1, @5) = (89.2400%, 98.6000%)
+07/16 05:47:10PM testTeacher_main.py:89 [INFO] Time to Test = (1721119622.2733161, 1721119630.0530207, 7.779704570770264)

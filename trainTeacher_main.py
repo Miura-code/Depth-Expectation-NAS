@@ -14,8 +14,7 @@ import torchvision.models
 from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
-from teacher_models.alert import Exception_pretrained_model
-import teacher_models.utils
+from teacher_models.utils import *
 import utils
 from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, RecordDataclass, accuracy
@@ -100,19 +99,20 @@ def run_task(config):
         print(e)
         sys.exit()
     try:
-        model = teacher_models.__dict__[config.model_name](num_classes = 1000 if config.pretrained else n_classes, 
-                                                           weights="DEFAULT" if config.pretrained else None, 
-                                                           cifar = False if config.pretrained else config.cifar)
+        model = teacher_models.__dict__[config.model_name](num_classes = 1000 if config.pretrained else n_classes, weights="DEFAULT" if config.pretrained else None)
     except (RuntimeError, KeyError) as e:
         logger.info("model loading error!: {}\n \
                     tring to load from torchvision.models".format(e))
         model = torchvision.models.__dict__[config.model_name](num_classes = 1000 if config.pretrained else n_classes, 
                                                                weights="DEFAULT" if config.pretrained else None)
 
-    # 最終層をつけかえ、最終層以外学習を止める
+    # 最終層をつけかえる
     if config.pretrained and config.cifar:
-        teacher_models.utils.replace_classifier_to_numClasses(model, n_classes)
+        replace_classifier_to_numClasses(model, n_classes)
         logger.info("model classifier is replaced to {}".format(model.classifier))
+    if (not config.advanced) and config.cifar:
+        replace_stem_for_cifar(config.model_name, model, printer=logger.info)
+    
     model = model.to(DEVICE)
     # teacher_models.utils.freeze_model(model)
     # logger.info("model parameters freezed excepting last classifier layer!")
@@ -123,13 +123,15 @@ def run_task(config):
     print("load model end!")
     # ================= build Optimizer (CosineAnnealingLR, MultiStepLR) ==================
     warmup_epoch = 0
-    params=[
-        {"params": model.features[:].parameters(), "lr": 0.001},
-        # {"params": model.features[4:].parameters(), "lr": 0.01},
-        {"params": model.classifier.parameters(), "lr": 0.01},
-    ]
-    optimizer = torch.optim.SGD(params, momentum=config.momentum, weight_decay=config.weight_decay)
-    # optimizer = torch.optim.SGD(model.parameters(), config.lr, momentum=config.momentum, weight_decay=config.weight_decay)
+    if config.pretrained:
+        params=[
+            {"params": model.features[:].parameters(), "lr": 0.001},
+            # {"params": model.features[4:].parameters(), "lr": 0.01},
+            {"params": model.classifier.parameters(), "lr": 0.01},
+        ]
+        optimizer = torch.optim.SGD(params, momentum=config.momentum, weight_decay=config.weight_decay)
+    else:
+        optimizer = torch.optim.SGD(model.parameters(), config.lr, momentum=config.momentum, weight_decay=config.weight_decay)
     
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, config.epochs, eta_min=config.lr_min)
     # milestone = [int(0.5*config.epochs), int(0.75*config.epochs)]
