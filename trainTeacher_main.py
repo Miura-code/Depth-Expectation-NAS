@@ -14,8 +14,7 @@ import torchvision.models
 from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
-from teacher_models.alert import Exception_pretrained_model
-import teacher_models.utils
+from teacher_models.utils import *
 import utils
 from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, RecordDataclass, accuracy
