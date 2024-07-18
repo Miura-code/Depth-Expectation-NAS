@@ -1,5 +1,5 @@
 from functools import partial
-from typing import Any, Callable, List, Optional, Type, Union
+from typing import Any, Callable, List, Optional, OrderedDict, Type, Union
 
 import torch
 import torch.nn as nn
@@ -202,6 +202,7 @@ class ResNet(nn.Module):
         self.layer2 = self._make_layer(block, 128, layers[1], stride=2, dilate=replace_stride_with_dilation[0])
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2, dilate=replace_stride_with_dilation[1])
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2, dilate=replace_stride_with_dilation[2])
+
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
@@ -265,6 +266,22 @@ class ResNet(nn.Module):
     
     def get_classifier(self):
         return self.fc
+    
+    def get_head(self):
+        return self.get_classifier()
+    
+    def get_features(self):
+        features = nn.Sequential(
+            OrderedDict(
+                [
+                    ("layer1", self.layer1),
+                    ("layer2", self.layer2),
+                    ("layer3", self.layer3),
+                    ("layer4", self.layer4),
+                ]
+            )
+        )
+        return features
         
 
     def _forward_impl(self, x: Tensor) -> Tensor:
