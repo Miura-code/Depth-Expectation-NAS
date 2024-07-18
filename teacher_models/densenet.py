@@ -221,6 +221,9 @@ class DenseNet(nn.Module):
     
     def get_head(self):
         return self.get_classifier()
+    
+    def get_features(self):
+        return self.features
 
     def forward(self, x: Tensor) -> Tensor:
         features = self.features(x)
