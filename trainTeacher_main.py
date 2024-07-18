@@ -110,6 +110,7 @@ def run_task(config):
     if config.pretrained and config.cifar:
         replace_classifier_to_numClasses(model, n_classes)
         logger.info("model classifier is replaced to {}".format(model.classifier))
+    # stem層を付け替える
     if (not config.advanced) and config.cifar:
         replace_stem_for_cifar(config.model_name, model, printer=logger.info)
     
@@ -124,11 +125,7 @@ def run_task(config):
     # ================= build Optimizer (CosineAnnealingLR, MultiStepLR) ==================
     warmup_epoch = 0
     if config.pretrained:
-        params=[
-            {"params": model.features[:].parameters(), "lr": 0.001},
-            # {"params": model.features[4:].parameters(), "lr": 0.01},
-            {"params": model.classifier.parameters(), "lr": 0.01},
-        ]
+        params=set_params_lr(model, lr=(0.001, 0.01))
         optimizer = torch.optim.SGD(params, momentum=config.momentum, weight_decay=config.weight_decay)
     else:
         optimizer = torch.optim.SGD(model.parameters(), config.lr, momentum=config.momentum, weight_decay=config.weight_decay)

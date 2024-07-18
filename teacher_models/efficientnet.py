@@ -352,6 +352,9 @@ class EfficientNet(nn.Module):
             )
         )
         return head
+    
+    def get_features(self):
+        return self.features
 
     def _forward_impl(self, x: Tensor) -> Tensor:
         x = self.features(x)
