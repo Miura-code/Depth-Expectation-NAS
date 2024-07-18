@@ -8,7 +8,10 @@ def replace_classifier_to_numClasses(model, num_classes):
     if not isinstance(classifier, nn.Sequential):
         if isinstance(classifier, nn.Linear):
             in_features = classifier.in_features
-            model.classifier = nn.Linear(in_features, num_classes)
+            if hasattr(model, "classifier"):
+                model.classifier = nn.Linear(in_features, num_classes)
+            else:
+                model.fc = nn.Linear(in_features, num_classes)
     else:
         for i, (name, module) in enumerate(classifier.named_modules()):
             if isinstance(module, nn.Linear):
