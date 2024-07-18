@@ -38,5 +38,14 @@ def replace_stem_for_cifar(model_name, model, printer=print):
         # replaced_stem = [model.features[0]]
 
         printer("{} can not be replaced for cifar dataset. So you should use advanced data transformer.".format(model_name))
+    elif "resnet" in model_name:
+        original_stem = [model.conv1, model.bn1, model.relu, model.maxpool]
+        out_channels = model.conv1.out_channels
+        model.conv1 = nn.Conv2d(3, out_channels, kernel_size=3, stride=1, padding=1, bias=False)
+        model.bn1 = nn.Identity()
+        model.relu = nn.Identity()
+        model.maxpool = nn.Identity()
+        replaced_stem = [model.conv1]
+        
 
     printer("model stem layer is replaced from {} to {}".format(original_stem, replaced_stem))

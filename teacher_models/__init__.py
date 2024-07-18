@@ -8,7 +8,7 @@ from .efficientnet import *
 # from .mnasnet import *
 # from .mobilenet import *
 # from .regnet import *
-# from .resnet import *
+from .resnet import *
 # from .shufflenetv2 import *
 # from .squeezenet import *
 # from .vgg import *
