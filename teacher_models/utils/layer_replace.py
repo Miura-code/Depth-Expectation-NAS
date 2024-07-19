@@ -3,7 +3,7 @@ import torch.nn as nn
 from torchvision.ops.misc import Conv2dNormActivation, SqueezeExcitation
 
 
-def replace_classifier_to_numClasses(model, num_classes):
+def replace_classifier_to_numClasses(model, num_classes, printer=print):
     classifier = model.get_classifier()
     if not isinstance(classifier, nn.Sequential):
         if isinstance(classifier, nn.Linear):
@@ -17,6 +17,8 @@ def replace_classifier_to_numClasses(model, num_classes):
             if isinstance(module, nn.Linear):
                 in_features = module.in_features
                 model.classifier[i-1] = nn.Linear(in_features, num_classes)
+
+    printer("model classifier is replaced to {}".format(model.get_classifier()))
 
 def replace_stem_for_cifar(model_name, model, printer=print):
     if "densenet" in model_name:
