@@ -109,11 +109,15 @@ def run_task(config):
     # 最終層をつけかえる
     if config.pretrained and config.cifar:
 <<<<<<< HEAD
+<<<<<<< HEAD
         replace_classifier_to_numClasses(model, n_classes, printer=logger.info)
 =======
         replace_classifier_to_numClasses(model, n_classes)
         logger.info("model classifier is replaced to {}".format(model.classifier))
 >>>>>>> 7937ce6 (add: optimizerに渡すparamsを作って返す関数を追加)
+=======
+        replace_classifier_to_numClasses(model, n_classes, printer=logger.info)
+>>>>>>> 3265457 (update: classifierの置き換え関数にprinter引数を追加)
     # stem層を付け替える
     if (not config.advanced) and config.cifar:
         replace_stem_for_cifar(config.model_name, model, printer=logger.info)
