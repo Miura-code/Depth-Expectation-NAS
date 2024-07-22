@@ -7,6 +7,7 @@ if [ ${type} = "train" ]; then
     teacher_model=$3
     teacher_path=$4
     save=$5
+    description=$6
     dataset=cifar100
     lambda=0.6
     T=3
@@ -25,7 +26,9 @@ if [ ${type} = "train" ]; then
         --epochs $epoch \
         --train_portion $train_portion \
         --seed $seed \
-        --save $save
+        --save $save \
+        --advanced \
+        --description $description
 elif [ ${type} = "test" ]; then
     # ===== モデルをテスト =====
     resume_path=$2
