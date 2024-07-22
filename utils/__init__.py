@@ -3,10 +3,14 @@ import random
 import torch
 import numpy as np
 import shutil
-from utils.preproc import Cutout
-import torchvision.datasets as dset
-import torchvision.transforms as transforms
+from utils import setting
 import torch.backends.cudnn as cudnn
+
+class SETTING():
+    def __init__(self):
+        for attr in dir(setting):
+            if attr.isupper():
+                setattr(self, attr, getattr(setting, attr))
 
 def set_seed_gpu(seed, gpus:list):
     random.seed(seed)

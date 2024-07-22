@@ -9,13 +9,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import torchvision.transforms as transforms
-import utils.setting as setting
-
-class SETTING():
-    def __init__(self):
-        for attr in dir(setting):
-            if attr.isupper():
-                setattr(self, attr, getattr(setting, attr))
+from utils import SETTING
 
 class Cutout(object):
     def __init__(self, length):
