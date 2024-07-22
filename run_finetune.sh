@@ -9,7 +9,7 @@ if [ ${type} = "train" ]; then
         description=$5
         dataset=cifar100
         cutout=16
-        epoch=100
+        epoch=50
         seed=0
         train_portion=0.9
         python trainTeacher_main.py \
@@ -22,10 +22,10 @@ if [ ${type} = "train" ]; then
             --save $save \
             --train_portion $train_portion \
             --lr 0.1 \
-            --lr_min 0.001 \
+            --lr_min 0.0001 \
             --description $description \
-            # --advanced \
-            # --pretrained
+            --advanced \
+            --pretrained
 elif [ ${type} = "test" ]; then
 # ===== モデルをテスト =====
         save=$2
