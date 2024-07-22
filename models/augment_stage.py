@@ -6,6 +6,7 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 import torch.nn as nn
+from models.get_cell import Get_StageSpecified_Cell
 from models.get_cell import GetCell
 from models.get_dag import GetStage
 from models import ops
@@ -38,7 +39,7 @@ class AuxiliaryHead(nn.Module):
 class AugmentStage(nn.Module):
     """" Augmented DAG-CNN model """
     def __init__(self, input_size, C_in, C, n_classes, n_layers, auxiliary, genotype,
-                 DAG, stem_multiplier=4):
+                 DAG, stem_multiplier=4, cell_multiplier=4, spec_cell=False):
         """
         Args:
             input_size: size of height and width (assuming height = width)
@@ -61,7 +62,7 @@ class AugmentStage(nn.Module):
             nn.Conv2d(C_in, C_cur, 3, 1, 1, bias=False),
             nn.BatchNorm2d(C_cur)
         )
-        C_pp, C_p, C_cur = C_cur, C_cur, C
+        C_pp, C_p, C_cur = cell_multiplier * C, cell_multiplier * C, C
 
         self.cells = nn.ModuleList()
 
@@ -71,50 +72,50 @@ class AugmentStage(nn.Module):
             # if i in [0,1,2,3,4,5]:
             if i in range(lenDAG1):
                 reduction = False
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) # out 144=4*C
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 # cell = GetCell(genotype, 4 * C, 4 * C, C, reduction) # out 144=4*C
                 # 144 144 36  out=144  DAG_out=144*2=288
                 self.cells.append(cell)
             # if i in [6]:
             if i in [lenDAG1]:
-                self.bigDAG1 = GetStage(DAG, self.cells, 0, lenDAG1 - 1, C_pp, C_p, 4 * C_cur)
+                self.bigDAG1 = GetStage(DAG, self.cells, 0, lenDAG1 - 1, stem_multiplier*C_cur, stem_multiplier*C_cur, cell_multiplier * C_cur)
 
                 reduction = True
-                C_pp = C_p = 2*cell.multiplier*C_cur
+                C_pp = C_p = 2*cell_multiplier*C_cur
                 C_cur *= 2
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) # out 72*4=288
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 # cell = GetCell(genotype, 8 * C, 8 * C, 2 * C, reduction) # out 72*4=288
                 # 288, 288, 72 out=288=4*72
                 self.cells.append(cell)
             # if i in [7,8,9,10,11,12]:
             if i in range(lenDAG1 + 1, lenDAG1 + 1 + lenDAG2):
                 reduction = False
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) # out 288
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 # cell = GetCell(genotype, 8 * C, 8 * C, 2 * C, reduction) # out 288
                 # 288, 288, 72, out=72*4=288  DAG_out=288*2=576
                 self.cells.append(cell)
             # if i in [13]:
             if i in [lenDAG1 + 1 + lenDAG2]:
-                self.bigDAG2 = GetStage(DAG, self.cells, lenDAG1 + 1, lenDAG1 + lenDAG2, C_pp, C_p, 4 * C_cur)
+                self.bigDAG2 = GetStage(DAG, self.cells, lenDAG1 + 1, lenDAG1 + lenDAG2, C_pp, C_p, cell_multiplier * C_cur)
 
                 reduction = True
-                C_pp = C_p = 2*cell.multiplier*C_cur
+                C_pp = C_p = 2*cell_multiplier*C_cur
                 C_cur *= 2
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) # out 144*4=576
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 # cell = GetCell(genotype, 16 * C, 16 * C, 4 * C, reduction) # out 144*4=576
                 self.cells.append(cell)
             # if i in [14,15,16,17,18,19]:
             if i in range(lenDAG1 + 2 + lenDAG2, lenDAG1 + 2 + lenDAG2 + lenDAG3):
                 reduction = False
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) # out 144*4=576
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 # cell = GetCell(genotype, 16 * C, 16 * C, 4 * C, reduction) # out 144*4=576
                 self.cells.append(cell)  # DAG_out=576*2=1152
 
-            C_pp, C_p = cell.multiplier*C_cur, cell.multiplier*C_cur
+            C_pp, C_p = cell_multiplier*C_cur, cell_multiplier*C_cur
         
         # self.bigDAG1 = GetStage(DAG, self.cells, 0, lenDAG1 - 1, 4 * C, 4 * C, 4 * C)
         # self.bigDAG2 = GetStage(DAG, self.cells, lenDAG1 + 1, lenDAG1 + lenDAG2, 8 * C, 8 * C, 8 * C)
-        self.bigDAG3 = GetStage(DAG, self.cells, lenDAG1 + 2 + lenDAG2, lenDAG1 + 1 + lenDAG2 + lenDAG3, C_pp, C_p, 4 * C_cur)
+        self.bigDAG3 = GetStage(DAG, self.cells, lenDAG1 + 2 + lenDAG2, lenDAG1 + 1 + lenDAG2 + lenDAG3, C_pp, C_p, cell_multiplier * C_cur)
 
         self.aux_head = AuxiliaryHead(input_size // 4, 16 * C, n_classes)
 

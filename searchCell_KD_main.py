@@ -10,7 +10,7 @@ H^c-DAS
 search specific cells of different stages.
 '''
 import os
-from config.searchCell_config import SearchCellConfig
+from config import *
 from genotypes.genotypes import save_DAG
 from trainer.searchCell_trainer import SearchCellTrainer_WithSimpleKD
 import utils

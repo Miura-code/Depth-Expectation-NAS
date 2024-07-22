@@ -6,8 +6,7 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 """ CNN DAG for architecture search """
-from models.get_cell import GetCell
-from models.augment_cell import AugmentCell
+from models.get_cell import GetCell, Get_StageSpecified_Cell
 import os
 import torch
 import logging
@@ -31,7 +30,7 @@ class SearchStage(nn.Module):
     DAG for search
     Each edge is mixed and continuous relaxed
     """
-    def __init__(self, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier, spec_cell=False):
+    def __init__(self, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=4, cell_multiplier=4, spec_cell=False):
         """
         C_in: # of input channels
         C: # of starting model channels
@@ -53,46 +52,46 @@ class SearchStage(nn.Module):
             nn.Conv2d(C_in, C_cur, 3, 1, 1, bias=False),
             nn.BatchNorm2d(C_cur)
         )
-        C_pp, C_p, C_cur = C_cur, C_cur, C
+        C_pp, C_p, C_cur = cell_multiplier * C, cell_multiplier * C, C
 
         self.cells = nn.ModuleList()
 
         for i in range(n_layers):
             if i in range(n_layers // 3):
                 reduction = False
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else AugmentCell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 self.cells.append(cell)
             if i in [n_layers // 3]:
-                self.bigDAG1 = SearchBigDAG(n_big_nodes, self.cells, 0, n_layers // 3, 4 * C_cur)
+                self.bigDAG1 = SearchBigDAG(n_big_nodes, self.cells, 0, n_layers // 3, stem_multiplier*C_cur, stem_multiplier*C_cur, cell_multiplier * C_cur)
 
                 reduction = True
                 C_pp = C_p = 2*cell.multiplier*C_cur
                 C_cur *= 2
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else AugmentCell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 self.cells.append(cell)
             if i in range(n_layers // 3 + 1, 2 * n_layers // 3):
                 reduction = False
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else AugmentCell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 self.cells.append(cell)
             if i in [2 * n_layers // 3]:
-                self.bigDAG2 = SearchBigDAG(n_big_nodes, self.cells, n_layers // 3 + 1, 2 * n_layers // 3, 4 * C_cur)
+                self.bigDAG2 = SearchBigDAG(n_big_nodes, self.cells, n_layers // 3 + 1, 2 * n_layers // 3, C_pp, C_p, cell_multiplier * C_cur)
 
                 reduction = True
                 C_pp = C_p = 2*cell.multiplier*C_cur
                 C_cur *= 2
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else AugmentCell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 self.cells.append(cell)
             if i in range(2 * n_layers // 3 + 1, n_layers):
                 reduction = False
-                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else AugmentCell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
                 self.cells.append(cell)
 
-            C_pp, C_p = cell.multiplier*C_cur, cell.multiplier*C_cur
+            C_pp, C_p = cell_multiplier*C_cur, cell_multiplier*C_cur
 
 
         # self.bigDAG1 = SearchBigDAG(n_big_nodes, self.cells, 0, n_layers // 3, 4 * C)
         # self.bigDAG2 = SearchBigDAG(n_big_nodes, self.cells, n_layers // 3 + 1, 2 * n_layers // 3, 8 * C)
-        self.bigDAG3 = SearchBigDAG(n_big_nodes, self.cells, 2 * n_layers // 3 + 1, n_layers, 4 * C_cur)
+        self.bigDAG3 = SearchBigDAG(n_big_nodes, self.cells, 2 * n_layers // 3 + 1, n_layers, C_pp, C_p, cell_multiplier * C_cur)
 
         self.gap = nn.AdaptiveAvgPool2d(1)
         self.linear = nn.Linear(32 * C, n_classes)
@@ -112,7 +111,7 @@ class SearchStage(nn.Module):
 
 class SearchStageController(nn.Module):
     """ SearchDAG controller supporting multi-gpu """
-    def __init__(self, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False):
+    def __init__(self, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=3, device_ids=None, spec_cell=False):
         super().__init__()
         self.n_big_nodes = n_layers // 3
         self.criterion = criterion
@@ -141,8 +140,7 @@ class SearchStageController(nn.Module):
         for n, p in self.named_parameters():
             if 'alpha' in n:
                 self._alphas.append((n, p))
-        
-        self.net = SearchStage(C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier, spec_cell)
+        self.net = SearchStage(C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell)
     
     def forward(self, x):
         weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]

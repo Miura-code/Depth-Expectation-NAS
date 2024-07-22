@@ -107,7 +107,7 @@ class SearchCellCNN(nn.Module):
 
 
 class SearchCellController(nn.Module):
-    def __init__(self, C_in, C, n_classes, n_layers, criterion, n_nodes=4, stem_multiplier=3, device_ids=None):
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, n_nodes=4, stem_multiplier=4, device_ids=None):
         super().__init__()
         self.n_nodes = n_nodes
         self.criterion = criterion
@@ -132,7 +132,7 @@ class SearchCellController(nn.Module):
             if 'alpha' in n:
                 self._alphas.append((n, p))
         
-        self.net = SearchCellCNN(C_in, C, n_classes, n_layers, n_nodes, stem_multiplier)
+        self.net = SearchCellCNN(input_size, C_in, C, n_classes, n_layers, n_nodes, stem_multiplier)
     
     def forward(self, x):
         weights_normal = [F.softmax(alpha, dim=-1) for alpha in self.alpha_normal]

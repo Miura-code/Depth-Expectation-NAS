@@ -37,6 +37,6 @@ def replace_stem_for_cifar(model_name, model, printer=print):
         #     )
         # replaced_stem = [model.features[0]]
 
-        printer("{} can not be replaced for cifar dataset. So you should use advanced data transformer.".format(model_name))
+        printer("{} can not be replaced for cifar(32,32) dataset. So you should use advanced data transformer.".format(model_name))
 
     printer("model stem layer is replaced from {} to {}".format(original_stem, replaced_stem))
