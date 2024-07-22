@@ -16,7 +16,7 @@ import torchvision
 from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
-from testTeacher_main import validate
+from utils.eval_util import validate
 from timm_.loss.distillation_losses import KD_Loss, SoftTargetKLLoss
 import utils
 from utils.data_util import get_data, split_dataloader
