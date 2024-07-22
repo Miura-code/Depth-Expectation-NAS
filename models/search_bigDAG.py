@@ -11,11 +11,11 @@ from models import ops
 
 
 class SearchBigDAG(nn.Module):
-    def __init__(self, n_big_nodes, cells, start_p, end_p, C):
+    def __init__(self, n_big_nodes, cells, start_p, end_p, C_pp, C_p, C):
         super().__init__()
         self.n_big_nodes = n_big_nodes
-        self.preproc0 = ops.StdConv(C, C, 1, 1, 0, affine=False)
-        self.preproc1 = ops.StdConv(C, C, 1, 1, 0, affine=False)
+        self.preproc0 = ops.StdConv(C_pp, C, 1, 1, 0, affine=False)
+        self.preproc1 = ops.StdConv(C_p, C, 1, 1, 0, affine=False)
 
         self.DAG = nn.ModuleList()
         for i in range(self.n_big_nodes):
