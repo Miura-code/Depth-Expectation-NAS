@@ -7,7 +7,8 @@ if [ ${type} = "train" ]; then
     teacher_model=$3
     teacher_path=$4
     genotype=$5
-    save=$5
+    save=$6
+    description=$7
     dataset=cifar100
     lambda=0.6
     T=3
@@ -28,7 +29,9 @@ if [ ${type} = "train" ]; then
         --train_portion $train_portion \
         --seed $seed \
         --save $save \
-        # --nonkd
+        --description $description \
+        --advanced \
+        --nonkd
 elif [ ${type} = "test" ]; then
     ## セルレベル構造のテスト
     genotype=$2
