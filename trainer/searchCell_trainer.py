@@ -79,7 +79,6 @@ class SearchCellTrainer_WithSimpleKD():
         if not self.config.nonkd:
             teacher_model = self.load_teacher(n_classes)
             self.teacher_model = teacher_model.to(self.device)
-
             validate(self.valid_loader, 
                     self.teacher_model,
                     self.hard_criterion, 
@@ -90,14 +89,6 @@ class SearchCellTrainer_WithSimpleKD():
             showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)
         else:
             self.teacher_model = None
-
-        validate(self.valid_loader, 
-                self.teacher_model,
-                self.hard_criterion, 
-                self.device, 
-                print_freq=100000,
-                printer=self.logger.info, 
-                model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
 
         showModelOnTensorboard(self.writer, self.model, self.train_loader)
         print("init model end!")
