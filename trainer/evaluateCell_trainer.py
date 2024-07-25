@@ -61,7 +61,7 @@ class EvaluateCellTrainer():
     def construct_model(self):
         # ================= define data loader ==================
         input_size, input_channels, n_classes, train_data, valid_data = get_data(
-            self.config.dataset, self.config.data_path, self.config.cutout_length, validation=True
+            self.config.dataset, self.config.data_path, self.config.cutout_length, validation=True, advanced=self.config.advanced
         )
 
         # datasetを任意の割合で分割する

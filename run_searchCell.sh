@@ -28,7 +28,9 @@ if [ ${type} = "train" ]; then
         --seed $seed \
         --save $save \
         --advanced \
-        --description $description
+        --description $description\
+        --nonkd \
+        --pcdarts
 elif [ ${type} = "test" ]; then
     # ===== モデルをテスト =====
     resume_path=$2
