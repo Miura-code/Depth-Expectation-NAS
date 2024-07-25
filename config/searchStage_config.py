@@ -22,6 +22,8 @@ class SearchStageConfig(BaseConfig):
         parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
         parser.add_argument('--batch_size', type=int, default=64, help='batch size')
         parser.add_argument('--train_portion', type=float, default=0.5, help='portion of training data')
+        parser.add_argument('--cutout_length', type=int, default=0, help='cutout length')
+        parser.add_argument('--advanced', action='store_true', help='advanced data transform. apply resize (224,224)')
         # ================= optimizer settings ==================
         parser.add_argument('--w_lr', type=float, default=0.025, help='lr for weights')
         parser.add_argument('--w_lr_min', type=float, default=0.001, help='minimum lr for weights')
@@ -35,8 +37,11 @@ class SearchStageConfig(BaseConfig):
                             help='weight decay for alpha')
         # ================= training settings ==================
         parser.add_argument('--epochs', type=int, default=50, help='# of training epochs')
+        parser.add_argument('--T', type=float, default=10, help='temperature of softmax with temperature')
+        parser.add_argument('--l', type=float, default=0.5, help='ratio between soft target loss and hard target loss')
         parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
         parser.add_argument('--seed', type=int, default=2, help='random seed')
+        parser.add_argument('--nonkd', action='store_true', help='execute KD learning')
         # ================= model settings ==================
         parser.add_argument('--init_channels', type=int, default=16)
         parser.add_argument('--share_stage', action='store_true', help='Search shared stage architecture at each stage')
@@ -45,6 +50,9 @@ class SearchStageConfig(BaseConfig):
         parser.add_argument('--genotype', required=True, help='Cell genotype')
         parser.add_argument('--resume_path', type=str, default=None)
         parser.add_argument('--checkpoint_reset', action='store_true', help='reset resumed model to be as epoch 0')
+        parser.add_argument('--teacher_name', type=str, default='densenet121', help='teacher model name')
+        parser.add_argument('--teacher_path', type=str, default=None)
+        parser.add_argument('--pcdarts', action='store_true', help='set PCDARTS model')
         # ================= details ==================
         parser.add_argument('--description', type=str, default='', help='experiment details')
         # ================= others ==================
@@ -63,11 +71,14 @@ class SearchStageConfig(BaseConfig):
         self.genotype = gt.from_str(self.genotype)
         self.gpus = parse_gpus(self.gpus)
         
-        self.path = os.path.join(f'results/search_Stage/{self.dataset}/', self.name)
+        self.path = os.path.join(f'results/search_stage_KD/{self.dataset}/', self.name)
         self.exp_name = '{}-{}'.format(args.save, time.strftime("%Y%m%d-%H%M%S"))
         self.path = os.path.join(self.path, self.exp_name)
-        # utils.create_exp_dir(args.save, scripts_to_save=None)
         self.DAG_path = os.path.join(self.path, 'DAG')
+        self.plot_path = os.path.join(self.path, 'plots')
+
+        utils.utils.create_exp_dir(self.DAG_path)
+        utils.utils.create_exp_dir(self.plot_path)
 
 
 class SearchDistributionConfig(BaseConfig):
