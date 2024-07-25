@@ -76,19 +76,22 @@ class SearchCellTrainer_WithSimpleKD():
         model = SearchCellController(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, device_ids=self.config.gpus)
         self.model = model.to(self.device)
         # ================= Teacher Model ==================
-        teacher_model = self.load_teacher(n_classes)
-        self.teacher_model = teacher_model.to(self.device)
+        if not self.config.nonkd:
+            teacher_model = self.load_teacher(n_classes)
+            self.teacher_model = teacher_model.to(self.device)
 
-        validate(self.valid_loader, 
-                self.teacher_model,
-                self.hard_criterion, 
-                self.device, 
-                print_freq=100000,
-                printer=self.logger.info, 
-                model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
+            validate(self.valid_loader, 
+                    self.teacher_model,
+                    self.hard_criterion, 
+                    self.device, 
+                    print_freq=100000,
+                    printer=self.logger.info, 
+                    model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
+            showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)
+        else:
+            self.teacher_model = None
 
         showModelOnTensorboard(self.writer, self.model, self.train_loader)
-        showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)
         print("init model end!")
 
         # ================= build Optimizer ==================
@@ -161,7 +164,8 @@ class SearchCellTrainer_WithSimpleKD():
 
         self.model.print_alphas(self.logger)
         self.model.train()
-        self.teacher_model.train()
+        if not self.config.nonkd:
+            self.teacher_model.train()
 
         prefetcher_trn = data_prefetcher(self.train_loader)
         prefetcher_val = data_prefetcher(self.valid_loader)
@@ -175,25 +179,26 @@ class SearchCellTrainer_WithSimpleKD():
 
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
-            
-            # === KD for optimizing architecture params ===
-            # arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
-            # === (Not KD for optimizing architecture params) ===
-            arch_hard_loss = arch_soft_loss = torch.tensor([0])
-            arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            if self.config.nonkd:
+                # === (Not KD for optimizing architecture params) ===
+                arch_hard_loss = arch_soft_loss = torch.tensor([0])
+                arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            else:
+                # === KD for optimizing architecture params ===
+                arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
 
             self.alpha_optim.step()
 
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
             logits = self.model(trn_X)
-
-            # === KD for optimizing network params ===
-            teacher_guide = self.teacher_model(trn_X)
-            hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
-            # === (Not KD for optimizing network params) ===
-            # hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
-
+            if self.config.nonkd:
+                # === (Not KD for optimizing network params) ===
+                hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
+            else:
+                # === KD for optimizing network params ===
+                teacher_guide = self.teacher_model(trn_X)
+                hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
             loss.backward()
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
             self.w_optim.step()

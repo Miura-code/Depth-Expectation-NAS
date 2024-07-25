@@ -43,6 +43,7 @@ class SearchCellConfig(BaseConfig):
         parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
         parser.add_argument('--gpus', default='0', help='gpu device ids separated by comma. '
                             '`all` indicates use all gpus.')
+        parser.add_argument('--nonkd', action='store_true', help='execute KD learning')
         # ================= model settings ==================
         parser.add_argument('--init_channels', type=int, default=16)
         parser.add_argument('--layers', type=int, default=8, help='# of layers')
