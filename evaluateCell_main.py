@@ -19,7 +19,6 @@ from trainer.evaluateCell_trainer import EvaluateCellTrainer
 import utils
 from utils.eval_util import RecordDataclass
 from utils.logging_util import get_std_logging
-from utils.visualize import plot, plot2, png2gif
 
 LOSS_TYPES = ["training_loss", "validation_loss"]
 LOSS_TYPES_KD = ["training_hard_loss", "training_soft_loss", "training_loss", "validation_loss"]
