@@ -14,7 +14,6 @@ if [ ${arch} = "cell" ]; then
         dataset=cifar100
         lambda=0.4
         T=3
-<<<<<<< HEAD
         batch_size=64
         epoch=100
         train_portion=0.9
@@ -65,83 +64,7 @@ elif [ ${arch} = "stage" ]; then
         dataset=cifar100
         lambda=0.4
         T=3
-=======
 
->>>>>>> cell_kd
-        batch_size=64
-        epoch=100
-        train_portion=0.9
-        seed=0
-<<<<<<< HEAD
-        python evaluateStage_main.py \
-            --name $name \
-            --genotype $genotype \
-            --DAG $dag \
-=======
-        python evaluateCell_main.py \
-            --name $name \
-            --genotype $genotype \
->>>>>>> cell_kd
-            --teacher_name $teacher_model\
-            --teacher_path $teacher_path \
-            --l $lambda\
-            --T $T \
-            --dataset $dataset\
-            --batch_size $batch_size \
-            --epochs $epoch \
-            --train_portion $train_portion \
-            --seed $seed \
-            --save $save \
-            --description $description \
-<<<<<<< HEAD
-            --spec_cell \
-            --advanced \
-            --nonkd
-    elif [ ${type} = "test" ]; then
-        ## セルレベル構造のテスト
-        genotype=$3
-        dag=$4
-        path=$5
-=======
-            --advanced
-            # --nonkd
-    elif [ ${type} = "test" ]; then
-        ## セルレベル構造のテスト
-        genotype=$3
-        path=$4
->>>>>>> cell_kd
-        seed=0
-
-        python testModel_main.py \
-            --save test \
-            --dataset cifar100 \
-            --batch_size 128 \
-            --genotype $genotype \
-<<<<<<< HEAD
-=======
-            --seed $seed \
-            --resume_path $path \
-            --advanced
-    else
-        echo "Invalid arguments"
-    fi
-elif [ ${arch} = "stage" ]; then
-    if [ ${type} = "train" ]; then
-        # ===== セルレベルアーキテクチャを評価　=====
-        name=$3
-        teacher_model=$4
-        teacher_path=$5
-        genotype=$6
-        dag=$7
-        save=$8
-        description=$9
-        dataset=cifar100
-        lambda=0.4
-        T=3
-        batch_size=64
-        epoch=100
-        train_portion=0.9
-        seed=0
         python evaluateStage_main.py \
             --name $name \
             --genotype $genotype \
@@ -172,7 +95,6 @@ elif [ ${arch} = "stage" ]; then
             --dataset cifar100 \
             --batch_size 128 \
             --genotype $genotype \
->>>>>>> cell_kd
             --DAG $dag \
             --seed $seed \
             --resume_path $path \
@@ -182,8 +104,4 @@ elif [ ${arch} = "stage" ]; then
     else
         echo ""
     fi
-<<<<<<< HEAD
 fi
-=======
-fi
->>>>>>> cell_kd
