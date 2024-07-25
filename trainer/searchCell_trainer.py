@@ -90,14 +90,6 @@ class SearchCellTrainer_WithSimpleKD():
         else:
             self.teacher_model = None
 
-        validate(self.valid_loader, 
-                self.teacher_model,
-                self.hard_criterion, 
-                self.device, 
-                print_freq=100000,
-                printer=self.logger.info, 
-                model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
-
         showModelOnTensorboard(self.writer, self.model, self.train_loader)
         print("init model end!")
 
