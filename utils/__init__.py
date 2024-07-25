@@ -29,8 +29,9 @@ def set_seed_gpu(seed, gpus:list):
     
 
 def create_exp_dir(path, scripts_to_save=None):
-  if not os.path.exists(path):
-    os.makedirs(path)
+  if not os.path.isdir((path)):
+        os.makedirs((path))
+        print("make dirs")
 
   if scripts_to_save is not None:
     os.mkdir(os.path.join(path, 'scripts'))
