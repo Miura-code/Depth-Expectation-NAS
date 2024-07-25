@@ -24,7 +24,7 @@ from utils.eval_util import AverageMeter, accuracy
 from models.architect import Architect
 from utils.data_prefetcher import data_prefetcher
 from utils.file_management import load_teacher_checkpoint_state
-from models.search_cellcnn import SearchCellController
+from models.search_cellcnn import SearchCellController, SearchCellController_PartiallyConntected
 
 from utils.visualize import showModelOnTensorboard
 
@@ -37,6 +37,7 @@ class SearchCellTrainer_WithSimpleKD():
         self.save_epoch = 1
         self.ckpt_path = self.config.path
         self.device = utils.set_seed_gpu(config.seed, config.gpus)
+        self.Controller = SearchCellController if not self.config.pcdarts else SearchCellController_PartiallyConntected
 
         """get the train parameters"""
         self.total_epochs = self.config.epochs
@@ -73,7 +74,7 @@ class SearchCellTrainer_WithSimpleKD():
         self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
         self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
         # ================= Student model ==================
-        model = SearchCellController(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, device_ids=self.config.gpus)
+        model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, device_ids=self.config.gpus)
         self.model = model.to(self.device)
         # ================= Teacher Model ==================
         if not self.config.nonkd:

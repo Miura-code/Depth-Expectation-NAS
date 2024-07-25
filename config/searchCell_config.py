@@ -51,6 +51,7 @@ class SearchCellConfig(BaseConfig):
         parser.add_argument('--teacher_name', type=str, default='densenet121', help='teacher model name')
         parser.add_argument('--teacher_path', type=str, default=None)
         parser.add_argument('--resume_path', type=str, default=None)
+        parser.add_argument('--pcdarts', action='store_true', help='set PCDARTS model')
         # ================= details ==================
         parser.add_argument('--description', type=str, default='', help='experiment details')
 

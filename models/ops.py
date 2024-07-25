@@ -222,3 +222,47 @@ class MixedOp2(nn.Module):
             weights: weight for each operation
         """
         return sum(w * op(x) for w, op in zip(weights, self._ops))
+    
+class MixedOpPC(nn.Module):
+    def __init__(self, C, stride):
+        super(MixedOpPC, self).__init__()
+        self._ops = nn.ModuleList()
+        self.mp = nn.MaxPool2d(2,2)
+        self.k = 4
+        for primitive in gt.PRIMITIVES:
+            op = OPS[primitive](C // self.k, stride, affine=False)
+            self._ops.append(op)
+
+
+    def forward(self, x, weights):
+        #channel proportion k=4
+        dim_2 = x.shape[1]
+        xtemp = x[ : , :  dim_2//self.k, :, :]
+        xtemp2 = x[ : ,  dim_2//self.k:, :, :]
+        
+        temp1 = sum(w * op(xtemp) for w, op in zip(weights, self._ops))
+        if temp1.shape[2] == x.shape[2]:
+            ans = torch.cat([temp1,xtemp2],dim=1)
+        else:
+            ans = torch.cat([temp1,self.mp(xtemp2)], dim=1)
+        
+        ans = channel_shuffle(ans, self.k)
+        #ans = torch.cat([ans[ : ,  dim_2//4:, :, :],ans[ : , :  dim_2//4, :, :]],dim=1)
+        #except channe shuffle, channel shift also works
+        return ans
+    
+def channel_shuffle(x, groups):
+    batchsize, num_channels, height, width = x.data.size()
+
+    channels_per_group = num_channels // groups
+    
+    # reshape
+    x = x.view(batchsize, groups, 
+        channels_per_group, height, width)
+
+    x = torch.transpose(x, 1, 2).contiguous()
+
+    # flatten
+    x = x.view(batchsize, -1, height, width)
+
+    return x
