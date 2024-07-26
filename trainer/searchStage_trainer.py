@@ -290,7 +290,7 @@ class SearchStageTrainer_WithSimpleKD():
                 i += 1
 
                 logits = self.model(X)
-                loss = self.criterion(logits, y)
+                loss = self.hard_criterion(logits, y)
 
                 prec1, prec5 = accuracy(logits, y, topk=(1, 5))
                 losses.update(loss.item(), N)

@@ -124,6 +124,50 @@ def parse(alpha, k):
 
     return gene
 
+def parse_edgeNormalization(alpha, beta, k):
+    """
+    parse continuous alpha to discrete gene.
+    alpha is ParameterList:
+    ParameterList [
+        Parameter(n_edges1, n_ops),
+        Parameter(n_edges2, n_ops),
+        ...
+    ]
+
+    gene is list:
+    [
+        [('node1_ops_1', node_idx), ..., ('node1_ops_k', node_idx)],
+        [('node2_ops_1', node_idx), ..., ('node2_ops_k', node_idx)],
+        ...
+    ]
+    each node has two edges (k=2) in CNN.
+    """
+
+    gene = []
+    assert PRIMITIVES2[-1] == 'none' # assume last PRIMITIVE is 'none'
+
+    # 1) Convert the mixed op to discrete edge (single op) by choosing top-1 weight edge
+    # 2) Choose top-k edges per node by edge score (top-1 weight in edge)
+    for i, (edges, b_edges) in enumerate(alpha, beta):
+        # edges: Tensor(n_edges, n_ops)
+        W = torch.ones_like(edges)
+        for j in range(edges.shape[0]):
+            W[j,:] = edges[j,:] * b_edges[j]
+        edge_max, primitive_indices = torch.topk(W[:, :-1], 1)
+        topk_edge_values, topk_edge_indices = torch.topk(edge_max.view(-1), k)
+        node_gene = []
+        for edge_idx in topk_edge_indices:
+            prim_idx = primitive_indices[edge_idx]
+            prim = PRIMITIVES2[prim_idx]
+            if i < 1:
+                node_gene.append((prim, edge_idx.item()))
+            else:
+                node_gene.append((prim, edge_idx.item() + (i - 1)))
+
+        gene.append(node_gene)
+
+    return gene
+
 
 def parse_c(alpha, k):
     """
