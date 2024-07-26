@@ -30,8 +30,7 @@ if [ ${type} = "train" ]; then
         --seed $seed \
         --save $save \
         --description $description \
-        --advanced \
-        --nonkd
+        --advanced
 elif [ ${type} = "test" ]; then
     ## セルレベル構造のテスト
     genotype=$2
