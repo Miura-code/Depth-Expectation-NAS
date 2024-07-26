@@ -25,9 +25,9 @@ from utils.data_prefetcher import data_prefetcher
 from models.search_stage import SearchShareStageController
 from models.architect import Architect
 
-from trainer.searchStage_trainer import SearchStageTrainer, SearchStageController
+from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 
-class SearchShareStageTrainer(SearchStageTrainer):
+class SearchShareStageTrainer(SearchStageTrainer_WithSimpleKD):
     def __init__(self, config) -> None:
         super().__init__(config)
 

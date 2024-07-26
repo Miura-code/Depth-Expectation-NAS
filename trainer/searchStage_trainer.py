@@ -73,7 +73,7 @@ class SearchStageTrainer_WithSimpleKD():
         self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
         self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
         # ================= Student model ==================
-        model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, device_ids=self.config.gpus)
+        model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell)
         self.model = model.to(self.device)
         # ================= Teacher Model ==================
         if not self.config.nonkd:
@@ -122,7 +122,7 @@ class SearchStageTrainer_WithSimpleKD():
         
         return model
     def resume_model(self, reset=False, model_path=None):
-        print(f"{self.checkpoint_reset}")
+        print(f"{self.config.checkpoint_reset}")
         if model_path is None and not self.resume_path:
             self.start_epoch = 0
             self.logger.info("--> No loaded checkpoint!")
