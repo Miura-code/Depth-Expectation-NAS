@@ -88,15 +88,17 @@ elif [ ${arch} = "stage" ]; then
             --nonkd
     elif [ ${type} = "test" ]; then
         ## セルレベル構造のテスト
-        genotype=$2
-        path=$3
+        genotype=$3
+        dag=$4
+        path=$5
         seed=0
 
-        python testCell_main.py \
+        python testModel_main.py \
             --save test \
             --dataset cifar100 \
             --batch_size 128 \
             --genotype $genotype \
+            --DAG $dag \
             --seed $seed \
             --resume_path $path \
             --advanced
