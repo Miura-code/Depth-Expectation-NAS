@@ -68,7 +68,7 @@ class EvaluateStageTrainer_WithSimpleKD():
         self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
         self.use_aux = self.config.aux_weight > 0.
         # ================= Student model ==================
-        model = AugmentStage(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.use_aux, self.config.genotype)
+        model = AugmentStage(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.use_aux, self.config.genotype, self.config.DAG, spec_cell=self.config.spec_cell)
         self.model = model.to(self.device)
         # ================= Teacher Model ==================
         teacher_model = self.load_teacher(n_classes)

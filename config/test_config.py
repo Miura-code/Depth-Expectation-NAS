@@ -27,11 +27,13 @@ class TestConfig(BaseConfig):
         # ================= model settings ==================
         parser.add_argument('--model_name', type=str, default=None, help='teacher model name for testing finetuned teacher')
         parser.add_argument('--genotype', type=str, default=None, help='Cell genotype for testing searched cell architecture')
+        parser.add_argument('--DAG', type=str, default=None, help='DAG genotype')
         parser.add_argument('--resume_path', type=str, default=None)
         parser.add_argument('--init_channels', type=int, default=32)
         parser.add_argument('--layers', type=int, default=20, help='# of layers')
         parser.add_argument('--aux_weight', type=float, default=0.4, help='auxiliary loss weight for testing searched cell architecture')
         # ================= test settings ==================
+        parser.add_argument('--stage', action='store_true', help='test stage level architecture')
         parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
         # ================= description ==================
         parser.add_argument('--description', type=str, default='', help='experiment details')
@@ -57,6 +59,8 @@ class TestConfig(BaseConfig):
 
         if self.genotype is not None:
             self.genotype = gt.from_str(self.genotype)
+        if self.DAG is not None:
+            self.DAH = gt.from_str(self.DAG)
 
         self.gpus = parse_gpus(self.gpus)
         self.amp_sync_bn = True

@@ -10,6 +10,7 @@ import os
 import torch
 import torch.nn as nn
 import numpy as np
+from config.test_config import TestConfig
 import utils
 import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
@@ -20,11 +21,10 @@ from utils.logging_util import get_std_logging
 from utils.eval_util import AverageMeter, accuracy
 from utils.measurement_utils import TimeKeeper
 from models.augment_stage import AugmentStage
-from config.testStage_config import TestStageConfig
 import utils.measurement_utils
 
 
-config = TestStageConfig()
+config = TestConfig()
 
 device = torch.device("cuda")
 

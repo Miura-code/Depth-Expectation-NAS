@@ -11,6 +11,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from models.augment_cellcnn import AugmentCellCNN
+from models.augment_stage import AugmentStage
 import utils
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm
@@ -60,7 +61,10 @@ def main():
 
     # ================= load model from timm ==================
     use_aux = config.aux_weight > 0.
-    model = AugmentCellCNN(input_size, input_channels, config.init_channels, n_classes, config.layers, use_aux, config.genotype).to(device)
+    if config.stage:
+        model = AugmentStage(input_size, input_channels, config.init_channels, n_classes, config.layers, use_aux, config.genotype, config.DAG, spec_cell=config.spec_cell).to(device)
+    else:
+        model = AugmentCellCNN(input_size, input_channels, config.init_channels, n_classes, config.layers, use_aux, config.genotype).to(device)
     # ================= load checkpoint ==================
     load_evaluated_checkpoint_state(model=model, optimizer=None, checkpoint_path=config.resume_path)
 

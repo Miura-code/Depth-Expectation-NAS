@@ -43,7 +43,7 @@ if [ ${arch} = "cell" ]; then
         batch_size=64
         seed=0
         train_portion=1.0
-        python testCell_main.py \
+        python testModel_main.py \
                 --save $save \
                 --resume_path $resume_path \
                 --genotype $genotype \
@@ -88,18 +88,20 @@ elif [ ${arch} = "stage" ]; then
             # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
-        resume_path=$2
-        genotype=$3
+        resume_path=$3
+        genotype=$4
+        dag=$5
         save=test
         dataset=cifar100
         cutout=0
         batch_size=64
         seed=0
         train_portion=1.0
-        python testCell_main.py \
+        python testModel_main.py \
                 --save $save \
                 --resume_path $resume_path \
                 --genotype $genotype \
+                --DAG $dag \
                 --dataset $dataset\
                 --seed $seed
     else
