@@ -33,7 +33,6 @@ class SearchStage(nn.Module):
     Each edge is mixed and continuous relaxed
     """
     def __init__(self, input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=4, cell_multiplier=4, spec_cell=False):
-
         """
         C_in: # of input channels
         C: # of starting model channels
