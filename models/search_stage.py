@@ -142,7 +142,7 @@ class SearchStage(nn.Module):
 
 class SearchStageController(nn.Module):
     """ SearchDAG controller supporting multi-gpu """
-    def __init__(self, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=3, device_ids=None, spec_cell=False):
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False):
         super().__init__()
         self.n_big_nodes = n_layers // 3
         self.criterion = criterion
@@ -171,7 +171,7 @@ class SearchStageController(nn.Module):
         for n, p in self.named_parameters():
             if 'alpha' in n:
                 self._alphas.append((n, p))
-        self.net = SearchStage(C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell)
+        self.net = SearchStage(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell)
     
     def forward(self, x):
         weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]

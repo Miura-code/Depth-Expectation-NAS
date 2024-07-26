@@ -90,12 +90,12 @@ def run_task(config):
             save_DAG(genotype, DAG_path, is_best=is_best)
         trainer.save_checkpoint(epoch, is_best=is_best)
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
+
+        Record.add(LOSS_TYPES+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
+        Record.save(config.path)
     
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
-    logger.info("Final Best Genotype = {}".format(best_genotype))
-    
-    Record.add(LOSS_TYPES+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
-    Record.save(config.path)
+    logger.info("Final Best Genotype = {}".format(best_genotype))    
     
     png2gif(dir_path=config.plot_path, save_path=config.DAG_path, file_name="normal1_history", pattern="*normal1*")
     png2gif(dir_path=config.plot_path, save_path=config.DAG_path, file_name="normal2_history", pattern="*normal2*")

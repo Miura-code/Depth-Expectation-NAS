@@ -9,7 +9,7 @@ import os
 import utils
 from utils.logging_util import get_std_logging
 from config.searchStage_config import SearchStageConfig
-from trainer.searchStage_trainer import SearchStageTrainer, SearchStageTrainer_WithSimpleKD
+from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 from trainer.searchShareStage_trainer import SearchShareStageTrainer
 from genotypes.genotypes import save_DAG
 from utils.visualize import plot2, png2gif
@@ -17,6 +17,8 @@ from utils.eval_util import RecordDataclass
 
 from tqdm import tqdm
 
+LOSS_TYPES = ["training_hard_loss", "training_soft_loss", "training_loss", "validation_loss"]
+ACC_TYPES = ["training_accuracy", "validation_accuracy"]
 
 def run_task(config):
     logger = get_std_logging(os.path.join(config.path, "{}.log".format(config.exp_name)))
@@ -42,7 +44,7 @@ def run_task(config):
     save_DAG(macro_arch, DAG_path)
     
     # loss, accを格納する配列
-    record = RecordDataclass()
+    Record = RecordDataclass(LOSS_TYPES, ACC_TYPES)
 
     best_top1 = 0.
     for epoch in tqdm(range(start_epoch, trainer.total_epochs)):
@@ -84,6 +86,9 @@ def run_task(config):
             save_DAG(macro_arch, DAG_path, is_best=is_best)
         trainer.save_checkpoint(epoch, is_best=is_best)
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
+
+        Record.add(LOSS_TYPES+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
+        Record.save(config.path)
 
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
     logger.info("Final Best Genotype = {}".format(best_macro))

@@ -77,8 +77,8 @@ class SearchStageConfig(BaseConfig):
         self.DAG_path = os.path.join(self.path, 'DAG')
         self.plot_path = os.path.join(self.path, 'plots')
 
-        utils.utils.create_exp_dir(self.DAG_path)
-        utils.utils.create_exp_dir(self.plot_path)
+        utils.create_exp_dir(self.DAG_path)
+        utils.create_exp_dir(self.plot_path)
 
 
 class SearchDistributionConfig(BaseConfig):
