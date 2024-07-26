@@ -143,7 +143,6 @@ class SearchStage(nn.Module):
 class SearchStageController(nn.Module):
     """ SearchDAG controller supporting multi-gpu """
     def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False):
-
         super().__init__()
         self.n_big_nodes = n_layers // 3
         self.criterion = criterion
