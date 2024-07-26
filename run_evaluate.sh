@@ -13,7 +13,7 @@ if [ ${arch} = "cell" ]; then
         description=$8
         dataset=cifar100
         lambda=0.6
-        T=4
+        T=5
         batch_size=64
         epoch=100
         train_portion=0.9
@@ -40,7 +40,7 @@ if [ ${arch} = "cell" ]; then
         path=$4
         seed=0
 
-        python testCell_main.py \
+        python testModel_main.py \
             --save test \
             --dataset cifar100 \
             --batch_size 128 \
@@ -49,7 +49,7 @@ if [ ${arch} = "cell" ]; then
             --resume_path $path \
             --advanced
     else
-        echo ""
+        echo "Invalid arguments"
     fi
 elif [ ${arch} = "stage" ]; then
     if [ ${type} = "train" ]; then
