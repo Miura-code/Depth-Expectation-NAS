@@ -104,4 +104,8 @@ elif [ ${arch} = "stage" ]; then
     else
         echo ""
     fi
+<<<<<<< HEAD
 fi
+=======
+fi
+>>>>>>> 38db840 (experiment: セルレベルのBASELINE224評価とテスト)
