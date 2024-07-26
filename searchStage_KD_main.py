@@ -93,9 +93,9 @@ def run_task(config):
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
     logger.info("Final Best Genotype = {}".format(best_macro))
 
-    png2gif(config.DAG_path, file_name="DAG1_history", pattern="*DAG1*")
-    png2gif(config.DAG_path, file_name="DAG2_history", pattern="*DAG2*")
-    png2gif(config.DAG_path, file_name="DAG3_history", pattern="*DAG3*")
+    png2gif(config.plot_path, config.DAG_path, file_name="DAG1_history", pattern="*DAG1*")
+    png2gif(config.plot_path, config.DAG_path, file_name="DAG2_history", pattern="*DAG2*")
+    png2gif(config.plot_path, config.DAG_path, file_name="DAG3_history", pattern="*DAG3*")
 
 
 def main():

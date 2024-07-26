@@ -11,7 +11,7 @@ if [ ${type} = "train" ]; then
     description=$7
     dataset=cifar100
     lambda=0.6
-    T=3
+    T=4
     batch_size=64
     epoch=100
     train_portion=0.9
@@ -31,6 +31,7 @@ if [ ${type} = "train" ]; then
         --save $save \
         --description $description \
         --advanced
+        # --nonkd
 elif [ ${type} = "test" ]; then
     ## セルレベル構造のテスト
     genotype=$2
@@ -43,7 +44,8 @@ elif [ ${type} = "test" ]; then
         --batch_size 128 \
         --genotype $genotype \
         --seed $seed \
-        --resume_path $path 
+        --resume_path $path \
+        --advanced
 else
     echo ""
 fi
