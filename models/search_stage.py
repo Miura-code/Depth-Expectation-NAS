@@ -83,7 +83,7 @@ class SearchStage(nn.Module):
                     ]
                 )
             )
-        C_pp, C_p, C_cur = C_cur, C_cur, C
+        C_pp, C_p, C_cur = cell_multiplier * C, cell_multiplier * C, C
 
         self.cells = nn.ModuleList()
 
