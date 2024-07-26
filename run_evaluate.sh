@@ -14,6 +14,7 @@ if [ ${arch} = "cell" ]; then
         dataset=cifar100
         lambda=0.4
         T=3
+
         batch_size=64
         epoch=100
         train_portion=0.9
