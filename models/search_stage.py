@@ -6,6 +6,7 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 """ CNN DAG for architecture search """
+from collections import OrderedDict
 from models.get_cell import GetCell, Get_StageSpecified_Cell
 import os
 import torch
@@ -16,6 +17,7 @@ from torch.nn.parallel._functions import Broadcast
 
 import genotypes.genotypes as gt
 from models.search_bigDAG import SearchBigDAG, SearchBigDAG_CS
+from utils import setting
 
 
 def broadcast_list(l, device_ids):
@@ -30,7 +32,7 @@ class SearchStage(nn.Module):
     DAG for search
     Each edge is mixed and continuous relaxed
     """
-    def __init__(self, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=4, cell_multiplier=4, spec_cell=False):
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=4, cell_multiplier=4, spec_cell=False):
         """
         C_in: # of input channels
         C: # of starting model channels
@@ -48,11 +50,40 @@ class SearchStage(nn.Module):
         self.n_big_nodes = n_big_nodes
 
         C_cur = stem_multiplier * C  # 4 * 16 = 64
-        self.stem = nn.Sequential(
-            nn.Conv2d(C_in, C_cur, 3, 1, 1, bias=False),
-            nn.BatchNorm2d(C_cur)
-        )
-        C_pp, C_p, C_cur = cell_multiplier * C, cell_multiplier * C, C
+        if input_size == setting.IMAGENET_SIZE:
+            self.stem0 = nn.Sequential(
+                nn.Conv2d(3, C // 2, kernel_size=3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C // 2),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(C // 2, C, 3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C),
+            )
+            self.stem1 = nn.Sequential(
+                nn.ReLU(inplace=True),
+                nn.Conv2d(C, C_cur, 3, stride=2, padding=1, bias=False),
+                nn.BatchNorm2d(C_cur),
+            )
+            self.stem = nn.Sequential(
+                OrderedDict(
+                    [
+                        ("stem0", self.stem0),
+                        ("stem1", self.stem1)
+                    ]
+                )
+            )
+        else:
+            self.stem0 = nn.Sequential(
+                nn.Conv2d(C_in, C_cur, 3, 1, 1, bias=False),
+                nn.BatchNorm2d(C_cur)
+            )
+            self.stem = nn.Sequential(
+                OrderedDict(
+                    [
+                        ("stem0", self.stem0),
+                    ]
+                )
+            )
+        C_pp, C_p, C_cur = C_cur, C_cur, C
 
         self.cells = nn.ModuleList()
 
