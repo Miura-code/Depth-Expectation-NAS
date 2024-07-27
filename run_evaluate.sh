@@ -101,6 +101,8 @@ elif [ ${arch} = "stage" ]; then
             --DAG $dag \
             --seed $seed \
             --resume_path $path \
+            --stage \
+            --spec_cell \
             --advanced
     else
         echo ""

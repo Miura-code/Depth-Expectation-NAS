@@ -1,0 +1,228 @@
+07/27 04:25:08PM parser.py:28 [INFO] 
+07/27 04:25:08PM parser.py:29 [INFO] Parameters:
+07/27 04:25:08PM parser.py:31 [INFO] T=6.0
+07/27 04:25:08PM parser.py:31 [INFO] ADVANCED=True
+07/27 04:25:08PM parser.py:31 [INFO] AUX_WEIGHT=0.4
+07/27 04:25:08PM parser.py:31 [INFO] BATCH_SIZE=64
+07/27 04:25:08PM parser.py:31 [INFO] CUTOUT_LENGTH=16
+07/27 04:25:08PM parser.py:31 [INFO] DATA_PATH=../data/
+07/27 04:25:08PM parser.py:31 [INFO] DATASET=cifar100
+07/27 04:25:08PM parser.py:31 [INFO] DESCRIPTION=baseline_only_evaluation_with_kd_efficientnetv2s_224resized_l0.6T6
+07/27 04:25:08PM parser.py:31 [INFO] DROP_PATH_PROB=0.2
+07/27 04:25:08PM parser.py:31 [INFO] EPOCHS=100
+07/27 04:25:08PM parser.py:31 [INFO] EXP_NAME=l0.6T6-20240727-162508
+07/27 04:25:08PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_3x3', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('dil_conv_3x3', 2)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 3)]], normal1_concat=range(2, 6), reduce1=[[('skip_connect', 1), ('sep_conv_5x5', 0)], [('sep_conv_3x3', 2), ('sep_conv_5x5', 0)], [('sep_conv_3x3', 0), ('sep_conv_3x3', 2)], [('max_pool_3x3', 0), ('max_pool_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 2)], [('skip_connect', 0), ('skip_connect', 2)], [('skip_connect', 0), ('skip_connect', 1)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_5x5', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)]], normal3_concat=range(2, 6))
+07/27 04:25:08PM parser.py:31 [INFO] GPUS=[0]
+07/27 04:25:08PM parser.py:31 [INFO] GRAD_CLIP=5.0
+07/27 04:25:08PM parser.py:31 [INFO] INIT_CHANNELS=32
+07/27 04:25:08PM parser.py:31 [INFO] L=0.6
+07/27 04:25:08PM parser.py:31 [INFO] LAYERS=20
+07/27 04:25:08PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+07/27 04:25:08PM parser.py:31 [INFO] LR=0.025
+07/27 04:25:08PM parser.py:31 [INFO] LR_MIN=0.001
+07/27 04:25:08PM parser.py:31 [INFO] MOMENTUM=0.9
+07/27 04:25:08PM parser.py:31 [INFO] NAME=KD_VALID
+07/27 04:25:08PM parser.py:31 [INFO] NONKD=False
+07/27 04:25:08PM parser.py:31 [INFO] PATH=results/evaluate_cell_KD/cifar100/KD_VALID/l0.6T6-20240727-162508
+07/27 04:25:08PM parser.py:31 [INFO] PRINT_FREQ=50
+07/27 04:25:08PM parser.py:31 [INFO] RESUME_PATH=None
+07/27 04:25:08PM parser.py:31 [INFO] SAVE=l0.6T6
+07/27 04:25:08PM parser.py:31 [INFO] SEED=0
+07/27 04:25:08PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+07/27 04:25:08PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+07/27 04:25:08PM parser.py:31 [INFO] TRAIN_PORTION=0.9
+07/27 04:25:08PM parser.py:31 [INFO] WEIGHT_DECAY=0.0003
+07/27 04:25:08PM parser.py:31 [INFO] WORKERS=4
+07/27 04:25:08PM parser.py:32 [INFO] 
+07/27 04:25:11PM evaluateCell_KD_trainer.py:113 [INFO] --> Loaded teacher model 'efficientnet_v2_s' from '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar' and Freezed parameters)
+07/27 04:25:12PM eval_util.py:125 [INFO] Test: Step 000/078 Prec@(1,5) (81.2%, 98.4%)
+07/27 04:25:15PM eval_util.py:125 [INFO] Test: Step 078/078 Prec@(1,5) (85.9%, 98.2%)
+07/27 04:25:15PM eval_util.py:130 [INFO] Teacher=(efficientnet_v2_s <- (/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar)) achives Test Prec(@1, @5) = (85.9400%, 98.1600%)
+07/27 04:25:18PM evaluateCell_KD_trainer.py:120 [INFO] --> No loaded checkpoint!
+07/27 04:25:24PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][50/703]	Step 50	lr 0.025	Loss 100.7222 (100.7384)	Hard Loss 4.5775 (4.5785)	Soft Loss 0.0024 (0.0022)	Prec@(1,5) (2.1%, 9.3%)	
+07/27 04:25:29PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][100/703]	Step 100	lr 0.025	Loss 93.5961 (98.6635)	Hard Loss 4.2476 (4.4824)	Soft Loss 0.0022 (0.0022)	Prec@(1,5) (3.0%, 12.5%)	
+07/27 04:25:34PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][150/703]	Step 150	lr 0.025	Loss 92.5557 (97.1698)	Hard Loss 4.2006 (4.4135)	Soft Loss 0.0021 (0.0021)	Prec@(1,5) (3.5%, 14.5%)	
+07/27 04:25:39PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][200/703]	Step 200	lr 0.025	Loss 98.7571 (96.1075)	Hard Loss 4.4885 (4.3647)	Soft Loss 0.0021 (0.0021)	Prec@(1,5) (4.0%, 15.9%)	
+07/27 04:25:45PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][250/703]	Step 250	lr 0.025	Loss 92.4868 (94.8125)	Hard Loss 4.2010 (4.3053)	Soft Loss 0.0020 (0.0021)	Prec@(1,5) (4.7%, 17.5%)	
+07/27 04:25:50PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][300/703]	Step 300	lr 0.025	Loss 87.5983 (93.6983)	Hard Loss 3.9715 (4.2543)	Soft Loss 0.0019 (0.0021)	Prec@(1,5) (5.3%, 19.0%)	
+07/27 04:25:55PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][350/703]	Step 350	lr 0.025	Loss 85.1629 (92.7604)	Hard Loss 3.8632 (4.2114)	Soft Loss 0.0022 (0.0021)	Prec@(1,5) (5.8%, 20.4%)	
+07/27 04:26:00PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][400/703]	Step 400	lr 0.025	Loss 80.7437 (91.6986)	Hard Loss 3.6593 (4.1628)	Soft Loss 0.0019 (0.0021)	Prec@(1,5) (6.4%, 21.8%)	
+07/27 04:26:05PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][450/703]	Step 450	lr 0.025	Loss 78.8052 (90.8144)	Hard Loss 3.5725 (4.1223)	Soft Loss 0.0020 (0.0021)	Prec@(1,5) (7.0%, 23.1%)	
+07/27 04:26:11PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][500/703]	Step 500	lr 0.025	Loss 84.8209 (89.8296)	Hard Loss 3.8484 (4.0772)	Soft Loss 0.0022 (0.0020)	Prec@(1,5) (7.6%, 24.5%)	
+07/27 04:26:16PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][550/703]	Step 550	lr 0.025	Loss 78.7188 (88.9744)	Hard Loss 3.5698 (4.0381)	Soft Loss 0.0018 (0.0020)	Prec@(1,5) (8.1%, 25.7%)	
+07/27 04:26:21PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][600/703]	Step 600	lr 0.025	Loss 76.0470 (88.0351)	Hard Loss 3.4474 (3.9951)	Soft Loss 0.0020 (0.0020)	Prec@(1,5) (8.7%, 27.1%)	
+07/27 04:26:26PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][650/703]	Step 650	lr 0.025	Loss 87.0121 (87.3112)	Hard Loss 3.9506 (3.9620)	Soft Loss 0.0017 (0.0020)	Prec@(1,5) (9.1%, 28.1%)	
+07/27 04:26:31PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][700/703]	Step 700	lr 0.025	Loss 82.7315 (86.6288)	Hard Loss 3.7550 (3.9308)	Soft Loss 0.0017 (0.0020)	Prec@(1,5) (9.6%, 29.1%)	
+07/27 04:26:32PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [0][703/703]	Step 703	lr 0.025	Loss 72.3805 (86.5665)	Hard Loss 3.2786 (3.9280)	Soft Loss 0.0018 (0.0020)	Prec@(1,5) (9.6%, 29.2%)	
+07/27 04:26:32PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  0/99] Final Prec@1 9.6356%
+07/27 04:26:35PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  0/99] Final Prec@1 13.8200%
+07/27 04:26:35PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 13.8200%
+07/27 04:26:41PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][50/703]	Step 754	lr 0.02499	Loss 70.3768 (75.9942)	Hard Loss 3.1821 (3.4445)	Soft Loss 0.0019 (0.0019)	Prec@(1,5) (16.9%, 43.5%)	
+07/27 04:26:47PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][100/703]	Step 804	lr 0.02499	Loss 79.7064 (75.2819)	Hard Loss 3.6196 (3.4122)	Soft Loss 0.0019 (0.0019)	Prec@(1,5) (18.0%, 45.2%)	
+07/27 04:26:53PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][150/703]	Step 854	lr 0.02499	Loss 73.6514 (75.1332)	Hard Loss 3.3388 (3.4056)	Soft Loss 0.0020 (0.0019)	Prec@(1,5) (17.9%, 45.1%)	
+07/27 04:26:58PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][200/703]	Step 904	lr 0.02499	Loss 73.3801 (74.9066)	Hard Loss 3.3260 (3.3954)	Soft Loss 0.0019 (0.0019)	Prec@(1,5) (18.2%, 45.3%)	
+07/27 04:27:04PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][250/703]	Step 954	lr 0.02499	Loss 71.2057 (74.2398)	Hard Loss 3.2261 (3.3650)	Soft Loss 0.0021 (0.0019)	Prec@(1,5) (18.6%, 46.2%)	
+07/27 04:27:10PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][300/703]	Step 1004	lr 0.02499	Loss 79.8179 (73.7760)	Hard Loss 3.6235 (3.3438)	Soft Loss 0.0020 (0.0019)	Prec@(1,5) (19.0%, 46.7%)	
+07/27 04:27:16PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][350/703]	Step 1054	lr 0.02499	Loss 75.9072 (73.3148)	Hard Loss 3.4422 (3.3227)	Soft Loss 0.0021 (0.0019)	Prec@(1,5) (19.3%, 47.1%)	
+07/27 04:27:21PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][400/703]	Step 1104	lr 0.02499	Loss 65.5186 (72.7242)	Hard Loss 2.9667 (3.2957)	Soft Loss 0.0017 (0.0019)	Prec@(1,5) (19.8%, 47.7%)	
+07/27 04:27:27PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][450/703]	Step 1154	lr 0.02499	Loss 68.6070 (72.3428)	Hard Loss 3.1082 (3.2783)	Soft Loss 0.0021 (0.0019)	Prec@(1,5) (20.1%, 48.3%)	
+07/27 04:27:33PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][500/703]	Step 1204	lr 0.02499	Loss 67.7910 (71.9328)	Hard Loss 3.0689 (3.2595)	Soft Loss 0.0017 (0.0019)	Prec@(1,5) (20.3%, 48.8%)	
+07/27 04:27:39PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][550/703]	Step 1254	lr 0.02499	Loss 67.6463 (71.5841)	Hard Loss 3.0655 (3.2436)	Soft Loss 0.0021 (0.0019)	Prec@(1,5) (20.6%, 49.1%)	
+07/27 04:27:45PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][600/703]	Step 1304	lr 0.02499	Loss 64.6317 (71.2860)	Hard Loss 2.9266 (3.2300)	Soft Loss 0.0021 (0.0019)	Prec@(1,5) (20.8%, 49.5%)	
+07/27 04:27:50PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][650/703]	Step 1354	lr 0.02499	Loss 61.9063 (70.9033)	Hard Loss 2.8022 (3.2126)	Soft Loss 0.0016 (0.0019)	Prec@(1,5) (21.1%, 49.9%)	
+07/27 04:27:56PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][700/703]	Step 1404	lr 0.02499	Loss 62.9974 (70.5705)	Hard Loss 2.8481 (3.1974)	Soft Loss 0.0017 (0.0019)	Prec@(1,5) (21.3%, 50.3%)	
+07/27 04:27:56PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][703/703]	Step 1407	lr 0.02499	Loss 68.9645 (70.5688)	Hard Loss 3.1229 (3.1973)	Soft Loss 0.0017 (0.0019)	Prec@(1,5) (21.3%, 50.3%)	
+07/27 04:27:57PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  1/99] Final Prec@1 21.3444%
+07/27 04:27:59PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  1/99] Final Prec@1 22.6600%
+07/27 04:27:59PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 22.6600%
+07/27 04:28:05PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][50/703]	Step 1458	lr 0.02498	Loss 68.2955 (64.7173)	Hard Loss 3.0961 (2.9298)	Soft Loss 0.0018 (0.0019)	Prec@(1,5) (26.2%, 56.5%)	
+07/27 04:28:11PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][100/703]	Step 1508	lr 0.02498	Loss 71.1993 (64.6047)	Hard Loss 3.2264 (2.9248)	Soft Loss 0.0018 (0.0018)	Prec@(1,5) (26.4%, 56.9%)	
+07/27 04:28:17PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][150/703]	Step 1558	lr 0.02498	Loss 66.7199 (64.5395)	Hard Loss 3.0199 (2.9217)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (26.5%, 57.4%)	
+07/27 04:28:23PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][200/703]	Step 1608	lr 0.02498	Loss 65.1674 (64.2257)	Hard Loss 2.9518 (2.9073)	Soft Loss 0.0018 (0.0018)	Prec@(1,5) (26.7%, 57.7%)	
+07/27 04:28:28PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][250/703]	Step 1658	lr 0.02498	Loss 76.3198 (63.7604)	Hard Loss 3.4627 (2.8862)	Soft Loss 0.0019 (0.0018)	Prec@(1,5) (27.0%, 58.0%)	
+07/27 04:28:34PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][300/703]	Step 1708	lr 0.02498	Loss 58.4812 (63.5929)	Hard Loss 2.6421 (2.8786)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (27.2%, 58.3%)	
+07/27 04:28:40PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][350/703]	Step 1758	lr 0.02498	Loss 61.9823 (63.2375)	Hard Loss 2.8079 (2.8623)	Soft Loss 0.0019 (0.0018)	Prec@(1,5) (27.6%, 58.8%)	
+07/27 04:28:46PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][400/703]	Step 1808	lr 0.02498	Loss 53.6794 (62.9918)	Hard Loss 2.4278 (2.8511)	Soft Loss 0.0019 (0.0018)	Prec@(1,5) (27.9%, 59.0%)	
+07/27 04:28:52PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][450/703]	Step 1858	lr 0.02498	Loss 48.5666 (62.8615)	Hard Loss 2.1912 (2.8452)	Soft Loss 0.0018 (0.0018)	Prec@(1,5) (28.0%, 59.2%)	
+07/27 04:28:57PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][500/703]	Step 1908	lr 0.02498	Loss 65.6689 (62.6775)	Hard Loss 2.9745 (2.8368)	Soft Loss 0.0021 (0.0018)	Prec@(1,5) (28.3%, 59.5%)	
+07/27 04:29:03PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][550/703]	Step 1958	lr 0.02498	Loss 57.7290 (62.5380)	Hard Loss 2.6099 (2.8304)	Soft Loss 0.0019 (0.0018)	Prec@(1,5) (28.4%, 59.7%)	
+07/27 04:29:09PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][600/703]	Step 2008	lr 0.02498	Loss 53.5601 (62.3743)	Hard Loss 2.4181 (2.8230)	Soft Loss 0.0018 (0.0018)	Prec@(1,5) (28.7%, 60.0%)	
+07/27 04:29:15PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][650/703]	Step 2058	lr 0.02498	Loss 57.7235 (62.2012)	Hard Loss 2.6093 (2.8150)	Soft Loss 0.0019 (0.0018)	Prec@(1,5) (28.8%, 60.2%)	
+07/27 04:29:21PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][700/703]	Step 2108	lr 0.02498	Loss 56.1948 (62.0423)	Hard Loss 2.5410 (2.8078)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (29.0%, 60.4%)	
+07/27 04:29:21PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][703/703]	Step 2111	lr 0.02498	Loss 55.4422 (62.0315)	Hard Loss 2.5047 (2.8073)	Soft Loss 0.0018 (0.0018)	Prec@(1,5) (29.0%, 60.4%)	
+07/27 04:29:21PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  2/99] Final Prec@1 29.0133%
+07/27 04:29:24PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  2/99] Final Prec@1 28.6800%
+07/27 04:29:24PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 28.6800%
+07/27 04:29:30PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][50/703]	Step 2162	lr 0.02495	Loss 64.6538 (58.4496)	Hard Loss 2.9272 (2.6434)	Soft Loss 0.0018 (0.0018)	Prec@(1,5) (31.8%, 63.8%)	
+07/27 04:29:36PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][100/703]	Step 2212	lr 0.02495	Loss 51.4648 (58.3236)	Hard Loss 2.3215 (2.6379)	Soft Loss 0.0018 (0.0018)	Prec@(1,5) (31.8%, 63.6%)	
+07/27 04:29:42PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][150/703]	Step 2262	lr 0.02495	Loss 55.3167 (57.5166)	Hard Loss 2.4991 (2.6009)	Soft Loss 0.0016 (0.0018)	Prec@(1,5) (33.1%, 64.7%)	
+07/27 04:29:48PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][200/703]	Step 2312	lr 0.02495	Loss 59.0709 (57.5295)	Hard Loss 2.6740 (2.6015)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (33.0%, 64.8%)	
+07/27 04:29:54PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][250/703]	Step 2362	lr 0.02495	Loss 62.1742 (57.4525)	Hard Loss 2.8117 (2.5980)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (33.0%, 64.9%)	
+07/27 04:30:00PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][300/703]	Step 2412	lr 0.02495	Loss 52.8994 (57.3745)	Hard Loss 2.3839 (2.5943)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (33.3%, 65.0%)	
+07/27 04:30:06PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][350/703]	Step 2462	lr 0.02495	Loss 44.1560 (57.1048)	Hard Loss 1.9868 (2.5819)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (33.5%, 65.4%)	
+07/27 04:30:11PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][400/703]	Step 2512	lr 0.02495	Loss 55.5250 (56.9791)	Hard Loss 2.5099 (2.5762)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (33.6%, 65.4%)	
+07/27 04:30:17PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][450/703]	Step 2562	lr 0.02495	Loss 46.1057 (56.8493)	Hard Loss 2.0794 (2.5704)	Soft Loss 0.0016 (0.0018)	Prec@(1,5) (33.7%, 65.5%)	
+07/27 04:30:23PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][500/703]	Step 2612	lr 0.02495	Loss 55.9354 (56.8481)	Hard Loss 2.5277 (2.5704)	Soft Loss 0.0018 (0.0018)	Prec@(1,5) (33.7%, 65.6%)	
+07/27 04:30:29PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][550/703]	Step 2662	lr 0.02495	Loss 54.1383 (56.5902)	Hard Loss 2.4465 (2.5586)	Soft Loss 0.0016 (0.0018)	Prec@(1,5) (34.0%, 65.9%)	
+07/27 04:30:35PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][600/703]	Step 2712	lr 0.02495	Loss 49.1575 (56.5257)	Hard Loss 2.2204 (2.5557)	Soft Loss 0.0017 (0.0018)	Prec@(1,5) (34.0%, 65.9%)	
+07/27 04:30:41PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][650/703]	Step 2762	lr 0.02495	Loss 52.3873 (56.4472)	Hard Loss 2.3706 (2.5521)	Soft Loss 0.0020 (0.0018)	Prec@(1,5) (34.1%, 66.0%)	
+07/27 04:30:46PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][700/703]	Step 2812	lr 0.02495	Loss 53.7464 (56.2189)	Hard Loss 2.4277 (2.5416)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (34.3%, 66.2%)	
+07/27 04:30:47PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [3][703/703]	Step 2815	lr 0.02495	Loss 54.5920 (56.2074)	Hard Loss 2.4676 (2.5411)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (34.3%, 66.2%)	
+07/27 04:30:47PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  3/99] Final Prec@1 34.3422%
+07/27 04:30:49PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  3/99] Final Prec@1 33.1000%
+07/27 04:30:50PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 33.1000%
+07/27 04:30:56PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][50/703]	Step 2866	lr 0.02491	Loss 55.7585 (52.0514)	Hard Loss 2.5198 (2.3504)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (37.9%, 70.1%)	
+07/27 04:31:02PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][100/703]	Step 2916	lr 0.02491	Loss 65.5776 (52.4733)	Hard Loss 2.9699 (2.3701)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (37.6%, 69.8%)	
+07/27 04:31:07PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][150/703]	Step 2966	lr 0.02491	Loss 54.3758 (52.2986)	Hard Loss 2.4587 (2.3620)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (37.7%, 69.9%)	
+07/27 04:31:13PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][200/703]	Step 3016	lr 0.02491	Loss 46.5763 (52.3782)	Hard Loss 2.1034 (2.3660)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (37.7%, 69.8%)	
+07/27 04:31:19PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][250/703]	Step 3066	lr 0.02491	Loss 50.2147 (52.4511)	Hard Loss 2.2661 (2.3694)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (37.6%, 69.7%)	
+07/27 04:31:25PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][300/703]	Step 3116	lr 0.02491	Loss 51.9544 (52.2981)	Hard Loss 2.3489 (2.3624)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (37.9%, 69.9%)	
+07/27 04:31:30PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][350/703]	Step 3166	lr 0.02491	Loss 48.9429 (52.1919)	Hard Loss 2.2106 (2.3576)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (38.1%, 70.2%)	
+07/27 04:31:36PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][400/703]	Step 3216	lr 0.02491	Loss 60.5394 (52.1899)	Hard Loss 2.7389 (2.3575)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (38.2%, 70.2%)	
+07/27 04:31:42PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][450/703]	Step 3266	lr 0.02491	Loss 52.7266 (52.2039)	Hard Loss 2.3849 (2.3582)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (38.1%, 70.1%)	
+07/27 04:31:48PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][500/703]	Step 3316	lr 0.02491	Loss 51.4569 (52.1634)	Hard Loss 2.3250 (2.3563)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (38.2%, 70.1%)	
+07/27 04:31:53PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][550/703]	Step 3366	lr 0.02491	Loss 53.2909 (52.0918)	Hard Loss 2.4097 (2.3530)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (38.4%, 70.2%)	
+07/27 04:31:59PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][600/703]	Step 3416	lr 0.02491	Loss 48.4997 (52.0108)	Hard Loss 2.1839 (2.3494)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (38.5%, 70.3%)	
+07/27 04:32:04PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][650/703]	Step 3466	lr 0.02491	Loss 49.4427 (51.8693)	Hard Loss 2.2330 (2.3429)	Soft Loss 0.0019 (0.0017)	Prec@(1,5) (38.7%, 70.3%)	
+07/27 04:32:09PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][700/703]	Step 3516	lr 0.02491	Loss 56.7188 (51.7701)	Hard Loss 2.5659 (2.3384)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (38.8%, 70.5%)	
+07/27 04:32:10PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [4][703/703]	Step 3519	lr 0.02491	Loss 50.1437 (51.7633)	Hard Loss 2.2654 (2.3381)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (38.8%, 70.5%)	
+07/27 04:32:10PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  4/99] Final Prec@1 38.7756%
+07/27 04:32:12PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  4/99] Final Prec@1 36.7000%
+07/27 04:32:13PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 36.7000%
+07/27 04:32:19PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][50/703]	Step 3570	lr 0.02485	Loss 55.8406 (48.4444)	Hard Loss 2.5228 (2.1866)	Soft Loss 0.0020 (0.0017)	Prec@(1,5) (40.8%, 74.1%)	
+07/27 04:32:25PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][100/703]	Step 3620	lr 0.02485	Loss 53.1661 (49.0745)	Hard Loss 2.4000 (2.2152)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (40.7%, 73.2%)	
+07/27 04:32:30PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][150/703]	Step 3670	lr 0.02485	Loss 43.8139 (48.8435)	Hard Loss 1.9739 (2.2047)	Soft Loss 0.0020 (0.0017)	Prec@(1,5) (41.1%, 73.4%)	
+07/27 04:32:36PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][200/703]	Step 3720	lr 0.02485	Loss 51.4474 (48.8948)	Hard Loss 2.3243 (2.2071)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (41.0%, 73.7%)	
+07/27 04:32:42PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][250/703]	Step 3770	lr 0.02485	Loss 53.5727 (48.9817)	Hard Loss 2.4238 (2.2111)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (40.8%, 73.6%)	
+07/27 04:32:48PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][300/703]	Step 3820	lr 0.02485	Loss 48.9057 (48.9643)	Hard Loss 2.2067 (2.2104)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (41.0%, 73.6%)	
+07/27 04:32:53PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][350/703]	Step 3870	lr 0.02485	Loss 50.5333 (48.7934)	Hard Loss 2.2844 (2.2026)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (41.3%, 73.7%)	
+07/27 04:32:59PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][400/703]	Step 3920	lr 0.02485	Loss 42.9114 (48.8835)	Hard Loss 1.9328 (2.2067)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (41.2%, 73.6%)	
+07/27 04:33:05PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][450/703]	Step 3970	lr 0.02485	Loss 36.7943 (48.7129)	Hard Loss 1.6537 (2.1989)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (41.5%, 73.7%)	
+07/27 04:33:11PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][500/703]	Step 4020	lr 0.02485	Loss 49.5979 (48.6103)	Hard Loss 2.2384 (2.1942)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (41.6%, 73.7%)	
+07/27 04:33:17PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][550/703]	Step 4070	lr 0.02485	Loss 50.6219 (48.6413)	Hard Loss 2.2912 (2.1957)	Soft Loss 0.0014 (0.0017)	Prec@(1,5) (41.6%, 73.7%)	
+07/27 04:33:22PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][600/703]	Step 4120	lr 0.02485	Loss 59.0541 (48.6015)	Hard Loss 2.6767 (2.1939)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (41.7%, 73.8%)	
+07/27 04:33:28PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][650/703]	Step 4170	lr 0.02485	Loss 51.6679 (48.4567)	Hard Loss 2.3331 (2.1873)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (41.8%, 73.9%)	
+07/27 04:33:34PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][700/703]	Step 4220	lr 0.02485	Loss 45.3393 (48.3494)	Hard Loss 2.0454 (2.1824)	Soft Loss 0.0019 (0.0017)	Prec@(1,5) (41.9%, 74.0%)	
+07/27 04:33:34PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [5][703/703]	Step 4223	lr 0.02485	Loss 44.3405 (48.3535)	Hard Loss 1.9976 (2.1826)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (41.9%, 74.0%)	
+07/27 04:33:35PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  5/99] Final Prec@1 41.9289%
+07/27 04:33:37PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  5/99] Final Prec@1 38.4200%
+07/27 04:33:37PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 38.4200%
+07/27 04:33:43PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][50/703]	Step 4274	lr 0.02479	Loss 43.1974 (44.3036)	Hard Loss 1.9466 (1.9967)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (45.5%, 78.0%)	
+07/27 04:33:49PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][100/703]	Step 4324	lr 0.02479	Loss 47.4178 (44.7578)	Hard Loss 2.1414 (2.0177)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (45.1%, 77.7%)	
+07/27 04:33:55PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][150/703]	Step 4374	lr 0.02479	Loss 48.8960 (45.0238)	Hard Loss 2.2092 (2.0301)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (45.1%, 77.4%)	
+07/27 04:34:01PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][200/703]	Step 4424	lr 0.02479	Loss 45.1885 (45.2020)	Hard Loss 2.0365 (2.0382)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (44.9%, 77.2%)	
+07/27 04:34:07PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][250/703]	Step 4474	lr 0.02479	Loss 35.6994 (45.2976)	Hard Loss 1.5996 (2.0427)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (44.7%, 77.3%)	
+07/27 04:34:12PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][300/703]	Step 4524	lr 0.02479	Loss 41.5763 (45.4272)	Hard Loss 1.8734 (2.0487)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (44.5%, 77.1%)	
+07/27 04:34:17PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][350/703]	Step 4574	lr 0.02479	Loss 47.7047 (45.6507)	Hard Loss 2.1543 (2.0590)	Soft Loss 0.0019 (0.0017)	Prec@(1,5) (44.4%, 76.7%)	
+07/27 04:34:22PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][400/703]	Step 4624	lr 0.02479	Loss 50.9825 (45.5790)	Hard Loss 2.3001 (2.0556)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (44.6%, 76.7%)	
+07/27 04:34:28PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][450/703]	Step 4674	lr 0.02479	Loss 41.6979 (45.5226)	Hard Loss 1.8778 (2.0531)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (44.6%, 76.7%)	
+07/27 04:34:34PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][500/703]	Step 4724	lr 0.02479	Loss 52.1584 (45.6112)	Hard Loss 2.3540 (2.0572)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (44.5%, 76.6%)	
+07/27 04:34:39PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][550/703]	Step 4774	lr 0.02479	Loss 39.4271 (45.5026)	Hard Loss 1.7759 (2.0523)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (44.6%, 76.7%)	
+07/27 04:34:45PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][600/703]	Step 4824	lr 0.02479	Loss 44.0912 (45.3698)	Hard Loss 1.9904 (2.0463)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (44.6%, 76.7%)	
+07/27 04:34:50PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][650/703]	Step 4874	lr 0.02479	Loss 43.0183 (45.3453)	Hard Loss 1.9374 (2.0452)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (44.7%, 76.7%)	
+07/27 04:34:56PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][700/703]	Step 4924	lr 0.02479	Loss 44.7811 (45.3228)	Hard Loss 2.0205 (2.0442)	Soft Loss 0.0019 (0.0017)	Prec@(1,5) (44.8%, 76.7%)	
+07/27 04:34:56PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [6][703/703]	Step 4927	lr 0.02479	Loss 42.0770 (45.3346)	Hard Loss 1.8977 (2.0448)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (44.7%, 76.7%)	
+07/27 04:34:56PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  6/99] Final Prec@1 44.7444%
+07/27 04:34:59PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  6/99] Final Prec@1 43.5800%
+07/27 04:34:59PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 43.5800%
+07/27 04:35:05PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][50/703]	Step 4978	lr 0.02471	Loss 40.1433 (43.5697)	Hard Loss 1.8104 (1.9646)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (46.7%, 77.5%)	
+07/27 04:35:11PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][100/703]	Step 5028	lr 0.02471	Loss 42.2156 (43.1105)	Hard Loss 1.9025 (1.9432)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (47.0%, 78.5%)	
+07/27 04:35:16PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][150/703]	Step 5078	lr 0.02471	Loss 48.8627 (43.1460)	Hard Loss 2.2083 (1.9448)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (47.2%, 78.3%)	
+07/27 04:35:22PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][200/703]	Step 5128	lr 0.02471	Loss 42.0373 (43.0367)	Hard Loss 1.8943 (1.9397)	Soft Loss 0.0019 (0.0017)	Prec@(1,5) (47.2%, 78.5%)	
+07/27 04:35:28PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][250/703]	Step 5178	lr 0.02471	Loss 38.2580 (42.8704)	Hard Loss 1.7201 (1.9321)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (47.5%, 78.6%)	
+07/27 04:35:34PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][300/703]	Step 5228	lr 0.02471	Loss 44.2915 (42.9772)	Hard Loss 1.9976 (1.9369)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (47.4%, 78.6%)	
+07/27 04:35:39PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][350/703]	Step 5278	lr 0.02471	Loss 46.0843 (42.8697)	Hard Loss 2.0800 (1.9321)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (47.6%, 78.8%)	
+07/27 04:35:45PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][400/703]	Step 5328	lr 0.02471	Loss 42.1576 (42.9680)	Hard Loss 1.8949 (1.9366)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (47.5%, 78.8%)	
+07/27 04:35:51PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][450/703]	Step 5378	lr 0.02471	Loss 46.1816 (43.0429)	Hard Loss 2.0879 (1.9401)	Soft Loss 0.0019 (0.0017)	Prec@(1,5) (47.5%, 78.8%)	
+07/27 04:35:56PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][500/703]	Step 5428	lr 0.02471	Loss 41.3401 (42.9944)	Hard Loss 1.8639 (1.9379)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (47.5%, 78.9%)	
+07/27 04:36:02PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][550/703]	Step 5478	lr 0.02471	Loss 42.4860 (43.0504)	Hard Loss 1.9145 (1.9405)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (47.4%, 78.7%)	
+07/27 04:36:08PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][600/703]	Step 5528	lr 0.02471	Loss 39.2210 (43.0403)	Hard Loss 1.7634 (1.9401)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (47.5%, 78.8%)	
+07/27 04:36:13PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][650/703]	Step 5578	lr 0.02471	Loss 40.3963 (43.0892)	Hard Loss 1.8200 (1.9424)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (47.4%, 78.7%)	
+07/27 04:36:19PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][700/703]	Step 5628	lr 0.02471	Loss 42.2164 (43.0804)	Hard Loss 1.9056 (1.9420)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (47.4%, 78.7%)	
+07/27 04:36:19PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][703/703]	Step 5631	lr 0.02471	Loss 41.1435 (43.0645)	Hard Loss 1.8543 (1.9413)	Soft Loss 0.0019 (0.0017)	Prec@(1,5) (47.4%, 78.7%)	
+07/27 04:36:19PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  7/99] Final Prec@1 47.4267%
+07/27 04:36:22PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  7/99] Final Prec@1 44.3200%
+07/27 04:36:22PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 44.3200%
+07/27 04:36:28PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][50/703]	Step 5682	lr 0.02462	Loss 39.5720 (41.2404)	Hard Loss 1.7794 (1.8576)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (48.7%, 81.1%)	
+07/27 04:36:34PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][100/703]	Step 5732	lr 0.02462	Loss 44.4755 (40.6190)	Hard Loss 2.0069 (1.8290)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (50.0%, 81.4%)	
+07/27 04:36:40PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][150/703]	Step 5782	lr 0.02462	Loss 37.0617 (40.4537)	Hard Loss 1.6663 (1.8216)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (50.1%, 81.2%)	
+07/27 04:36:47PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][200/703]	Step 5832	lr 0.02462	Loss 43.4543 (40.5039)	Hard Loss 1.9611 (1.8239)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (50.0%, 81.1%)	
+07/27 04:36:53PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][250/703]	Step 5882	lr 0.02462	Loss 33.8768 (40.5740)	Hard Loss 1.5186 (1.8271)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (50.1%, 81.0%)	
+07/27 04:36:58PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][300/703]	Step 5932	lr 0.02462	Loss 39.7639 (40.7416)	Hard Loss 1.7922 (1.8348)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (49.9%, 80.7%)	
+07/27 04:37:04PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][350/703]	Step 5982	lr 0.02462	Loss 41.7703 (40.8939)	Hard Loss 1.8860 (1.8418)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (49.8%, 80.5%)	
+07/27 04:37:09PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][400/703]	Step 6032	lr 0.02462	Loss 32.8390 (40.9164)	Hard Loss 1.4710 (1.8430)	Soft Loss 0.0015 (0.0017)	Prec@(1,5) (49.8%, 80.5%)	
+07/27 04:37:15PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][450/703]	Step 6082	lr 0.02462	Loss 46.4453 (41.0226)	Hard Loss 2.0985 (1.8479)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (49.7%, 80.5%)	
+07/27 04:37:21PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][500/703]	Step 6132	lr 0.02462	Loss 40.0920 (40.9217)	Hard Loss 1.8047 (1.8432)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (49.7%, 80.5%)	
+07/27 04:37:26PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][550/703]	Step 6182	lr 0.02462	Loss 49.5008 (40.9890)	Hard Loss 2.2405 (1.8464)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (49.6%, 80.5%)	
+07/27 04:37:31PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][600/703]	Step 6232	lr 0.02462	Loss 42.6206 (40.9843)	Hard Loss 1.9194 (1.8462)	Soft Loss 0.0018 (0.0017)	Prec@(1,5) (49.6%, 80.5%)	
+07/27 04:37:36PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][650/703]	Step 6282	lr 0.02462	Loss 39.2272 (41.0444)	Hard Loss 1.7680 (1.8491)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (49.6%, 80.5%)	
+07/27 04:37:42PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][700/703]	Step 6332	lr 0.02462	Loss 35.5401 (41.1108)	Hard Loss 1.5985 (1.8521)	Soft Loss 0.0016 (0.0017)	Prec@(1,5) (49.4%, 80.4%)	
+07/27 04:37:42PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [8][703/703]	Step 6335	lr 0.02462	Loss 40.7990 (41.1047)	Hard Loss 1.8374 (1.8519)	Soft Loss 0.0017 (0.0017)	Prec@(1,5) (49.4%, 80.4%)	
+07/27 04:37:42PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  8/99] Final Prec@1 49.4467%
+07/27 04:37:44PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  8/99] Final Prec@1 46.3000%
+07/27 04:37:45PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 46.3000%
+07/27 04:37:51PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][50/703]	Step 6386	lr 0.02452	Loss 32.2866 (38.8553)	Hard Loss 1.4480 (1.7488)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (51.9%, 81.7%)	
+07/27 04:37:56PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][100/703]	Step 6436	lr 0.02452	Loss 40.5170 (39.1321)	Hard Loss 1.8248 (1.7615)	Soft Loss 0.0017 (0.0016)	Prec@(1,5) (51.7%, 81.9%)	
+07/27 04:38:02PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][150/703]	Step 6486	lr 0.02452	Loss 31.2582 (38.8314)	Hard Loss 1.3991 (1.7478)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (52.0%, 82.3%)	
+07/27 04:38:08PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][200/703]	Step 6536	lr 0.02452	Loss 39.0096 (38.9910)	Hard Loss 1.7567 (1.7551)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (51.7%, 82.0%)	
+07/27 04:38:13PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][250/703]	Step 6586	lr 0.02452	Loss 40.9058 (39.1375)	Hard Loss 1.8443 (1.7618)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (51.5%, 81.8%)	
+07/27 04:38:19PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][300/703]	Step 6636	lr 0.02452	Loss 42.3423 (39.1712)	Hard Loss 1.9106 (1.7633)	Soft Loss 0.0017 (0.0016)	Prec@(1,5) (51.6%, 81.8%)	
+07/27 04:38:25PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][350/703]	Step 6686	lr 0.02452	Loss 37.6194 (39.2811)	Hard Loss 1.6921 (1.7684)	Soft Loss 0.0017 (0.0016)	Prec@(1,5) (51.5%, 81.8%)	
+07/27 04:38:30PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][400/703]	Step 6736	lr 0.02452	Loss 31.8988 (39.3642)	Hard Loss 1.4327 (1.7722)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (51.4%, 81.8%)	
+07/27 04:38:36PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][450/703]	Step 6786	lr 0.02452	Loss 35.0252 (39.3243)	Hard Loss 1.5727 (1.7704)	Soft Loss 0.0015 (0.0016)	Prec@(1,5) (51.4%, 81.7%)	
+07/27 04:38:42PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][500/703]	Step 6836	lr 0.02452	Loss 32.5997 (39.2624)	Hard Loss 1.4646 (1.7676)	Soft Loss 0.0017 (0.0016)	Prec@(1,5) (51.4%, 81.8%)	
+07/27 04:38:47PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][550/703]	Step 6886	lr 0.02452	Loss 43.8853 (39.2704)	Hard Loss 1.9795 (1.7680)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (51.5%, 81.8%)	
+07/27 04:38:53PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][600/703]	Step 6936	lr 0.02452	Loss 42.7241 (39.3570)	Hard Loss 1.9266 (1.7721)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (51.4%, 81.7%)	
+07/27 04:38:59PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][650/703]	Step 6986	lr 0.02452	Loss 37.7656 (39.3951)	Hard Loss 1.7006 (1.7738)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (51.3%, 81.7%)	
+07/27 04:39:04PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][700/703]	Step 7036	lr 0.02452	Loss 43.3403 (39.4255)	Hard Loss 1.9567 (1.7753)	Soft Loss 0.0017 (0.0016)	Prec@(1,5) (51.2%, 81.6%)	
+07/27 04:39:04PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [9][703/703]	Step 7039	lr 0.02452	Loss 37.3989 (39.4213)	Hard Loss 1.6809 (1.7751)	Soft Loss 0.0017 (0.0016)	Prec@(1,5) (51.2%, 81.7%)	
+07/27 04:39:05PM evaluateCell_KD_trainer.py:194 [INFO] Train: [  9/99] Final Prec@1 51.2333%
+07/27 04:39:07PM evaluateCell_KD_trainer.py:229 [INFO] Valid: [  9/99] Final Prec@1 49.2000%
+07/27 04:39:07PM evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 49.2000%
+07/27 04:39:14PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][50/703]	Step 7090	lr 0.02441	Loss 39.8649 (36.6709)	Hard Loss 1.7927 (1.6492)	Soft Loss 0.0015 (0.0016)	Prec@(1,5) (54.8%, 82.9%)	
+07/27 04:39:20PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][100/703]	Step 7140	lr 0.02441	Loss 37.1249 (36.3940)	Hard Loss 1.6672 (1.6360)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (55.1%, 83.8%)	
+07/27 04:39:25PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][150/703]	Step 7190	lr 0.02441	Loss 35.5256 (36.9540)	Hard Loss 1.5965 (1.6619)	Soft Loss 0.0015 (0.0016)	Prec@(1,5) (54.3%, 83.5%)	
+07/27 04:39:31PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][200/703]	Step 7240	lr 0.02441	Loss 32.2942 (37.0906)	Hard Loss 1.4487 (1.6682)	Soft Loss 0.0015 (0.0016)	Prec@(1,5) (54.0%, 83.2%)	
+07/27 04:39:37PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][250/703]	Step 7290	lr 0.02441	Loss 41.1964 (37.3603)	Hard Loss 1.8550 (1.6806)	Soft Loss 0.0017 (0.0016)	Prec@(1,5) (53.6%, 83.0%)	
+07/27 04:39:43PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][300/703]	Step 7340	lr 0.02441	Loss 31.2860 (37.2851)	Hard Loss 1.3992 (1.6772)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (53.7%, 83.1%)	
+07/27 04:39:49PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][350/703]	Step 7390	lr 0.02441	Loss 31.2453 (37.2834)	Hard Loss 1.4000 (1.6770)	Soft Loss 0.0018 (0.0016)	Prec@(1,5) (53.7%, 83.0%)	

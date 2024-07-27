@@ -167,7 +167,7 @@ class EvaluateStageTrainer():
                 y = y.to(self.device)
 
                 logits, _ = self.model(X)
-                loss = self.hard_criterion(logits, y)
+                loss = self.criterion(logits, y)
 
                 prec1, prec5 = accuracy(logits, y, topk=(1, 5))
                 losses.update(loss.item(), N)
