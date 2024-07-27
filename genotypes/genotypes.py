@@ -147,8 +147,9 @@ def parse_edgeNormalization(alpha, beta, k):
     assert PRIMITIVES2[-1] == 'none' # assume last PRIMITIVE is 'none'
 
     # 1) Convert the mixed op to discrete edge (single op) by choosing top-1 weight edge
-    # 2) Choose top-k edges per node by edge score (top-1 weight in edge)
-    for i, (edges, b_edges) in enumerate(alpha, beta):
+    # 2) Choose top-k edges per node by edge score (top-1 weight in edge) 
+    # (partially connectionの場合はedge normalizationのパラメータbetaを掛けた値をedge scoreとする)
+    for i, (edges, b_edges) in enumerate(zip(alpha, beta)):
         # edges: Tensor(n_edges, n_ops)
         W = torch.ones_like(edges)
         for j in range(edges.shape[0]):
