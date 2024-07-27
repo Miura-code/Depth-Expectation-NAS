@@ -62,10 +62,14 @@ class TestConfig(BaseConfig):
             self.genotype = gt.from_str(self.genotype)
         if self.DAG is not None:
 <<<<<<< HEAD
+<<<<<<< HEAD
             self.DAG = gt.from_str(self.DAG)
 =======
             self.DAH = gt.from_str(self.DAG)
 >>>>>>> 8d74f94 (add, update: ステージレベルの構造テストとセルレベルの構造テストを統合)
+=======
+            self.DAG = gt.from_str(self.DAG)
+>>>>>>> 8991bc2 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
 
         self.gpus = parse_gpus(self.gpus)
         self.amp_sync_bn = True
