@@ -12,7 +12,11 @@ if [ ${arch} = "cell" ]; then
         save=$7
         description=$8
         dataset=cifar100
+<<<<<<< HEAD
         lambda=0.4
+=======
+        lambda=0.5
+>>>>>>> 4a4e9df (refactor: 実験名の修正)
         T=3
         batch_size=64
         epoch=100
