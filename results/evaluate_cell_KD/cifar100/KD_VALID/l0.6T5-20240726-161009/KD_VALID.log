@@ -177,6 +177,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -187,6 +188,10 @@
 >>>>>>> e998c00 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
 =======
 >>>>>>> 921365e (experiment: KD_VALID（セルレベル）の追加)
+=======
+=======
+>>>>>>> 8991bc2 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
+>>>>>>> 0903946 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
 07/26 04:21:08午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][450/703]	Step 5378	lr 0.02471	Loss 31.7594 (29.7112)	Hard Loss 2.0484 (1.9104)	Soft Loss 0.0031 (0.0027)	Prec@(1,5) (47.9%, 79.3%)	
 07/26 04:21:14午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][500/703]	Step 5428	lr 0.02471	Loss 30.6901 (29.7327)	Hard Loss 1.9768 (1.9118)	Soft Loss 0.0025 (0.0027)	Prec@(1,5) (47.9%, 79.2%)	
 07/26 04:21:20午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][550/703]	Step 5478	lr 0.02471	Loss 32.9470 (29.7735)	Hard Loss 2.1232 (1.9145)	Soft Loss 0.0027 (0.0027)	Prec@(1,5) (47.9%, 79.1%)	
@@ -1857,12 +1862,16 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 0903946 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
 =======
 >>>>>>> c2455f0 (experiment: KD_VALID（セルレベル）の追加)
 =======
 >>>>>>> 8991bc2 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
+<<<<<<< HEAD
 >>>>>>> cell_kd
 =======
 >>>>>>> ac9d603 (experiment: KD_VALID（セルレベル）の追加)
@@ -1872,3 +1881,5 @@
 =======
 >>>>>>> c2455f0 (experiment: KD_VALID（セルレベル）の追加)
 >>>>>>> 921365e (experiment: KD_VALID（セルレベル）の追加)
+=======
+>>>>>>> 0903946 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
