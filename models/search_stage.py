@@ -355,7 +355,7 @@ class SearchStage_PartiallyConnected(SearchStage):
 
 class SearchStageController(SearchStageController):
     def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False):
-        super().__init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier, device_ids, spec_cell)
+        super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier, device_ids, spec_cell)
 
         self.beta_DAG = nn.ParameterList()
 
@@ -392,9 +392,9 @@ class SearchStageController(SearchStageController):
         return nn.parallel.gather(outputs, self.device_ids[0])
     
     def DAG(self):
-        gene_DAG1 = gt.parse(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], self.beta_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2)
-        gene_DAG2 = gt.parse(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], self.beta_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2)
-        gene_DAG3 = gt.parse(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], self.beta_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2)
+        gene_DAG1 = gt.parse_edgeNormalization(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], self.beta_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2)
+        gene_DAG2 = gt.parse_edgeNormalization(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], self.beta_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2)
+        gene_DAG3 = gt.parse_edgeNormalization(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], self.beta_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2)
 
         concat = range(self.n_big_nodes, self.n_big_nodes + 2)
 
