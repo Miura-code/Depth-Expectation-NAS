@@ -81,6 +81,7 @@
 07/29 07:00:46午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][200/703]	Step 1608	lr 0.02498	Loss 88.6687 (88.0328)	Hard Loss 2.9650 (2.9442)	Soft Loss 0.0012 (0.0012)	Prec@(1,5) (25.9%, 56.8%)	
 07/29 07:00:52午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [2][250/703]	Step 1658	lr 0.02498	Loss 103.0734 (87.1129)	Hard Loss 3.4531 (2.9133)	Soft Loss 0.0012 (0.0012)	Prec@(1,5) (26.4%, 57.7%)	
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1855,3 +1856,5 @@
 =======
 >>>>>>> 3827db0 (experiment:)
 >>>>>>> cell_kd
+=======
+>>>>>>> 2439b45 (experiment;)
