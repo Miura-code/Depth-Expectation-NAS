@@ -84,8 +84,8 @@ elif [ ${arch} = "stage" ]; then
             --spec_cell \
             --advanced \
             --description $description\
-            --nonkd
-            # --pcdarts
+            --nonkd \
+            --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
         resume_path=$3
