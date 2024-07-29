@@ -31,8 +31,8 @@ if [ ${arch} = "cell" ]; then
             --save $save \
             --advanced \
             --description $description\
-            --nonkd \
-            --pcdarts
+            # --nonkd \
+            # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
         resume_path=$3
