@@ -230,6 +230,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -240,6 +241,10 @@
 >>>>>>> 2439b45 (experiment;)
 =======
 >>>>>>> 0903946 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
+=======
+=======
+>>>>>>> 577ed37 (experiment;)
+>>>>>>> 8bb5e74 (experiment;)
 07/27 04:39:55PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][400/703]	Step 7440	lr 0.02441	Loss 45.9798 (37.4714)	Hard Loss 2.0779 (1.6857)	Soft Loss 0.0015 (0.0016)	Prec@(1,5) (53.4%, 83.0%)	
 07/27 04:40:00PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][450/703]	Step 7490	lr 0.02441	Loss 37.1891 (37.4572)	Hard Loss 1.6759 (1.6851)	Soft Loss 0.0016 (0.0016)	Prec@(1,5) (53.4%, 83.0%)	
 07/27 04:40:06PM evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [10][500/703]	Step 7540	lr 0.02441	Loss 42.4645 (37.4696)	Hard Loss 1.9157 (1.6857)	Soft Loss 0.0017 (0.0016)	Prec@(1,5) (53.4%, 83.0%)	
@@ -1857,12 +1862,16 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8bb5e74 (experiment;)
 =======
 >>>>>>> 8991bc2 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
 =======
 >>>>>>> 577ed37 (experiment;)
+<<<<<<< HEAD
 >>>>>>> cell_kd
 =======
 >>>>>>> e998c00 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
@@ -1872,3 +1881,5 @@
 =======
 >>>>>>> 8991bc2 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
 >>>>>>> 0903946 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
+=======
+>>>>>>> 8bb5e74 (experiment;)
