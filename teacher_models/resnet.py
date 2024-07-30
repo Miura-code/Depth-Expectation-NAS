@@ -1,6 +1,4 @@
 from functools import partial
-
-
 from typing import Any, Callable, List, Optional, OrderedDict, Type, Union
 
 import torch
@@ -267,7 +265,6 @@ class ResNet(nn.Module):
     
     def get_classifier(self):
         return self.fc
-
     def get_head(self):
         return self.get_classifier()
     

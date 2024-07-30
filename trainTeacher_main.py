@@ -108,8 +108,6 @@ def run_task(config):
 
     # 最終層をつけかえる
     if config.pretrained and config.cifar:
-
-
         replace_classifier_to_numClasses(model, n_classes, printer=logger.info)
     # stem層を付け替える
     if (not config.advanced) and config.cifar:
