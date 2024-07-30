@@ -25,7 +25,10 @@ from models.architect import Architect
 from utils.data_prefetcher import data_prefetcher
 from utils.file_management import load_teacher_checkpoint_state
 from models.search_cellcnn import SearchCellController, SearchCellController_PartiallyConntected
+<<<<<<< HEAD
 
+=======
+>>>>>>> cell_kd
 from utils.visualize import showModelOnTensorboard
 
 class SearchCellTrainer_WithSimpleKD():
@@ -80,7 +83,10 @@ class SearchCellTrainer_WithSimpleKD():
         if not self.config.nonkd:
             teacher_model = self.load_teacher(n_classes)
             self.teacher_model = teacher_model.to(self.device)
+<<<<<<< HEAD
 
+=======
+>>>>>>> cell_kd
             validate(self.valid_loader, 
                     self.teacher_model,
                     self.hard_criterion, 

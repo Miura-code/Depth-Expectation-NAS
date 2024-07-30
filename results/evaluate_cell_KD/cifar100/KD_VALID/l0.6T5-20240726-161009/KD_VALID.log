@@ -173,6 +173,13 @@
 07/26 04:20:50午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][300/703]	Step 5228	lr 0.02471	Loss 32.3633 (29.7023)	Hard Loss 2.0852 (1.9096)	Soft Loss 0.0028 (0.0027)	Prec@(1,5) (48.1%, 79.2%)	
 07/26 04:20:56午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][350/703]	Step 5278	lr 0.02471	Loss 29.2690 (29.6507)	Hard Loss 1.8825 (1.9064)	Soft Loss 0.0027 (0.0027)	Prec@(1,5) (48.1%, 79.3%)	
 07/26 04:21:02午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][400/703]	Step 5328	lr 0.02471	Loss 27.5326 (29.6805)	Hard Loss 1.7637 (1.9084)	Soft Loss 0.0023 (0.0027)	Prec@(1,5) (47.9%, 79.3%)	
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8991bc2 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
+>>>>>>> cell_kd
 07/26 04:21:08午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][450/703]	Step 5378	lr 0.02471	Loss 31.7594 (29.7112)	Hard Loss 2.0484 (1.9104)	Soft Loss 0.0031 (0.0027)	Prec@(1,5) (47.9%, 79.3%)	
 07/26 04:21:14午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][500/703]	Step 5428	lr 0.02471	Loss 30.6901 (29.7327)	Hard Loss 1.9768 (1.9118)	Soft Loss 0.0025 (0.0027)	Prec@(1,5) (47.9%, 79.2%)	
 07/26 04:21:20午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [7][550/703]	Step 5478	lr 0.02471	Loss 32.9470 (29.7735)	Hard Loss 2.1232 (1.9145)	Soft Loss 0.0027 (0.0027)	Prec@(1,5) (47.9%, 79.1%)	
@@ -1840,3 +1847,11 @@
 07/26 07:33:27午後 evaluateCell_KD_trainer.py:229 [INFO] Valid: [ 99/99] Final Prec@1 68.4200%
 07/26 07:33:27午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 68.6600%
 07/26 07:33:27午後 evaluateCell_main.py:79 [INFO] Final best Prec@1 = 68.6600%
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> c2455f0 (experiment: KD_VALID（セルレベル）の追加)
+=======
+>>>>>>> 8991bc2 (experiment: KD VALIDATIONとBASELINE224-stageの評価とテスト)
+>>>>>>> cell_kd
