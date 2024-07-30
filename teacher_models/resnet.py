@@ -1,13 +1,7 @@
 from functools import partial
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
 from typing import Any, Callable, List, Optional, OrderedDict, Type, Union
-=======
-from typing import Any, Callable, List, Optional, Type, Union
->>>>>>> 3d29431 (add: 使用できるモデルにResNetを追加)
-=======
-from typing import Any, Callable, List, Optional, OrderedDict, Type, Union
->>>>>>> 7937ce6 (add: optimizerに渡すparamsを作って返す関数を追加)
 
 import torch
 import torch.nn as nn
@@ -210,14 +204,6 @@ class ResNet(nn.Module):
         self.layer2 = self._make_layer(block, 128, layers[1], stride=2, dilate=replace_stride_with_dilation[0])
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2, dilate=replace_stride_with_dilation[1])
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2, dilate=replace_stride_with_dilation[2])
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 3d29431 (add: 使用できるモデルにResNetを追加)
-=======
-
->>>>>>> 7937ce6 (add: optimizerに渡すparamsを作って返す関数を追加)
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
@@ -281,11 +267,7 @@ class ResNet(nn.Module):
     
     def get_classifier(self):
         return self.fc
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7937ce6 (add: optimizerに渡すparamsを作って返す関数を追加)
-    
+
     def get_head(self):
         return self.get_classifier()
     
@@ -301,12 +283,6 @@ class ResNet(nn.Module):
             )
         )
         return features
-<<<<<<< HEAD
-=======
->>>>>>> 3d29431 (add: 使用できるモデルにResNetを追加)
-=======
->>>>>>> 7937ce6 (add: optimizerに渡すparamsを作って返す関数を追加)
-        
 
     def _forward_impl(self, x: Tensor) -> Tensor:
         # See note [TorchScript super()]

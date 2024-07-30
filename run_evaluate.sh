@@ -12,15 +12,9 @@ if [ ${arch} = "cell" ]; then
         save=$7
         description=$8
         dataset=cifar100
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
         lambda=0.4
-=======
-        lambda=0.5
->>>>>>> 4a4e9df (refactor: 実験名の修正)
-=======
-        lambda=0.4
->>>>>>> 68e3045 (experiment:)
         T=3
 
         batch_size=64
@@ -73,14 +67,7 @@ elif [ ${arch} = "stage" ]; then
         dataset=cifar100
         lambda=0.4
         T=3
-<<<<<<< HEAD
 
-=======
-        batch_size=64
-        epoch=100
-        train_portion=0.9
-        seed=0
->>>>>>> 68e3045 (experiment:)
         python evaluateStage_main.py \
             --name $name \
             --genotype $genotype \
@@ -120,12 +107,4 @@ elif [ ${arch} = "stage" ]; then
     else
         echo ""
     fi
-<<<<<<< HEAD
-<<<<<<< HEAD
 fi
-=======
-fi
->>>>>>> 38db840 (experiment: セルレベルのBASELINE224評価とテスト)
-=======
-fi
->>>>>>> eeb4418 (update, add: ステージレベル構造の評価を実装)
