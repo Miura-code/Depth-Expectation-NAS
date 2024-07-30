@@ -13,10 +13,14 @@ if [ ${arch} = "cell" ]; then
         description=$8
         dataset=cifar100
 <<<<<<< HEAD
+<<<<<<< HEAD
         lambda=0.4
 =======
         lambda=0.5
 >>>>>>> 4a4e9df (refactor: 実験名の修正)
+=======
+        lambda=0.4
+>>>>>>> 68e3045 (experiment:)
         T=3
         batch_size=64
         epoch=100
@@ -68,7 +72,14 @@ elif [ ${arch} = "stage" ]; then
         dataset=cifar100
         lambda=0.4
         T=3
+<<<<<<< HEAD
 
+=======
+        batch_size=64
+        epoch=100
+        train_portion=0.9
+        seed=0
+>>>>>>> 68e3045 (experiment:)
         python evaluateStage_main.py \
             --name $name \
             --genotype $genotype \
