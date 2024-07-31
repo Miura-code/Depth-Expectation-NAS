@@ -1,5 +1,4 @@
 #!/bin/bash
-
 type=$1
 arch=$2
 if [ ${arch} = "cell" ]; then
@@ -12,8 +11,8 @@ if [ ${arch} = "cell" ]; then
         save=$7
         description=$8
         dataset=cifar100
-        lambda=0.4
-        T=3
+        lambda=$9
+        T=${10}
         batch_size=64
         epoch=100
         train_portion=0.9
@@ -32,8 +31,8 @@ if [ ${arch} = "cell" ]; then
             --seed $seed \
             --save $save \
             --description $description \
-            --advanced \
-            --nonkd
+            --advanced
+            # --nonkd
     elif [ ${type} = "test" ]; then
         ## セルレベル構造のテスト
         genotype=$3
