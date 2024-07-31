@@ -95,5 +95,15 @@ for seed in 1 2 3 4;do
 for seed in 3 ;do
 >>>>>>> 9e3ae3b (experiment: BASELINE224 cell-levelを追加)
     bash run_search.sh train cell BASELINE non non BASELINE224 baseline_size224version_nonkd ${seed}
+<<<<<<< HEAD
 >>>>>>> 8dcb21c (experiment; BASELINE224 search cell)
+=======
+done
+
+Ls=(0.3 0.4 0.5 0.6 0.7)
+Ts=(3 4 5 6 7)
+
+for t in ${Ts[@]}; do
+    bash run_evaluate.sh train cell KD_VALID_NEW efficientnet_v2_s /home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar BASELINE224 l0.3T${t} T^2_to_soft_loss 0.3 ${t}
+>>>>>>> 33c7fbc (experiment: KD_VALIDATION)
 done

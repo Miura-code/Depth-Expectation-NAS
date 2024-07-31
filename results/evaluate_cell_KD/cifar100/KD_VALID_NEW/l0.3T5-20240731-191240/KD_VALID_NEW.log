@@ -1733,6 +1733,7 @@
 07/31 09:27:54午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 71.2000%
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 1a403ca (experiment; KD hyper parameters validation)
 07/31 09:28:00午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [94][50/703]	Step 66226	lr 0.00121	Loss 0.2675 (0.2635)	Hard Loss 0.2339 (0.2430)	Soft Loss 0.0016 (0.0014)	Prec@(1,5) (93.2%, 99.7%)	
@@ -1849,3 +1850,5 @@
 >>>>>>> 33c7fbc (experiment: KD_VALIDATION)
 =======
 >>>>>>> 1a403ca (experiment; KD hyper parameters validation)
+=======
+>>>>>>> 33c7fbc (experiment: KD_VALIDATION)
