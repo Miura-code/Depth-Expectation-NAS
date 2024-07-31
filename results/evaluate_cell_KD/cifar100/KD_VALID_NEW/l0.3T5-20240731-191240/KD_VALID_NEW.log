@@ -1731,6 +1731,7 @@
 07/31 09:27:51午後 evaluateCell_KD_trainer.py:194 [INFO] Train: [ 93/99] Final Prec@1 93.4356%
 07/31 09:27:53午後 evaluateCell_KD_trainer.py:229 [INFO] Valid: [ 93/99] Final Prec@1 70.9400%
 07/31 09:27:54午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 71.2000%
+<<<<<<< HEAD
 07/31 09:28:00午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [94][50/703]	Step 66226	lr 0.00121	Loss 0.2675 (0.2635)	Hard Loss 0.2339 (0.2430)	Soft Loss 0.0016 (0.0014)	Prec@(1,5) (93.2%, 99.7%)	
 07/31 09:28:06午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [94][100/703]	Step 66276	lr 0.00121	Loss 0.2927 (0.2637)	Hard Loss 0.3110 (0.2455)	Soft Loss 0.0014 (0.0014)	Prec@(1,5) (93.0%, 99.7%)	
 07/31 09:28:12午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [94][150/703]	Step 66326	lr 0.00121	Loss 0.2569 (0.2607)	Hard Loss 0.2451 (0.2435)	Soft Loss 0.0014 (0.0014)	Prec@(1,5) (93.4%, 99.6%)	
@@ -1840,3 +1841,5 @@
 07/31 09:36:22午後 evaluateCell_KD_trainer.py:229 [INFO] Valid: [ 99/99] Final Prec@1 71.0400%
 07/31 09:36:22午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 71.4200%
 07/31 09:36:22午後 evaluateCell_main.py:79 [INFO] Final best Prec@1 = 71.4200%
+=======
+>>>>>>> 33c7fbc (experiment: KD_VALIDATION)
