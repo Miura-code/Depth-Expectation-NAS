@@ -70,6 +70,7 @@
 08/01 02:02:38午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][550/703]	Step 1254	lr 0.02499	Loss 2.2583 (2.3987)	Hard Loss 3.1108 (3.2840)	Soft Loss 0.0005 (0.0004)	Prec@(1,5) (19.9%, 48.1%)	
 08/01 02:02:44午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][600/703]	Step 1304	lr 0.02499	Loss 2.0558 (2.3903)	Hard Loss 2.7770 (3.2718)	Soft Loss 0.0005 (0.0004)	Prec@(1,5) (20.1%, 48.4%)	
 08/01 02:02:49午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][650/703]	Step 1354	lr 0.02499	Loss 2.0899 (2.3793)	Hard Loss 2.8723 (3.2561)	Soft Loss 0.0004 (0.0004)	Prec@(1,5) (20.3%, 48.9%)	
+<<<<<<< HEAD
 08/01 02:02:55午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][700/703]	Step 1404	lr 0.02499	Loss 2.1893 (2.3686)	Hard Loss 3.0014 (3.2408)	Soft Loss 0.0004 (0.0004)	Prec@(1,5) (20.6%, 49.3%)	
 08/01 02:02:56午後 evaluateCell_KD_trainer.py:185 [INFO] Train: Epoch: [1][703/703]	Step 1407	lr 0.02499	Loss 2.2108 (2.3683)	Hard Loss 2.9575 (3.2403)	Soft Loss 0.0004 (0.0004)	Prec@(1,5) (20.6%, 49.4%)	
 08/01 02:02:56午後 evaluateCell_KD_trainer.py:194 [INFO] Train: [  1/99] Final Prec@1 20.6467%
@@ -1840,3 +1841,5 @@
 08/01 04:23:44午後 evaluateCell_KD_trainer.py:229 [INFO] Valid: [ 99/99] Final Prec@1 71.9600%
 08/01 04:23:44午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.2800%
 08/01 04:23:44午後 evaluateCell_main.py:79 [INFO] Final best Prec@1 = 72.2800%
+=======
+>>>>>>> 1a403ca (experiment; KD hyper parameters validation)
