@@ -16,7 +16,7 @@ if [ ${arch} = "cell" ]; then
         batch_size=64
         epoch=50
         train_portion=0.5 # searchの場合train_portionは0.5が最大値
-        seed=0
+        seed=$8
         python searchCell_KD_main.py \
             --name $name \
             --teacher_name $teacher_model\
@@ -31,7 +31,7 @@ if [ ${arch} = "cell" ]; then
             --save $save \
             --advanced \
             --description $description\
-            # --nonkd \
+            --nonkd
             # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
