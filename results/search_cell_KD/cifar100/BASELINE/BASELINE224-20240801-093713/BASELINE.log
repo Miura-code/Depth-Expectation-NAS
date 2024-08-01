@@ -5654,3 +5654,139 @@ tensor([[0.2175, 0.3829, 0.0684, 0.0674, 0.0917, 0.0564, 0.0569, 0.0589],
        device='cuda:0', grad_fn=<SoftmaxBackward0>)
 #####################
 08/01 02:07:25午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][50/390]	Step 18818	lr 0.00109	Loss 0.4716 (0.4602)	Hard Loss 0.4716 (0.4602)	Soft Loss 0.4716 (0.4602)	Arch Loss 1.7068 (1.6591)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.7%, 99.5%)	
+08/01 02:08:06午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][100/390]	Step 18868	lr 0.00109	Loss 0.4081 (0.4503)	Hard Loss 0.4081 (0.4503)	Soft Loss 0.4081 (0.4503)	Arch Loss 1.8517 (1.6835)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (93.1%, 99.5%)	
+08/01 02:08:48午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][150/390]	Step 18918	lr 0.00109	Loss 0.4348 (0.4528)	Hard Loss 0.4348 (0.4528)	Soft Loss 0.4348 (0.4528)	Arch Loss 1.7953 (1.6796)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.8%, 99.5%)	
+08/01 02:09:29午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][200/390]	Step 18968	lr 0.00109	Loss 0.4834 (0.4532)	Hard Loss 0.4834 (0.4532)	Soft Loss 0.4834 (0.4532)	Arch Loss 1.8578 (1.6916)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.8%, 99.5%)	
+08/01 02:10:10午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][250/390]	Step 19018	lr 0.00109	Loss 0.4239 (0.4562)	Hard Loss 0.4239 (0.4562)	Soft Loss 0.4239 (0.4562)	Arch Loss 1.9008 (1.6882)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.7%, 99.5%)	
+08/01 02:10:52午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][300/390]	Step 19068	lr 0.00109	Loss 0.6267 (0.4587)	Hard Loss 0.6267 (0.4587)	Soft Loss 0.6267 (0.4587)	Arch Loss 1.5575 (1.6863)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.6%, 99.5%)	
+08/01 02:11:32午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][350/390]	Step 19118	lr 0.00109	Loss 0.4716 (0.4584)	Hard Loss 0.4716 (0.4584)	Soft Loss 0.4716 (0.4584)	Arch Loss 1.7016 (1.6943)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.6%, 99.5%)	
+08/01 02:12:03午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][390/390]	Step 19158	lr 0.00109	Loss 0.3682 (0.4575)	Hard Loss 0.3682 (0.4575)	Soft Loss 0.3682 (0.4575)	Arch Loss 1.8318 (1.6955)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.7%, 99.5%)	
+08/01 02:12:04午後 searchCell_trainer.py:232 [INFO] Train: [ 48/49] Final Prec@1 92.6400%
+08/01 02:12:11午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [48][50/391]	Step 19159	Loss 1.5740	Prec@(1,5) (57.6%, 84.7%)
+08/01 02:12:18午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [48][100/391]	Step 19159	Loss 1.6214	Prec@(1,5) (56.5%, 84.1%)
+08/01 02:12:24午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [48][150/391]	Step 19159	Loss 1.6366	Prec@(1,5) (56.5%, 83.7%)
+08/01 02:12:31午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [48][200/391]	Step 19159	Loss 1.6455	Prec@(1,5) (56.3%, 83.4%)
+08/01 02:12:38午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [48][250/391]	Step 19159	Loss 1.6609	Prec@(1,5) (55.8%, 83.1%)
+08/01 02:12:45午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [48][300/391]	Step 19159	Loss 1.6528	Prec@(1,5) (55.9%, 83.3%)
+08/01 02:12:51午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [48][350/391]	Step 19159	Loss 1.6520	Prec@(1,5) (56.1%, 83.3%)
+08/01 02:12:56午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [48][390/391]	Step 19159	Loss 1.6487	Prec@(1,5) (56.1%, 83.4%)
+08/01 02:12:56午後 searchCell_trainer.py:267 [INFO] Valid: [ 48/49] Final Prec@1 56.1040%
+08/01 02:12:56午後 searchCell_KD_main.py:58 [INFO] genotype = Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('sep_conv_3x3', 3)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('skip_connect', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+08/01 02:12:57午後 searchCell_KD_main.py:92 [INFO] Until now, best Prec@1 = 56.4880%
+####### ALPHA #######
+# Alpha - normal
+tensor([[0.0576, 0.0506, 0.0671, 0.1732, 0.3724, 0.0881, 0.0728, 0.1182],
+        [0.0657, 0.0663, 0.0975, 0.2912, 0.1554, 0.1433, 0.0992, 0.0814]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.0796, 0.0526, 0.0747, 0.3416, 0.0934, 0.1005, 0.1086, 0.1491],
+        [0.0677, 0.0540, 0.0808, 0.4121, 0.1075, 0.0747, 0.0974, 0.1058],
+        [0.0742, 0.0611, 0.0963, 0.2232, 0.1240, 0.2546, 0.0813, 0.0853]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1007, 0.0655, 0.0913, 0.1146, 0.0915, 0.0862, 0.0881, 0.3622],
+        [0.0817, 0.0652, 0.0891, 0.2876, 0.1215, 0.1211, 0.1176, 0.1163],
+        [0.0831, 0.0759, 0.1117, 0.2003, 0.1593, 0.1815, 0.0891, 0.0991],
+        [0.0849, 0.0786, 0.1188, 0.1567, 0.1205, 0.1905, 0.1527, 0.0973]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.0882, 0.0649, 0.0808, 0.2431, 0.1194, 0.1408, 0.0937, 0.1692],
+        [0.0888, 0.0697, 0.0967, 0.1696, 0.1027, 0.1605, 0.1083, 0.2038],
+        [0.0908, 0.0750, 0.0979, 0.1689, 0.1696, 0.1846, 0.1213, 0.0918],
+        [0.0724, 0.0702, 0.1028, 0.1963, 0.1706, 0.1636, 0.1184, 0.1058],
+        [0.0596, 0.0617, 0.0787, 0.1361, 0.2363, 0.1355, 0.1493, 0.1428]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1212, 0.1639, 0.2336, 0.1281, 0.0935, 0.0773, 0.0811, 0.1013],
+        [0.0939, 0.1327, 0.1488, 0.1092, 0.1750, 0.1488, 0.0830, 0.1085]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1102, 0.1554, 0.1845, 0.1328, 0.0938, 0.1115, 0.1122, 0.0996],
+        [0.0831, 0.1280, 0.1454, 0.1250, 0.1144, 0.1325, 0.1211, 0.1506],
+        [0.0882, 0.1351, 0.1572, 0.1161, 0.1347, 0.0868, 0.1053, 0.1766]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1350, 0.2200, 0.2213, 0.0921, 0.0838, 0.0682, 0.0928, 0.0868],
+        [0.0917, 0.1436, 0.1494, 0.1595, 0.0975, 0.1434, 0.1012, 0.1136],
+        [0.1038, 0.1761, 0.1688, 0.1120, 0.1100, 0.0957, 0.1146, 0.1191],
+        [0.0968, 0.1657, 0.1566, 0.1154, 0.0965, 0.1327, 0.1038, 0.1324]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1349, 0.2220, 0.2621, 0.0824, 0.0765, 0.0717, 0.0690, 0.0813],
+        [0.1064, 0.1516, 0.1674, 0.1244, 0.1150, 0.1324, 0.0920, 0.1108],
+        [0.1245, 0.2053, 0.2056, 0.0901, 0.0795, 0.0879, 0.0848, 0.1224],
+        [0.1061, 0.1728, 0.1797, 0.0820, 0.1016, 0.0894, 0.0848, 0.1836],
+        [0.0960, 0.1554, 0.1518, 0.0885, 0.1009, 0.1087, 0.0926, 0.2060]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.0584, 0.0595, 0.2559, 0.0789, 0.0737, 0.1125, 0.1010, 0.2600],
+        [0.0226, 0.0209, 0.0324, 0.0282, 0.0301, 0.0281, 0.0321, 0.8055]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.0569, 0.0616, 0.2155, 0.0480, 0.0369, 0.0489, 0.0698, 0.4625],
+        [0.0187, 0.0176, 0.0276, 0.0232, 0.0151, 0.0339, 0.0287, 0.8353],
+        [0.0098, 0.0095, 0.0175, 0.0124, 0.0136, 0.0131, 0.0139, 0.9102]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.0436, 0.0500, 0.1443, 0.0380, 0.0270, 0.0376, 0.0373, 0.6223],
+        [0.0192, 0.0170, 0.0274, 0.0199, 0.0156, 0.0259, 0.0203, 0.8548],
+        [0.0101, 0.0100, 0.0169, 0.0129, 0.0096, 0.0107, 0.0107, 0.9191],
+        [0.0101, 0.0098, 0.0155, 0.0090, 0.0108, 0.0125, 0.0120, 0.9203]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.0486, 0.0559, 0.1392, 0.0215, 0.0197, 0.0234, 0.0287, 0.6629],
+        [0.0145, 0.0131, 0.0194, 0.0176, 0.0123, 0.0151, 0.0179, 0.8900],
+        [0.0118, 0.0115, 0.0183, 0.0106, 0.0115, 0.0097, 0.0126, 0.9140],
+        [0.0107, 0.0103, 0.0152, 0.0099, 0.0086, 0.0095, 0.0100, 0.9257],
+        [0.0096, 0.0094, 0.0154, 0.0098, 0.0075, 0.0111, 0.0085, 0.9286]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+
+# Alpha - reduce
+tensor([[0.1322, 0.0883, 0.1134, 0.1886, 0.1310, 0.1232, 0.1053, 0.1181],
+        [0.1300, 0.1050, 0.1691, 0.1315, 0.0951, 0.1663, 0.0919, 0.1111]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1595, 0.1175, 0.1142, 0.1361, 0.1494, 0.1192, 0.0990, 0.1052],
+        [0.1170, 0.1049, 0.1185, 0.1660, 0.1254, 0.1185, 0.1271, 0.1226],
+        [0.0992, 0.1057, 0.1354, 0.1506, 0.1023, 0.1274, 0.1236, 0.1558]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1452, 0.0982, 0.0971, 0.1654, 0.1742, 0.1112, 0.0954, 0.1133],
+        [0.1260, 0.1059, 0.1200, 0.1797, 0.1302, 0.1056, 0.1250, 0.1075],
+        [0.0957, 0.0815, 0.1036, 0.2210, 0.1373, 0.1191, 0.1242, 0.1177],
+        [0.0956, 0.0822, 0.0984, 0.1570, 0.1503, 0.1391, 0.1287, 0.1486]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1583, 0.1126, 0.1142, 0.1082, 0.1454, 0.1165, 0.1004, 0.1443],
+        [0.1322, 0.1091, 0.1122, 0.1418, 0.1103, 0.1496, 0.1199, 0.1251],
+        [0.1160, 0.1158, 0.1293, 0.1256, 0.1376, 0.1207, 0.1246, 0.1304],
+        [0.1152, 0.1119, 0.1217, 0.1488, 0.1063, 0.1195, 0.1304, 0.1463],
+        [0.1235, 0.1142, 0.1139, 0.1371, 0.1269, 0.1014, 0.1409, 0.1421]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.1865, 0.2702, 0.1044, 0.0716, 0.0683, 0.1166, 0.0806, 0.1019],
+        [0.2036, 0.2158, 0.0794, 0.0958, 0.1023, 0.0790, 0.1285, 0.0957]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.2147, 0.3208, 0.0690, 0.0762, 0.0653, 0.0524, 0.1069, 0.0947],
+        [0.2407, 0.2325, 0.0894, 0.0895, 0.0852, 0.0843, 0.1139, 0.0645],
+        [0.0600, 0.0764, 0.2853, 0.0813, 0.0684, 0.1111, 0.1378, 0.1797]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.2561, 0.3645, 0.0511, 0.0673, 0.0794, 0.0562, 0.0654, 0.0599],
+        [0.2342, 0.2602, 0.0645, 0.0958, 0.0956, 0.0818, 0.0885, 0.0794],
+        [0.0715, 0.1011, 0.3639, 0.0915, 0.0473, 0.1094, 0.0841, 0.1312],
+        [0.0598, 0.0715, 0.2958, 0.0584, 0.0483, 0.1019, 0.1321, 0.2321]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+tensor([[0.2155, 0.3889, 0.0670, 0.0668, 0.0907, 0.0559, 0.0567, 0.0586],
+        [0.2322, 0.2430, 0.0594, 0.0949, 0.1126, 0.0703, 0.0916, 0.0961],
+        [0.0568, 0.0775, 0.3961, 0.0683, 0.0557, 0.1061, 0.1012, 0.1384],
+        [0.0497, 0.0610, 0.2715, 0.0525, 0.0611, 0.0924, 0.1290, 0.2828],
+        [0.0422, 0.0471, 0.1546, 0.0559, 0.0444, 0.0753, 0.1163, 0.4642]],
+       device='cuda:0', grad_fn=<SoftmaxBackward0>)
+#####################
+08/01 02:13:38午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [49][50/390]	Step 19209	lr 0.00102	Loss 0.3102 (0.4384)	Hard Loss 0.3102 (0.4384)	Soft Loss 0.3102 (0.4384)	Arch Loss 1.9429 (1.6725)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (93.4%, 99.8%)	
+08/01 02:14:19午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [49][100/390]	Step 19259	lr 0.00102	Loss 0.5067 (0.4441)	Hard Loss 0.5067 (0.4441)	Soft Loss 0.5067 (0.4441)	Arch Loss 1.7863 (1.6781)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (93.1%, 99.7%)	
+08/01 02:15:00午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [49][150/390]	Step 19309	lr 0.00102	Loss 0.4580 (0.4453)	Hard Loss 0.4580 (0.4453)	Soft Loss 0.4580 (0.4453)	Arch Loss 1.8066 (1.6807)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (93.2%, 99.7%)	
+08/01 02:15:41午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [49][200/390]	Step 19359	lr 0.00102	Loss 0.4889 (0.4464)	Hard Loss 0.4889 (0.4464)	Soft Loss 0.4889 (0.4464)	Arch Loss 1.4596 (1.6892)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (93.1%, 99.6%)	
+08/01 02:16:24午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [49][250/390]	Step 19409	lr 0.00102	Loss 0.4884 (0.4493)	Hard Loss 0.4884 (0.4493)	Soft Loss 0.4884 (0.4493)	Arch Loss 2.1739 (1.6934)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.9%, 99.6%)	
+08/01 02:17:05午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [49][300/390]	Step 19459	lr 0.00102	Loss 0.3857 (0.4527)	Hard Loss 0.3857 (0.4527)	Soft Loss 0.3857 (0.4527)	Arch Loss 1.4403 (1.6841)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.9%, 99.6%)	
+08/01 02:17:47午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [49][350/390]	Step 19509	lr 0.00102	Loss 0.4953 (0.4563)	Hard Loss 0.4953 (0.4563)	Soft Loss 0.4953 (0.4563)	Arch Loss 1.8352 (1.6934)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.8%, 99.6%)	
+08/01 02:18:21午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [49][390/390]	Step 19549	lr 0.00102	Loss 0.4398 (0.4565)	Hard Loss 0.4398 (0.4565)	Soft Loss 0.4398 (0.4565)	Arch Loss 1.5977 (1.6936)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.8%, 99.6%)	
+08/01 02:18:22午後 searchCell_trainer.py:232 [INFO] Train: [ 49/49] Final Prec@1 92.8120%
+08/01 02:18:30午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [49][50/391]	Step 19550	Loss 1.6166	Prec@(1,5) (57.7%, 84.2%)
+08/01 02:18:36午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [49][100/391]	Step 19550	Loss 1.6274	Prec@(1,5) (56.9%, 83.7%)
+08/01 02:18:43午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [49][150/391]	Step 19550	Loss 1.6358	Prec@(1,5) (56.8%, 83.6%)
+08/01 02:18:50午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [49][200/391]	Step 19550	Loss 1.6303	Prec@(1,5) (56.9%, 83.5%)
+08/01 02:18:56午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [49][250/391]	Step 19550	Loss 1.6339	Prec@(1,5) (56.6%, 83.5%)
+08/01 02:19:03午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [49][300/391]	Step 19550	Loss 1.6357	Prec@(1,5) (56.5%, 83.5%)
+08/01 02:19:10午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [49][350/391]	Step 19550	Loss 1.6353	Prec@(1,5) (56.6%, 83.5%)
+08/01 02:19:16午後 searchCell_trainer.py:260 [INFO] Valid: Epoch: [49][390/391]	Step 19550	Loss 1.6391	Prec@(1,5) (56.5%, 83.5%)
+08/01 02:19:16午後 searchCell_trainer.py:267 [INFO] Valid: [ 49/49] Final Prec@1 56.5040%
+08/01 02:19:16午後 searchCell_KD_main.py:58 [INFO] genotype = Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+08/01 02:19:17午後 searchCell_KD_main.py:92 [INFO] Until now, best Prec@1 = 56.5040%
+08/01 02:19:17午後 searchCell_KD_main.py:97 [INFO] Final best Prec@1 = 56.5040%
+08/01 02:19:17午後 searchCell_KD_main.py:98 [INFO] Final Best Genotype = Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
