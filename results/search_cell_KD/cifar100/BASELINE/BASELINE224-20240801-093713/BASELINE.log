@@ -5655,6 +5655,9 @@ tensor([[0.2175, 0.3829, 0.0684, 0.0674, 0.0917, 0.0564, 0.0569, 0.0589],
 #####################
 08/01 02:07:25午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][50/390]	Step 18818	lr 0.00109	Loss 0.4716 (0.4602)	Hard Loss 0.4716 (0.4602)	Soft Loss 0.4716 (0.4602)	Arch Loss 1.7068 (1.6591)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.7%, 99.5%)	
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9e3ae3b (experiment: BASELINE224 cell-levelを追加)
 08/01 02:08:06午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][100/390]	Step 18868	lr 0.00109	Loss 0.4081 (0.4503)	Hard Loss 0.4081 (0.4503)	Soft Loss 0.4081 (0.4503)	Arch Loss 1.8517 (1.6835)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (93.1%, 99.5%)	
 08/01 02:08:48午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][150/390]	Step 18918	lr 0.00109	Loss 0.4348 (0.4528)	Hard Loss 0.4348 (0.4528)	Soft Loss 0.4348 (0.4528)	Arch Loss 1.7953 (1.6796)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.8%, 99.5%)	
 08/01 02:09:29午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][200/390]	Step 18968	lr 0.00109	Loss 0.4834 (0.4532)	Hard Loss 0.4834 (0.4532)	Soft Loss 0.4834 (0.4532)	Arch Loss 1.8578 (1.6916)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.8%, 99.5%)	
@@ -5791,5 +5794,8 @@ tensor([[0.2155, 0.3889, 0.0670, 0.0668, 0.0907, 0.0559, 0.0567, 0.0586],
 08/01 02:19:17午後 searchCell_KD_main.py:92 [INFO] Until now, best Prec@1 = 56.5040%
 08/01 02:19:17午後 searchCell_KD_main.py:97 [INFO] Final best Prec@1 = 56.5040%
 08/01 02:19:17午後 searchCell_KD_main.py:98 [INFO] Final Best Genotype = Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+<<<<<<< HEAD
 =======
 >>>>>>> 8dcb21c (experiment; BASELINE224 search cell)
+=======
+>>>>>>> 9e3ae3b (experiment: BASELINE224 cell-levelを追加)
