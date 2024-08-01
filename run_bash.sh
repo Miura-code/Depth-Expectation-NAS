@@ -4,6 +4,7 @@
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_m pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # for seed in 3 ;do
 #     bash run_search.sh train cell BASELINE non non BASELINE224 baseline_size224version_nonkd ${seed}
 # done
@@ -90,6 +91,9 @@ for genotype in ${genotypes[@]};do
 >>>>>>> 4fee45d (experiment: セルレベル探索の評価)
 =======
 for seed in 1 2 3 4;do
+=======
+for seed in 3 ;do
+>>>>>>> 9e3ae3b (experiment: BASELINE224 cell-levelを追加)
     bash run_search.sh train cell BASELINE non non BASELINE224 baseline_size224version_nonkd ${seed}
 >>>>>>> 8dcb21c (experiment; BASELINE224 search cell)
 done

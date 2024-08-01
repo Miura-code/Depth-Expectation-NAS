@@ -39,6 +39,7 @@
 08/01 02:40:14PM parser.py:32 [INFO] 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> f954e00 (experiment:)
 08/01 02:40:46PM searchCell_trainer.py:127 [INFO] --> No loaded checkpoint!
@@ -5799,3 +5800,5 @@ tensor([[0.2808, 0.3571, 0.0489, 0.0537, 0.0748, 0.0536, 0.0593, 0.0717],
 >>>>>>> 9e3ae3b (experiment: BASELINE224 cell-levelを追加)
 =======
 >>>>>>> f954e00 (experiment:)
+=======
+>>>>>>> 9e3ae3b (experiment: BASELINE224 cell-levelを追加)
