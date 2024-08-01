@@ -3,6 +3,7 @@
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_s pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_m pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 
+<<<<<<< HEAD
 # for seed in 3 ;do
 #     bash run_search.sh train cell BASELINE non non BASELINE224 baseline_size224version_nonkd ${seed}
 # done
@@ -87,4 +88,8 @@ for genotype in ${genotypes[@]};do
     extracted=$(echo "$genotype" | sed -n 's|.*-\([^/]*\)/DAG.*|\1|p')
     bash run_evaluate.sh train cell ONLY_EVAL efficientnet_v2_s $teacher_path $genotype $extracted genotype-$genotype_KD_for_only_evaluation_stage 0.5 10 0
 >>>>>>> 4fee45d (experiment: セルレベル探索の評価)
+=======
+for seed in 1 2 3 4;do
+    bash run_search.sh train cell BASELINE non non BASELINE224 baseline_size224version_nonkd ${seed}
+>>>>>>> 8dcb21c (experiment; BASELINE224 search cell)
 done

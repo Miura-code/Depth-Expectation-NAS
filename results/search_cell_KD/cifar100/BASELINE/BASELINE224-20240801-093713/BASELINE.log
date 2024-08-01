@@ -5656,6 +5656,7 @@ tensor([[0.2175, 0.3829, 0.0684, 0.0674, 0.0917, 0.0564, 0.0569, 0.0589],
 08/01 02:07:25午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][50/390]	Step 18818	lr 0.00109	Loss 0.4716 (0.4602)	Hard Loss 0.4716 (0.4602)	Soft Loss 0.4716 (0.4602)	Arch Loss 1.7068 (1.6591)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (92.7%, 99.5%)	
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 9e3ae3b (experiment: BASELINE224 cell-levelを追加)
 08/01 02:08:06午後 searchCell_trainer.py:217 [INFO] Train: Epoch: [48][100/390]	Step 18868	lr 0.00109	Loss 0.4081 (0.4503)	Hard Loss 0.4081 (0.4503)	Soft Loss 0.4081 (0.4503)	Arch Loss 1.8517 (1.6835)	Arch Hard Loss 0.0000 (0.0000)	Arch Soft Loss 0.0000 (0.0000)	Prec@(1,5) (93.1%, 99.5%)	
@@ -5799,3 +5800,5 @@ tensor([[0.2155, 0.3889, 0.0670, 0.0668, 0.0907, 0.0559, 0.0567, 0.0586],
 >>>>>>> 8dcb21c (experiment; BASELINE224 search cell)
 =======
 >>>>>>> 9e3ae3b (experiment: BASELINE224 cell-levelを追加)
+=======
+>>>>>>> 8dcb21c (experiment; BASELINE224 search cell)

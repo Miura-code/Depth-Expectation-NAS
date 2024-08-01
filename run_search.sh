@@ -30,8 +30,13 @@ if [ ${arch} = "cell" ]; then
             --seed $seed \
             --save $save \
             --advanced \
+<<<<<<< HEAD
             --description $description
             # --nonkd
+=======
+            --description $description\
+            --nonkd
+>>>>>>> 8dcb21c (experiment; BASELINE224 search cell)
             # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
