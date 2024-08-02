@@ -7,11 +7,16 @@
 #     bash run_search.sh train cell BASELINE non non BASELINE224 baseline_size224version_nonkd ${seed}
 # done
 
+<<<<<<< HEAD
 # Ls=(0.3 0.4 0.5 0.6 0.7)
 # Ts=(10 20)
 # for t in ${Ts[@]}; do
 #     bash run_evaluate.sh train cell KD_VALID_NEW efficientnet_v2_s /home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar BASELINE224 l0.3T${t} T^2_to_soft_loss 0.3 ${t}
 # done
+=======
+Ls=(0.3 0.4 0.5 0.6 0.7)
+Ts=(30)
+>>>>>>> 0796289 (experiment: KD validation)
 
 # teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
 
