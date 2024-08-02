@@ -17,7 +17,6 @@
 # done
 Ls=(0.3 0.4 0.5 0.6 0.7)
 Ts=(30)
-
 # teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
 
 # for seed in 0 1 2 3 4;do
@@ -35,7 +34,6 @@ genotypes=(
 for genotype in ${genotypes[@]};do
     extracted=$(echo "$genotype" | sed -n 's|.*-\([^/]*\)/DAG.*|\1|p')
     bash run_evaluate.sh train cell ONLY_EVAL efficientnet_v2_s $teacher_path $genotype $extracted genotype-$genotype_KD_for_only_evaluation_stage 0.5 10 0
-=======
 # Ls=(0.3 0.4 0.5 0.6 0.7)
 # Ts=(10 20)
 
