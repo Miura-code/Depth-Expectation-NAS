@@ -30,8 +30,8 @@ if [ ${arch} = "cell" ]; then
             --seed $seed \
             --save $save \
             --advanced \
-            --description $description\
-            --nonkd
+            --description $description
+            # --nonkd
             # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
