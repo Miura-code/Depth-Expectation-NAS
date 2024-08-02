@@ -196,7 +196,8 @@ class SearchCellTrainer_WithSimpleKD():
                 hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
             else:
                 # === KD for optimizing network params ===
-                teacher_guide = self.teacher_model(trn_X)
+                with torch.no_grad():
+                    teacher_guide = self.teacher_model(trn_X)
                 hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
             loss.backward()
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
