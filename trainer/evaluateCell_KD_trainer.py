@@ -66,7 +66,7 @@ class EvaluateCellTrainer_WithSimpleKD():
         # ================= define criteria ==================
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
         self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
-        self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
+        self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.T)
         self.use_aux = self.config.aux_weight > 0.
         # ================= Student model ==================
         model = AugmentCellCNN(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.use_aux, self.config.genotype)
