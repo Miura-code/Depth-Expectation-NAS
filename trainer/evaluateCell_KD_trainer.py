@@ -163,7 +163,8 @@ class EvaluateCellTrainer_WithSimpleKD():
             y = y.to(self.device)
 
             # ================= optimize network parameter ==================
-            teacher_guide = self.teacher_model(X)
+            with torch.no_grad():
+                teacher_guide = self.teacher_model(X)
             logits, aux_logits = self.model(X)
             hard_loss, soft_loss, loss = self.criterion(logits, teacher_guide, y, True)
             if self.use_aux:
