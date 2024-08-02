@@ -31,12 +31,17 @@ if [ ${arch} = "cell" ]; then
             --save $save \
             --advanced \
 <<<<<<< HEAD
+<<<<<<< HEAD
             --description $description
             # --nonkd
 =======
             --description $description\
             --nonkd
 >>>>>>> 8dcb21c (experiment; BASELINE224 search cell)
+=======
+            --description $description
+            # --nonkd
+>>>>>>> 0796289 (experiment: KD validation)
             # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
