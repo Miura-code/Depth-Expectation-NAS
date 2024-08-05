@@ -41,8 +41,8 @@ if [ ${arch} = "cell" ]; then
             --seed $seed \
             --save $save \
             --description $description \
-            --advanced
-            # --nonkd
+            --advanced \
+            --nonkd
     elif [ ${type} = "test" ]; then
         ## セルレベル構造のテスト
         genotype=$3
