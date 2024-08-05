@@ -112,7 +112,7 @@ for t in ${Ts[@]}; do
 >>>>>>> 33c7fbc (experiment: KD_VALIDATION)
 =======
 # Ls=(0.3 0.4 0.5 0.6 0.7)
-# Ts=(30)
+# Ts=(10 20)
 
 # for t in ${Ts[@]}; do
 #     bash run_evaluate.sh train cell KD_VALID_NEW efficientnet_v2_s /home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar BASELINE224 l0.3T${t} T^2_to_soft_loss 0.3 ${t}
@@ -132,7 +132,13 @@ for seed in 1 2 3 4;do
 >>>>>>> 7a96e72 (experiment: ベースラインの評価)
 =======
 teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+<<<<<<< HEAD
 for seed in 0 1 2 3 4; do
     bash run_search.sh train cell ONLY_ARCH efficientnet_v2_s ${teacher_path} s${seed} search_cell_architecture_using_KD_for_architecture_parameter_optimization_with_seed-${seed} ${seed}
 >>>>>>> 094865b (experiment: セルレベル探索にKDを導入)
+=======
+
+for seed in 0 1 2 3 4;do
+    bash run_search.sh train cell ARCH_WEIGHT efficientnet_v2_s ${teacher_path} s${seed} search_cell_with_simple_kd_on_seed-${seed} ${seed}
+>>>>>>> a6ddf01 (experiment: セルレベルの探索にKDを導入)
 done
