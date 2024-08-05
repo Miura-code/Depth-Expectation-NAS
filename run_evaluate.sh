@@ -16,7 +16,7 @@ if [ ${arch} = "cell" ]; then
         batch_size=64
         epoch=100
         train_portion=0.9
-        seed=0
+        seed=${11}
         python evaluateCell_main.py \
             --name $name \
             --genotype $genotype \
@@ -31,8 +31,8 @@ if [ ${arch} = "cell" ]; then
             --seed $seed \
             --save $save \
             --description $description \
-            --advanced
-            # --nonkd
+            --advanced \
+            --nonkd
     elif [ ${type} = "test" ]; then
         ## セルレベル構造のテスト
         genotype=$3

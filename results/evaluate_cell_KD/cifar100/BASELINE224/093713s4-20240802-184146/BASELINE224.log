@@ -1,0 +1,438 @@
+08/02 06:41:46PM parser.py:28 [INFO] 
+08/02 06:41:46PM parser.py:29 [INFO] Parameters:
+08/02 06:41:46PM parser.py:31 [INFO] T=3.0
+08/02 06:41:46PM parser.py:31 [INFO] ADVANCED=True
+08/02 06:41:46PM parser.py:31 [INFO] AUX_WEIGHT=0.4
+08/02 06:41:46PM parser.py:31 [INFO] BATCH_SIZE=64
+08/02 06:41:46PM parser.py:31 [INFO] CUTOUT_LENGTH=16
+08/02 06:41:46PM parser.py:31 [INFO] DATA_PATH=../data/
+08/02 06:41:46PM parser.py:31 [INFO] DATASET=cifar100
+08/02 06:41:46PM parser.py:31 [INFO] DESCRIPTION=baseline224_genotype-BASELINE224-20240801-093713
+08/02 06:41:46PM parser.py:31 [INFO] DROP_PATH_PROB=0.2
+08/02 06:41:46PM parser.py:31 [INFO] EPOCHS=100
+08/02 06:41:46PM parser.py:31 [INFO] EXP_NAME=093713s4-20240802-184146
+08/02 06:41:46PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+08/02 06:41:46PM parser.py:31 [INFO] GPUS=[0]
+08/02 06:41:46PM parser.py:31 [INFO] GRAD_CLIP=5.0
+08/02 06:41:46PM parser.py:31 [INFO] INIT_CHANNELS=32
+08/02 06:41:46PM parser.py:31 [INFO] L=0.3
+08/02 06:41:46PM parser.py:31 [INFO] LAYERS=20
+08/02 06:41:46PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+08/02 06:41:46PM parser.py:31 [INFO] LR=0.025
+08/02 06:41:46PM parser.py:31 [INFO] LR_MIN=0.001
+08/02 06:41:46PM parser.py:31 [INFO] MOMENTUM=0.9
+08/02 06:41:46PM parser.py:31 [INFO] NAME=BASELINE224
+08/02 06:41:46PM parser.py:31 [INFO] NONKD=True
+08/02 06:41:46PM parser.py:31 [INFO] PATH=results/evaluate_cell_KD/cifar100/BASELINE224/093713s4-20240802-184146
+08/02 06:41:46PM parser.py:31 [INFO] PRINT_FREQ=50
+08/02 06:41:46PM parser.py:31 [INFO] RESUME_PATH=None
+08/02 06:41:46PM parser.py:31 [INFO] SAVE=093713s4
+08/02 06:41:46PM parser.py:31 [INFO] SEED=4
+08/02 06:41:46PM parser.py:31 [INFO] TEACHER_NAME=non
+08/02 06:41:46PM parser.py:31 [INFO] TEACHER_PATH=non
+08/02 06:41:46PM parser.py:31 [INFO] TRAIN_PORTION=0.9
+08/02 06:41:46PM parser.py:31 [INFO] WEIGHT_DECAY=0.0003
+08/02 06:41:46PM parser.py:31 [INFO] WORKERS=4
+08/02 06:41:46PM parser.py:32 [INFO] 
+08/02 06:41:47PM evaluateCell_trainer.py:102 [INFO] --> No loaded checkpoint!
+08/02 06:42:13PM evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [0][50/79]	Step 704	Loss 3.6984	Prec@(1,5) (13.4%, 38.4%)
+08/02 06:42:13PM evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [0][78/79]	Step 704	Loss 3.6693	Prec@(1,5) (13.9%, 39.0%)
+08/02 06:42:13PM evaluateCell_trainer.py:206 [INFO] Valid: [  0/99] Final Prec@1 13.8400%
+08/02 06:42:14午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 13.8400%
+08/02 06:42:40午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [1][50/79]	Step 1408	Loss 3.2170	Prec@(1,5) (22.4%, 50.4%)
+08/02 06:42:41午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [1][78/79]	Step 1408	Loss 3.2251	Prec@(1,5) (22.1%, 50.1%)
+08/02 06:42:41午後 evaluateCell_trainer.py:206 [INFO] Valid: [  1/99] Final Prec@1 22.1400%
+08/02 06:42:41午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 22.1400%
+08/02 06:43:08午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [2][50/79]	Step 2112	Loss 2.8431	Prec@(1,5) (29.5%, 61.0%)
+08/02 06:43:08午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [2][78/79]	Step 2112	Loss 2.8023	Prec@(1,5) (30.0%, 61.2%)
+08/02 06:43:08午後 evaluateCell_trainer.py:206 [INFO] Valid: [  2/99] Final Prec@1 29.9400%
+08/02 06:43:09午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 29.9400%
+08/02 06:43:36午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [3][50/79]	Step 2816	Loss 2.5379	Prec@(1,5) (33.6%, 66.8%)
+08/02 06:43:36午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [3][78/79]	Step 2816	Loss 2.5480	Prec@(1,5) (33.6%, 66.5%)
+08/02 06:43:36午後 evaluateCell_trainer.py:206 [INFO] Valid: [  3/99] Final Prec@1 33.6000%
+08/02 06:43:36午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 33.6000%
+08/02 06:44:03午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [4][50/79]	Step 3520	Loss 2.3138	Prec@(1,5) (40.1%, 70.7%)
+08/02 06:44:03午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [4][78/79]	Step 3520	Loss 2.3247	Prec@(1,5) (39.2%, 70.7%)
+08/02 06:44:03午後 evaluateCell_trainer.py:206 [INFO] Valid: [  4/99] Final Prec@1 39.1600%
+08/02 06:44:03午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 39.1600%
+08/02 06:44:31午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [5][50/79]	Step 4224	Loss 2.3516	Prec@(1,5) (39.0%, 70.9%)
+08/02 06:44:31午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [5][78/79]	Step 4224	Loss 2.3350	Prec@(1,5) (39.2%, 71.1%)
+08/02 06:44:31午後 evaluateCell_trainer.py:206 [INFO] Valid: [  5/99] Final Prec@1 39.1600%
+08/02 06:44:31午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 39.1600%
+08/02 06:44:58午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [6][50/79]	Step 4928	Loss 2.1588	Prec@(1,5) (42.4%, 75.0%)
+08/02 06:44:58午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [6][78/79]	Step 4928	Loss 2.1388	Prec@(1,5) (42.6%, 75.3%)
+08/02 06:44:58午後 evaluateCell_trainer.py:206 [INFO] Valid: [  6/99] Final Prec@1 42.6400%
+08/02 06:44:59午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 42.6400%
+08/02 06:45:26午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [7][50/79]	Step 5632	Loss 2.0635	Prec@(1,5) (44.8%, 76.5%)
+08/02 06:45:26午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [7][78/79]	Step 5632	Loss 2.0713	Prec@(1,5) (44.8%, 76.4%)
+08/02 06:45:26午後 evaluateCell_trainer.py:206 [INFO] Valid: [  7/99] Final Prec@1 44.7600%
+08/02 06:45:26午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 44.7600%
+08/02 06:45:53午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [8][50/79]	Step 6336	Loss 2.0309	Prec@(1,5) (46.1%, 77.8%)
+08/02 06:45:53午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [8][78/79]	Step 6336	Loss 2.0536	Prec@(1,5) (46.3%, 77.0%)
+08/02 06:45:53午後 evaluateCell_trainer.py:206 [INFO] Valid: [  8/99] Final Prec@1 46.3400%
+08/02 06:45:53午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 46.3400%
+08/02 06:46:20午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [9][50/79]	Step 7040	Loss 1.8711	Prec@(1,5) (48.7%, 79.3%)
+08/02 06:46:21午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [9][78/79]	Step 7040	Loss 1.8857	Prec@(1,5) (48.6%, 79.1%)
+08/02 06:46:21午後 evaluateCell_trainer.py:206 [INFO] Valid: [  9/99] Final Prec@1 48.6400%
+08/02 06:46:21午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 48.6400%
+08/02 06:46:48午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [10][50/79]	Step 7744	Loss 1.8315	Prec@(1,5) (49.5%, 81.2%)
+08/02 06:46:48午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [10][78/79]	Step 7744	Loss 1.8119	Prec@(1,5) (49.9%, 81.0%)
+08/02 06:46:48午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 10/99] Final Prec@1 49.9200%
+08/02 06:46:48午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 49.9200%
+08/02 06:47:15午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [11][50/79]	Step 8448	Loss 1.9316	Prec@(1,5) (48.4%, 78.8%)
+08/02 06:47:15午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [11][78/79]	Step 8448	Loss 1.8830	Prec@(1,5) (49.2%, 79.9%)
+08/02 06:47:15午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 11/99] Final Prec@1 49.2400%
+08/02 06:47:15午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 49.9200%
+08/02 06:47:43午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [12][50/79]	Step 9152	Loss 1.7165	Prec@(1,5) (51.8%, 83.4%)
+08/02 06:47:43午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [12][78/79]	Step 9152	Loss 1.7076	Prec@(1,5) (52.3%, 83.7%)
+08/02 06:47:43午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 12/99] Final Prec@1 52.3200%
+08/02 06:47:43午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 52.3200%
+08/02 06:48:10午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [13][50/79]	Step 9856	Loss 1.7641	Prec@(1,5) (52.5%, 81.8%)
+08/02 06:48:10午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [13][78/79]	Step 9856	Loss 1.7785	Prec@(1,5) (51.8%, 81.5%)
+08/02 06:48:10午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 13/99] Final Prec@1 51.8000%
+08/02 06:48:10午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 52.3200%
+08/02 06:48:38午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [14][50/79]	Step 10560	Loss 1.7121	Prec@(1,5) (53.0%, 83.3%)
+08/02 06:48:38午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [14][78/79]	Step 10560	Loss 1.7010	Prec@(1,5) (53.4%, 83.6%)
+08/02 06:48:38午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 14/99] Final Prec@1 53.4000%
+08/02 06:48:38午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 53.4000%
+08/02 06:49:05午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [15][50/79]	Step 11264	Loss 1.6877	Prec@(1,5) (54.7%, 83.1%)
+08/02 06:49:06午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [15][78/79]	Step 11264	Loss 1.6870	Prec@(1,5) (53.9%, 83.5%)
+08/02 06:49:06午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 15/99] Final Prec@1 53.8800%
+08/02 06:49:06午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 53.8800%
+08/02 06:49:33午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [16][50/79]	Step 11968	Loss 1.7363	Prec@(1,5) (52.7%, 83.4%)
+08/02 06:49:33午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [16][78/79]	Step 11968	Loss 1.7443	Prec@(1,5) (53.0%, 82.9%)
+08/02 06:49:33午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 16/99] Final Prec@1 52.9200%
+08/02 06:49:33午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 53.8800%
+08/02 06:50:01午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [17][50/79]	Step 12672	Loss 1.6716	Prec@(1,5) (55.0%, 84.4%)
+08/02 06:50:01午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [17][78/79]	Step 12672	Loss 1.6799	Prec@(1,5) (54.7%, 84.2%)
+08/02 06:50:01午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 17/99] Final Prec@1 54.7200%
+08/02 06:50:01午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 54.7200%
+08/02 06:50:29午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [18][50/79]	Step 13376	Loss 1.6429	Prec@(1,5) (55.4%, 84.2%)
+08/02 06:50:29午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [18][78/79]	Step 13376	Loss 1.5997	Prec@(1,5) (55.6%, 85.0%)
+08/02 06:50:29午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 18/99] Final Prec@1 55.6400%
+08/02 06:50:29午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 55.6400%
+08/02 06:50:56午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [19][50/79]	Step 14080	Loss 1.7001	Prec@(1,5) (54.8%, 82.4%)
+08/02 06:50:57午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [19][78/79]	Step 14080	Loss 1.6859	Prec@(1,5) (54.7%, 82.5%)
+08/02 06:50:57午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 19/99] Final Prec@1 54.7200%
+08/02 06:50:57午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 55.6400%
+08/02 06:51:24午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [20][50/79]	Step 14784	Loss 1.8366	Prec@(1,5) (51.5%, 81.2%)
+08/02 06:51:25午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [20][78/79]	Step 14784	Loss 1.8123	Prec@(1,5) (52.0%, 81.8%)
+08/02 06:51:25午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 20/99] Final Prec@1 52.0400%
+08/02 06:51:25午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 55.6400%
+08/02 06:51:52午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [21][50/79]	Step 15488	Loss 1.5276	Prec@(1,5) (57.3%, 85.9%)
+08/02 06:51:52午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [21][78/79]	Step 15488	Loss 1.5642	Prec@(1,5) (56.7%, 85.2%)
+08/02 06:51:52午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 21/99] Final Prec@1 56.6400%
+08/02 06:51:52午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 56.6400%
+08/02 06:52:20午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [22][50/79]	Step 16192	Loss 1.7736	Prec@(1,5) (53.7%, 81.8%)
+08/02 06:52:20午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [22][78/79]	Step 16192	Loss 1.7473	Prec@(1,5) (53.5%, 82.7%)
+08/02 06:52:20午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 22/99] Final Prec@1 53.4600%
+08/02 06:52:20午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 56.6400%
+08/02 06:52:47午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [23][50/79]	Step 16896	Loss 1.5797	Prec@(1,5) (56.2%, 85.3%)
+08/02 06:52:48午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [23][78/79]	Step 16896	Loss 1.5849	Prec@(1,5) (56.0%, 85.0%)
+08/02 06:52:48午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 23/99] Final Prec@1 56.0600%
+08/02 06:52:48午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 56.6400%
+08/02 06:53:15午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [24][50/79]	Step 17600	Loss 1.6195	Prec@(1,5) (56.2%, 84.5%)
+08/02 06:53:16午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [24][78/79]	Step 17600	Loss 1.6398	Prec@(1,5) (55.5%, 84.3%)
+08/02 06:53:16午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 24/99] Final Prec@1 55.5000%
+08/02 06:53:16午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 56.6400%
+08/02 06:53:43午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [25][50/79]	Step 18304	Loss 1.5905	Prec@(1,5) (56.9%, 84.7%)
+08/02 06:53:43午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [25][78/79]	Step 18304	Loss 1.5782	Prec@(1,5) (57.0%, 84.7%)
+08/02 06:53:43午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 25/99] Final Prec@1 57.0200%
+08/02 06:53:44午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 57.0200%
+08/02 06:54:11午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [26][50/79]	Step 19008	Loss 1.5798	Prec@(1,5) (57.4%, 84.4%)
+08/02 06:54:11午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [26][78/79]	Step 19008	Loss 1.6209	Prec@(1,5) (56.9%, 84.0%)
+08/02 06:54:11午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 26/99] Final Prec@1 56.9200%
+08/02 06:54:11午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 57.0200%
+08/02 06:54:39午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [27][50/79]	Step 19712	Loss 1.6907	Prec@(1,5) (54.7%, 84.0%)
+08/02 06:54:39午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [27][78/79]	Step 19712	Loss 1.6948	Prec@(1,5) (55.3%, 84.2%)
+08/02 06:54:39午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 27/99] Final Prec@1 55.3600%
+08/02 06:54:39午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 57.0200%
+08/02 06:55:06午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [28][50/79]	Step 20416	Loss 1.5752	Prec@(1,5) (58.5%, 85.1%)
+08/02 06:55:07午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [28][78/79]	Step 20416	Loss 1.5825	Prec@(1,5) (58.0%, 85.3%)
+08/02 06:55:07午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 28/99] Final Prec@1 58.0000%
+08/02 06:55:07午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 58.0000%
+08/02 06:55:34午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [29][50/79]	Step 21120	Loss 1.5367	Prec@(1,5) (58.0%, 86.6%)
+08/02 06:55:34午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [29][78/79]	Step 21120	Loss 1.5208	Prec@(1,5) (58.2%, 86.6%)
+08/02 06:55:34午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 29/99] Final Prec@1 58.2000%
+08/02 06:55:34午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 58.2000%
+08/02 06:56:02午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [30][50/79]	Step 21824	Loss 1.5827	Prec@(1,5) (57.1%, 85.4%)
+08/02 06:56:02午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [30][78/79]	Step 21824	Loss 1.5874	Prec@(1,5) (57.4%, 85.6%)
+08/02 06:56:02午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 30/99] Final Prec@1 57.4400%
+08/02 06:56:02午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 58.2000%
+08/02 06:56:29午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [31][50/79]	Step 22528	Loss 1.4922	Prec@(1,5) (58.9%, 86.3%)
+08/02 06:56:30午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [31][78/79]	Step 22528	Loss 1.4715	Prec@(1,5) (59.5%, 86.8%)
+08/02 06:56:30午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 31/99] Final Prec@1 59.5000%
+08/02 06:56:30午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 59.5000%
+08/02 06:56:57午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [32][50/79]	Step 23232	Loss 1.5065	Prec@(1,5) (59.5%, 87.1%)
+08/02 06:56:57午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [32][78/79]	Step 23232	Loss 1.5173	Prec@(1,5) (59.0%, 86.8%)
+08/02 06:56:57午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 32/99] Final Prec@1 58.9800%
+08/02 06:56:57午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 59.5000%
+08/02 06:57:25午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [33][50/79]	Step 23936	Loss 1.4589	Prec@(1,5) (60.7%, 86.9%)
+08/02 06:57:25午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [33][78/79]	Step 23936	Loss 1.4596	Prec@(1,5) (60.5%, 87.0%)
+08/02 06:57:25午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 33/99] Final Prec@1 60.4600%
+08/02 06:57:25午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 60.4600%
+08/02 06:57:53午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [34][50/79]	Step 24640	Loss 1.4271	Prec@(1,5) (60.4%, 88.8%)
+08/02 06:57:53午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [34][78/79]	Step 24640	Loss 1.4671	Prec@(1,5) (59.8%, 87.7%)
+08/02 06:57:53午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 34/99] Final Prec@1 59.8200%
+08/02 06:57:54午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 60.4600%
+08/02 06:58:21午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [35][50/79]	Step 25344	Loss 1.4540	Prec@(1,5) (60.1%, 87.5%)
+08/02 06:58:21午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [35][78/79]	Step 25344	Loss 1.4565	Prec@(1,5) (60.0%, 87.3%)
+08/02 06:58:21午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 35/99] Final Prec@1 59.9600%
+08/02 06:58:21午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 60.4600%
+08/02 06:58:49午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [36][50/79]	Step 26048	Loss 1.4722	Prec@(1,5) (60.4%, 87.3%)
+08/02 06:58:49午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [36][78/79]	Step 26048	Loss 1.4743	Prec@(1,5) (60.6%, 87.3%)
+08/02 06:58:49午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 36/99] Final Prec@1 60.6200%
+08/02 06:58:49午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 60.6200%
+08/02 06:59:16午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [37][50/79]	Step 26752	Loss 1.4865	Prec@(1,5) (59.6%, 87.8%)
+08/02 06:59:17午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [37][78/79]	Step 26752	Loss 1.4686	Prec@(1,5) (60.2%, 87.9%)
+08/02 06:59:17午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 37/99] Final Prec@1 60.1600%
+08/02 06:59:17午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 60.6200%
+08/02 06:59:44午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [38][50/79]	Step 27456	Loss 1.4172	Prec@(1,5) (61.2%, 87.9%)
+08/02 06:59:44午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [38][78/79]	Step 27456	Loss 1.4475	Prec@(1,5) (60.9%, 87.5%)
+08/02 06:59:44午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 38/99] Final Prec@1 60.9200%
+08/02 06:59:44午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 60.9200%
+08/02 07:00:12午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [39][50/79]	Step 28160	Loss 1.4275	Prec@(1,5) (61.7%, 87.9%)
+08/02 07:00:12午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [39][78/79]	Step 28160	Loss 1.3997	Prec@(1,5) (62.1%, 88.3%)
+08/02 07:00:12午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 39/99] Final Prec@1 62.1600%
+08/02 07:00:12午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 62.1600%
+08/02 07:00:39午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [40][50/79]	Step 28864	Loss 1.4658	Prec@(1,5) (60.8%, 87.7%)
+08/02 07:00:40午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [40][78/79]	Step 28864	Loss 1.4409	Prec@(1,5) (61.5%, 88.2%)
+08/02 07:00:40午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 40/99] Final Prec@1 61.4800%
+08/02 07:00:40午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 62.1600%
+08/02 07:01:07午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [41][50/79]	Step 29568	Loss 1.4533	Prec@(1,5) (61.1%, 87.7%)
+08/02 07:01:07午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [41][78/79]	Step 29568	Loss 1.4853	Prec@(1,5) (60.2%, 87.3%)
+08/02 07:01:07午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 41/99] Final Prec@1 60.2000%
+08/02 07:01:07午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 62.1600%
+08/02 07:01:35午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [42][50/79]	Step 30272	Loss 1.3396	Prec@(1,5) (63.9%, 88.8%)
+08/02 07:01:35午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [42][78/79]	Step 30272	Loss 1.3723	Prec@(1,5) (63.0%, 88.4%)
+08/02 07:01:35午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 42/99] Final Prec@1 62.9800%
+08/02 07:01:35午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 62.9800%
+08/02 07:02:03午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [43][50/79]	Step 30976	Loss 1.4374	Prec@(1,5) (60.8%, 88.1%)
+08/02 07:02:03午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [43][78/79]	Step 30976	Loss 1.4177	Prec@(1,5) (61.5%, 88.1%)
+08/02 07:02:03午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 43/99] Final Prec@1 61.5200%
+08/02 07:02:03午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 62.9800%
+08/02 07:02:30午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [44][50/79]	Step 31680	Loss 1.3527	Prec@(1,5) (63.1%, 89.1%)
+08/02 07:02:31午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [44][78/79]	Step 31680	Loss 1.3385	Prec@(1,5) (63.5%, 89.3%)
+08/02 07:02:31午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 44/99] Final Prec@1 63.5400%
+08/02 07:02:31午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 63.5400%
+08/02 07:02:59午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [45][50/79]	Step 32384	Loss 1.3242	Prec@(1,5) (64.3%, 89.7%)
+08/02 07:02:59午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [45][78/79]	Step 32384	Loss 1.3405	Prec@(1,5) (63.5%, 89.1%)
+08/02 07:02:59午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 45/99] Final Prec@1 63.5400%
+08/02 07:02:59午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 63.5400%
+08/02 07:03:27午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [46][50/79]	Step 33088	Loss 1.3791	Prec@(1,5) (62.6%, 88.8%)
+08/02 07:03:27午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [46][78/79]	Step 33088	Loss 1.3481	Prec@(1,5) (63.4%, 89.1%)
+08/02 07:03:27午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 46/99] Final Prec@1 63.4600%
+08/02 07:03:27午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 63.5400%
+08/02 07:03:54午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [47][50/79]	Step 33792	Loss 1.3660	Prec@(1,5) (63.2%, 89.8%)
+08/02 07:03:54午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [47][78/79]	Step 33792	Loss 1.3331	Prec@(1,5) (63.7%, 90.1%)
+08/02 07:03:54午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 47/99] Final Prec@1 63.7000%
+08/02 07:03:55午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 63.7000%
+08/02 07:04:23午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [48][50/79]	Step 34496	Loss 1.3254	Prec@(1,5) (64.4%, 89.6%)
+08/02 07:04:23午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [48][78/79]	Step 34496	Loss 1.3143	Prec@(1,5) (65.0%, 89.7%)
+08/02 07:04:23午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 48/99] Final Prec@1 65.0200%
+08/02 07:04:23午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 65.0200%
+08/02 07:04:51午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [49][50/79]	Step 35200	Loss 1.3810	Prec@(1,5) (64.0%, 88.9%)
+08/02 07:04:51午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [49][78/79]	Step 35200	Loss 1.4078	Prec@(1,5) (63.7%, 88.2%)
+08/02 07:04:51午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 49/99] Final Prec@1 63.7200%
+08/02 07:04:51午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 65.0200%
+08/02 07:05:19午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [50][50/79]	Step 35904	Loss 1.3315	Prec@(1,5) (63.9%, 89.6%)
+08/02 07:05:19午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [50][78/79]	Step 35904	Loss 1.3316	Prec@(1,5) (64.4%, 89.2%)
+08/02 07:05:19午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 50/99] Final Prec@1 64.4200%
+08/02 07:05:19午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 65.0200%
+08/02 07:05:47午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [51][50/79]	Step 36608	Loss 1.3506	Prec@(1,5) (63.7%, 89.3%)
+08/02 07:05:47午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [51][78/79]	Step 36608	Loss 1.3427	Prec@(1,5) (63.8%, 89.5%)
+08/02 07:05:47午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 51/99] Final Prec@1 63.7600%
+08/02 07:05:47午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 65.0200%
+08/02 07:06:15午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [52][50/79]	Step 37312	Loss 1.2599	Prec@(1,5) (67.1%, 90.9%)
+08/02 07:06:15午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [52][78/79]	Step 37312	Loss 1.2894	Prec@(1,5) (66.2%, 90.4%)
+08/02 07:06:15午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 52/99] Final Prec@1 66.2400%
+08/02 07:06:15午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.2400%
+08/02 07:06:42午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [53][50/79]	Step 38016	Loss 1.2623	Prec@(1,5) (66.5%, 90.5%)
+08/02 07:06:43午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [53][78/79]	Step 38016	Loss 1.2626	Prec@(1,5) (66.5%, 89.9%)
+08/02 07:06:43午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 53/99] Final Prec@1 66.5200%
+08/02 07:06:43午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.5200%
+08/02 07:07:11午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [54][50/79]	Step 38720	Loss 1.2990	Prec@(1,5) (64.8%, 90.0%)
+08/02 07:07:11午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [54][78/79]	Step 38720	Loss 1.2707	Prec@(1,5) (65.5%, 90.2%)
+08/02 07:07:11午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 54/99] Final Prec@1 65.4400%
+08/02 07:07:11午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.5200%
+08/02 07:07:39午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [55][50/79]	Step 39424	Loss 1.2687	Prec@(1,5) (66.7%, 90.4%)
+08/02 07:07:40午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [55][78/79]	Step 39424	Loss 1.3186	Prec@(1,5) (65.6%, 89.6%)
+08/02 07:07:40午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 55/99] Final Prec@1 65.5800%
+08/02 07:07:40午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.5200%
+08/02 07:08:07午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [56][50/79]	Step 40128	Loss 1.2483	Prec@(1,5) (66.5%, 90.6%)
+08/02 07:08:07午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [56][78/79]	Step 40128	Loss 1.2691	Prec@(1,5) (66.3%, 90.3%)
+08/02 07:08:07午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 56/99] Final Prec@1 66.3000%
+08/02 07:08:07午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.5200%
+08/02 07:08:34午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [57][50/79]	Step 40832	Loss 1.2996	Prec@(1,5) (65.2%, 90.6%)
+08/02 07:08:35午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [57][78/79]	Step 40832	Loss 1.2800	Prec@(1,5) (65.7%, 90.8%)
+08/02 07:08:35午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 57/99] Final Prec@1 65.7200%
+08/02 07:08:35午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.5200%
+08/02 07:09:03午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [58][50/79]	Step 41536	Loss 1.2565	Prec@(1,5) (67.2%, 90.8%)
+08/02 07:09:03午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [58][78/79]	Step 41536	Loss 1.2917	Prec@(1,5) (66.6%, 90.1%)
+08/02 07:09:03午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 58/99] Final Prec@1 66.5800%
+08/02 07:09:03午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.5800%
+08/02 07:09:30午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [59][50/79]	Step 42240	Loss 1.3134	Prec@(1,5) (65.4%, 90.3%)
+08/02 07:09:30午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [59][78/79]	Step 42240	Loss 1.2891	Prec@(1,5) (66.1%, 90.8%)
+08/02 07:09:31午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 59/99] Final Prec@1 66.0800%
+08/02 07:09:31午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.5800%
+08/02 07:09:58午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [60][50/79]	Step 42944	Loss 1.2478	Prec@(1,5) (67.3%, 90.3%)
+08/02 07:09:58午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [60][78/79]	Step 42944	Loss 1.2824	Prec@(1,5) (66.8%, 90.2%)
+08/02 07:09:58午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 60/99] Final Prec@1 66.7600%
+08/02 07:09:58午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 66.7600%
+08/02 07:10:25午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [61][50/79]	Step 43648	Loss 1.2613	Prec@(1,5) (66.7%, 91.1%)
+08/02 07:10:26午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [61][78/79]	Step 43648	Loss 1.2419	Prec@(1,5) (67.7%, 91.0%)
+08/02 07:10:26午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 61/99] Final Prec@1 67.6800%
+08/02 07:10:26午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 67.6800%
+08/02 07:10:53午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [62][50/79]	Step 44352	Loss 1.2385	Prec@(1,5) (67.5%, 90.9%)
+08/02 07:10:53午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [62][78/79]	Step 44352	Loss 1.2552	Prec@(1,5) (67.1%, 90.9%)
+08/02 07:10:53午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 62/99] Final Prec@1 67.0400%
+08/02 07:10:53午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 67.6800%
+08/02 07:11:21午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [63][50/79]	Step 45056	Loss 1.2215	Prec@(1,5) (68.0%, 90.8%)
+08/02 07:11:21午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [63][78/79]	Step 45056	Loss 1.2494	Prec@(1,5) (67.9%, 90.3%)
+08/02 07:11:21午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 63/99] Final Prec@1 67.8800%
+08/02 07:11:21午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 67.8800%
+08/02 07:11:48午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [64][50/79]	Step 45760	Loss 1.2669	Prec@(1,5) (66.8%, 90.6%)
+08/02 07:11:48午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [64][78/79]	Step 45760	Loss 1.2794	Prec@(1,5) (67.2%, 90.7%)
+08/02 07:11:48午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 64/99] Final Prec@1 67.2000%
+08/02 07:11:48午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 67.8800%
+08/02 07:12:16午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [65][50/79]	Step 46464	Loss 1.2283	Prec@(1,5) (68.6%, 91.2%)
+08/02 07:12:16午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [65][78/79]	Step 46464	Loss 1.2313	Prec@(1,5) (68.3%, 91.1%)
+08/02 07:12:16午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 65/99] Final Prec@1 68.2800%
+08/02 07:12:16午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 68.2800%
+08/02 07:12:44午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [66][50/79]	Step 47168	Loss 1.2618	Prec@(1,5) (68.2%, 91.2%)
+08/02 07:12:44午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [66][78/79]	Step 47168	Loss 1.2574	Prec@(1,5) (68.1%, 91.1%)
+08/02 07:12:44午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 66/99] Final Prec@1 68.1200%
+08/02 07:12:44午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 68.2800%
+08/02 07:13:11午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [67][50/79]	Step 47872	Loss 1.2535	Prec@(1,5) (67.9%, 90.9%)
+08/02 07:13:11午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [67][78/79]	Step 47872	Loss 1.2451	Prec@(1,5) (67.9%, 91.2%)
+08/02 07:13:11午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 67/99] Final Prec@1 67.8800%
+08/02 07:13:11午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 68.2800%
+08/02 07:13:39午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [68][50/79]	Step 48576	Loss 1.1900	Prec@(1,5) (69.1%, 91.2%)
+08/02 07:13:39午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [68][78/79]	Step 48576	Loss 1.2373	Prec@(1,5) (68.0%, 90.8%)
+08/02 07:13:39午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 68/99] Final Prec@1 68.0200%
+08/02 07:13:39午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 68.2800%
+08/02 07:14:06午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [69][50/79]	Step 49280	Loss 1.2820	Prec@(1,5) (68.2%, 91.2%)
+08/02 07:14:07午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [69][78/79]	Step 49280	Loss 1.2617	Prec@(1,5) (68.7%, 91.3%)
+08/02 07:14:07午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 69/99] Final Prec@1 68.7400%
+08/02 07:14:07午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 68.7400%
+08/02 07:14:34午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [70][50/79]	Step 49984	Loss 1.2495	Prec@(1,5) (68.1%, 91.9%)
+08/02 07:14:34午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [70][78/79]	Step 49984	Loss 1.2074	Prec@(1,5) (69.2%, 92.0%)
+08/02 07:14:34午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 70/99] Final Prec@1 69.2600%
+08/02 07:14:34午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 69.2600%
+08/02 07:15:02午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [71][50/79]	Step 50688	Loss 1.2012	Prec@(1,5) (69.4%, 91.9%)
+08/02 07:15:02午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [71][78/79]	Step 50688	Loss 1.2220	Prec@(1,5) (69.2%, 91.3%)
+08/02 07:15:02午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 71/99] Final Prec@1 69.1400%
+08/02 07:15:02午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 69.2600%
+08/02 07:15:29午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [72][50/79]	Step 51392	Loss 1.2513	Prec@(1,5) (68.8%, 91.4%)
+08/02 07:15:29午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [72][78/79]	Step 51392	Loss 1.2308	Prec@(1,5) (69.1%, 91.6%)
+08/02 07:15:29午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 72/99] Final Prec@1 69.1000%
+08/02 07:15:30午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 69.2600%
+08/02 07:15:57午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [73][50/79]	Step 52096	Loss 1.1805	Prec@(1,5) (69.8%, 91.3%)
+08/02 07:15:57午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [73][78/79]	Step 52096	Loss 1.1898	Prec@(1,5) (69.9%, 91.5%)
+08/02 07:15:57午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 73/99] Final Prec@1 69.8600%
+08/02 07:15:57午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 69.8600%
+08/02 07:16:24午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [74][50/79]	Step 52800	Loss 1.2333	Prec@(1,5) (68.3%, 91.8%)
+08/02 07:16:24午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [74][78/79]	Step 52800	Loss 1.2208	Prec@(1,5) (68.9%, 91.8%)
+08/02 07:16:24午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 74/99] Final Prec@1 68.8600%
+08/02 07:16:25午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 69.8600%
+08/02 07:16:52午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [75][50/79]	Step 53504	Loss 1.2316	Prec@(1,5) (69.2%, 91.9%)
+08/02 07:16:52午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [75][78/79]	Step 53504	Loss 1.1905	Prec@(1,5) (70.0%, 92.5%)
+08/02 07:16:52午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 75/99] Final Prec@1 69.9800%
+08/02 07:16:52午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 69.9800%
+08/02 07:17:19午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [76][50/79]	Step 54208	Loss 1.2372	Prec@(1,5) (69.2%, 91.4%)
+08/02 07:17:19午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [76][78/79]	Step 54208	Loss 1.2071	Prec@(1,5) (69.8%, 91.7%)
+08/02 07:17:19午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 76/99] Final Prec@1 69.7600%
+08/02 07:17:20午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 69.9800%
+08/02 07:17:47午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [77][50/79]	Step 54912	Loss 1.1881	Prec@(1,5) (70.6%, 91.8%)
+08/02 07:17:47午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [77][78/79]	Step 54912	Loss 1.1850	Prec@(1,5) (70.8%, 92.0%)
+08/02 07:17:47午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 77/99] Final Prec@1 70.8000%
+08/02 07:17:47午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 70.8000%
+08/02 07:18:14午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [78][50/79]	Step 55616	Loss 1.2096	Prec@(1,5) (70.2%, 91.2%)
+08/02 07:18:14午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [78][78/79]	Step 55616	Loss 1.2255	Prec@(1,5) (69.9%, 91.5%)
+08/02 07:18:15午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 78/99] Final Prec@1 69.8600%
+08/02 07:18:15午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 70.8000%
+08/02 07:18:42午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [79][50/79]	Step 56320	Loss 1.2341	Prec@(1,5) (69.3%, 92.2%)
+08/02 07:18:42午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [79][78/79]	Step 56320	Loss 1.2273	Prec@(1,5) (69.4%, 92.1%)
+08/02 07:18:42午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 79/99] Final Prec@1 69.4000%
+08/02 07:18:42午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 70.8000%
+08/02 07:19:10午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [80][50/79]	Step 57024	Loss 1.2087	Prec@(1,5) (70.3%, 92.0%)
+08/02 07:19:10午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [80][78/79]	Step 57024	Loss 1.2004	Prec@(1,5) (70.1%, 92.1%)
+08/02 07:19:10午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 80/99] Final Prec@1 70.1000%
+08/02 07:19:10午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 70.8000%
+08/02 07:19:37午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [81][50/79]	Step 57728	Loss 1.1692	Prec@(1,5) (71.2%, 92.4%)
+08/02 07:19:38午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [81][78/79]	Step 57728	Loss 1.1902	Prec@(1,5) (71.0%, 92.2%)
+08/02 07:19:38午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 81/99] Final Prec@1 70.9800%
+08/02 07:19:38午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 70.9800%
+08/02 07:20:05午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [82][50/79]	Step 58432	Loss 1.1786	Prec@(1,5) (70.6%, 92.4%)
+08/02 07:20:05午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [82][78/79]	Step 58432	Loss 1.1765	Prec@(1,5) (70.9%, 92.4%)
+08/02 07:20:05午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 82/99] Final Prec@1 70.8800%
+08/02 07:20:05午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 70.9800%
+08/02 07:20:33午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [83][50/79]	Step 59136	Loss 1.1637	Prec@(1,5) (71.3%, 92.4%)
+08/02 07:20:33午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [83][78/79]	Step 59136	Loss 1.1757	Prec@(1,5) (71.2%, 92.2%)
+08/02 07:20:33午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 83/99] Final Prec@1 71.2000%
+08/02 07:20:33午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 71.2000%
+08/02 07:21:01午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [84][50/79]	Step 59840	Loss 1.1887	Prec@(1,5) (71.1%, 92.6%)
+08/02 07:21:01午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [84][78/79]	Step 59840	Loss 1.1896	Prec@(1,5) (70.8%, 92.4%)
+08/02 07:21:01午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 84/99] Final Prec@1 70.8200%
+08/02 07:21:01午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 71.2000%
+08/02 07:21:28午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [85][50/79]	Step 60544	Loss 1.1632	Prec@(1,5) (71.4%, 93.0%)
+08/02 07:21:29午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [85][78/79]	Step 60544	Loss 1.1695	Prec@(1,5) (71.5%, 92.5%)
+08/02 07:21:29午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 85/99] Final Prec@1 71.5600%
+08/02 07:21:29午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 71.5600%
+08/02 07:21:56午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [86][50/79]	Step 61248	Loss 1.1545	Prec@(1,5) (71.8%, 92.4%)
+08/02 07:21:56午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [86][78/79]	Step 61248	Loss 1.1624	Prec@(1,5) (71.5%, 92.6%)
+08/02 07:21:56午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 86/99] Final Prec@1 71.5000%
+08/02 07:21:56午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 71.5600%
+08/02 07:22:24午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [87][50/79]	Step 61952	Loss 1.1523	Prec@(1,5) (71.4%, 92.5%)
+08/02 07:22:25午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [87][78/79]	Step 61952	Loss 1.1789	Prec@(1,5) (70.7%, 92.4%)
+08/02 07:22:25午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 87/99] Final Prec@1 70.7000%
+08/02 07:22:25午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 71.5600%
+08/02 07:22:52午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [88][50/79]	Step 62656	Loss 1.1638	Prec@(1,5) (72.6%, 91.8%)
+08/02 07:22:52午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [88][78/79]	Step 62656	Loss 1.1674	Prec@(1,5) (72.4%, 92.2%)
+08/02 07:22:52午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 88/99] Final Prec@1 72.4600%
+08/02 07:22:52午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:23:20午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [89][50/79]	Step 63360	Loss 1.1927	Prec@(1,5) (72.1%, 92.5%)
+08/02 07:23:20午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [89][78/79]	Step 63360	Loss 1.1765	Prec@(1,5) (72.2%, 92.6%)
+08/02 07:23:20午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 89/99] Final Prec@1 72.2600%
+08/02 07:23:20午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:23:48午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [90][50/79]	Step 64064	Loss 1.1943	Prec@(1,5) (71.9%, 92.3%)
+08/02 07:23:48午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [90][78/79]	Step 64064	Loss 1.1862	Prec@(1,5) (72.2%, 92.6%)
+08/02 07:23:48午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 90/99] Final Prec@1 72.1400%
+08/02 07:23:48午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:24:16午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [91][50/79]	Step 64768	Loss 1.1748	Prec@(1,5) (71.6%, 92.2%)
+08/02 07:24:16午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [91][78/79]	Step 64768	Loss 1.1714	Prec@(1,5) (71.7%, 92.5%)
+08/02 07:24:16午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 91/99] Final Prec@1 71.6400%
+08/02 07:24:16午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:24:44午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [92][50/79]	Step 65472	Loss 1.1610	Prec@(1,5) (72.0%, 92.3%)
+08/02 07:24:44午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [92][78/79]	Step 65472	Loss 1.1838	Prec@(1,5) (71.5%, 92.2%)
+08/02 07:24:44午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 92/99] Final Prec@1 71.5200%
+08/02 07:24:44午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:25:11午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [93][50/79]	Step 66176	Loss 1.1405	Prec@(1,5) (72.0%, 92.8%)
+08/02 07:25:12午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [93][78/79]	Step 66176	Loss 1.1549	Prec@(1,5) (72.1%, 92.6%)
+08/02 07:25:12午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 93/99] Final Prec@1 72.1000%
+08/02 07:25:12午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:25:39午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [94][50/79]	Step 66880	Loss 1.1782	Prec@(1,5) (71.2%, 92.4%)
+08/02 07:25:39午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [94][78/79]	Step 66880	Loss 1.1700	Prec@(1,5) (71.0%, 92.4%)
+08/02 07:25:39午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 94/99] Final Prec@1 71.0400%
+08/02 07:25:39午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:26:06午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [95][50/79]	Step 67584	Loss 1.2228	Prec@(1,5) (70.8%, 92.5%)
+08/02 07:26:07午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [95][78/79]	Step 67584	Loss 1.1855	Prec@(1,5) (71.6%, 92.5%)
+08/02 07:26:07午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 95/99] Final Prec@1 71.5400%
+08/02 07:26:07午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:26:34午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [96][50/79]	Step 68288	Loss 1.1745	Prec@(1,5) (71.8%, 92.3%)
+08/02 07:26:34午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [96][78/79]	Step 68288	Loss 1.2003	Prec@(1,5) (71.6%, 92.3%)
+08/02 07:26:34午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 96/99] Final Prec@1 71.6000%
+08/02 07:26:34午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:27:02午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [97][50/79]	Step 68992	Loss 1.1567	Prec@(1,5) (72.3%, 92.6%)
+08/02 07:27:02午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [97][78/79]	Step 68992	Loss 1.1869	Prec@(1,5) (72.2%, 92.6%)
+08/02 07:27:02午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 97/99] Final Prec@1 72.2200%
+08/02 07:27:02午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:27:29午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [98][50/79]	Step 69696	Loss 1.2298	Prec@(1,5) (70.6%, 92.0%)
+08/02 07:27:29午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [98][78/79]	Step 69696	Loss 1.1902	Prec@(1,5) (72.0%, 92.3%)
+08/02 07:27:29午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 98/99] Final Prec@1 71.9600%
+08/02 07:27:29午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:27:56午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [99][50/79]	Step 70400	Loss 1.1735	Prec@(1,5) (72.1%, 92.8%)
+08/02 07:27:57午後 evaluateCell_trainer.py:199 [INFO] Valid: Epoch: [99][78/79]	Step 70400	Loss 1.1793	Prec@(1,5) (71.9%, 92.7%)
+08/02 07:27:57午後 evaluateCell_trainer.py:206 [INFO] Valid: [ 99/99] Final Prec@1 71.9000%
+08/02 07:27:57午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.4600%
+08/02 07:27:57午後 evaluateCell_main.py:79 [INFO] Final best Prec@1 = 72.4600%
