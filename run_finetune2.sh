@@ -9,7 +9,7 @@ if [ ${type} = "train" ]; then
         description=$5
         dataset=cifar100
         cutout=16
-        epoch=50
+        epoch=300
         seed=0
         train_portion=0.9
         python trainTeacher_main.py \
@@ -23,9 +23,7 @@ if [ ${type} = "train" ]; then
             --train_portion $train_portion \
             --lr 0.1 \
             --lr_min 0.0001 \
-            --description $description \
-            --advanced \
-            --pretrained
+            --description $description
 elif [ ${type} = "test" ]; then
 # ===== モデルをテスト =====
         save=$2
@@ -41,7 +39,8 @@ elif [ ${type} = "test" ]; then
                 --model_name $teacher_model \
                 --resume_path $resume_path \
                 --dataset $dataset\
-                --seed $seed
+                --seed $seed \
+                --advanced
 else
     echo ""
 fi
