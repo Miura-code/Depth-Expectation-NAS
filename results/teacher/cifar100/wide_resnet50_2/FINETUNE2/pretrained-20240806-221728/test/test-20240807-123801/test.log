@@ -1,0 +1,30 @@
+08/07 12:38:01PM parser.py:28 [INFO] 
+08/07 12:38:01PM parser.py:29 [INFO] Parameters:
+08/07 12:38:01PM parser.py:31 [INFO] DAG=None
+08/07 12:38:01PM parser.py:31 [INFO] ADVANCED=True
+08/07 12:38:01PM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+08/07 12:38:01PM parser.py:31 [INFO] AMP_SYNC_BN=True
+08/07 12:38:01PM parser.py:31 [INFO] AUX_WEIGHT=0.4
+08/07 12:38:01PM parser.py:31 [INFO] BATCH_SIZE=96
+08/07 12:38:01PM parser.py:31 [INFO] CIFAR=True
+08/07 12:38:01PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+08/07 12:38:01PM parser.py:31 [INFO] DATA_PATH=../data/
+08/07 12:38:01PM parser.py:31 [INFO] DATASET=cifar100
+08/07 12:38:01PM parser.py:31 [INFO] DESCRIPTION=
+08/07 12:38:01PM parser.py:31 [INFO] GENOTYPE=None
+08/07 12:38:01PM parser.py:31 [INFO] GPUS=[0]
+08/07 12:38:01PM parser.py:31 [INFO] INIT_CHANNELS=32
+08/07 12:38:01PM parser.py:31 [INFO] LAYERS=20
+08/07 12:38:01PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+08/07 12:38:01PM parser.py:31 [INFO] MODEL_NAME=wide_resnet50_2
+08/07 12:38:01PM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/wide_resnet50_2/FINETUNE2/pretrained-20240806-221728/test/test-20240807-123801
+08/07 12:38:01PM parser.py:31 [INFO] PRINT_FREQ=50
+08/07 12:38:01PM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/wide_resnet50_2/FINETUNE2/pretrained-20240806-221728/best.pth.tar
+08/07 12:38:01PM parser.py:31 [INFO] SAVE=test
+08/07 12:38:01PM parser.py:31 [INFO] SEED=0
+08/07 12:38:01PM parser.py:31 [INFO] SPEC_CELL=False
+08/07 12:38:01PM parser.py:31 [INFO] STAGE=False
+08/07 12:38:01PM parser.py:31 [INFO] TRAIN_PORTION=1.0
+08/07 12:38:01PM parser.py:31 [INFO] WORKERS=4
+08/07 12:38:01PM parser.py:32 [INFO] 
+08/07 12:38:01PM testTeacher_main.py:36 [INFO] Logger is set - test start

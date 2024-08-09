@@ -11,6 +11,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import teacher_models
+from teacher_models.utils.layer_replace import replace_stem_for_cifar
 import utils
 import torch.backends.cudnn as cudnn
 import torchvision.models
@@ -54,10 +55,14 @@ def main():
 
     # ================= load model from timm ==================
     try:
-        model = teacher_models.__dict__[config.model_name](num_classes = n_classes, cifar=config.cifar)
+        model = teacher_models.__dict__[config.model_name](num_classes = n_classes)
         # model = teacher_models.densenet_cifar(num_classes = n_classes, blocks=(6,12,24,16), growth_rate=32, cifar=True)
     except RuntimeError as e:
         model = torchvision.models.__dict__[config.model_name](num_classes = n_classes)
+        
+    # stem層を付け替える
+    if (not config.advanced) and config.cifar:
+        replace_stem_for_cifar(config.model_name, model, printer=logger.info)
     # ================= load checkpoint ==================
     _, _ = load_teacher_checkpoint_state(model, None, config.resume_path)
     # model.load_state_dict(torch.load(config.resume_path))
