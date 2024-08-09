@@ -1,0 +1,38 @@
+08/09 09:40:17AM parser.py:28 [INFO] 
+08/09 09:40:17AM parser.py:29 [INFO] Parameters:
+08/09 09:40:17AM parser.py:31 [INFO] DAG=None
+08/09 09:40:17AM parser.py:31 [INFO] ADVANCED=True
+08/09 09:40:17AM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+08/09 09:40:17AM parser.py:31 [INFO] AMP_SYNC_BN=True
+08/09 09:40:17AM parser.py:31 [INFO] AUX_WEIGHT=0.4
+08/09 09:40:17AM parser.py:31 [INFO] BATCH_SIZE=128
+08/09 09:40:17AM parser.py:31 [INFO] CIFAR=True
+08/09 09:40:17AM parser.py:31 [INFO] CUTOUT_LENGTH=0
+08/09 09:40:17AM parser.py:31 [INFO] DATA_PATH=../data/
+08/09 09:40:17AM parser.py:31 [INFO] DATASET=cifar100
+08/09 09:40:17AM parser.py:31 [INFO] DESCRIPTION=
+08/09 09:40:17AM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 3)], [('sep_conv_3x3', 3), ('sep_conv_3x3', 4)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('skip_connect', 0), ('skip_connect', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('dil_conv_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('avg_pool_3x3', 0), ('skip_connect', 2)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('dil_conv_5x5', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+08/09 09:40:17AM parser.py:31 [INFO] GPUS=[0]
+08/09 09:40:17AM parser.py:31 [INFO] INIT_CHANNELS=32
+08/09 09:40:17AM parser.py:31 [INFO] LAYERS=20
+08/09 09:40:17AM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+08/09 09:40:17AM parser.py:31 [INFO] MODEL_NAME=None
+08/09 09:40:17AM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/evaluate_cell_KD/cifar100/ONLY_EVAL/002228-20240807-194908/test/test-20240809-094017
+08/09 09:40:17AM parser.py:31 [INFO] PRINT_FREQ=50
+08/09 09:40:17AM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/evaluate_cell_KD/cifar100/ONLY_EVAL/002228-20240807-194908/best.pth.tar
+08/09 09:40:17AM parser.py:31 [INFO] SAVE=test
+08/09 09:40:17AM parser.py:31 [INFO] SEED=0
+08/09 09:40:17AM parser.py:31 [INFO] SPEC_CELL=False
+08/09 09:40:17AM parser.py:31 [INFO] STAGE=False
+08/09 09:40:17AM parser.py:31 [INFO] TRAIN_PORTION=1.0
+08/09 09:40:17AM parser.py:31 [INFO] WORKERS=4
+08/09 09:40:17AM parser.py:32 [INFO] 
+08/09 09:40:17AM testModel_main.py:43 [INFO] Logger is set - test start
+08/09 09:40:20AM testModel_main.py:71 [INFO] --> Loaded checkpoint '/home/miura/lab/KD-hdas/results/evaluate_cell_KD/cifar100/ONLY_EVAL/002228-20240807-194908/best.pth.tar'
+08/09 09:40:20AM testModel_main.py:72 [INFO] param size = 2.149912MB
+08/09 09:40:20AM testModel_main.py:74 [INFO] param size = 2.15 MMB, mac = 7.48 MMac
+08/09 09:40:22AM testModel_main.py:112 [INFO] Test: Step 000/078 Prec@(1,5) (75.8%, 93.7%)
+08/09 09:40:23AM testModel_main.py:112 [INFO] Test: Step 050/078 Prec@(1,5) (72.9%, 92.5%)
+08/09 09:40:25AM testModel_main.py:112 [INFO] Test: Step 078/078 Prec@(1,5) (72.7%, 92.6%)
+08/09 09:40:25AM testModel_main.py:83 [INFO] Test Prec(@1, @5) = (72.6600%, 92.5800%)
+08/09 09:40:25AM testModel_main.py:84 [INFO] Time to Test = (1723164020.4676898, 1723164025.0924723, 4.624782562255859)

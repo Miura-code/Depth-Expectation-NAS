@@ -11,12 +11,12 @@ if [ ${arch} = "cell" ]; then
         save=$6
         description=$7
         dataset=cifar100
-        lambda=0.6
-        T=3
+        lambda=0.5
+        T=10
         batch_size=64
         epoch=50
         train_portion=0.5 # searchの場合train_portionは0.5が最大値
-        seed=0
+        seed=$8
         python searchCell_KD_main.py \
             --name $name \
             --teacher_name $teacher_model\
@@ -30,8 +30,8 @@ if [ ${arch} = "cell" ]; then
             --seed $seed \
             --save $save \
             --advanced \
-            --description $description\
-            # --nonkd \
+            --description $description
+            # --nonkd
             # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====

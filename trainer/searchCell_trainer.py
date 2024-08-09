@@ -178,13 +178,15 @@ class SearchCellTrainer_WithSimpleKD():
 
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
-            if self.config.nonkd:
-                # === (Not KD for optimizing architecture params) ===
-                arch_hard_loss = arch_soft_loss = torch.tensor([0])
-                arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
-            else:
-                # === KD for optimizing architecture params ===
-                arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            # if self.config.nonkd:
+            #     # === (Not KD for optimizing architecture params) ===
+            #     arch_hard_loss = arch_soft_loss = torch.tensor([0])
+            #     arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            # else:
+            #     # === KD for optimizing architecture params ===
+            #     arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            arch_hard_loss = arch_soft_loss = torch.tensor([0])
+            arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
 
             self.alpha_optim.step()
 
@@ -196,7 +198,8 @@ class SearchCellTrainer_WithSimpleKD():
                 hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
             else:
                 # === KD for optimizing network params ===
-                teacher_guide = self.teacher_model(trn_X)
+                with torch.no_grad():
+                    teacher_guide = self.teacher_model(trn_X)
                 hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
             loss.backward()
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
