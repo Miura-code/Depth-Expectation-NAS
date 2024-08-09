@@ -11,8 +11,6 @@ if [ ${arch} = "cell" ]; then
         save=$7
         description=$8
         dataset=cifar100
-
-
         lambda=$9
         T=${10}
         batch_size=64
