@@ -178,13 +178,15 @@ class SearchCellTrainer_WithSimpleKD():
 
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
-            if self.config.nonkd:
-                # === (Not KD for optimizing architecture params) ===
-                arch_hard_loss = arch_soft_loss = torch.tensor([0])
-                arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
-            else:
-                # === KD for optimizing architecture params ===
-                arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            # if self.config.nonkd:
+            #     # === (Not KD for optimizing architecture params) ===
+            #     arch_hard_loss = arch_soft_loss = torch.tensor([0])
+            #     arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            # else:
+            #     # === KD for optimizing architecture params ===
+            #     arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            arch_hard_loss = arch_soft_loss = torch.tensor([0])
+            arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
 
             self.alpha_optim.step()
 
