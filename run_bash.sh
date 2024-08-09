@@ -22,7 +22,6 @@ Ts=(30)
 # for seed in 0 1 2 3 4;do
 #     bash run_search.sh train cell ARCH_WEIGHT efficientnet_v2_s ${teacher_path} s${seed} search_cell_with_simple_kd_on_seed-${seed} ${seed}
 # done
-
 teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
 genotypes=(
     /home/miura/lab/KD-hdas/results/search_cell_KD/cifar100/BASELINE/BASELINE224-20240725-164733/DAG/EP47-best.pickle
