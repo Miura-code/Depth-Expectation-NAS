@@ -62,12 +62,12 @@ elif [ ${arch} = "stage" ]; then
         genotype=$7
         description=$8
         dataset=cifar100
-        lambda=0.6
-        T=3
+        lambda=0.5
+        T=10
         batch_size=64
         epoch=50
         train_portion=0.5 # searchの場合train_portionは0.5が最大値
-        seed=0
+        seed=$9
         python searchStage_KD_main.py \
             --name $name \
             --genotype $genotype \
@@ -84,8 +84,8 @@ elif [ ${arch} = "stage" ]; then
             --spec_cell \
             --advanced \
             --description $description\
-            --nonkd \
-            --pcdarts
+            --nonkd
+            # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
         resume_path=$3
