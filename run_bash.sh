@@ -47,6 +47,7 @@ for genotype in ${genotypes[@]};do
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # genotypes=(/home/miura/lab/KD-hdas/results/search_cell_KD/cifar100/BASELINE/BASELINE224-20240731-193109/DAG/EP45-best.pickle /home/miura/lab/KD-hdas/results/search_cell_KD/cifar100/BASELINE/BASELINE224-20240801-002228/DAG/EP48-best.pickle /home/miura/lab/KD-hdas/results/search_cell_KD/cifar100/BASELINE/BASELINE224-20240801-093713/DAG/EP50-best.pickle /home/miura/lab/KD-hdas/results/search_cell_KD/cifar100/BASELINE/BASELINE224-20240801-144014/DAG/EP46-best.pickle)
 # for genotype in ${genotypes[@]}; do
 #     save=$(echo "$genotype" | sed -n 's|.*-\([^/]*\)/DAG.*|\1|p')
@@ -72,6 +73,10 @@ for seed in 0 1 2 3 4;do
 =======
 # teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
 
+=======
+# teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+
+>>>>>>> 4fee45d (experiment: セルレベル探索の評価)
 # for seed in 0 1 2 3 4;do
 #     bash run_search.sh train cell ARCH_WEIGHT efficientnet_v2_s ${teacher_path} s${seed} search_cell_with_simple_kd_on_seed-${seed} ${seed}
 # done
@@ -87,6 +92,7 @@ genotypes=(
 for genotype in ${genotypes[@]};do
     extracted=$(echo "$genotype" | sed -n 's|.*-\([^/]*\)/DAG.*|\1|p')
     bash run_evaluate.sh train cell ONLY_EVAL efficientnet_v2_s $teacher_path $genotype $extracted genotype-$genotype_KD_for_only_evaluation_stage 0.5 10 0
+<<<<<<< HEAD
 >>>>>>> 4fee45d (experiment: セルレベル探索の評価)
 =======
 for seed in 1 2 3 4;do
@@ -141,4 +147,6 @@ for seed in 0 1 2 3 4; do
 for seed in 0 1 2 3 4;do
     bash run_search.sh train cell ARCH_WEIGHT efficientnet_v2_s ${teacher_path} s${seed} search_cell_with_simple_kd_on_seed-${seed} ${seed}
 >>>>>>> a6ddf01 (experiment: セルレベルの探索にKDを導入)
+=======
+>>>>>>> 4fee45d (experiment: セルレベル探索の評価)
 done
