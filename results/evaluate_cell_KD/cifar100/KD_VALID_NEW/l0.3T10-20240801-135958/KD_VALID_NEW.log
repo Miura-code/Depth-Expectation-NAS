@@ -1840,13 +1840,3 @@
 08/01 04:23:44午後 evaluateCell_KD_trainer.py:229 [INFO] Valid: [ 99/99] Final Prec@1 71.9600%
 08/01 04:23:44午後 evaluateCell_main.py:75 [INFO] Until now, best Prec@1 = 72.2800%
 08/01 04:23:44午後 evaluateCell_main.py:79 [INFO] Final best Prec@1 = 72.2800%
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1a403ca (experiment; KD hyper parameters validation)
-=======
->>>>>>> 525ea52 (experiment:)
-=======
->>>>>>> 1a403ca (experiment; KD hyper parameters validation)
-=======
->>>>>>> 525ea52 (experiment:)

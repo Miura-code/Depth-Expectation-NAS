@@ -11,18 +11,10 @@ if [ ${arch} = "cell" ]; then
         save=$7
         description=$8
         dataset=cifar100
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
         lambda=$9
         T=${10}
-=======
-        lambda=0.4
-        T=3
->>>>>>> e3d298e (experiment:)
-=======
-        lambda=$9
-        T=${10}
->>>>>>> 33c7fbc (experiment: KD_VALIDATION)
         batch_size=64
         epoch=100
         train_portion=0.9
