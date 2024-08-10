@@ -14,7 +14,7 @@ import genotypes.genotypes as gt
 class EvaluateStageConfig(BaseConfig):
     def build_parser(self):
         # ======== cifar10 ============
-        parser = get_parser("Evaluate searched cells of H-DAS+KD config")
+        parser = get_parser("Evaluate searched stagtes of H-DAS+KD config")
         # ================= file settings ==================
         parser.add_argument('--name', required=True)
         parser.add_argument('--save', type=str, default='EXP', help='experiment name')

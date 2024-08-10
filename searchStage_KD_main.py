@@ -97,6 +97,9 @@ def run_task(config):
     png2gif(config.plot_path, config.DAG_path, file_name="DAG1_history", pattern="*DAG1*")
     png2gif(config.plot_path, config.DAG_path, file_name="DAG2_history", pattern="*DAG2*")
     png2gif(config.plot_path, config.DAG_path, file_name="DAG3_history", pattern="*DAG3*")
+    
+    trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
+
 
     trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
 

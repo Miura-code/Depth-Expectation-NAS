@@ -61,9 +61,11 @@ elif [ ${arch} = "stage" ]; then
         save=$8
         description=$9
         dataset=cifar100
-        lambda=0.4
-        T=3
-
+        lambda=0.5
+        T=10
+        epoch=100
+        train_portion=0.9
+        seed=${10}
         python evaluateStage_main.py \
             --name $name \
             --genotype $genotype \
@@ -72,8 +74,7 @@ elif [ ${arch} = "stage" ]; then
             --teacher_path $teacher_path \
             --l $lambda\
             --T $T \
-            --dataset $dataset\
-            --batch_size $batch_size \
+            --dataset $dataset \
             --epochs $epoch \
             --train_portion $train_portion \
             --seed $seed \
