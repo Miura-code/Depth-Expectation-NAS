@@ -8,12 +8,13 @@
 import os
 import utils
 from utils.logging_util import get_std_logging
-from config.searchStage_config import SearchStageConfig
 from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 from trainer.searchShareStage_trainer import SearchShareStageTrainer
 from genotypes.genotypes import save_DAG
 from utils.visualize import plot2, png2gif
 from utils.eval_util import RecordDataclass
+
+from config import *
 
 from tqdm import tqdm
 
@@ -96,6 +97,8 @@ def run_task(config):
     png2gif(config.plot_path, config.DAG_path, file_name="DAG1_history", pattern="*DAG1*")
     png2gif(config.plot_path, config.DAG_path, file_name="DAG2_history", pattern="*DAG2*")
     png2gif(config.plot_path, config.DAG_path, file_name="DAG3_history", pattern="*DAG3*")
+
+    trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
 
 
 def main():

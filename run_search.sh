@@ -83,8 +83,8 @@ elif [ ${arch} = "stage" ]; then
             --save $save \
             --spec_cell \
             --advanced \
-            --description $description\
-            --nonkd
+            --description $description
+            # --nonkd
             # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====
