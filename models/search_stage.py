@@ -353,7 +353,7 @@ class SearchStage_PartiallyConnected(SearchStage):
         logits = self.linear(out)
         return logits
 
-class SearchStageController(SearchStageController):
+class SearchStageControllerPartialConnection(SearchStageController):
     def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False):
         super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier, device_ids, spec_cell)
 
