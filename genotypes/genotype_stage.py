@@ -306,3 +306,90 @@ STAGE_FULL_CASCADE = Genotype2(
     ], 
     DAG3_concat=[6, 7]
 )
+
+NonDepth_BASELINE = Genotype2(
+    DAG1=[
+        [('skip_connect', 0), ('skip_connect', 1)], 
+        [('skip_connect', 2), ('skip_connect', 1)], 
+        [('skip_connect', 1), ('skip_connect', 2)], 
+        [('skip_connect', 2), ('skip_connect', 4)], 
+        [('skip_connect', 3), ('skip_connect', 4)], 
+        [('skip_connect', 4), ('skip_connect', 6)]
+        ], 
+    DAG1_concat=range(6, 8), 
+    DAG2=[
+        [('skip_connect', 0), ('skip_connect', 1)],
+        [('skip_connect', 1), ('skip_connect', 0)], 
+        [('skip_connect', 1), ('skip_connect', 2)], 
+        [('skip_connect', 2), ('skip_connect', 3)], 
+        [('skip_connect', 3), ('skip_connect', 4)], 
+        [('skip_connect', 4), ('skip_connect', 5)]
+        ], 
+    DAG2_concat=range(6, 8), 
+    DAG3=[
+        [('skip_connect', 0), ('skip_connect', 1)], 
+        [('skip_connect', 0), ('skip_connect', 1)], 
+        [('skip_connect', 1), ('skip_connect', 3)], 
+        [('skip_connect', 3), ('skip_connect', 2)], 
+        [('skip_connect', 3), ('skip_connect', 4)], 
+        [('skip_connect', 4), ('skip_connect', 5)]
+        ], 
+    DAG3_concat=range(6, 8))
+
+BASELINE_BEST_STAGE = Genotype2(
+    DAG1=[
+        [('avg_pool_3x3', 1), ('avg_pool_3x3', 0)],
+        [('avg_pool_3x3', 2), ('avg_pool_3x3', 0)], 
+        [('avg_pool_3x3', 3), ('avg_pool_3x3', 2)], 
+        [('avg_pool_3x3', 4), ('avg_pool_3x3', 3)], 
+        [('avg_pool_3x3', 5), ('avg_pool_3x3', 4)], 
+        [('avg_pool_3x3', 6), ('avg_pool_3x3', 5)]
+        ], 
+    DAG1_concat=range(6, 8), 
+    DAG2=[
+        [('max_pool_3x3', 1), ('max_pool_3x3', 0)], 
+        [('skip_connect', 2), ('max_pool_3x3', 1)],
+        [('max_pool_3x3', 3), ('skip_connect', 2)], 
+        [('max_pool_3x3', 4), ('skip_connect', 3)], 
+        [('skip_connect', 5), ('avg_pool_3x3', 4)], 
+        [('skip_connect', 6), ('avg_pool_3x3', 5)]
+        ], 
+    DAG2_concat=range(6, 8), 
+    DAG3=[
+        [('skip_connect', 1), ('skip_connect', 0)], 
+        [('skip_connect', 2), ('skip_connect', 1)], 
+        [('skip_connect', 3), ('skip_connect', 2)], 
+        [('max_pool_3x3', 4), ('skip_connect', 3)], 
+        [('skip_connect', 5), ('skip_connect', 4)], 
+        [('max_pool_3x3', 6), ('skip_connect', 5)]
+        ], 
+    DAG3_concat=range(6, 8))
+
+NonVArch_BASELINE = Genotype2(
+    DAG1=[
+        [('skip_connect', 1), ('skip_connect', 0)], 
+        [('max_pool_3x3', 2), ('skip_connect', 1)], 
+        [('avg_pool_3x3', 3), ('skip_connect', 2)], 
+        [('max_pool_3x3', 4), ('max_pool_3x3', 3)], 
+        [('max_pool_3x3', 5), ('skip_connect', 4)], 
+        [('avg_pool_3x3', 6), ('skip_connect', 5)]
+        ], 
+    DAG1_concat=range(6, 8),
+    DAG2=[
+        [('skip_connect', 0), ('skip_connect', 1)],
+        [('avg_pool_3x3', 2), ('skip_connect', 1)],
+        [('avg_pool_3x3', 3), ('skip_connect', 2)], 
+        [('max_pool_3x3', 4), ('avg_pool_3x3', 3)], 
+        [('avg_pool_3x3', 5), ('skip_connect', 4)], 
+        [('avg_pool_3x3', 6), ('skip_connect', 5)]
+        ], 
+    DAG2_concat=range(6, 8), 
+    DAG3=[
+        [('skip_connect', 1), ('skip_connect', 0)], 
+        [('skip_connect', 2), ('skip_connect', 1)], 
+        [('skip_connect', 3), ('skip_connect', 2)], 
+        [('skip_connect', 4), ('skip_connect', 3)], 
+        [('skip_connect', 5), ('skip_connect', 4)], 
+        [('skip_connect', 6), ('skip_connect', 5)]
+        ], 
+    DAG3_concat=range(6, 8))

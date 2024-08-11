@@ -10,8 +10,6 @@
     - gene: discrete ops information (w/o output connection)
     - dag: real ops (can be mixed or discrete, but Genotype has only discrete information itself)
 """
-from collections import namedtuple
-import os
 import pickle
 import torch
 import torch.nn as nn

@@ -230,15 +230,16 @@ class SearchStageTrainer_WithSimpleKD():
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
             logits = self.model(trn_X)
-            hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
-            # if self.config.nonkd:
-            #     # === (Not KD for optimizing network params) ===
-            #     hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
-            # else:
-            #     # === KD for optimizing network params ===
-            #     with torch.no_grad():
-            #         teacher_guide = self.teacher_model(trn_X)
-            #     hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
+            
+            # hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
+            if self.config.nonkd:
+                # === (Not KD for optimizing network params) ===
+                hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
+            else:
+                # === KD for optimizing network params ===
+                with torch.no_grad():
+                    teacher_guide = self.teacher_model(trn_X)
+                hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
             loss.backward()
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
             self.w_optim.step()
