@@ -14,12 +14,13 @@ teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/
 #     bash run_evaluate.sh train cell KD_VALID_NEW efficientnet_v2_s /home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar BASELINE224 l0.3T${t} T^2_to_soft_loss 0.3 ${t}
 # # done
 
-# dags=(/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s0-20240809-190616/DAG/EP47-best.pickle 
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s1-20240809-212932/DAG/EP48-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s2-20240809-235159/DAG/EP49-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s3-20240810-021523/DAG/EP46-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s4-20240810-043735/DAG/EP46-best.pickle)
-
+# dags=(
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s0-20240810-190635/DAG/EP46-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s1-20240810-204147/DAG/EP49-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s2-20240810-221715/DAG/EP44-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s3-20240810-235225/DAG/EP48-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/BASELINE224/s4-20240811-012801/DAG/EP47-best.pickle
+# )
 # for dag in ${dags[@]}; do
 #     extracted1=$(echo "$dag" | sed -n 's|.*-\([^/]*\)/DAG.*|\1|p')
 #     extracted2=$(echo "$dag" | sed -n 's|.*224/\([^/]*\)-2024.*|\1|p')
