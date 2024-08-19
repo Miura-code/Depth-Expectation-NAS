@@ -61,7 +61,7 @@ elif [ ${arch} = "stage" ]; then
         save=$6
         genotype=$7
         description=$8
-        dataset=cifar100
+        dataset=cifar10
         lambda=0.5
         T=10
         batch_size=64
@@ -82,9 +82,9 @@ elif [ ${arch} = "stage" ]; then
             --seed $seed \
             --save $save \
             --spec_cell \
-            --advanced \
             --description $description \
             --nonkd
+            # --advanced \
             # --pcdarts
     elif [ ${type} = "test" ]; then
         # ===== モデルをテスト =====

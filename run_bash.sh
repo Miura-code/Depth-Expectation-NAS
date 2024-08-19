@@ -4,8 +4,9 @@ teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_s pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_m pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 
-for seed in 0 1 2 3 4;do
-    bash run_search.sh train stage BASELINE non non s${seed} BASELINE_BEST baseline_stage_level_architecture_without_depth_loss ${seed}
+
+for seed in 1 2 3 4;do
+    bash run_search.sh train stage BASELINE non non nonDepthLosss${seed} BASELINE_BEST nonDepthLoss_version ${seed}
 done
 
 # Ls=(0.3 0.4 0.5 0.6 0.7)
@@ -31,6 +32,9 @@ done
 # bash run_evaluate.sh train stage BASELINE_TEST non non BASELINE_BEST NonVArch_BASELINE nonVArchEval non_virtual_architecture_step_on_stage_architecture 0
 # bash run_evaluate.sh train stage BASELINE_TEST non non BASELINE_BEST BASELINE_BEST_STAGE BEST search_stage_on_baseline_best_cell 0
 
-# for seed in 0 1 2 3 4;do
-#     bash run_search.sh train stage WEIGHT_ARCH efficientnet_v2_s $teacher_path s${seed} BASELINE_BEST stage_architecture_search_kd_for_both_parameters ${seed}
+# for seed in 1 2 3 4;do
+#     bash run_evaluate.sh train stage BASELINE_TEST non non BASELINE_BEST NonDepth_BASELINE nonDepthEvals${seed} non_depth_loss_stage_architecture $seed
+#     bash run_evaluate.sh train stage BASELINE_TEST non non BASELINE_BEST NonVArch_BASELINE nonVArchEvals${seed} non_virtual_architecture_step_on_stage_architecture ${seed}
+#     bash run_evaluate.sh train stage BASELINE_TEST non non BASELINE_BEST BASELINE_BEST_STAGE BASELINE_BEST_STAGE${seed} search_stage_on_baseline_best_cell ${seed}
+
 # done
