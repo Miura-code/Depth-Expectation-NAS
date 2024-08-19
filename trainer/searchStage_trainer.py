@@ -217,15 +217,16 @@ class SearchStageTrainer_WithSimpleKD():
                 arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
             self.alpha_optim.step()
 
-            self.alpha_optim.zero_grad()
-            alpha = self.architect.net.alpha_DAG
-            self.n_nodes = self.config.layers // 3
-            d_depth1 = self.cal_depth(alpha[0 * self.n_nodes: 1 * self.n_nodes], self.n_nodes, 3)
-            d_depth2 = self.cal_depth(alpha[1 * self.n_nodes: 2 * self.n_nodes], self.n_nodes, 3)
-            d_depth3 = self.cal_depth(alpha[2 * self.n_nodes: 3 * self.n_nodes], self.n_nodes, 3)
-            depth_loss = -1.0 * (d_depth1 + d_depth2 + d_depth3)
-            depth_loss.backward()
-            self.alpha_optim.step()
+            # self.alpha_optim.zero_grad()
+            # alpha = self.architect.net.alpha_DAG
+            # self.n_nodes = self.config.layers // 3
+            # d_depth1 = self.cal_depth(alpha[0 * self.n_nodes: 1 * self.n_nodes], self.n_nodes, 3)
+            # d_depth2 = self.cal_depth(alpha[1 * self.n_nodes: 2 * self.n_nodes], self.n_nodes, 3)
+            # d_depth3 = self.cal_depth(alpha[2 * self.n_nodes: 3 * self.n_nodes], self.n_nodes, 3)
+            # depth_loss = -1.0 * (d_depth1 + d_depth2 + d_depth3)
+            # depth_loss.backward()
+            # self.alpha_optim.step()
+            depth_loss = torch.tensor([0])
             
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
