@@ -552,6 +552,11 @@ class SearchStageController_FullCascade(SearchStageController):
         for _ in range(3):
             for i in range(self.n_big_nodes):
                 self.alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(i + 2, n_ops)))
+        
+        self._alphas = []
+        for n, p in self.named_parameters():
+            if 'alpha' in n:
+                self._alphas.append((n, p))
                 
         self.net = SearchStage_FullCascade(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell)
     

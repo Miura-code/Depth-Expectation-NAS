@@ -38,10 +38,12 @@ class SearchStageTrainer_WithSimpleKD():
         self.ckpt_path = self.config.path
         self.device = utils.set_seed_gpu(config.seed, config.gpus)
         # self.Controller = SearchStageControllerPartialConnection if self.config.pcdarts else SearchStageController
+        self.sw = 3
         if self.config.pcdarts:
             self.Controller = SearchStageControllerPartialConnection
         elif self.config.cascade:
             self.Controller = SearchStageController_FullCascade
+            self.sw = self.config.layers // 3
         else:
             self.Controller = SearchStageController
             
@@ -216,8 +218,7 @@ class SearchStageTrainer_WithSimpleKD():
             self.alpha_optim.zero_grad()
             if self.config.nonkd:
                 # === (Not KD for optimizing architecture params) ===
-                arch_hard_loss = arch_soft_loss = torch.tensor([0])
-                arch_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+                arch_loss = arch_hard_loss = arch_soft_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
             else:
                 # === KD for optimizing architecture params ===
                 arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
@@ -226,13 +227,12 @@ class SearchStageTrainer_WithSimpleKD():
             self.alpha_optim.zero_grad()
             alpha = self.architect.net.alpha_DAG
             self.n_nodes = self.config.layers // 3
-            d_depth1 = self.cal_depth(alpha[0 * self.n_nodes: 1 * self.n_nodes], self.n_nodes, 3)
-            d_depth2 = self.cal_depth(alpha[1 * self.n_nodes: 2 * self.n_nodes], self.n_nodes, 3)
-            d_depth3 = self.cal_depth(alpha[2 * self.n_nodes: 3 * self.n_nodes], self.n_nodes, 3)
+            d_depth1 = self.cal_depth(alpha[0 * self.n_nodes: 1 * self.n_nodes], self.n_nodes, self.sw)
+            d_depth2 = self.cal_depth(alpha[1 * self.n_nodes: 2 * self.n_nodes], self.n_nodes, self.sw)
+            d_depth3 = self.cal_depth(alpha[2 * self.n_nodes: 3 * self.n_nodes], self.n_nodes, self.sw)
             depth_loss = -1.0 * (d_depth1 + d_depth2 + d_depth3)
             depth_loss.backward()
             self.alpha_optim.step()
-            depth_loss = torch.tensor([0])
             
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
