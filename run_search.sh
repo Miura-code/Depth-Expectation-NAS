@@ -83,7 +83,8 @@ elif [ ${arch} = "stage" ]; then
             --save $save \
             --spec_cell \
             --description $description \
-            --nonkd
+            --nonkd \
+            --cascade
             # --advanced \
             # --pcdarts
     elif [ ${type} = "test" ]; then

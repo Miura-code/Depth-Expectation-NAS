@@ -16,7 +16,7 @@ import torch.nn.functional as F
 from torch.nn.parallel._functions import Broadcast
 
 import genotypes.genotypes as gt
-from models.search_bigDAG import SearchBigDAG, SearchBigDAG_CS, SearchBigDAGPartiallyConnection
+from models.search_bigDAG import SearchBigDAG, SearchBigDAG_CS, SearchBigDAG_FullCascade, SearchBigDAGPartiallyConnection
 from utils import setting
 
 
@@ -230,7 +230,7 @@ class SearchStageController(nn.Module):
     def named_alphas(self):
         for n, p in self._alphas:
             yield n, p
-       
+      
 class SearchShareStage(SearchStage):
     """
     DAG for search
@@ -495,3 +495,70 @@ class SearchDistributionController(SearchStageController):
         return gt.Genotype2(DAG1=gene_DAG1, DAG1_concat=concat1,
                             DAG2=gene_DAG2, DAG2_concat=concat2,
                             DAG3=gene_DAG3, DAG3_concat=concat3)
+
+class SearchStage_FullCascade(SearchStage):
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=4, cell_multiplier=4, spec_cell=False):
+        super().__init__(input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier, cell_multiplier, spec_cell)
+        
+        self.cells = nn.ModuleList()
+
+        for i in range(n_layers):
+            if i in range(n_layers // 3):
+                reduction = False
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+            if i in [n_layers // 3]:
+                self.bigDAG1 = SearchBigDAG_FullCascade(n_big_nodes, self.cells, 0, n_layers // 3, stem_multiplier*C_cur, stem_multiplier*C_cur, cell_multiplier * C_cur)
+
+                reduction = True
+                C_pp = C_p = 2*cell.multiplier*C_cur
+                C_cur *= 2
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+            if i in range(n_layers // 3 + 1, 2 * n_layers // 3):
+                reduction = False
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+            if i in [2 * n_layers // 3]:
+                self.bigDAG2 = SearchBigDAG_FullCascade(n_big_nodes, self.cells, n_layers // 3 + 1, 2 * n_layers // 3, C_pp, C_p, cell_multiplier * C_cur)
+
+                reduction = True
+                C_pp = C_p = 2*cell.multiplier*C_cur
+                C_cur *= 2
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+            if i in range(2 * n_layers // 3 + 1, n_layers):
+                reduction = False
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+
+            C_pp, C_p = cell_multiplier*C_cur, cell_multiplier*C_cur
+
+
+        # self.bigDAG1 = SearchBigDAG(n_big_nodes, self.cells, 0, n_layers // 3, 4 * C)
+        # self.bigDAG2 = SearchBigDAG(n_big_nodes, self.cells, n_layers // 3 + 1, 2 * n_layers // 3, 8 * C)
+        self.bigDAG3 = SearchBigDAG_FullCascade(n_big_nodes, self.cells, 2 * n_layers // 3 + 1, n_layers, C_pp, C_p, cell_multiplier * C_cur)
+      
+class SearchStageController_FullCascade(SearchStageController):
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False):
+        super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier, device_ids, spec_cell)
+        
+        self.alpha_DAG = nn.ParameterList()
+        
+        n_ops = len(gt.PRIMITIVES2)
+        # 3 stages
+        # initialize architecture parameter(alpha)
+        for _ in range(3):
+            for i in range(self.n_big_nodes):
+                self.alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(i + 2, n_ops)))
+    
+    def DAG(self):
+        gene_DAG1 = gt.parse_fullcascade(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2)
+        gene_DAG2 = gt.parse_fullcascade(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2)
+        gene_DAG3 = gt.parse_fullcascade(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2)
+
+        concat = range(self.n_big_nodes, self.n_big_nodes + 2)
+
+        return gt.Genotype2(DAG1=gene_DAG1, DAG1_concat=concat,
+                            DAG2=gene_DAG2, DAG2_concat=concat,
+                            DAG3=gene_DAG3, DAG3_concat=concat)

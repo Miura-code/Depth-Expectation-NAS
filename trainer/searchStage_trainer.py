@@ -23,7 +23,7 @@ from utils.eval_util import AverageMeter, accuracy, validate
 
 from utils.data_prefetcher import data_prefetcher
 
-from models.search_stage import SearchStageController, SearchStageControllerPartialConnection
+from models.search_stage import SearchStageController, SearchStageController_FullCascade, SearchStageControllerPartialConnection
 from models.architect import Architect
 from utils.visualize import showModelOnTensorboard
 
@@ -37,8 +37,14 @@ class SearchStageTrainer_WithSimpleKD():
         self.save_epoch = 1
         self.ckpt_path = self.config.path
         self.device = utils.set_seed_gpu(config.seed, config.gpus)
-        self.Controller = SearchStageControllerPartialConnection if self.config.pcdarts else SearchStageController
-
+        # self.Controller = SearchStageControllerPartialConnection if self.config.pcdarts else SearchStageController
+        if self.config.pcdarts:
+            self.Controller = SearchStageControllerPartialConnection
+        elif self.config.cascade:
+            self.Controller = SearchStageController_FullCascade
+        else:
+            self.Controller = SearchStageController
+            
         """get the train parameters"""
         self.total_epochs = self.config.epochs
         self.train_batch_size = self.config.batch_size

@@ -53,6 +53,7 @@ class SearchStageConfig(BaseConfig):
         parser.add_argument('--teacher_name', type=str, default='densenet121', help='teacher model name')
         parser.add_argument('--teacher_path', type=str, default=None)
         parser.add_argument('--pcdarts', action='store_true', help='set PCDARTS model')
+        parser.add_argument('--cascade', action='store_true', help='set full cascade model(no sliding window)')
         # ================= details ==================
         parser.add_argument('--description', type=str, default='', help='experiment details')
         # ================= others ==================

@@ -5,9 +5,9 @@ teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_m pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 
 
-# for seed in 1 2 3 4;do
-#     bash run_search.sh train stage BASELINE non non nonDepthLosss${seed} BASELINE_BEST nonDepthLoss_version ${seed}
-# done
+for seed in 0 1 2 3 4;do
+    bash run_search.sh train stage noSlideWindow non non ${seed} BASELINE_BEST noSlideWindow_version_searching_stage ${seed}
+done
 
 # Ls=(0.3 0.4 0.5 0.6 0.7)
 # Ts=(10 20)
