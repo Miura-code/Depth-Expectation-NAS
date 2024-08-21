@@ -4,7 +4,7 @@
     - dag: real ops (can be mixed or discrete, but Genotype has only discrete information itself)
 """
 
-from genotypes.genotype_cell import Genotype2
+from genotypes.__init__ import *
 
 HS_DAS_CIFAR = Genotype2(
     DAG1=[

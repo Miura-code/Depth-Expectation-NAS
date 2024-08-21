@@ -15,6 +15,7 @@ import torch
 import torch.nn as nn
 from models import ops
 
+from genotypes.__init__ import *
 from genotypes.genotype_cell import *
 from genotypes.genotype_stage import *
 
