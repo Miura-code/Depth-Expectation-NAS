@@ -500,6 +500,8 @@ class SearchStage_FullCascade(SearchStage):
     def __init__(self, input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=4, cell_multiplier=4, spec_cell=False):
         super().__init__(input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier, cell_multiplier, spec_cell)
         
+        C_pp, C_p, C_cur = cell_multiplier * C, cell_multiplier * C, C
+
         self.cells = nn.ModuleList()
 
         for i in range(n_layers):
@@ -544,13 +546,15 @@ class SearchStageController_FullCascade(SearchStageController):
         super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier, device_ids, spec_cell)
         
         self.alpha_DAG = nn.ParameterList()
-        
         n_ops = len(gt.PRIMITIVES2)
         # 3 stages
         # initialize architecture parameter(alpha)
         for _ in range(3):
             for i in range(self.n_big_nodes):
                 self.alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(i + 2, n_ops)))
+                
+        self.net = SearchStage_FullCascade(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell)
+    
     
     def DAG(self):
         gene_DAG1 = gt.parse_fullcascade(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2)
