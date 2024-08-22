@@ -74,7 +74,7 @@ class SearchStageConfig(BaseConfig):
         self.gpus = parse_gpus(self.gpus)
         
         self.path = os.path.join(f'results/search_stage_KD/{self.dataset}/', self.name)
-        self.exp_name = '{}-{}'.format(args.save, time.strftime("%Y%m%d-%H%M%S"))
+        self.exp_name = '{}'.format(args.save)
         self.path = os.path.join(self.path, self.exp_name)
         self.DAG_path = os.path.join(self.path, 'DAG')
         self.plot_path = os.path.join(self.path, 'plots')
