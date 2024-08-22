@@ -5,9 +5,9 @@ teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_m pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 
 
-for seed in 0 1 2 3 4;do
-    bash run_search.sh train stage noSlideWindow non non ${seed} BASELINE_BEST noSlideWindow_version_searching_stage ${seed}
-done
+# for seed in 0 1 2 3 4;do
+#     bash run_search.sh train stage noSlideWindow non non ${seed} BASELINE_BEST noSlideWindow_version_searching_stage ${seed}
+# done
 
 # Ls=(0.3 0.4 0.5 0.6 0.7)
 # Ts=(10 20)
@@ -16,17 +16,17 @@ done
 # # done
 
 dags=(
-    /home/miura/lab/KD-hdas/results/search_stage/cifar10/BASELINE/nonDepthLosss0-20240811-000551/DAG/EP39-best.pickle
-    /home/miura/lab/KD-hdas/results/search_stage/cifar10/BASELINE/nonDepthLosss1-20240819-173532/DAG/EP50-best.pickle
-    /home/miura/lab/KD-hdas/results/search_stage/cifar10/BASELINE/nonDepthLosss2-20240819-212635/DAG/EP50-best.pickle
-    /home/miura/lab/KD-hdas/results/search_stage/cifar10/BASELINE/nonDepthLosss3-20240820-011631/DAG/EP50-best.pickle
-    /home/miura/lab/KD-hdas/results/search_stage/cifar10/BASELINE/nonDepthLosss4-20240820-034710/DAG/EP50-best.pickle
+    /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/0-20240822-011715/DAG/EP48-best.pickle
+    /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/1-20240822-040342/DAG/EP50-best.pickle
+    /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/2-20240822-065014/DAG/EP46-best.pickle
+    /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/3-20240822-093643/DAG/EP49-best.pickle
+    /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/4-20240822-122235/DAG/EP45-best.pickle
 )
 for dag in ${dags[@]}; do
     extracted1=$(echo "$dag" | sed -n 's|.*-\([^/]*\)/DAG.*|\1|p')
-    extracted2=$(echo "$dag" | sed -n 's|.*nonDepthLoss\([^/]*\)-2024.*|\1|p')
+    extracted2=$(echo "$dag" | sed -n 's|.*Window/\([^/]*\)-2024.*|\1|p')
     echo $extracted1$extracted2
-    bash run_evaluate.sh train stage nonDepth non non BASELINE_BEST ${dag} $extracted1$extracted2 stage_architecure_evaluation_on_nonKD_searching_without_deoth_loss 0
+    bash run_evaluate.sh train stage noSlideWindow non non BASELINE_BEST ${dag} ${extracted1}s$extracted2 stage_architecure_evaluation_on_nonKD_searching_without_slidingWindow 0
 done
 
 # bash run_evaluate.sh train stage BASELINE_TEST non non BASELINE_BEST NonDepth_BASELINE nonDepthEval non_depth_loss_stage_architecture 0
