@@ -56,6 +56,7 @@ class SearchStageTrainer_WithSimpleKD():
 
         self.T = self.config.T
         self.l = self.config.l
+        self.depth_coef = self.config.depth_coef
 
         """construct the whole network"""
         self.resume_path = self.config.resume_path
@@ -230,7 +231,7 @@ class SearchStageTrainer_WithSimpleKD():
             d_depth1 = self.cal_depth(alpha[0 * self.n_nodes: 1 * self.n_nodes], self.n_nodes, self.sw)
             d_depth2 = self.cal_depth(alpha[1 * self.n_nodes: 2 * self.n_nodes], self.n_nodes, self.sw)
             d_depth3 = self.cal_depth(alpha[2 * self.n_nodes: 3 * self.n_nodes], self.n_nodes, self.sw)
-            depth_loss = -1.0 * (d_depth1 + d_depth2 + d_depth3)
+            depth_loss = -self.depth_coef * (d_depth1 + d_depth2 + d_depth3)
             depth_loss.backward()
             self.alpha_optim.step()
             

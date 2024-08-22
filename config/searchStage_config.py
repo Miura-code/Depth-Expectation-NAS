@@ -42,6 +42,7 @@ class SearchStageConfig(BaseConfig):
         parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
         parser.add_argument('--seed', type=int, default=2, help='random seed')
         parser.add_argument('--nonkd', action='store_true', help='execute KD learning')
+        parser.add_argument('--depth_coef', type=float, default=1.0, help='coefficient of depth loss for architecture loss')
         # ================= model settings ==================
         parser.add_argument('--init_channels', type=int, default=16)
         parser.add_argument('--share_stage', action='store_true', help='Search shared stage architecture at each stage')
