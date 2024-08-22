@@ -70,7 +70,7 @@ class EvaluateStageConfig(BaseConfig):
         self.DAG = gt.from_str(self.DAG)
         
         self.path = os.path.join(f'results/evaluate_stage_KD/{self.dataset}', self.name)
-        self.exp_name = '{}-{}'.format(args.save, time.strftime("%Y%m%d-%H%M%S"))
+        self.exp_name = '{}'.format(args.save)
         self.path = os.path.join(self.path, self.exp_name)
 
         self.gpus = parse_gpus(self.gpus)
