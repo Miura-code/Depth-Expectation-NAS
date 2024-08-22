@@ -92,15 +92,14 @@ elif [ ${arch} = "stage" ]; then
 
         python testModel_main.py \
             --save test \
-            --dataset cifar100 \
+            --dataset cifar10 \
             --batch_size 128 \
             --genotype $genotype \
             --DAG $dag \
             --seed $seed \
             --resume_path $path \
             --stage \
-            --spec_cell \
-            --advanced
+            --spec_cell 
     else
         echo ""
     fi
