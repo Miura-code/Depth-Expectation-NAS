@@ -10,7 +10,7 @@ if [ ${arch} = "cell" ]; then
         genotype=$6
         save=$7
         description=$8
-        dataset=cifar100
+        dataset=cifar10
         lambda=$9
         T=${10}
         batch_size=64
@@ -31,8 +31,8 @@ if [ ${arch} = "cell" ]; then
             --seed $seed \
             --save $save \
             --description $description \
-            --advanced \
             --nonkd
+            # --advanced \
     elif [ ${type} = "test" ]; then
         ## セルレベル構造のテスト
         genotype=$3

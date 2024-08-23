@@ -41,11 +41,11 @@ class SearchBigDAG(nn.Module):
 
         states = [s0, s1]
         for j, (edges, w_list) in enumerate(zip(self.DAG, w_dag)):
-            if j < 1:
+            if j + 2 < self.window:
                 s_cur = sum(edges[i](s, w) for i, (s, w) in enumerate(zip(states, w_list)))
                 states.append(self.DAG[j + self.n_big_nodes](s_cur, s_cur))
             else:
-                s_cur = sum(edges[i](s, w) for i, (s, w) in enumerate(zip(states[-3:], w_list)))
+                s_cur = sum(edges[i](s, w) for i, (s, w) in enumerate(zip(states[-self.window:], w_list)))
                 states.append(self.DAG[j + self.n_big_nodes](s_cur, s_cur))
 
         s_out = torch.cat(states[self.n_big_nodes:], dim=1)
