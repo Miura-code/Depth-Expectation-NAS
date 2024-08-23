@@ -84,7 +84,7 @@ elif [ ${arch} = "stage" ]; then
             --spec_cell \
             --description $description \
             --nonkd \
-            --depth_coef 0 \
+            --depth_coef 1 \
             --slide_window 8
             # --advanced \
             # --cascade

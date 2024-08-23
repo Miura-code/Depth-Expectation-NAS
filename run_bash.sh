@@ -6,36 +6,36 @@ teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/
 
 
 for seed in 0 1;do
-    bash run_search.sh train stage noSWDL non non s${seed}-BaselineBestCell BASELINE_BEST search_architecture_on_noKD_without_depth_loss_with_large_slidewindoe ${seed}
+    bash run_search.sh train stage largeSlideWindow non non s${seed}-BaselineBestCell BASELINE_BEST search_stage_on_noKD_with_slideWindow-8 ${seed}
 done
 
 dirs=(
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s0-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s1-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s0-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s1-BaselineBestCell/DAG
 )
 for dir in ${dirs[@]}; do
     # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
     echo $newest_file
-    seed=$(echo "$dag" | sed -n 's|.*Loss/s\([^/]*\)-Baseline.*|\1|p')
-    bash run_evaluate.sh train stage noSWDL non non BASELINE_BEST ${dag} s$seed-BaselineBestCell search_architecture_on_noKD_without_depth_loss_with_large_slidewindoe 0
+    seed=$(echo "$dag" | sed -n 's|.*Window/s\([^/]*\)-Baseline.*|\1|p')
+    bash run_evaluate.sh train stage largeSlideWindow non non BASELINE_BEST ${dag} s$seed-BaselineBestCell stage_architecure_evaluation_on_nonKD_searching_with_slidewindow-8 0
 done
 
 for seed in 2 3 4;do
-    bash run_search.sh train stage noSWDL non non s${seed}-BaselineBestCell BASELINE_BEST search_architecture_on_noKD_without_depth_loss_with_large_slidewindoe ${seed}
+    bash run_search.sh train stage largeSlideWindow non non s${seed}-BaselineBestCell BASELINE_BEST search_stage_on_noKD_with_slideWindow-8 ${seed}
 done
 
 dirs=(
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s2-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s3-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s4-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s2-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s3-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s4-BaselineBestCell/DAG
 )
 for dir in ${dirs[@]}; do
     # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
     echo $newest_file
-    seed=$(echo "$dag" | sed -n 's|.*Loss/s\([^/]*\)-Baseline.*|\1|p')
-    bash run_evaluate.sh train stage noSWDL non non BASELINE_BEST ${dag} s$seed-BaselineBestCell search_architecture_on_noKD_without_depth_loss_with_large_slidewindoe 0
+    seed=$(echo "$dag" | sed -n 's|.*Window/s\([^/]*\)-Baseline.*|\1|p')
+    bash run_evaluate.sh train stage largeSlideWindow non non BASELINE_BEST ${dag} s$seed-BaselineBestCell stage_architecure_evaluation_on_nonKD_searching_with_slidewindow-8 0
 done
 
 # Ls=(0.3 0.4 0.5 0.6 0.7)
