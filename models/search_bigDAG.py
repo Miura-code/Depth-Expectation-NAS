@@ -11,22 +11,23 @@ from models import ops
 
 
 class SearchBigDAG(nn.Module):
-    def __init__(self, n_big_nodes, cells, start_p, end_p, C_pp, C_p, C):
+    def __init__(self, n_big_nodes, cells, start_p, end_p, C_pp, C_p, C, window=3):
         super().__init__()
         self.n_big_nodes = n_big_nodes
+        self.window = window
         self.preproc0 = ops.StdConv(C_pp, C, 1, 1, 0, affine=False)
         self.preproc1 = ops.StdConv(C_p, C, 1, 1, 0, affine=False)
 
         self.DAG = nn.ModuleList()
         for i in range(self.n_big_nodes):
             self.DAG.append(nn.ModuleList())
-            if i < 1:
+            if i + 2 < self.window:
                 for _ in range(2 + i):
                     stride = 1
                     op = ops.MixedOp(C, stride)
                     self.DAG[i].append(op)
             else:
-                for _ in range(3):
+                for _ in range(self.window):
                     stride = 1
                     op = ops.MixedOp(C, stride)
                     self.DAG[i].append(op)
@@ -51,22 +52,23 @@ class SearchBigDAG(nn.Module):
         return s_out
     
 class SearchBigDAGPartiallyConnection(nn.Module):
-    def __init__(self, n_big_nodes, cells, start_p, end_p, C_pp, C_p, C):
+    def __init__(self, n_big_nodes, cells, start_p, end_p, C_pp, C_p, C, window=3):
         super().__init__()
         self.n_big_nodes = n_big_nodes
+        self.window = window
         self.preproc0 = ops.StdConv(C_pp, C, 1, 1, 0, affine=False)
         self.preproc1 = ops.StdConv(C_p, C, 1, 1, 0, affine=False)
 
         self.DAG = nn.ModuleList()
         for i in range(self.n_big_nodes):
             self.DAG.append(nn.ModuleList())
-            if i < 1:
+            if i + 2 < self.window:
                 for _ in range(2 + i):
                     stride = 1
                     op = ops.MixedOpPC(C, stride)
                     self.DAG[i].append(op)
             else:
-                for _ in range(3):
+                for _ in range(self.window):
                     stride = 1
                     op = ops.MixedOpPC(C, stride)
                     self.DAG[i].append(op)
@@ -80,11 +82,11 @@ class SearchBigDAGPartiallyConnection(nn.Module):
 
         states = [s0, s1]
         for j, (edges, w_list, bw_list) in enumerate(zip(self.DAG, w_dag, bw_dag)):
-            if j < 1:
+            if j + 2 < self.window:
                 s_cur = sum(b * edges[i](s, w) for i, (s, w, b) in enumerate(zip(states, w_list, bw_list)))
                 states.append(self.DAG[j + self.n_big_nodes](s_cur, s_cur))
             else:
-                s_cur = sum(b * edges[i](s, w) for i, (s, w, b) in enumerate(zip(states[-3:], w_list, bw_list)))
+                s_cur = sum(b * edges[i](s, w) for i, (s, w, b) in enumerate(zip(states[-self.window:], w_list, bw_list)))
                 states.append(self.DAG[j + self.n_big_nodes](s_cur, s_cur))
 
         s_out = torch.cat(states[self.n_big_nodes:], dim=1)
@@ -124,8 +126,8 @@ class SearchBigDAG_FullCascade(SearchBigDAG):
     
 
 class SearchBigDAG_CS(SearchBigDAG):
-    def __init__(self, n_big_nodes, cells, start_p, end_p, C):
-        super().__init__(n_big_nodes, cells, start_p, end_p, C)
+    def __init__(self, n_big_nodes, cells, start_p, end_p, C, window=3):
+        super().__init__(n_big_nodes, cells, start_p, end_p, C, window)
     
     def forward(self, s0, s1, w_dag, w_concat):
         s0 = self.preproc0(s0)
@@ -133,11 +135,11 @@ class SearchBigDAG_CS(SearchBigDAG):
 
         states = [s0, s1]
         for j, (edges, w_list) in enumerate(zip(self.DAG, w_dag)):
-            if j < 1:
+            if j + 2 < self.window:
                 s_cur = sum(edges[i](s, w) for i, (s, w) in enumerate(zip(states, w_list)))
                 states.append(self.DAG[j + self.n_big_nodes](s_cur, s_cur))
             else:
-                s_cur = sum(edges[i](s, w) for i, (s, w) in enumerate(zip(states[-3:], w_list)))
+                s_cur = sum(edges[i](s, w) for i, (s, w) in enumerate(zip(states[-self.window:], w_list)))
                 states.append(self.DAG[j + self.n_big_nodes](s_cur, s_cur))
         
         s_out = list()

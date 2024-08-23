@@ -38,7 +38,7 @@ class SearchStageTrainer_WithSimpleKD():
         self.ckpt_path = self.config.path
         self.device = utils.set_seed_gpu(config.seed, config.gpus)
         # self.Controller = SearchStageControllerPartialConnection if self.config.pcdarts else SearchStageController
-        self.sw = 3
+        self.sw = self.config.slide_window
         if self.config.pcdarts:
             self.Controller = SearchStageControllerPartialConnection
         elif self.config.cascade:
@@ -82,7 +82,7 @@ class SearchStageTrainer_WithSimpleKD():
         self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
         self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
         # ================= Student model ==================
-        model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell)
+        model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw)
         self.model = model.to(self.device)
         # ================= Teacher Model ==================
         if not self.config.nonkd:
@@ -173,7 +173,7 @@ class SearchStageTrainer_WithSimpleKD():
         assert len(alpha) == n_nodes, "the length of alpha must be the same as n_nodes"
         d = [0, 0]
         for i in range(n_nodes):
-            if i < (SW - 2):
+            if i + 2 < SW:
                 dd = 0
                 for j in range(i + 2):
                     dd += alpha[i][j] * (d[j] + 1)
@@ -181,7 +181,7 @@ class SearchStageTrainer_WithSimpleKD():
                 d.append(dd)
             else:
                 dd = 0
-                for s, j in enumerate(range(i - 1, i + 2)):
+                for s, j in enumerate(range(i + 2 - SW, i + 2)):
                     dd += alpha[i][s] * (d[j] + 1)
                 dd /= SW
                 d.append(dd)

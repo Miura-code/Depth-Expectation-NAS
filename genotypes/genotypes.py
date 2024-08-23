@@ -82,7 +82,7 @@ def from_str(s):
     return genotype
 
 
-def parse(alpha, k):
+def parse(alpha, k, window=3):
     """
     parse continuous alpha to discrete gene.
     alpha is ParameterList:
@@ -114,10 +114,10 @@ def parse(alpha, k):
         for edge_idx in topk_edge_indices:
             prim_idx = primitive_indices[edge_idx]
             prim = PRIMITIVES2[prim_idx]
-            if i < 1:
+            if i + 2 < window:
                 node_gene.append((prim, edge_idx.item()))
             else:
-                node_gene.append((prim, edge_idx.item() + (i - 1)))
+                node_gene.append((prim, edge_idx.item() + (i + 2 - window)))
 
         gene.append(node_gene)
 
@@ -161,7 +161,7 @@ def parse_fullcascade(alpha, k):
 
     return gene
 
-def parse_edgeNormalization(alpha, beta, k):
+def parse_edgeNormalization(alpha, beta, k, window=3):
     """
     parse continuous alpha to discrete gene.
     alpha is ParameterList:
@@ -197,10 +197,10 @@ def parse_edgeNormalization(alpha, beta, k):
         for edge_idx in topk_edge_indices:
             prim_idx = primitive_indices[edge_idx]
             prim = PRIMITIVES2[prim_idx]
-            if i < 1:
+            if i + 2 < window:
                 node_gene.append((prim, edge_idx.item()))
             else:
-                node_gene.append((prim, edge_idx.item() + (i - 1)))
+                node_gene.append((prim, edge_idx.item() + (i + 2 - window)))
 
         gene.append(node_gene)
 

@@ -17,7 +17,7 @@ from utils.eval_util import AverageMeter, accuracy
 from utils.data_prefetcher import data_prefetcher
 from models.search_stage import SearchDistributionController
 from models.architect import Architect
-from trainer.searchStage_trainer import SearchStageTrainer
+from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 
 """
 search length-specify macro-architectures
@@ -25,7 +25,7 @@ Modified by searchDAG_trainer
 """
 
 
-class SearchDistributionTrainer(SearchStageTrainer):
+class SearchDistributionTrainer(SearchStageTrainer_WithSimpleKD):
     def __init__(self, config):
         super().__init__(config)
     
@@ -54,7 +54,7 @@ class SearchDistributionTrainer(SearchStageTrainer):
         """build model"""
         print("init model")
         self.criterion = nn.CrossEntropyLoss().to(self.device)
-        model = SearchDistributionController(input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, self.config.genotype, device_ids=self.config.gpus)
+        model = SearchDistributionController(input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, self.config.genotype, device_ids=self.config.gpus, slide_window=self.sw)
         self.model = model.to(self.device)
         print("init model end!")
 
