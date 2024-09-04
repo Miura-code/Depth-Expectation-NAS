@@ -61,7 +61,7 @@ elif [ ${arch} = "stage" ]; then
         save=$6
         genotype=$7
         description=$8
-        dataset=cifar10
+        dataset=cifar100
         lambda=0.5
         T=10
         batch_size=64
@@ -84,9 +84,9 @@ elif [ ${arch} = "stage" ]; then
             --spec_cell \
             --description $description \
             --nonkd \
-            --depth_coef 1 \
-            --slide_window 8
-            # --advanced \
+            --depth_coef 0 \
+            --slide_window 8 \
+            --advanced \
             # --cascade
             # --pcdarts
     elif [ ${type} = "test" ]; then

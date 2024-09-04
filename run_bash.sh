@@ -5,38 +5,41 @@ teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_m pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 
 
-for seed in 0 1;do
-    bash run_search.sh train stage largeSlideWindow non non s${seed}-BaselineBestCell BASELINE_BEST search_stage_on_noKD_with_slideWindow-8 ${seed}
-done
+# for seed in 0 1 2 3 4;do
+#     bash run_search.sh train stage noSWDL non non s${seed}-BaselineBestCell BASELINE_BEST search_architecture_on_noKD_without_depth_loss_with_large_slidewindoe ${seed}
+# done
 
 dirs=(
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s0-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s1-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s1-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s2-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s3-BaselineBestCell/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s4-BaselineBestCell/DAG
 )
 for dir in ${dirs[@]}; do
     # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
     echo $newest_file
-    seed=$(echo "$dag" | sed -n 's|.*Window/s\([^/]*\)-Baseline.*|\1|p')
-    bash run_evaluate.sh train stage largeSlideWindow non non BASELINE_BEST ${dag} s$seed-BaselineBestCell stage_architecure_evaluation_on_nonKD_searching_with_slidewindow-8 0
+    seed=$(echo "$dag" | sed -n 's|.*SWDL/s\([^/]*\)-Baseline.*|\1|p')
+    bash run_evaluate.sh train stage noSWDL non non BASELINE_BEST ${dag} s$seed-BaselineBestCell search_architecture_on_noKD_without_depth_loss_with_large_slidewindoe 0
+    bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noSWDL/s$seed-BaselineBestCell/best.pth.tar
 done
 
-for seed in 2 3 4;do
-    bash run_search.sh train stage largeSlideWindow non non s${seed}-BaselineBestCell BASELINE_BEST search_stage_on_noKD_with_slideWindow-8 ${seed}
-done
+# for seed in 2 3 4;do
+#     bash run_search.sh train stage noSWDL non non s${seed}-BaselineBestCell BASELINE_BEST search_architecture_on_noKD_without_depth_loss_with_large_slidewindoe ${seed}
+# done
 
-dirs=(
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s2-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s3-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/largeSlideWindow/s4-BaselineBestCell/DAG
-)
-for dir in ${dirs[@]}; do
-    # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
-    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    echo $newest_file
-    seed=$(echo "$dag" | sed -n 's|.*Window/s\([^/]*\)-Baseline.*|\1|p')
-    bash run_evaluate.sh train stage largeSlideWindow non non BASELINE_BEST ${dag} s$seed-BaselineBestCell stage_architecure_evaluation_on_nonKD_searching_with_slidewindow-8 0
-done
+# dirs=(
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s2-BaselineBestCell/DAG
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s3-BaselineBestCell/DAG
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/noSWDL/s4-BaselineBestCell/DAG
+# )
+# for dir in ${dirs[@]}; do
+#     # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
+#     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+#     echo $newest_file
+#     seed=$(echo "$dag" | sed -n 's|.*Loss/s\([^/]*\)-Baseline.*|\1|p')
+#     bash run_evaluate.sh train stage noSWDL non non BASELINE_BEST ${dag} s$seed-BaselineBestCell search_architecture_on_noKD_without_depth_loss_with_large_slidewindoe 0
+# done
 
 # Ls=(0.3 0.4 0.5 0.6 0.7)
 # Ts=(10 20)
@@ -45,15 +48,15 @@ done
 # # done
 
 # dags=(
-#     /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/0-20240822-011715/DAG/EP48-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/1-20240822-040342/DAG/EP50-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/2-20240822-065014/DAG/EP46-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/3-20240822-093643/DAG/EP49-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage/cifar10/noSlideWindow/4-20240822-122235/DAG/EP45-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/noSWDL/s0-BaselineBestCell/DAG/EP47-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/noSWDL/s1-BaselineBestCell/DAG/EP48-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/noSWDL/s2-BaselineBestCell/DAG/EP49-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/noSWDL/s3-BaselineBestCell/DAG/EP44-best.pickle
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar10/noSWDL/s4-BaselineBestCell/DAG/EP50-best.pickle
 # )
 # for dag in ${dags[@]}; do
 #     extracted1=$(echo "$dag" | sed -n 's|.*-\([^/]*\)/DAG.*|\1|p')
-#     extracted2=$(echo "$dag" | sed -n 's|.*Window/\([^/]*\)-2024.*|\1|p')
+#     extracted2=$(echo "$dag" | sed -n 's|.*SWDL/\([^/]*\)-Baseline.*|\1|p')
 #     echo $extracted1$extracted2
 #     bash run_evaluate.sh train stage noSlideWindow non non BASELINE_BEST ${dag} ${extracted1}s$extracted2 stage_architecure_evaluation_on_nonKD_searching_without_slidingWindow 0
 # done
