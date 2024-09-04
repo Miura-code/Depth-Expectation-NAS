@@ -1,0 +1,38 @@
+08/27 08:26:48AM parser.py:28 [INFO] 
+08/27 08:26:48AM parser.py:29 [INFO] Parameters:
+08/27 08:26:48AM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 2), ('skip_connect', 0)], [('skip_connect', 3), ('skip_connect', 2)], [('max_pool_3x3', 4), ('skip_connect', 3)], [('max_pool_3x3', 5), ('skip_connect', 4)], [('skip_connect', 6), ('skip_connect', 5)]], DAG1_concat=range(6, 8), DAG2=[[('skip_connect', 0), ('skip_connect', 1)], [('avg_pool_3x3', 2), ('skip_connect', 0)], [('avg_pool_3x3', 3), ('skip_connect', 2)], [('skip_connect', 4), ('max_pool_3x3', 3)], [('max_pool_3x3', 5), ('avg_pool_3x3', 4)], [('max_pool_3x3', 6), ('avg_pool_3x3', 5)]], DAG2_concat=range(6, 8), DAG3=[[('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 2), ('skip_connect', 1)], [('skip_connect', 3), ('skip_connect', 2)], [('skip_connect', 4), ('skip_connect', 3)], [('skip_connect', 5), ('skip_connect', 4)], [('skip_connect', 6), ('skip_connect', 5)]], DAG3_concat=range(6, 8))
+08/27 08:26:48AM parser.py:31 [INFO] ADVANCED=True
+08/27 08:26:48AM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+08/27 08:26:48AM parser.py:31 [INFO] AMP_SYNC_BN=True
+08/27 08:26:48AM parser.py:31 [INFO] AUX_WEIGHT=0.4
+08/27 08:26:48AM parser.py:31 [INFO] BATCH_SIZE=128
+08/27 08:26:48AM parser.py:31 [INFO] CIFAR=True
+08/27 08:26:48AM parser.py:31 [INFO] CUTOUT_LENGTH=0
+08/27 08:26:48AM parser.py:31 [INFO] DATA_PATH=../data/
+08/27 08:26:48AM parser.py:31 [INFO] DATASET=cifar10
+08/27 08:26:48AM parser.py:31 [INFO] DESCRIPTION=
+08/27 08:26:48AM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+08/27 08:26:48AM parser.py:31 [INFO] GPUS=[0]
+08/27 08:26:48AM parser.py:31 [INFO] INIT_CHANNELS=32
+08/27 08:26:48AM parser.py:31 [INFO] LAYERS=20
+08/27 08:26:48AM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+08/27 08:26:48AM parser.py:31 [INFO] MODEL_NAME=None
+08/27 08:26:48AM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar10/largeSlideWindow/s2-BaselineBestCell/test/test-20240827-082648
+08/27 08:26:48AM parser.py:31 [INFO] PRINT_FREQ=50
+08/27 08:26:48AM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar10/largeSlideWindow/s2-BaselineBestCell/best.pth.tar
+08/27 08:26:48AM parser.py:31 [INFO] SAVE=test
+08/27 08:26:48AM parser.py:31 [INFO] SEED=0
+08/27 08:26:48AM parser.py:31 [INFO] SPEC_CELL=True
+08/27 08:26:48AM parser.py:31 [INFO] STAGE=True
+08/27 08:26:48AM parser.py:31 [INFO] TRAIN_PORTION=1.0
+08/27 08:26:48AM parser.py:31 [INFO] WORKERS=4
+08/27 08:26:48AM parser.py:32 [INFO] 
+08/27 08:26:48AM testModel_main.py:43 [INFO] Logger is set - test start
+08/27 08:26:50AM testModel_main.py:71 [INFO] --> Loaded checkpoint '/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar10/largeSlideWindow/s2-BaselineBestCell/best.pth.tar'
+08/27 08:26:50AM testModel_main.py:72 [INFO] param size = 2.789476MB
+08/27 08:26:50AM testModel_main.py:74 [INFO] param size = NoneMB, mac = None
+08/27 08:26:51AM testModel_main.py:112 [INFO] Test: Step 000/078 Prec@(1,5) (90.6%, 100.0%)
+08/27 08:26:55AM testModel_main.py:112 [INFO] Test: Step 050/078 Prec@(1,5) (93.6%, 99.9%)
+08/27 08:26:58AM testModel_main.py:112 [INFO] Test: Step 078/078 Prec@(1,5) (93.8%, 99.8%)
+08/27 08:26:58AM testModel_main.py:83 [INFO] Test Prec(@1, @5) = (93.8100%, 99.8300%)
+08/27 08:26:58AM testModel_main.py:84 [INFO] Time to Test = (1724714810.3905923, 1724714818.3718908, 7.981298446655273)
