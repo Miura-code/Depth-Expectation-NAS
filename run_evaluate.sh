@@ -60,7 +60,7 @@ elif [ ${arch} = "stage" ]; then
         dag=$7
         save=$8
         description=$9
-        dataset=cifar10
+        dataset=cifar100
         lambda=0.5
         T=10
         epoch=100
@@ -81,8 +81,8 @@ elif [ ${arch} = "stage" ]; then
             --save $save \
             --description $description \
             --spec_cell \
-            --nonkd
-            # --advanced
+            --nonkd \
+            --advanced
     elif [ ${type} = "test" ]; then
         ## セルレベル構造のテスト
         genotype=$3
@@ -92,15 +92,15 @@ elif [ ${arch} = "stage" ]; then
 
         python testModel_main.py \
             --save test \
-            --dataset cifar10 \
+            --dataset cifar100 \
             --batch_size 128 \
             --genotype $genotype \
             --DAG $dag \
             --seed $seed \
             --resume_path $path \
             --stage \
-            --spec_cell
-            # --advanced
+            --spec_cell \
+            --advanced
     else
         echo ""
     fi
