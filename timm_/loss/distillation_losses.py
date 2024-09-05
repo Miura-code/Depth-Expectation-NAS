@@ -61,6 +61,21 @@ class KD_Loss(nn.Module):
                 
         return loss
 
+class HintLoss(nn.Module):
+    '''
+    FitNets: Hint for Thin Deep Nets
+    '''
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, logits, targets):
+        '''
+        logits: 生徒モデルの中間層出力
+        targets: 教師モデルの中間層出力
+        '''
+        loss = nn.MSELoss()
+        kd_loss = loss(logits, targets)
+        return kd_loss
 
 class _Triplet(nn.Module):
     def __init__(self, p=2, margin=0.2, sampler=None, reduce=True, size_average=True):

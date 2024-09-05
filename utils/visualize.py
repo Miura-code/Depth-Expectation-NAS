@@ -133,7 +133,7 @@ def plot2(genotype, file_path, caption=None, concat=None):
     g.render(file_path, view=False)
 
 
-def png2gif(dir_path:str, save_path="", file_name="DAG_History", size=(1000, 130), pattern="*"):
+def png2gif(dir_path:str, save_path="", file_name="DAG_History", size=(1000, 300), pattern="*"):
     if save_path == "":
         save_path = dir_path
     files = sorted(glob.glob(dir_path + '/' + pattern + '.png'))

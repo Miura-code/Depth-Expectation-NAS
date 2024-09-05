@@ -18,6 +18,38 @@ class Architect():
         self.v_teacher_net = copy.deepcopy(teacher_net)
         self.w_momentum = w_momentum
         self.w_weight_decay = w_weight_decay
+        
+    def unrolled_backward_hint1(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
+        """ First Order!
+            Compute unrolled loss and backward its gradients
+        Args:
+            xi: learning rate for virtual gradient step (same as net lr)
+            w_optim: weights optimizer - for virtual step
+        """
+        with torch.no_grad():
+            _, teacher_hint = self.teacher_net.extract_features1(trn_X)
+        _, student_features = self.net.extract_feature1(trn_X)
+        student_guided = self.Regressor1(student_features)
+        hint_loss = self.net.hint_criterion(student_guided, teacher_hint, val_y, True)
+        hint_loss.backward()
+        
+        return hint_loss
+   
+    def unrolled_backward_hint2(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
+        """ First Order!
+            Compute unrolled loss and backward its gradients
+        Args:
+            xi: learning rate for virtual gradient step (same as net lr)
+            w_optim: weights optimizer - for virtual step
+        """
+        with torch.no_grad():
+            _, teacher_hint = self.teacher_net.extract_features2(trn_X)
+        _, student_features = self.net.extract_feature2(trn_X)
+        student_guided = self.Regressor2(student_features)
+        hint_loss = self.net.hint_criterion(student_guided, teacher_hint, val_y, True)
+        hint_loss.backward()
+        
+        return hint_loss
     
     def unrolled_backward(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
         """ First Order!

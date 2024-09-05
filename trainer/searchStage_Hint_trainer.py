@@ -14,21 +14,20 @@ import torchvision
 from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
-from timm_.loss.distillation_losses import KD_Loss, SoftTargetKLLoss
 import utils
 from utils.data_util import get_data, split_dataloader
 from utils.file_management import load_teacher_checkpoint_state
-from utils.params_util import collect_params
+from utils.loss import HintLoss, KD_Loss, SoftTargetKLLoss
 from utils.eval_util import AverageMeter, accuracy, validate
 
 from utils.data_prefetcher import data_prefetcher
 
-from models.search_stage import SearchStageController, SearchStageController_FullCascade, SearchStageControllerPartialConnection
+from models.search_stage import SearchStageController_Hint
 from models.architect import Architect
 from utils.visualize import showModelOnTensorboard
 
 
-class SearchStageTrainer_WithSimpleKD():
+class SearchStageTrainer_HintKD():
     def __init__(self, config) -> None:
         self.config = config
 
@@ -37,17 +36,13 @@ class SearchStageTrainer_WithSimpleKD():
         self.save_epoch = 1
         self.ckpt_path = self.config.path
         self.device = utils.set_seed_gpu(config.seed, config.gpus)
-        # self.Controller = SearchStageControllerPartialConnection if self.config.pcdarts else SearchStageController
-        self.sw = self.config.slide_window
-        if self.config.pcdarts:
-            self.Controller = SearchStageControllerPartialConnection
-        elif self.config.cascade:
-            self.Controller = SearchStageController_FullCascade
-            self.sw = self.config.layers // 3
-        else:
-            self.Controller = SearchStageController
+        self.sw = self.config.slide_window            
+        
+        self.Controller = SearchStageController_Hint
             
         """get the train parameters"""
+        self.hint1_epoch = self.config.hint1_epoch
+        self.hint2_epoch = self.config.hint2_epoch
         self.total_epochs = self.config.epochs
         self.train_batch_size = self.config.batch_size
         self.val_batch_size = self.config.batch_size
@@ -80,9 +75,10 @@ class SearchStageTrainer_WithSimpleKD():
         # ================= define criteria ==================
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
         self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
+        self.hint_criterion = HintLoss().to(self.device)
         self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
         # ================= Student model ==================
-        model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw)
+        model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw, hint_criterion=self.hint_criterion)
         self.model = model.to(self.device)
         # ================= Teacher Model ==================
         if not self.config.nonkd:
@@ -187,6 +183,85 @@ class SearchStageTrainer_WithSimpleKD():
                 d.append(dd)
         return sum(sum(d) / n_nodes)
     
+    def train_hint1_epoch(self, epoch, printer=print):
+        top1 = AverageMeter()
+        top5 = AverageMeter()
+        hint_losses = AverageMeter()
+        arch_hint_losses = AverageMeter()
+        arch_depth_losses = AverageMeter()
+
+        cur_lr = self.lr_scheduler.get_last_lr()[0]
+
+        self.model.print_alphas(self.logger)
+        self.model.train()
+        if not self.config.nonkd:
+            self.teacher_model.train()
+
+        prefetcher_trn = data_prefetcher(self.train_loader)
+        prefetcher_val = data_prefetcher(self.valid_loader)
+        trn_X, trn_y = prefetcher_trn.next()
+        val_X, val_y = prefetcher_val.next()
+        i = 0
+        while trn_X is not None:
+            i += 1
+            N = trn_X.size(0)
+            self.steps += 1
+
+            # ================= optimize architecture parameter ==================
+            self.alpha_optim.zero_grad()
+            # === KD for optimizing architecture params ===
+            arch_hint_loss = self.architect.unrolled_backward_hint1(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            self.alpha_optim.step()
+            
+            # ================= calculate depth loss ==================
+            self.alpha_optim.zero_grad()
+            alpha = self.architect.net.alpha_DAG
+            self.n_nodes = self.config.layers // 3
+            d_depth1 = self.cal_depth(alpha[0 * self.n_nodes: 1 * self.n_nodes], self.n_nodes, self.sw)
+            d_depth2 = self.cal_depth(alpha[1 * self.n_nodes: 2 * self.n_nodes], self.n_nodes, self.sw)
+            d_depth3 = self.cal_depth(alpha[2 * self.n_nodes: 3 * self.n_nodes], self.n_nodes, self.sw)
+            depth_loss = -self.depth_coef * (d_depth1 + d_depth2 + d_depth3)
+            depth_loss.backward()
+            self.alpha_optim.step()
+            
+            # ================= optimize network parameter ==================
+            self.w_optim.zero_grad()
+            logits, student_features = self.model.extract_feature1(trn_X)
+            student_guided = self.Regressor1(student_features)
+
+            with torch.no_grad():
+                _, teacher_hint = self.teacher_model.extract_features1(trn_X)
+                
+            hint_loss = self.model.hint_criterion(student_guided, teacher_hint, True)
+            hint_loss.backward()
+            nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
+            self.w_optim.step()
+
+            prec1, prec5 = accuracy(logits, trn_y, topk=(1, 5))
+            # 学習過程の記録用
+            hint_losses.update(hint_loss.item(), N)
+            arch_hint_losses.update(arch_hint_loss.item(), N)
+            arch_depth_losses.update(depth_loss.item(), N)
+            top1.update(prec1.item(), N)
+            top5.update(prec5.item(), N)
+
+            if i % self.config.print_freq == 0 or i == len(self.train_loader) - 1:
+                printer(f'Train: Epoch: [{epoch}][{i}/{len(self.train_loader) - 1}]\t'
+                        f'Step {self.steps}\t'
+                        f'lr {round(cur_lr, 5)}\t'
+                        f'Loss {hint_losses.val:.4f} ({hint_losses.avg:.4f})\t'
+                        f'Arch Loss {arch_hint_losses.val:.4f} ({arch_hint_losses.avg:.4f})\t'
+                        f'Arch depth Loss {arch_depth_losses.val:.4f} ({arch_depth_losses.avg:.4f})\t'
+                        f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})\t'
+                        )
+            
+            trn_X, trn_y = prefetcher_trn.next()
+            val_X, val_y = prefetcher_val.next()
+        
+        printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
+        
+        return top1.avg, hint_losses.avg, arch_hint_losses.avg, arch_depth_losses.avg
+    
     def train_epoch(self, epoch, printer=print):
         top1 = AverageMeter()
         top5 = AverageMeter()
@@ -239,15 +314,15 @@ class SearchStageTrainer_WithSimpleKD():
             self.w_optim.zero_grad()
             logits = self.model(trn_X)
             
-            hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
-            # if self.config.nonkd:
-            #     # === (Not KD for optimizing network params) ===
-            #     hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
-            # else:
-            #     # === KD for optimizing network params ===
-            #     with torch.no_grad():
-            #         teacher_guide = self.teacher_model(trn_X)
-            #     hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
+            # hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
+            if self.config.nonkd:
+                # === (Not KD for optimizing network params) ===
+                hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
+            else:
+                # === KD for optimizing network params ===
+                with torch.no_grad():
+                    teacher_guide = self.teacher_model(trn_X)
+                hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
             loss.backward()
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
             self.w_optim.step()
