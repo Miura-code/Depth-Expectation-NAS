@@ -39,8 +39,8 @@ class KD_Loss(nn.Module):
 
     def forward(self, s_logits, t_logits, targets, return_detail=False):
         hard_loss = self.hard_criteria(s_logits, targets)
-        soft_loss = self.soft_criteria(s_logits, t_logits)
-        loss = self.l * hard_loss + (1 - self.l) * self.T * self.T * soft_loss
+        soft_loss = self.T * self.T *self.soft_criteria(s_logits, t_logits)
+        loss = self.l * hard_loss + (1 - self.l) * soft_loss
 
         if return_detail:
             return hard_loss, soft_loss, loss

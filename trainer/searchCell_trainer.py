@@ -17,7 +17,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import teacher_models
 from utils.eval_util import validate
-from timm_.loss.distillation_losses import KD_Loss, SoftTargetKLLoss
+from utils.loss import KD_Loss, SoftTargetKLLoss
 import utils
 from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, accuracy
