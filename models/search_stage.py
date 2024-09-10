@@ -140,22 +140,7 @@ class SearchStage(nn.Module):
         out = out.view(out.size(0), -1)
         logits = self.linear(out)
         return logits
-    
-    def forward_stage1(self, x, weights_DAG):
-        s0 = s1 = self.stem(x)
-        s0 = s1 = self.bigDAG1(s0, s1, weights_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes])
-        s0 = s1 = self.cells[1 * self.n_layers // 3](s0, s1)
 
-        return s0
-    
-    def forward_stage2(self, x, weights_DAG):
-        s0 = s1 = self.stem(x)
-        s0 = s1 = self.bigDAG1(s0, s1, weights_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes])
-        s0 = s1 = self.cells[1 * self.n_layers // 3](s0, s1)
-        s0 = s1 = self.bigDAG2(s0, s1, weights_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes])
-        s0 = s1 = self.cells[2 * self.n_layers // 3](s0, s1)
-
-        return s0
 
 class SearchStageController(nn.Module):
     """ SearchDAG controller supporting multi-gpu """
@@ -190,20 +175,7 @@ class SearchStageController(nn.Module):
             if 'alpha' in n:
                 self._alphas.append((n, p))
         self.net = SearchStage(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell, slide_window=self.window)
-    
-    def extract_features(self, x, stage=1):
-        weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
-
-        if len(self.device_ids) == 1:
-            if stage == 1:
-                return self.net.forward_stage1(x, weights_DAG)
-            elif stage == 2:
-                return self.net.forward_stage2(x, weights_DAG)
-            else:
-                raise ValueError(f'不正な中間層です. stage = "{self.stage}"')
-        else:
-            raise ValueError(f'不正なデバイスIDです. device_ids = "{self.device_ids}"')
-                
+          
     def forward(self, x):
         weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
 
@@ -617,39 +589,42 @@ class SearchStage_Hint(SearchStage):
         n_big_nodes: # of intermediate n_cells  # 6
         genotype: the shape of normal cell and reduce cell
         """
-        super().__init__(input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=4, cell_multiplier=4, spec_cell=False, slide_window=3)
-    
-    def forward_stage1(self, x, weights_DAG):
-        s0 = s1 = self.stem(x)
-        s0 = s1 = self.bigDAG1(s0, s1, weights_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes])
-        s0 = s1 = self.cells[1 * self.n_layers // 3](s0, s1)
+        super().__init__(input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=stem_multiplier, cell_multiplier=cell_multiplier, spec_cell=spec_cell, slide_window=slide_window)
 
-        return s0
     
-    def forward_stage2(self, x, weights_DAG):
+    def feature_extract_forward(self, x, weights_DAG):
         s0 = s1 = self.stem(x)
         s0 = s1 = self.bigDAG1(s0, s1, weights_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes])
-        s0 = s1 = self.cells[1 * self.n_layers // 3](s0, s1)
+        stage1_features = s0 = s1 = self.cells[1 * self.n_layers // 3](s0, s1)
+        
         s0 = s1 = self.bigDAG2(s0, s1, weights_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes])
-        s0 = s1 = self.cells[2 * self.n_layers // 3](s0, s1)
-
-        return s0
+        stage2_features = s0 = s1 = self.cells[2 * self.n_layers // 3](s0, s1)
+        
+        stage3_features = s0 = s1 = self.bigDAG3(s0, s1, weights_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes])
+        
+        out = self.gap(s1)
+        out = out.view(out.size(0), -1)
+        logits = self.linear(out)
+        
+        extracted_features = {
+            "stage1": stage1_features,
+            "stage2": stage2_features,
+            "stage3": stage3_features,
+            "logits": logits
+        }
+        return extracted_features
 
 class SearchStageController_Hint(SearchStageController):
     """ SearchDAG controller supporting multi-gpu """
-    def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False, slide_window=3):
-        super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False, slide_window=3)
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, hint_criterion, stem_multiplier=4, device_ids=None, spec_cell=False, slide_window=3):
+        super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=stem_multiplier, device_ids=device_ids, spec_cell=spec_cell, slide_window=slide_window)
+        self.hint_criterion = hint_criterion
         self.net = SearchStage_Hint(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell, slide_window=self.window)
     
     def extract_features(self, x, stage=1):
         weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
 
         if len(self.device_ids) == 1:
-            if stage == 1:
-                return self.net.forward_stage1(x, weights_DAG)
-            elif stage == 2:
-                return self.net.forward_stage2(x, weights_DAG)
-            else:
-                raise ValueError(f'不正な中間層です. stage = "{self.stage}"')
+            return self.net.feature_extract_forward(x, weights_DAG)
         else:
             raise ValueError(f'不正なデバイスIDです. device_ids = "{self.device_ids}"')

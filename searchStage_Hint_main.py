@@ -6,6 +6,7 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 import os
+from config.searchStage_HINT_config import SearchStageHintConfig
 from trainer.searchStage_Hint_trainer import SearchStageTrainer_HintKD
 import utils
 from utils.logging_util import get_std_logging
@@ -50,10 +51,10 @@ def run_task(config):
     is_best = False
     # Step1:Hint learning
     for epoch in tqdm(range(start_epoch, trainer.hint2_epochs)):
-        if epoch < trainer.hin1_epochs:
-            train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint1_epoch(epoch, printer=logger.info)
+        if epoch < trainer.hint1_epochs:
+            train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=1)
         else:
-            train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint2_epoch(epoch, printer=logger.info)
+            train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=2)
         trainer.lr_scheduler.step()
         
         # ================= record genotype logs ==================
@@ -122,7 +123,7 @@ def run_task(config):
         trainer.save_checkpoint(epoch, is_best=is_best)
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
 
-        Record.add(LOSS_TYPES+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
+        Record.add(LOSS_TYPES[:-1]+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
         Record.save(config.path)
 
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
@@ -136,7 +137,7 @@ def run_task(config):
 
 
 def main():
-    config = SearchStageConfig()
+    config = SearchStageHintConfig()
     run_task(config)
 
 

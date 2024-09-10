@@ -56,3 +56,34 @@ class Regressor(nn.Module):
     
     def forward(self, x):
         return self.features(x)
+
+
+class Regressor_Controller(nn.Module):
+    def __init__(self, num_stages:int=1, reg_info_set:list[tuple]=[(14, 28, 128, 64)]):
+        """
+        Args:
+            num_stages: Regressorの数、Hint学習を行う中間層の数とおなじ
+            reg_info_set: Regressorにわたす引数のセット、Regressorの数と一緒である必要がある
+                [("guided_size", "hint_size", "guided_channels", "hint_channels")]
+        """
+        super(Regressor_Controller, self).__init__()
+        
+        if num_stages != len(reg_info_set):
+            raise ValueError("Regressorの数と引数セットの数が一致しません.\n"
+                             f"{{{num_stages}}} Regressors, and info = {{{reg_info_set}}}")
+        self.num_stages = num_stages
+        
+        self.regressor_dict = {}
+        for i in range(self.num_stages):
+            set = reg_info_set[i]
+            regressor = Regressor(set[0], set[1], set[2], set[3])
+            self.regressor_dict["stage"+str(i+1)] = regressor
+            
+        self.curr_stage = 0
+            
+    def forward(self, x, stage):
+        return self.regressor_dict["stage"+str(stage)](x)
+    
+    def to_device(self, device):
+        for i in range(self.num_stages):
+            self.regressor_dict["stage"+str(i+1)].to(device)
