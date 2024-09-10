@@ -6,39 +6,40 @@ teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/
 
 
 for seed in 0;do
-    bash run_search.sh train stage SIMPLE-KD-ONLYARCH efficientnet_v2_s $teacher_path s${seed}-BaselineBestCell BASELINE_BEST search_architecture_on_KD_for_architecture_parameters_without_depth_loss_with_large_slidewindow ${seed}
+    bash run_search.sh train stage SIMPLE-KD-TEST efficientnet_v2_s $teacher_path s${seed}-hardL0.3T20 BASELINE_BEST search_architecture_on_KD_for_architecture_parameters_without_depth_loss_with_large_slidewindow ${seed}
+    bash run_search.sh train stage SIMPLE-KD-TEST efficientnet_v2_s $teacher_path s${seed}-L0.4T20 BASELINE_BEST search_architecture_on_KD_for_architecture_parameters_without_depth_loss_with_large_slidewindow ${seed}
 done
 
-dirs=(
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s0-BaselineBestCell/DAG
-)
-for dir in ${dirs[@]}; do
-    # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
-    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    echo $newest_file
-    seed=$(echo "$dag" | sed -n 's|.*SIMPLE-KD-ONLYARCH/s\([^/]*\)-Baseline.*|\1|p')
-    bash run_evaluate.sh train stage SIMPLE-KD-ONLYARCH non non BASELINE_BEST ${dag} s$seed-BaselineBestCell search_architecture_on_simpleKD_without_depth_loss_with_large_slidewindoe 0
-    bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s$seed-BaselineBestCell/best.pth.tar
-done
+# dirs=(
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s0-BaselineBestCell/DAG
+# )
+# for dir in ${dirs[@]}; do
+#     # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
+#     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+#     echo $newest_file
+#     seed=$(echo "$dag" | sed -n 's|.*SIMPLE-KD-ONLYARCH/s\([^/]*\)-Baseline.*|\1|p')
+#     bash run_evaluate.sh train stage SIMPLE-KD-ONLYARCH non non BASELINE_BEST ${dag} s$seed-BaselineBestCell search_architecture_on_simpleKD_without_depth_loss_with_large_slidewindoe 0
+#     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s$seed-BaselineBestCell/best.pth.tar
+# done
 
-for seed in 1 2 3 4;do
-    bash run_search.sh train stage SIMPLE-KD-ONLYARCH efficientnet_v2_s $teacher_path s${seed}-BaselineBestCell BASELINE_BEST search_architecture_on_KD_for_architecture_parameters_without_depth_loss_with_large_slidewindow ${seed}
-done
+# for seed in 1 2 3 4;do
+#     bash run_search.sh train stage SIMPLE-KD-ONLYARCH efficientnet_v2_s $teacher_path s${seed}-BaselineBestCell BASELINE_BEST search_architecture_on_KD_for_architecture_parameters_without_depth_loss_with_large_slidewindow ${seed}
+# done
 
-dirs=(
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s1-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s2-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s3-BaselineBestCell/DAG
-    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s4-BaselineBestCell/DAG
-)
-for dir in ${dirs[@]}; do
-    # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
-    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    echo $newest_file
-    seed=$(echo "$dag" | sed -n 's|.*SIMPLE-KD-ONLYARCH/s\([^/]*\)-Baseline.*|\1|p')
-    bash run_evaluate.sh train stage SIMPLE-KD-ONLYARCH non non BASELINE_BEST ${dag} s$seed-BaselineBestCell search_architecture_on_simpleKD_without_depth_loss_with_large_slidewindoe 0
-    bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s$seed-BaselineBestCell/best.pth.tar
-done
+# dirs=(
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s1-BaselineBestCell/DAG
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s2-BaselineBestCell/DAG
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s3-BaselineBestCell/DAG
+#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s4-BaselineBestCell/DAG
+# )
+# for dir in ${dirs[@]}; do
+#     # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
+#     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+#     echo $newest_file
+#     seed=$(echo "$dag" | sed -n 's|.*SIMPLE-KD-ONLYARCH/s\([^/]*\)-Baseline.*|\1|p')
+#     bash run_evaluate.sh train stage SIMPLE-KD-ONLYARCH non non BASELINE_BEST ${dag} s$seed-BaselineBestCell search_architecture_on_simpleKD_without_depth_loss_with_large_slidewindoe 0
+#     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/SIMPLE-KD-ONLYARCH/s$seed-BaselineBestCell/best.pth.tar
+# done
 
 # Ls=(0.3 0.4 0.5 0.6 0.7)
 # Ts=(10 20)
