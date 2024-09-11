@@ -280,7 +280,8 @@ class SearchStageTrainer_HintKD():
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
 
-        self.model.print_alphas(self.logger)
+        # self.model.print_alphas(self.logger)
+        
         self.model.train()
         self.teacher_model.train()
 
