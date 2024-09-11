@@ -73,7 +73,7 @@ class SearchStageTrainer_HintKD():
         )
         self.train_loader, self.valid_loader = split_dataloader(train_data, self.config.train_portion, self.config.batch_size, self.config.workers)
        
-        print("init model")
+        print("---------- init model ----------")
         # ================= define criteria ==================
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
         self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
@@ -99,9 +99,9 @@ class SearchStageTrainer_HintKD():
                     (7, 14, 256, 128)]
         self.Regressor = Regressor_Controller(num_stages=2, reg_info_set=info_set)
         self.Regressor.to_device(self.device)
-        print("init model end!")
+        print("---------- init model end! ----------")
         # ================= build Optimizer ==================
-        print("get optimizer")
+        print("---------- get optimizer ----------")
         self.w_optim = torch.optim.SGD(self.model.weights(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
         self.alpha_optim = torch.optim.Adam(self.model.alphas(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
 
@@ -132,7 +132,6 @@ class SearchStageTrainer_HintKD():
         return model, feature_extractor
     
     def resume_model(self, reset=False, model_path=None):
-        print(f"{self.config.checkpoint_reset}")
         if model_path is None and not self.resume_path:
             self.start_epoch = 0
             self.logger.info("--> No loaded checkpoint!")
