@@ -59,7 +59,9 @@ def run_task(config):
             train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=1)
         else:
             train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=2)
+        val_top1, val_loss = trainer.val_epoch(epoch, printer=logger.info)
         trainer.lr_scheduler.step()
+        
         
         # ================= record genotype logs ==================
         macro_arch = trainer.model.DAG()
@@ -78,6 +80,8 @@ def run_task(config):
         trainer.writer.add_scalar('train/archhintloss', arch_train_hint_loss, epoch)
         trainer.writer.add_scalar('train/archdepthloss', arch_depth_loss, epoch)
         trainer.writer.add_scalar('train/top1', train_top1, epoch)
+        trainer.writer.add_scalar('val/loss', val_loss, epoch)
+        trainer.writer.add_scalar('val/top1', val_top1, epoch)
         
         if previous_arch != macro_arch:
             save_DAG(macro_arch, DAG_path, is_best=is_best)
