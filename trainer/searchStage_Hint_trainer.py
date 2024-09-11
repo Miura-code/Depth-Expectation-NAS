@@ -10,7 +10,7 @@ import os
 import torch
 import torch.nn as nn
 import torchvision
-from torchvision.models.feature_extraction import get_graph_node_names, create_feature_extractor
+from torchvision.models.feature_extraction import create_feature_extractor
 
 from torch.utils.tensorboard import SummaryWriter
 
@@ -25,7 +25,7 @@ from utils.eval_util import AverageMeter, accuracy, validate
 from utils.data_prefetcher import data_prefetcher
 
 from models.search_stage import SearchStageController_Hint
-from models.architect import Architect, Architect_Hint
+from models.architect import Architect_Hint
 from utils.visualize import showModelOnTensorboard
 
 
@@ -86,13 +86,13 @@ class SearchStageTrainer_HintKD():
         # ================= Teacher Model ==================
         teacher_model, self.teacher_feature_extractor = self.load_teacher(n_classes)
         self.teacher_model = teacher_model.to(self.device)
-        validate(self.valid_loader, 
-                self.teacher_model,
-                self.hard_criterion, 
-                self.device, 
-                print_freq=100000,
-                printer=self.logger.info, 
-                model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
+        # validate(self.valid_loader, 
+        #         self.teacher_model,
+        #         self.hard_criterion, 
+        #         self.device, 
+        #         print_freq=100000,
+        #         printer=self.logger.info, 
+        #         model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
         showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)        
         # ================= Regressor Model ==================
         info_set = [(14, 28, 128, 64),
@@ -130,6 +130,7 @@ class SearchStageTrainer_HintKD():
         feature_extractor = create_feature_extractor(model, return_nodes=return_nodes)
         
         return model, feature_extractor
+    
     def resume_model(self, reset=False, model_path=None):
         print(f"{self.config.checkpoint_reset}")
         if model_path is None and not self.resume_path:
@@ -195,8 +196,10 @@ class SearchStageTrainer_HintKD():
         arch_depth_losses = AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
-
-        self.model.print_alphas(self.logger)
+        
+        # 構造パラメータを表示
+        # self.model.print_alphas(self.logger)
+        
         self.model.train()
         self.teacher_model.train()
 
@@ -243,7 +246,7 @@ class SearchStageTrainer_HintKD():
             prec1, prec5 = accuracy(student_features_DICT["logits"], trn_y, topk=(1, 5))
             # 学習過程の記録用
             hint_losses.update(hint_loss.item(), N)
-            # arch_hint_losses.update(arch_hint_loss.item(), N)
+            arch_hint_losses.update(arch_hint_loss.item(), N)
             arch_depth_losses.update(depth_loss.item(), N)
             top1.update(prec1.item(), N)
             top5.update(prec5.item(), N)
