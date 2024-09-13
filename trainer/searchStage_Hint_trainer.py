@@ -96,8 +96,9 @@ class SearchStageTrainer_HintKD():
         showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)        
         # ================= Regressor Model ==================
         info_set = [(14, 28, 128, 64),
-                    (7, 14, 256, 128)]
-        self.Regressor = Regressor_Controller(num_stages=2, reg_info_set=info_set)
+                    (7, 14, 256, 128),
+                    (7, 7, 512, 256)]
+        self.Regressor = Regressor_Controller(num_stages=len(self.hint_epochs), reg_info_set=info_set)
         self.Regressor.to_device(self.device)
         print("---------- init model end! ----------")
         # ================= build Optimizer ==================

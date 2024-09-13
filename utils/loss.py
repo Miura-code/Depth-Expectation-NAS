@@ -53,12 +53,13 @@ class HintLoss(nn.Module):
     '''
     def __init__(self):
         super().__init__()
+        self.loss = nn.MSELoss()
 
     def forward(self, logits, targets):
         '''
         logits: 生徒モデルの中間層出力
         targets: 教師モデルの中間層出力
         '''
-        loss = nn.MSELoss()
-        kd_loss = loss(logits, targets)
+        
+        kd_loss = self.loss(logits, targets)
         return kd_loss

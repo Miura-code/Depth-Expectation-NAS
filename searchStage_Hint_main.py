@@ -93,7 +93,6 @@ def run_task(config):
         Record.save(config.path)
         
     logger.info("Step4: Start KD learning: Epoch:[{} - {}][{}]".format(epoch, trainer.total_epochs, trainer.total_epochs))
-    input()
     trainer.model.freeze_stage(stage_ex=(1,2,3,"linear"))
     # Step3:KD learning
     for epoch in tqdm(range(trainer.hint_epochs[hint_step-1], trainer.total_epochs)):

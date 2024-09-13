@@ -80,7 +80,7 @@ class Regressor(nn.Module):
         self.hint_channels = hint_channels
         
         layers: List[nn.Module] = []
-        if self.hint_size < self.guided_size or (self.hint_channels > self.guided_channels and self.hint_size == self.guided_size) :
+        if self.hint_size < self.guided_size or (self.hint_channels != self.guided_channels and self.hint_size == self.guided_size) :
             # Conv層でサイズ、チャンネルをそろえる
             k = self.guided_size - self.hint_size + 1
             operation = Conv2dNormActivation(
