@@ -51,9 +51,13 @@ def run_task(config):
     is_best = False
     # Step1:Hint learning
     logger.info("Step1: Start Hint learning until stage1")
+    # Stage2,3を凍結させる
+    trainer.model.freeze_stage(stage_ex=(1,))
+
     for epoch in tqdm(range(start_epoch, trainer.hint2_epochs)):
         if epoch == trainer.hint1_epochs:
             logger.info("Step2: Start Hint learning until stage2")
+            trainer.model.freeze_stage(stage_ex=(1,2))
             
         if epoch < trainer.hint1_epochs:
             train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=1)
@@ -91,6 +95,7 @@ def run_task(config):
         Record.save(config.path)
         
     logger.info("Step3: Start KD learning: Epoch:[{}][{}]".format(epoch, trainer.total_epochs))
+    trainer.model.freeze_stage(stage_ex=(1,2,3,"linear"))
     # Step3:KD learning
     for epoch in tqdm(range(trainer.hint2_epochs, trainer.total_epochs)):
         train_top1, train_hardloss, train_softloss, train_loss, arch_train_hardloss, arch_train_softloss, arch_train_loss, arch_depth_loss = trainer.train_epoch(epoch, printer=logger.info)

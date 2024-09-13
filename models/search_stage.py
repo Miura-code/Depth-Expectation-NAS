@@ -613,14 +613,14 @@ class SearchStage_Hint(SearchStage):
             "logits": logits
         }
         return extracted_features
-
+    
 class SearchStageController_Hint(SearchStageController):
     """ SearchDAG controller supporting multi-gpu """
     def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, hint_criterion, stem_multiplier=4, device_ids=None, spec_cell=False, slide_window=3):
         super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=stem_multiplier, device_ids=device_ids, spec_cell=spec_cell, slide_window=slide_window)
         self.hint_criterion = hint_criterion
         self.net = SearchStage_Hint(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell, slide_window=self.window)
-    
+
     def extract_features(self, x, stage=1):
         weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
 
@@ -628,3 +628,42 @@ class SearchStageController_Hint(SearchStageController):
             return self.net.feature_extract_forward(x, weights_DAG)
         else:
             raise ValueError(f'不正なデバイスIDです. device_ids = "{self.device_ids}"')
+
+
+    def freeze_stage(self, stage_ex:tuple):
+
+        if 1 not in stage_ex:
+            for name, param in self.net.bigDAG1.named_parameters():
+                param.requires_grad = False
+            for name, param in self.net.cells[1 * self.n_layers // 3].named_parameters():
+                param.requires_grad = False
+        if 1 in stage_ex:
+            for name, param in self.net.bigDAG1.named_parameters():
+                param.requires_grad = True
+            for name, param in self.net.cells[1 * self.n_layers // 3].named_parameters():
+                param.requires_grad = True
+
+        if 2 not in stage_ex:
+            for name, param in self.net.bigDAG2.named_parameters():
+                param.requires_grad = False
+            for name, param in self.net.cells[2 * self.n_layers // 3].named_parameters():
+                param.requires_grad = False
+        if 2 in stage_ex:
+            for name, param in self.net.bigDAG2.named_parameters():
+                param.requires_grad = True
+            for name, param in self.net.cells[2 * self.n_layers // 3].named_parameters():
+                param.requires_grad = True
+
+        if 3 not in stage_ex:
+            for name, param in self.net.bigDAG3.named_parameters():
+                param.requires_grad = False
+        if 3 in stage_ex:
+            for name, param in self.net.bigDAG3.named_parameters():
+                param.requires_grad = True
+
+        if "linear" not in stage_ex:
+            for name, param in self.net.linear.named_parameters():
+                param.requires_grad = False
+        if "linear" in stage_ex:
+            for name, param in self.net.linear.named_parameters():
+                param.requires_grad = True
