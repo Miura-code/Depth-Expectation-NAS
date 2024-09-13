@@ -1,0 +1,541 @@
+09/13 05:20:01PM parser.py:28 [INFO] 
+09/13 05:20:01PM parser.py:29 [INFO] Parameters:
+09/13 05:20:01PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:20:01PM parser.py:31 [INFO] T=10.0
+09/13 05:20:01PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:20:01PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:20:01PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:20:01PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:20:01PM parser.py:31 [INFO] CASCADE=False
+09/13 05:20:01PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:20:01PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:20:01PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:20:01PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:20:01PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:20:01PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:20:01PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:20:01PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:20:01PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:20:01PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:20:01PM parser.py:31 [INFO] HINT_EPOCHS=[16, 33]
+09/13 05:20:01PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:20:01PM parser.py:31 [INFO] L=0.5
+09/13 05:20:01PM parser.py:31 [INFO] LAYERS=20
+09/13 05:20:01PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:20:01PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:20:01PM parser.py:31 [INFO] NONKD=False
+09/13 05:20:01PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:20:01PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:20:01PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:20:01PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:20:01PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:20:01PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:20:01PM parser.py:31 [INFO] SEED=0
+09/13 05:20:01PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:20:01PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:20:01PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:20:01PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:20:01PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:20:01PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:20:01PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:20:01PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:20:01PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:20:01PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:20:01PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:20:01PM parser.py:31 [INFO] WORKERS=4
+09/13 05:20:01PM parser.py:32 [INFO] 
+09/13 05:21:01PM parser.py:28 [INFO] 
+09/13 05:21:01PM parser.py:29 [INFO] Parameters:
+09/13 05:21:01PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:21:01PM parser.py:31 [INFO] T=10.0
+09/13 05:21:01PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:21:01PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:21:01PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:21:01PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:21:01PM parser.py:31 [INFO] CASCADE=False
+09/13 05:21:01PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:21:01PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:21:01PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:21:01PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:21:01PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:21:01PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:21:01PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:21:01PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:21:01PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:21:01PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:21:01PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:21:01PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:21:01PM parser.py:31 [INFO] L=0.5
+09/13 05:21:01PM parser.py:31 [INFO] LAYERS=20
+09/13 05:21:01PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:21:01PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:21:01PM parser.py:31 [INFO] NONKD=False
+09/13 05:21:01PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:21:01PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:21:01PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:21:01PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:21:01PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:21:01PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:21:01PM parser.py:31 [INFO] SEED=0
+09/13 05:21:01PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:21:01PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:21:01PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:21:01PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:21:01PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:21:01PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:21:01PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:21:01PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:21:01PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:21:01PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:21:01PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:21:01PM parser.py:31 [INFO] WORKERS=4
+09/13 05:21:01PM parser.py:32 [INFO] 
+09/13 05:21:25PM parser.py:28 [INFO] 
+09/13 05:21:25PM parser.py:29 [INFO] Parameters:
+09/13 05:21:25PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:21:25PM parser.py:31 [INFO] T=10.0
+09/13 05:21:25PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:21:25PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:21:25PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:21:25PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:21:25PM parser.py:31 [INFO] CASCADE=False
+09/13 05:21:25PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:21:25PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:21:25PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:21:25PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:21:25PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:21:25PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:21:25PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:21:25PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:21:25PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:21:25PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:21:25PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:21:25PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:21:25PM parser.py:31 [INFO] L=0.5
+09/13 05:21:25PM parser.py:31 [INFO] LAYERS=20
+09/13 05:21:25PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:21:25PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:21:25PM parser.py:31 [INFO] NONKD=False
+09/13 05:21:25PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:21:25PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:21:25PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:21:25PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:21:25PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:21:25PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:21:25PM parser.py:31 [INFO] SEED=0
+09/13 05:21:25PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:21:25PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:21:25PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:21:25PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:21:25PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:21:25PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:21:25PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:21:25PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:21:25PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:21:25PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:21:25PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:21:25PM parser.py:31 [INFO] WORKERS=4
+09/13 05:21:25PM parser.py:32 [INFO] 
+09/13 05:23:38PM parser.py:28 [INFO] 
+09/13 05:23:38PM parser.py:29 [INFO] Parameters:
+09/13 05:23:38PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:23:38PM parser.py:31 [INFO] T=10.0
+09/13 05:23:38PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:23:38PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:23:38PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:23:38PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:23:38PM parser.py:31 [INFO] CASCADE=False
+09/13 05:23:38PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:23:38PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:23:38PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:23:38PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:23:38PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:23:38PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:23:38PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:23:38PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:23:38PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:23:38PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:23:38PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:23:38PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:23:38PM parser.py:31 [INFO] L=0.5
+09/13 05:23:38PM parser.py:31 [INFO] LAYERS=20
+09/13 05:23:38PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:23:38PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:23:38PM parser.py:31 [INFO] NONKD=False
+09/13 05:23:38PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:23:38PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:23:38PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:23:38PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:23:38PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:23:38PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:23:38PM parser.py:31 [INFO] SEED=0
+09/13 05:23:38PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:23:38PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:23:38PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:23:38PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:23:38PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:23:38PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:23:38PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:23:38PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:23:38PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:23:38PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:23:38PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:23:38PM parser.py:31 [INFO] WORKERS=4
+09/13 05:23:38PM parser.py:32 [INFO] 
+09/13 05:24:26PM parser.py:28 [INFO] 
+09/13 05:24:26PM parser.py:29 [INFO] Parameters:
+09/13 05:24:26PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:24:26PM parser.py:31 [INFO] T=10.0
+09/13 05:24:26PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:24:26PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:24:26PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:24:26PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:24:26PM parser.py:31 [INFO] CASCADE=False
+09/13 05:24:26PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:24:26PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:24:26PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:24:26PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:24:26PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:24:26PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:24:26PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:24:26PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:24:26PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:24:26PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:24:26PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:24:26PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:24:26PM parser.py:31 [INFO] L=0.5
+09/13 05:24:26PM parser.py:31 [INFO] LAYERS=20
+09/13 05:24:26PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:24:26PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:24:26PM parser.py:31 [INFO] NONKD=False
+09/13 05:24:26PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:24:26PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:24:26PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:24:26PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:24:26PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:24:26PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:24:26PM parser.py:31 [INFO] SEED=0
+09/13 05:24:26PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:24:26PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:24:26PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:24:26PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:24:26PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:24:26PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:24:26PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:24:26PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:24:26PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:24:26PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:24:26PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:24:26PM parser.py:31 [INFO] WORKERS=4
+09/13 05:24:26PM parser.py:32 [INFO] 
+09/13 05:24:31PM searchStage_Hint_trainer.py:128 [INFO] --> Loaded teacher model 'efficientnet_v2_s' from '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar' and Freezed parameters)
+09/13 05:24:31PM searchStage_Hint_trainer.py:138 [INFO] --> No loaded checkpoint!
+09/13 05:25:19PM parser.py:28 [INFO] 
+09/13 05:25:19PM parser.py:29 [INFO] Parameters:
+09/13 05:25:19PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:25:19PM parser.py:31 [INFO] T=10.0
+09/13 05:25:19PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:25:19PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:25:19PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:25:19PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:25:19PM parser.py:31 [INFO] CASCADE=False
+09/13 05:25:19PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:25:19PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:25:19PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:25:19PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:25:19PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:25:19PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:25:19PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:25:19PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:25:19PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:25:19PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:25:19PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:25:19PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:25:19PM parser.py:31 [INFO] L=0.5
+09/13 05:25:19PM parser.py:31 [INFO] LAYERS=20
+09/13 05:25:19PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:25:19PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:25:19PM parser.py:31 [INFO] NONKD=False
+09/13 05:25:19PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:25:19PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:25:19PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:25:19PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:25:19PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:25:19PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:25:19PM parser.py:31 [INFO] SEED=0
+09/13 05:25:19PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:25:19PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:25:19PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:25:19PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:25:19PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:25:19PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:25:19PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:25:19PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:25:19PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:25:19PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:25:19PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:25:19PM parser.py:31 [INFO] WORKERS=4
+09/13 05:25:19PM parser.py:32 [INFO] 
+09/13 05:25:23PM searchStage_Hint_trainer.py:128 [INFO] --> Loaded teacher model 'efficientnet_v2_s' from '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar' and Freezed parameters)
+09/13 05:25:24PM searchStage_Hint_trainer.py:138 [INFO] --> No loaded checkpoint!
+09/13 05:25:24PM searchStage_Hint_main.py:54 [INFO] Step1: Start Hint learning until stage1: Epoch:[0][50]
+09/13 05:25:24PM searchStage_Hint_main.py:59 [INFO] Step1: Start Hint learning until stage1: Epoch:[2][50]
+09/13 05:25:24PM searchStage_Hint_main.py:59 [INFO] Step2: Start Hint learning until stage2: Epoch:[4][50]
+09/13 05:25:24PM searchStage_Hint_main.py:95 [INFO] Step4: Start KD learning: Epoch:[5][50]
+09/13 05:27:09PM parser.py:28 [INFO] 
+09/13 05:27:09PM parser.py:29 [INFO] Parameters:
+09/13 05:27:09PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:27:09PM parser.py:31 [INFO] T=10.0
+09/13 05:27:09PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:27:09PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:27:09PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:27:09PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:27:09PM parser.py:31 [INFO] CASCADE=False
+09/13 05:27:09PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:27:09PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:27:09PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:27:09PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:27:09PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:27:09PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:27:09PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:27:09PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:27:09PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:27:09PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:27:09PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:27:09PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:27:09PM parser.py:31 [INFO] L=0.5
+09/13 05:27:09PM parser.py:31 [INFO] LAYERS=20
+09/13 05:27:09PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:27:09PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:27:09PM parser.py:31 [INFO] NONKD=False
+09/13 05:27:09PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:27:09PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:27:09PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:27:09PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:27:09PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:27:09PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:27:09PM parser.py:31 [INFO] SEED=0
+09/13 05:27:09PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:27:09PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:27:09PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:27:09PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:27:09PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:27:09PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:27:09PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:27:09PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:27:09PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:27:09PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:27:09PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:27:09PM parser.py:31 [INFO] WORKERS=4
+09/13 05:27:09PM parser.py:32 [INFO] 
+09/13 05:27:13PM searchStage_Hint_trainer.py:128 [INFO] --> Loaded teacher model 'efficientnet_v2_s' from '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar' and Freezed parameters)
+09/13 05:27:13PM searchStage_Hint_trainer.py:138 [INFO] --> No loaded checkpoint!
+09/13 05:27:13PM searchStage_Hint_main.py:54 [INFO] Step1: Start Hint learning until stage1: Epoch:[0][2/50]
+09/13 05:27:13PM searchStage_Hint_main.py:59 [INFO] Step1: Start Hint learning until stage1: Epoch:[2][2/50]
+09/13 05:27:13PM searchStage_Hint_main.py:59 [INFO] Step2: Start Hint learning until stage2: Epoch:[4][4/50]
+09/13 05:27:13PM searchStage_Hint_main.py:95 [INFO] Step4: Start KD learning: Epoch:[5][6/50]
+09/13 05:28:23PM parser.py:28 [INFO] 
+09/13 05:28:23PM parser.py:29 [INFO] Parameters:
+09/13 05:28:23PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:28:23PM parser.py:31 [INFO] T=10.0
+09/13 05:28:23PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:28:23PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:28:23PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:28:23PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:28:23PM parser.py:31 [INFO] CASCADE=False
+09/13 05:28:23PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:28:23PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:28:23PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:28:23PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:28:23PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:28:23PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:28:23PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:28:23PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:28:23PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:28:23PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:28:23PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:28:23PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:28:23PM parser.py:31 [INFO] L=0.5
+09/13 05:28:23PM parser.py:31 [INFO] LAYERS=20
+09/13 05:28:23PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:28:23PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:28:23PM parser.py:31 [INFO] NONKD=False
+09/13 05:28:23PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:28:23PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:28:23PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:28:23PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:28:23PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:28:23PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:28:23PM parser.py:31 [INFO] SEED=0
+09/13 05:28:23PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:28:23PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:28:23PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:28:23PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:28:23PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:28:23PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:28:23PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:28:23PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:28:23PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:28:23PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:28:23PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:28:23PM parser.py:31 [INFO] WORKERS=4
+09/13 05:28:23PM parser.py:32 [INFO] 
+09/13 05:28:27PM searchStage_Hint_trainer.py:128 [INFO] --> Loaded teacher model 'efficientnet_v2_s' from '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar' and Freezed parameters)
+09/13 05:28:28PM searchStage_Hint_trainer.py:138 [INFO] --> No loaded checkpoint!
+09/13 05:28:28PM searchStage_Hint_main.py:54 [INFO] Step1: Start Hint learning until stage1: Epoch:[0][2/50]
+09/13 05:28:28PM searchStage_Hint_main.py:60 [INFO] Step2: Start Hint learning until stage2: Epoch:[2][4/50]
+09/13 05:28:28PM searchStage_Hint_main.py:60 [INFO] Step3: Start Hint learning until stage3: Epoch:[4][6/50]
+09/13 05:28:28PM searchStage_Hint_main.py:95 [INFO] Step4: Start KD learning: Epoch:[5][6/50]
+09/13 05:30:05PM parser.py:28 [INFO] 
+09/13 05:30:05PM parser.py:29 [INFO] Parameters:
+09/13 05:30:05PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:30:05PM parser.py:31 [INFO] T=10.0
+09/13 05:30:05PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:30:05PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:30:05PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:30:05PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:30:05PM parser.py:31 [INFO] CASCADE=False
+09/13 05:30:05PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:30:05PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:30:05PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:30:05PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:30:05PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:30:05PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:30:05PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:30:05PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:30:05PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:30:05PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:30:05PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:30:05PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:30:05PM parser.py:31 [INFO] L=0.5
+09/13 05:30:05PM parser.py:31 [INFO] LAYERS=20
+09/13 05:30:05PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:30:05PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:30:05PM parser.py:31 [INFO] NONKD=False
+09/13 05:30:05PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:30:05PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:30:05PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:30:05PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:30:05PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:30:05PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:30:05PM parser.py:31 [INFO] SEED=0
+09/13 05:30:05PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:30:05PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:30:05PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:30:05PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:30:05PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:30:05PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:30:05PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:30:05PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:30:05PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:30:05PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:30:05PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:30:05PM parser.py:31 [INFO] WORKERS=4
+09/13 05:30:05PM parser.py:32 [INFO] 
+09/13 05:30:09PM searchStage_Hint_trainer.py:128 [INFO] --> Loaded teacher model 'efficientnet_v2_s' from '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar' and Freezed parameters)
+09/13 05:30:09PM searchStage_Hint_trainer.py:138 [INFO] --> No loaded checkpoint!
+09/13 05:30:10PM searchStage_Hint_main.py:54 [INFO] Step1: Start Hint learning until stage1: Epoch:[0 - 2][50]
+09/13 05:30:10PM searchStage_Hint_main.py:60 [INFO] Step2: Start Hint learning until stage2: Epoch:[2][4/50]
+09/13 05:30:10PM searchStage_Hint_main.py:60 [INFO] Step3: Start Hint learning until stage3: Epoch:[4][6/50]
+09/13 05:30:10PM searchStage_Hint_main.py:95 [INFO] Step4: Start KD learning: Epoch:[5 - 50][50]
+09/13 05:30:36PM parser.py:28 [INFO] 
+09/13 05:30:36PM parser.py:29 [INFO] Parameters:
+09/13 05:30:36PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:30:36PM parser.py:31 [INFO] T=10.0
+09/13 05:30:36PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:30:36PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:30:36PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:30:36PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:30:36PM parser.py:31 [INFO] CASCADE=False
+09/13 05:30:36PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:30:36PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:30:36PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:30:36PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:30:36PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:30:36PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:30:36PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:30:36PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:30:36PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:30:36PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:30:36PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:30:36PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:30:36PM parser.py:31 [INFO] L=0.5
+09/13 05:30:36PM parser.py:31 [INFO] LAYERS=20
+09/13 05:30:36PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:30:36PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:30:36PM parser.py:31 [INFO] NONKD=False
+09/13 05:30:36PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:30:36PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:30:36PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:30:36PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:30:36PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:30:36PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:30:36PM parser.py:31 [INFO] SEED=0
+09/13 05:30:36PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:30:36PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:30:36PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:30:36PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:30:36PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:30:36PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:30:36PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:30:36PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:30:36PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:30:36PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:30:36PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:30:36PM parser.py:31 [INFO] WORKERS=4
+09/13 05:30:36PM parser.py:32 [INFO] 
+09/13 05:30:40PM searchStage_Hint_trainer.py:128 [INFO] --> Loaded teacher model 'efficientnet_v2_s' from '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar' and Freezed parameters)
+09/13 05:30:40PM searchStage_Hint_trainer.py:138 [INFO] --> No loaded checkpoint!
+09/13 05:30:41PM searchStage_Hint_main.py:54 [INFO] Step1: Start Hint learning until stage1: Epoch:[0 - 2][50]
+09/13 05:30:41PM searchStage_Hint_main.py:60 [INFO] Step2: Start Hint learning until stage2: Epoch:[2 - 4][50]
+09/13 05:30:41PM searchStage_Hint_main.py:60 [INFO] Step3: Start Hint learning until stage3: Epoch:[4 - 6][50]
+09/13 05:30:41PM searchStage_Hint_main.py:95 [INFO] Step4: Start KD learning: Epoch:[5 - 50][50]
+09/13 05:31:21PM parser.py:28 [INFO] 
+09/13 05:31:21PM parser.py:29 [INFO] Parameters:
+09/13 05:31:21PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/DAG
+09/13 05:31:21PM parser.py:31 [INFO] T=10.0
+09/13 05:31:21PM parser.py:31 [INFO] ADVANCED=True
+09/13 05:31:21PM parser.py:31 [INFO] ALPHA_LR=0.0003
+09/13 05:31:21PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+09/13 05:31:21PM parser.py:31 [INFO] BATCH_SIZE=64
+09/13 05:31:21PM parser.py:31 [INFO] CASCADE=False
+09/13 05:31:21PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+09/13 05:31:21PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+09/13 05:31:21PM parser.py:31 [INFO] DATA_PATH=../data/
+09/13 05:31:21PM parser.py:31 [INFO] DATASET=cifar100
+09/13 05:31:21PM parser.py:31 [INFO] DEPTH_COEF=0.0
+09/13 05:31:21PM parser.py:31 [INFO] DESCRIPTION=search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer
+09/13 05:31:21PM parser.py:31 [INFO] EPOCHS=50
+09/13 05:31:21PM parser.py:31 [INFO] EXP_NAME=s0-freezeOtherLayer
+09/13 05:31:21PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+09/13 05:31:21PM parser.py:31 [INFO] GPUS=[0]
+09/13 05:31:21PM parser.py:31 [INFO] HINT_EPOCHS=[2, 4, 6]
+09/13 05:31:21PM parser.py:31 [INFO] INIT_CHANNELS=16
+09/13 05:31:21PM parser.py:31 [INFO] L=0.5
+09/13 05:31:21PM parser.py:31 [INFO] LAYERS=20
+09/13 05:31:21PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+09/13 05:31:21PM parser.py:31 [INFO] NAME=HINT-KD-TEST
+09/13 05:31:21PM parser.py:31 [INFO] NONKD=False
+09/13 05:31:21PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer
+09/13 05:31:21PM parser.py:31 [INFO] PCDARTS=False
+09/13 05:31:21PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/HINT-KD-TEST/s0-freezeOtherLayer/plots
+09/13 05:31:21PM parser.py:31 [INFO] PRINT_FREQ=50
+09/13 05:31:21PM parser.py:31 [INFO] RESUME_PATH=None
+09/13 05:31:21PM parser.py:31 [INFO] SAVE=s0-freezeOtherLayer
+09/13 05:31:21PM parser.py:31 [INFO] SEED=0
+09/13 05:31:21PM parser.py:31 [INFO] SHARE_STAGE=False
+09/13 05:31:21PM parser.py:31 [INFO] SLIDE_WINDOW=8
+09/13 05:31:21PM parser.py:31 [INFO] SPEC_CELL=True
+09/13 05:31:21PM parser.py:31 [INFO] TEACHER_NAME=efficientnet_v2_s
+09/13 05:31:21PM parser.py:31 [INFO] TEACHER_PATH=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar
+09/13 05:31:21PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+09/13 05:31:21PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+09/13 05:31:21PM parser.py:31 [INFO] W_LR=0.025
+09/13 05:31:21PM parser.py:31 [INFO] W_LR_MIN=0.001
+09/13 05:31:21PM parser.py:31 [INFO] W_MOMENTUM=0.9
+09/13 05:31:21PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+09/13 05:31:21PM parser.py:31 [INFO] WORKERS=4
+09/13 05:31:21PM parser.py:32 [INFO] 
+09/13 05:31:23PM searchStage_Hint_trainer.py:128 [INFO] --> Loaded teacher model 'efficientnet_v2_s' from '/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/FINETUNE2/pretrained-20240716-002108/best.pth.tar' and Freezed parameters)
+09/13 05:31:23PM searchStage_Hint_trainer.py:138 [INFO] --> No loaded checkpoint!
+09/13 05:31:24PM searchStage_Hint_main.py:54 [INFO] Step1: Start Hint learning until stage1: Epoch:[0 - 2][50]
