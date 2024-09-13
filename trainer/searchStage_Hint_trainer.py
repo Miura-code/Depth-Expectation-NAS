@@ -43,8 +43,7 @@ class SearchStageTrainer_HintKD():
         self.Controller = SearchStageController_Hint
             
         """get the train parameters"""
-        self.hint1_epochs = self.config.hint_epochs[0]
-        self.hint2_epochs = self.config.hint_epochs[1]
+        self.hint_epochs = self.config.hint_epochs
         self.total_epochs = self.config.epochs
         self.train_batch_size = self.config.batch_size
         self.val_batch_size = self.config.batch_size
@@ -82,10 +81,11 @@ class SearchStageTrainer_HintKD():
         # ================= Student model ==================
         model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw, hint_criterion=self.hint_criterion)
         self.model = model.to(self.device)
-        showModelOnTensorboard(self.writer, self.model, self.train_loader)
+        # showModelOnTensorboard(self.writer, self.model, self.train_loader)
         # ================= Teacher Model ==================
-        teacher_model, self.teacher_feature_extractor = self.load_teacher(n_classes)
+        teacher_model, teacher_feature_extractor = self.load_teacher(n_classes)
         self.teacher_model = teacher_model.to(self.device)
+        self.teacher_feature_extractor = teacher_feature_extractor.to(self.device)
         # validate(self.valid_loader, 
         #         self.teacher_model,
         #         self.hard_criterion, 

@@ -49,20 +49,18 @@ def run_task(config):
 
     best_top1 = 0.
     is_best = False
+    hint_step = 1
     # Step1:Hint learning
-    logger.info("Step1: Start Hint learning until stage1")
+    logger.info("Step{}: Start Hint learning until stage{}: Epoch:[0 - {}][{}]".format(hint_step, hint_step, trainer.hint_epochs[hint_step-1], trainer.total_epochs))
     # Stage2,3を凍結させる
-    trainer.model.freeze_stage(stage_ex=(1,))
-
-    for epoch in tqdm(range(start_epoch, trainer.hint2_epochs)):
-        if epoch == trainer.hint1_epochs:
-            logger.info("Step2: Start Hint learning until stage2")
-            trainer.model.freeze_stage(stage_ex=(1,2))
+    trainer.model.freeze_stage(stage_ex=[1])
+    for epoch in tqdm(range(start_epoch, trainer.hint_epochs[-1])):
+        if epoch == trainer.hint_epochs[hint_step-1]:
+            hint_step += 1
+            logger.info("Step{}: Start Hint learning until stage{}: Epoch:[{} - {}][{}]".format(hint_step, hint_step, epoch, trainer.hint_epochs[hint_step-1], trainer.total_epochs))
+            trainer.model.freeze_stage(stage_ex=list(range(1, hint_step+2)))
             
-        if epoch < trainer.hint1_epochs:
-            train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=1)
-        else:
-            train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=2)
+        train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=hint_step)
         val_top1, val_loss = trainer.val_epoch(epoch, printer=logger.info)
         trainer.lr_scheduler.step()
         
@@ -94,10 +92,11 @@ def run_task(config):
         Record.add(["training_hint_loss"], [train_hint_loss])
         Record.save(config.path)
         
-    logger.info("Step3: Start KD learning: Epoch:[{}][{}]".format(epoch, trainer.total_epochs))
+    logger.info("Step4: Start KD learning: Epoch:[{} - {}][{}]".format(epoch, trainer.total_epochs, trainer.total_epochs))
+    input()
     trainer.model.freeze_stage(stage_ex=(1,2,3,"linear"))
     # Step3:KD learning
-    for epoch in tqdm(range(trainer.hint2_epochs, trainer.total_epochs)):
+    for epoch in tqdm(range(trainer.hint_epochs[hint_step-1], trainer.total_epochs)):
         train_top1, train_hardloss, train_softloss, train_loss, arch_train_hardloss, arch_train_softloss, arch_train_loss, arch_depth_loss = trainer.train_epoch(epoch, printer=logger.info)
         val_top1, val_loss = trainer.val_epoch(epoch, printer=logger.info)
         trainer.lr_scheduler.step()

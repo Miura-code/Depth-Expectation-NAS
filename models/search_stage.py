@@ -628,19 +628,30 @@ class SearchStageController_Hint(SearchStageController):
             return self.net.feature_extract_forward(x, weights_DAG)
         else:
             raise ValueError(f'不正なデバイスIDです. device_ids = "{self.device_ids}"')
-
-
+        
     def freeze_stage(self, stage_ex:tuple):
+        """
+        特定のステージのみパラメータの更新を凍結する
+        Args:
+            stage_ex: 指定された番号のステージ'以外'を凍結させる
+        """
 
         if 1 not in stage_ex:
+            # ステージ１のネットワークパラメータを凍結
             for name, param in self.net.bigDAG1.named_parameters():
                 param.requires_grad = False
             for name, param in self.net.cells[1 * self.n_layers // 3].named_parameters():
+                param.requires_grad = False
+            # ステージ１の構造パラメータを凍結
+            for name, param in self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes].named_parameters():
                 param.requires_grad = False
         if 1 in stage_ex:
             for name, param in self.net.bigDAG1.named_parameters():
                 param.requires_grad = True
             for name, param in self.net.cells[1 * self.n_layers // 3].named_parameters():
+                param.requires_grad = True
+            # ステージ２の構造パラメータを解凍
+            for name, param in self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes].named_parameters():
                 param.requires_grad = True
 
         if 2 not in stage_ex:
@@ -648,17 +659,29 @@ class SearchStageController_Hint(SearchStageController):
                 param.requires_grad = False
             for name, param in self.net.cells[2 * self.n_layers // 3].named_parameters():
                 param.requires_grad = False
+            # ステージ１の構造パラメータを凍結
+            for name, param in self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes].named_parameters():
+                param.requires_grad = False
         if 2 in stage_ex:
             for name, param in self.net.bigDAG2.named_parameters():
                 param.requires_grad = True
             for name, param in self.net.cells[2 * self.n_layers // 3].named_parameters():
                 param.requires_grad = True
+            # ステージ２の構造パラメータを解凍
+            for name, param in self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes].named_parameters():
+                param.requires_grad = True
 
         if 3 not in stage_ex:
             for name, param in self.net.bigDAG3.named_parameters():
                 param.requires_grad = False
+            # ステージ１の構造パラメータを凍結
+            for name, param in self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes].named_parameters():
+                param.requires_grad = False
         if 3 in stage_ex:
             for name, param in self.net.bigDAG3.named_parameters():
+                param.requires_grad = True
+            # ステージ３の構造パラメータを解凍
+            for name, param in self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes].named_parameters():
                 param.requires_grad = True
 
         if "linear" not in stage_ex:
