@@ -4,23 +4,25 @@ teacher_path=/home/miura/lab/KD-hdas/results/teacher/cifar100/efficientnet_v2_s/
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_s pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_m pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 
-experiment_name=HINT-KD-TEST
+experiment_name=HINT-KD
 
-for seed in 0;do
-    bash run_search2.sh train stage ${experiment_name} efficientnet_v2_s $teacher_path s${seed}-freezeOtherLayer BASELINE_BEST search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer ${seed}
-done
-
-# dirs=(
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/${experiment_name}/s0-freezeOtherLayer/DAG
-# )
-# for dir in ${dirs[@]}; do
-#     # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
-#     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-#     echo $newest_file
-#     seed=$(echo "$dag" | sed -n 's|.*'${experiment_name}'/s\([^/]*\)-Baseline.*|\1|p')
-#     bash run_evaluate.sh train stage ${experiment_name} non non BASELINE_BEST ${dag} s$seed-freezeOtherLayer search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow 0
-#     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/${experiment_name}/s$seed-freezeOtherLayer/best.pth.tar
+# for seed in 0;do
+#     bash run_search2.sh train stage ${experiment_name} efficientnet_v2_s $teacher_path s${seed}-3stageFreezeOther BASELINE_BEST search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow_Freeze_later_layer ${seed}
 # done
+
+dirs=(
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/${experiment_name}/s0-freezeOtherLayer/DAG
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/${experiment_name}/s0-3stageFreezeOther/DAG
+)
+for dir in ${dirs[@]}; do
+    # ディレクトリ内で「best」を含むファイルをリストアップし、最も新しいファイルを見つける
+    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    echo $newest_file
+    seed=$(echo "$dag" | sed -n 's|.*'${experiment_name}'/s\([^/]*\)-Baseline.*|\1|p')
+    exp_name=$(echo "$dag" | sed -n 's|.*s0-\([^/]*\)/DAG.*|\1|p')
+    bash run_evaluate.sh train stage ${experiment_name} non non BASELINE_BEST ${dag} s$seed-${exp_name} search_architecture_on_HINT_KD_for_all_parameters_without_depth_loss_with_large_slidewindow 0
+    bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/${experiment_name}/s$seed-${exp_name}/best.pth.tar
+done
 
 # for seed in 1 2 3 4;do
 #     bash run_search2.sh train stage ${experiment_name} efficientnet_v2_s $teacher_path s${seed}-BaselineBestCell BASELINE_BEST search_architecture_on_KD_for_architecture_parameters_without_depth_loss_with_large_slidewindow ${seed}
