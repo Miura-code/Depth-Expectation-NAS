@@ -37,6 +37,11 @@ PRIMITIVES2 = [
     'none'
 ]
 
+PRIMITIVES3 = [
+    'skip_connect', # identity
+    'none'
+]
+
 
 def to_dag(C_in, gene, reduction):
     """ generate discrete ops from gene """
