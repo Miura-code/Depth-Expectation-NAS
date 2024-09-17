@@ -6,6 +6,7 @@ from genotypes.genotypes import parse_dag_to_alpha
 import teacher_models
 from utils import visualize
 from utils.graphs import *
+from utils.graphs import create_StageGraph, graphEditDistance, visualize_graphs
 from utils.visualize import plot2
 import random
 import numpy
@@ -23,6 +24,8 @@ def main(config):
     GraphUtils = Graph_Utilities()
     
     # dag = config.DAG
+    
+    dag = config.DAG
     # plot2(dag.DAG1, './graphs/DAG1', config.DAG_name)
     # plot2(dag.DAG2, './graphs/DAG2', config.DAG_name)
     # plot2(dag.DAG3, './graphs/DAG3', config.DAG_name)
@@ -97,6 +100,11 @@ def main(config):
     # value1, vector1 = GraphUtils.cal_eigen(L1)
     # print(value1)
 
+    g1 = create_StageGraph(dag.DAG1)
+    g2 = create_StageGraph(dag.DAG2)
+    g3 = create_StageGraph(dag.DAG3)
+    visualize_graphs([g1, g2, g3], "./graphs/{}".format(config.DAG_name))
+    distance = graphEditDistance(g1, g2)
     
     pass
 
