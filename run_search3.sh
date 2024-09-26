@@ -67,7 +67,7 @@ elif [ ${arch} = "stage" ]; then
         lambda=0.5
         T=10
         batch_size=64
-        epoch=3
+        epoch=50
         train_portion=0.5 # searchの場合train_portionは0.5が最大値
         python searchStage_main.py \
             --type $method \
