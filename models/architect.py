@@ -186,7 +186,7 @@ class Architect_Hint(Architect):
     
 
 class Architect_Arch(Architect):
-    def __init__(self, net, teacher_net, w_momentum, w_weight_decay, teacher_feature_extractor, Regressor):
+    def __init__(self, net, teacher_net, w_momentum, w_weight_decay, teacher_feature_extractor=None, Regressor=None):
         # super().__init__(net, teacher_net, w_momentum, w_weight_decay)
         self.net = net
         self.teacher_net = teacher_net
