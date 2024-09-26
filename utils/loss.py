@@ -63,3 +63,151 @@ class HintLoss(nn.Module):
         
         kd_loss = self.loss(logits, targets)
         return kd_loss
+    
+class AlphaArchLoss(nn.Module):
+    """二つの構造パラメータの損失を計算する
+    """
+    def __init__(self):
+        super().__init__()
+        
+    def forward(self, alphaDAG, target_alphaDAG):
+        loss = torch.tensor(0.0, requires_grad=True, device=alphaDAG[0].device)
+        for alpha, target_alpha in zip(alphaDAG, target_alphaDAG):
+            loss = loss + torch.sum((target_alpha - alpha) ** 2)
+        return loss
+    
+class AlphaLaplacianLoss(nn.Module):
+    # TODO: backwardが計算できないなんで、
+    def __init__(self, window, n_nodes, target_alphaDAG=None):
+        super().__init__()
+        self.n_nodes = n_nodes
+        self.window = window
+        
+        self.tvalue = torch.empty([])
+        if target_alphaDAG is not None:
+            tL1 = self._Laplacian_from_genotype(target_alphaDAG[:6])
+            tL2 = self._Laplacian_from_genotype(target_alphaDAG[6:12])
+            tL3 = self._Laplacian_from_genotype(target_alphaDAG[12:])
+            tvalue1, _ = self._cal_eigen(tL1)
+            tvalue2, _ = self._cal_eigen(tL2)
+            tvalue3, _ = self._cal_eigen(tL3)
+        
+            self.tvalue = torch.concat([tvalue1, tvalue2, tvalue3])
+    
+    def re__init__(self, target_alphaDAG):
+        self.__init__(self.window, self.n_nodes, target_alphaDAG)
+
+    def forward(self, alphaDAG, target_alphaDAG=None):
+        L1 = self._Laplacian_from_genotype(alphaDAG[:6])
+        L2 = self._Laplacian_from_genotype(alphaDAG[6:12])
+        L3 = self._Laplacian_from_genotype(alphaDAG[12:])
+        value1, _ = self._cal_eigen(L1)
+        value2, _ = self._cal_eigen(L2)
+        value3, _ = self._cal_eigen(L3)
+        
+        value = torch.concat([value1, value2, value3])
+
+        if target_alphaDAG is not None:
+            tL1 = self._Laplacian_from_genotype(target_alphaDAG[:6])
+            tL2 = self._Laplacian_from_genotype(target_alphaDAG[6:12])
+            tL3 = self._Laplacian_from_genotype(target_alphaDAG[12:])
+            tvalue1, _ = self._cal_eigen(tL1)
+            tvalue2, _ = self._cal_eigen(tL2)
+            tvalue3, _ = self._cal_eigen(tL3)
+            
+            self.tvalue = torch.concat([tvalue1, tvalue2, tvalue3])
+            
+        similarity = self._cal_cosine_similarity(torch.abs(value), torch.abs(self.tvalue))
+        
+        return -similarity
+    
+    def _Laplacian_from_genotype(self, alpha_dag, C=False):
+        """構造パラメータからグラフラプラシアン行列を作成する
+
+        Args:
+            alpha_dag ([type]): 構造パラメータ（１ステージ分）
+
+        Returns:
+            torch.tensor: グラフラプラシアン
+        """
+        if C:
+            B = self._make_connection_matrix(alpha_dag)
+            W = []
+            for alphas_node in alpha_dag:
+                alphas_node = torch.softmax(alphas_node, dim=-1)
+                for alpha in alphas_node:
+                    W.append(alpha[:1])
+                    # W.append(torch.tensor([1.]))
+            W = torch.diag(torch.concat(W))
+
+            L = torch.matmul(torch.matmul(B, W), torch.t(B))
+        else:
+            A = self._make_neighber_matrix(alpha_dag)
+
+            D = torch.diag(A.sum(dim=1))
+            L = D - A
+
+        return L
+
+    def _cal_eigen(self, M):
+        """行列Mの固有値分解を計算する
+
+        Args:
+            M (torch.tensor): 対象の行列
+        """
+        eigenvalues, eigenvectors = torch.linalg.eig(M)
+
+        return eigenvalues, eigenvectors
+    
+    def _cal_cosine_similarity(self, vec1, vec2):
+        sim = F.cosine_similarity(vec1, vec2, dim = -1)
+
+        return sim
+    
+    def _make_connection_matrix(self, alpha_dag):
+        """構造パラメータから接続行列を作成する
+
+        Args:
+            alpha_dag ([type]): 構造パラメータ
+
+        Returns:
+            torch.tensor: 接続行列,(n*m行列;nはノード数,mはエッジ数)
+        """
+        num_edges = 0
+        for i in range(len(alpha_dag)):
+            if i + 2 < self.window:
+                num_edges +=  (i + 2)
+            else:
+                num_edges += (self.window)
+            
+                
+        B = torch.zeros((self.n_nodes, num_edges), requires_grad=True)
+
+        e = -1
+        for i in range(2, self.n_nodes):
+            for m in range(i):
+                e = e + 1
+                B[i, e] = 1
+                B[m, e] = -1
+
+        return B
+    
+    def _make_neighber_matrix(self, alpha_dag):
+        """Make the neighbor matrix from the alpha_dag matrix .
+
+        Args:
+            alpha_dag ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        A = torch.zeros((self.n_nodes, self.n_nodes), dtype=alpha_dag[0].dtype)
+
+        for i in range(2, self.n_nodes):
+            alpha = torch.softmax(alpha_dag[i-2], dim=-1)
+            for j in range(i):
+                # A[i, j] = A[j, i] = alpha_dag[i-2][j, 0]
+                A[j, i] = alpha[j, 0]
+                # A[j, i] = 1
+                # A[i, j] = A[j, i] = 1
+        return A

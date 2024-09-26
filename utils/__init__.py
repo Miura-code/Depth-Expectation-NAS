@@ -50,3 +50,12 @@ def ListToMarkdownTable(name_list, value_list):
       text += "|{}|{}|  \n".format(attr, value)
 
   return text
+
+def grad_check(model, layer_name):
+  for name, param in model.named_parameters():
+    if layer_name not in name:
+      continue
+    if param.grad is not None:
+        print(f"{name}の勾配:\n{param.grad}")
+    else:
+        print(f"{name}の勾配はありません")

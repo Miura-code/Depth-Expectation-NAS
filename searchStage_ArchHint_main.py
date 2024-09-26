@@ -6,11 +6,10 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 import os
-from trainer.searchStage_ArchKD_trainer import SearchStageTrainer_ArchKD
+from config.searchStage_HINT_config import SearchStageHintConfig
+from trainer.searchStage_ArchHint_trainer import SearchStageTrainer_ArchHintKD
 import utils
 from utils.logging_util import get_std_logging
-from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
-from trainer.searchShareStage_trainer import SearchShareStageTrainer
 from genotypes.genotypes import save_DAG
 from utils.visualize import plot2, png2gif
 from utils.eval_util import RecordDataclass
@@ -19,7 +18,7 @@ from config import *
 
 from tqdm import tqdm
 
-LOSS_TYPES = ["training_hard_loss", "training_soft_loss", "training_loss", "validation_loss"]
+LOSS_TYPES = ["training_hard_loss", "training_soft_loss", "training_loss", "validation_loss", "training_hint_loss"]
 ACC_TYPES = ["training_accuracy", "validation_accuracy"]
 
 def run_task(config):
@@ -32,17 +31,11 @@ def run_task(config):
     utils.set_seed_gpu(config.seed, config.gpus)
     
     # ================= define trainer ==================
-    if config.type == "KD":
-        trainer = SearchStageTrainer_WithSimpleKD(config)
-    elif config.type == "ArchKD":
-        trainer = SearchStageTrainer_ArchKD(config)
-    else:
-        raise NotImplementedError("実装されていない学習手法です")
-    
+    trainer = SearchStageTrainer_ArchHintKD(config)
     trainer.resume_model()
     start_epoch = trainer.start_epoch
     # ================= record initial genotype ==================
-    previous_arch = macro_arch = trainer.model.DAG()
+    best_macro = previous_arch = macro_arch = trainer.model.DAG()
     DAG_path = os.path.join(config.DAG_path, "EP00")
     plot_path = os.path.join(config.plot_path, "EP00")
     caption = "Initial DAG"
@@ -50,12 +43,69 @@ def run_task(config):
     plot2(macro_arch.DAG2, plot_path + '-DAG2', caption)
     plot2(macro_arch.DAG3, plot_path + '-DAG3', caption)
     save_DAG(macro_arch, DAG_path)
+    # ================= record teacher genotype ==================
+    teacher_arch = trainer.teacher_model.DAG
+    DAG_path = os.path.join(config.DAG_path, "Teacher")
+    plot_path = os.path.join(config.plot_path, "Teacher")
+    caption = "Teacher DAG"
+    plot2(teacher_arch.DAG1, plot_path + '-DAG1', caption)
+    plot2(teacher_arch.DAG2, plot_path + '-DAG2', caption)
+    plot2(teacher_arch.DAG3, plot_path + '-DAG3', caption)
+    save_DAG(teacher_arch, DAG_path)
     
     # loss, accを格納する配列
     Record = RecordDataclass(LOSS_TYPES, ACC_TYPES)
 
     best_top1 = 0.
-    for epoch in tqdm(range(start_epoch, trainer.total_epochs)):
+    is_best = False
+    hint_step = 1
+    # Step1:Hint learning
+    logger.info("Step{}: Start Hint learning until stage{}: Epoch:[0 - {}][{}]".format(hint_step, hint_step, trainer.hint_epochs[hint_step-1], trainer.total_epochs))
+    # Stage2,3を凍結させる
+    trainer.model.freeze_stage(stage_ex=[1])
+    for epoch in tqdm(range(start_epoch, trainer.hint_epochs[-1])):
+        if epoch == trainer.hint_epochs[hint_step-1]:
+            hint_step += 1
+            logger.info("Step{}: Start Hint learning until stage{}: Epoch:[{} - {}][{}]".format(hint_step, hint_step, epoch, trainer.hint_epochs[hint_step-1], trainer.total_epochs))
+            trainer.model.freeze_stage(stage_ex=list(range(1, hint_step+2)))
+            continue
+            
+        train_top1, train_hint_loss, arch_train_hint_loss, arch_depth_loss = trainer.train_hint_epoch(epoch, printer=logger.info, stage=hint_step)
+        val_top1, val_loss = trainer.val_epoch(epoch, printer=logger.info)
+        trainer.lr_scheduler.step()
+        
+        
+        # ================= record genotype logs ==================
+        macro_arch = trainer.model.DAG()
+        logger.info("DAG = {}".format(macro_arch))
+        
+        plot_path = os.path.join(config.plot_path, "EP{:02d}".format(epoch + 1))
+        DAG_path = os.path.join(config.DAG_path, "EP{:02d}".format(epoch + 1))
+        caption = "Epoch {}".format(epoch + 1)
+        plot2(macro_arch.DAG1, plot_path + '-DAG1', caption)
+        plot2(macro_arch.DAG2, plot_path + '-DAG2', caption)
+        plot2(macro_arch.DAG3, plot_path + '-DAG3', caption)
+
+        # ================= write tensorboard ==================
+        trainer.writer.add_scalar('train/lr', round(trainer.lr_scheduler.get_last_lr()[0], 5), epoch)
+        trainer.writer.add_scalar('train/hintloss', train_hint_loss, epoch)
+        trainer.writer.add_scalar('train/archhintloss', arch_train_hint_loss, epoch)
+        trainer.writer.add_scalar('train/archdepthloss', arch_depth_loss, epoch)
+        trainer.writer.add_scalar('train/top1', train_top1, epoch)
+        trainer.writer.add_scalar('val/loss', val_loss, epoch)
+        trainer.writer.add_scalar('val/top1', val_top1, epoch)
+        
+        if previous_arch != macro_arch:
+            save_DAG(macro_arch, DAG_path, is_best=is_best)
+        trainer.save_checkpoint(epoch, is_best=is_best)
+
+        Record.add(["training_hint_loss"], [train_hint_loss])
+        Record.save(config.path)
+        
+    logger.info("Step4: Start KD learning: Epoch:[{} - {}][{}]".format(epoch, trainer.total_epochs, trainer.total_epochs))
+    trainer.model.freeze_stage(stage_ex=(1,2,3,"linear"))
+    # Step3:KD learning
+    for epoch in tqdm(range(trainer.hint_epochs[hint_step-1], trainer.total_epochs)):
         train_top1, train_hardloss, train_softloss, train_loss, arch_train_hardloss, arch_train_softloss, arch_train_loss, arch_depth_loss = trainer.train_epoch(epoch, printer=logger.info)
         val_top1, val_loss = trainer.val_epoch(epoch, printer=logger.info)
         trainer.lr_scheduler.step()
@@ -95,7 +145,7 @@ def run_task(config):
         trainer.save_checkpoint(epoch, is_best=is_best)
         logger.info("Until now, best Prec@1 = {:.4%}".format(best_top1))
 
-        Record.add(LOSS_TYPES+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
+        Record.add(LOSS_TYPES[:-1]+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
         Record.save(config.path)
 
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
@@ -108,11 +158,8 @@ def run_task(config):
     trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
 
 
-    trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
-
-
 def main():
-    config = SearchStageConfig()
+    config = SearchStageHintConfig()
     run_task(config)
 
 

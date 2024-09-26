@@ -15,6 +15,7 @@ import genotypes.genotypes as gt
 class SearchStageConfig(BaseConfig):
     def build_parser(self):
         parser = get_parser("Search Dag config")
+        parser.add_argument('--type', default="KD")
         # ================= file settings ==================
         parser.add_argument('--name', required=True)
         parser.add_argument('--save', type=str, default='EXP', help='experiment name')
@@ -37,6 +38,7 @@ class SearchStageConfig(BaseConfig):
                             help='weight decay for alpha')
         # ================= training settings ==================
         parser.add_argument('--epochs', type=int, default=50, help='# of training epochs')
+        parser.add_argument('--hint_epochs', nargs="*", type=int, default=[16, 32], help='# of training epochs')
         parser.add_argument('--T', type=float, default=10, help='temperature of softmax with temperature')
         parser.add_argument('--l', type=float, default=0.5, help='ratio between soft target loss and hard target loss')
         parser.add_argument('--print_freq', type=int, default=1, help='print frequency')

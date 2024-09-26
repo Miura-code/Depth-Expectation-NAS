@@ -18,3 +18,4 @@ from .resnet import *
 # from . import detection, optical_flow, quantization, segmentation, video
 
 from .hint_layer_settings import *
+from .darts import *

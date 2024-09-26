@@ -15,6 +15,7 @@ import genotypes.genotypes as gt
 class SearchStageHintConfig(BaseConfig):
     def build_parser(self):
         parser = get_parser("Search Dag config")
+        parser.add_argument('--type', default="HINT")
         # ================= file settings ==================
         parser.add_argument('--name', required=True)
         parser.add_argument('--save', type=str, default='EXP', help='experiment name')

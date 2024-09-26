@@ -112,7 +112,7 @@ def validate(valid_loader, model, criterion, device, print_freq=50, printer=prin
             X, y = X.to(device, non_blocking=True), y.to(device, non_blocking=True)
             N = X.size(0)
 
-            logits = model(X)
+            logits, _ = model(X)
             loss = criterion(logits, y)
 
             prec1, prec5 = accuracy(logits, y, topk=(1,5))

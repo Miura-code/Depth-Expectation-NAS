@@ -322,3 +322,19 @@ def load_DAG(path):
         dag = pickle.load(rh)
         
     return dag
+
+def parse_dag_to_alpha(dag, n_big_nodes, n_ops=len(PRIMITIVES3), K=2, window=3, device='cpu'):
+    alpha = []
+    dags = [dag.DAG1, dag.DAG2, dag.DAG3]
+    for j, DAG in enumerate(dags):
+        for i in range(len(DAG)):
+            # sliding window
+            if i + 2 < window:
+                alpha.append(torch.zeros(i + 2, n_ops, device=device))
+            else:
+                alpha.append(torch.zeros(window, n_ops, device=device))
+            for k in range(K):
+                alpha[-1][DAG[i][k][1]][PRIMITIVES3.index(DAG[i][k][0])] = torch.tensor(1.0)
+    return alpha
+            
+    

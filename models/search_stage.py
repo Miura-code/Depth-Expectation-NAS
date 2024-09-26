@@ -229,6 +229,14 @@ class SearchStageController(nn.Module):
     def alphas(self):
         for n, p in self._alphas:
             yield p
+
+    def alphas_list(self):
+        """構造パラメータを正規化した値をリストで返す
+        """
+        a = []
+        for alpha in self.alpha_DAG:
+           a.append(F.softmax(alpha, dim=-1))
+        return a
     
     def named_alphas(self):
         for n, p in self._alphas:

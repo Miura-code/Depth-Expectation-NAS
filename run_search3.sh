@@ -1,7 +1,8 @@
 #!/bin/bash
 
-type=$1
-arch=$2
+method=$1
+type=$2
+arch=$3
 if [ ${arch} = "cell" ]; then
     if [ ${type} = "train" ]; then
     # ===== セルレベル探索　=====
@@ -55,21 +56,21 @@ if [ ${arch} = "cell" ]; then
 elif [ ${arch} = "stage" ]; then
     if [ ${type} = "train" ]; then
     # ===== ステージレベル探索　=====
-        name=$3
-        teacher_model=$4
-        teacher_path=$5
-        save=$6
-        genotype=$7
-        description=$8
+        name=$4
+        teacher_model=$5
+        teacher_path=$6
+        save=$7
+        genotype=$8
+        description=$9
+        seed=${10}
         dataset=cifar100
         lambda=0.5
         T=10
         batch_size=64
-        hint_epoch=(0 1 50)
-        epoch=50
+        epoch=3
         train_portion=0.5 # searchの場合train_portionは0.5が最大値
-        seed=$9
-        python searchStage_ArchHint_main.py \
+        python searchStage_main.py \
+            --type $method \
             --name $name \
             --genotype $genotype \
             --teacher_name $teacher_model\
@@ -78,7 +79,6 @@ elif [ ${arch} = "stage" ]; then
             --T $T \
             --dataset $dataset\
             --batch_size $batch_size \
-            --hint_epochs ${hint_epoch[@]} \
             --epochs $epoch \
             --train_portion $train_portion \
             --seed $seed \
