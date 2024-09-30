@@ -7,7 +7,7 @@ teacher_path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthL
 experiment_name=ARCH-KD-TEST
 
 for seed in 1;do
-    bash run_search2.sh train stage ${experiment_name} h_das_224baseline $teacher_path s${seed}-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture ${seed}
+    bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path s${seed}-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture ${seed}
 done
 
 # dirs=(

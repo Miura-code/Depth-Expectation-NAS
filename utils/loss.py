@@ -2,6 +2,32 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+class WeightedCombinedLoss(nn.Module):
+    def __init__(self, loss_function_weight_pairs):
+        super(WeightedCombinedLoss, self).__init__()
+        # 損失関数とその重みのペアを保持
+        self.loss_function_weight_pairs = loss_function_weight_pairs
+
+    def forward(self, *inputs_list, detail=True):
+        """
+        各損失関数に対応する入力をリストで受け取り、対応する損失関数に渡す
+        :param inputs_list: 損失関数ごとに渡す入力をまとめたリスト
+        """
+        total_loss = 0
+        losses = []
+        # 損失関数、重み、対応する入力を処理
+        for (loss_fn, weight), inputs in zip(self.loss_function_weight_pairs, inputs_list):
+            # 各損失関数に動的に対応する入力を渡す
+            loss = loss_fn(*inputs)
+            total_loss += weight * loss
+            losses.append(loss)
+
+        if detail:
+            losses.append(total_loss)
+            return losses
+        
+        return total_loss
+
 class SoftTargetKLLoss(nn.Module):
     r"""
     KL divergence between two distribution which is represented by soft target of labels
@@ -67,16 +93,41 @@ class HintLoss(nn.Module):
 class AlphaArchLoss(nn.Module):
     """二つの構造パラメータの損失を計算する
     """
-    def __init__(self):
+    def __init__(self, target_alphaDAG):
         super().__init__()
+        self.target_alphaDAG = target_alphaDAG
         
-    def forward(self, alphaDAG, target_alphaDAG):
+    def forward(self, alphaDAG):
         loss = torch.tensor(0.0, requires_grad=True, device=alphaDAG[0].device)
-        for alpha, target_alpha in zip(alphaDAG, target_alphaDAG):
+        for alpha, target_alpha in zip(alphaDAG, self.target_alphaDAG):
             loss = loss + torch.sum((target_alpha - alpha) ** 2)
+            print(target_alpha)
+            print(alpha)
+            print("loss", loss)
+            input()
         return loss
     
+class AlphaArchLoss_Temprature(nn.Module):
+    """二つの構造パラメータの損失を計算する
+    """
+    def __init__(self, target_alphaDAG, T):
+        super().__init__()
+        self.target_alphaDAG = target_alphaDAG
+        self.T = T
+
+        self.soft_target_alpha = []
+        for target_alpha in self.target_alphaDAG:
+            self.soft_target_alpha.append(torch.softmax(target_alpha / self.T, dim=-1))
+        
+    def forward(self, alphaDAG):
+        loss = torch.tensor(0.0, requires_grad=True, device=alphaDAG[0].device)
+        for alpha, target_alpha in zip(alphaDAG, self.soft_target_alpha):
+            loss = loss + torch.sum((target_alpha - alpha) ** 2)
+        return (self.T **2)  * loss
+        
+    
 class AlphaLaplacianLoss(nn.Module):
+
     # TODO: backwardが計算できないなんで、
     def __init__(self, window, n_nodes, target_alphaDAG=None):
         super().__init__()

@@ -223,10 +223,10 @@ class Architect_Arch(Architect):
             xi: learning rate for virtual gradient step (same as net lr)
             w_optim: weights optimizer - for virtual step
         """
-        logits_guide = self.teacher_net(val_X)
+        # logits_guide = self.teacher_net(val_X)
         logits = self.net(val_X)
-        loss = self.net.criterion(self.net.alphas_list(), self.teacher_net.alpha_DAG)
-        loss.backward()
+        losses = self.net.criterion((logits, val_y), (self.net.alphas_list()), detail=True)
+        losses[-1].backward()
         
-        return loss
+        return losses
             

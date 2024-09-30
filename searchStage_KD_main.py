@@ -108,9 +108,6 @@ def run_task(config):
     trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
 
 
-    trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
-
-
 def main():
     config = SearchStageConfig()
     run_task(config)
