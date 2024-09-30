@@ -41,7 +41,7 @@ class SearchStageConfig(BaseConfig):
         parser.add_argument('--hint_epochs', nargs="*", type=int, default=[16, 32], help='# of training epochs')
         parser.add_argument('--T', type=float, default=10, help='temperature of softmax with temperature')
         parser.add_argument('--l', type=float, default=0.5, help='ratio between soft target loss and hard target loss')
-        parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
+        parser.add_argument('--print_freq', type=int, default=100, help='print frequency')
         parser.add_argument('--seed', type=int, default=2, help='random seed')
         parser.add_argument('--nonkd', action='store_true', help='execute KD learning')
         parser.add_argument('--depth_coef', type=float, default=1.0, help='coefficient of depth loss for architecture loss')

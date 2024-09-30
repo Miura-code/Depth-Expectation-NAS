@@ -4,10 +4,14 @@ teacher_path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthL
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_s pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 # bash run_finetune.sh train FINETUNE2 efficientnet_v2_m pretrained pretrained_LR_features-0.001_classifier-0.01_cosine_warmup-0
 
-experiment_name=ARCH-KD-TEST
+experiment_name=ARCH-KD
 
-for seed in 1;do
-    bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path s${seed}-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture ${seed}
+# for seed in 1;do
+#     bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path s${seed}-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture ${seed}
+# done
+
+for l in 0.1 0.2 0.3 0.5 0.6 0.7;do
+    bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path s${seed}-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture 0 ${l}
 done
 
 # dirs=(
