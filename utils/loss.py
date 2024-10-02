@@ -18,8 +18,8 @@ class WeightedCombinedLoss(nn.Module):
         # 損失関数、重み、対応する入力を処理
         for (loss_fn, weight), inputs in zip(self.loss_function_weight_pairs, inputs_list):
             # 各損失関数に動的に対応する入力を渡す
-            loss = loss_fn(*inputs)
-            total_loss += weight * loss
+            loss = weight * loss_fn(*inputs)
+            total_loss += loss
             losses.append(loss)
 
         if detail:
