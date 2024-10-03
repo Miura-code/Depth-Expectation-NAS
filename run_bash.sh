@@ -10,8 +10,8 @@ experiment_name=ARCH-KD
 #     bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path s${seed}-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture ${seed}
 # done
 
-for l in 0.1 0.2 0.3 0.5 0.6 0.7;do
-    bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path l${l}-2-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture 0 ${l}
+for l in 0.0001 0.0002 0.0004 0.0008 0.00001 0.00004 0.00008;do
+    bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path l${l}-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture 0 ${l}
 done
 
 # dirs=(

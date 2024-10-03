@@ -98,9 +98,9 @@ class AlphaArchLoss(nn.Module):
         self.target_alphaDAG = target_alphaDAG
         
     def forward(self, alphaDAG):
-        loss = torch.tensor(0.0, requires_grad=True, device=alphaDAG[0].device)
+        loss = 0
         for alpha, target_alpha in zip(alphaDAG, self.target_alphaDAG):
-            loss = loss + torch.sum((target_alpha - alpha) ** 2)
+            loss += torch.sum((target_alpha - alpha) ** 2)
         return loss
     
 class AlphaArchLoss_Temprature(nn.Module):
