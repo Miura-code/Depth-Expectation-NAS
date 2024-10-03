@@ -50,6 +50,12 @@ def run_task(config):
     plot2(macro_arch.DAG2, plot_path + '-DAG2', caption)
     plot2(macro_arch.DAG3, plot_path + '-DAG3', caption)
     save_DAG(macro_arch, DAG_path)
+    if config.type == "ArchKD":
+        plot_path = os.path.join(config.plot_path, "Teacher")
+        teacher_arch = trainer.teacher_model.DAG
+        plot2(teacher_arch.DAG1, plot_path + '-DAG1', "Teacher")
+        plot2(teacher_arch.DAG2, plot_path + '-DAG2', "Teacher")
+        plot2(teacher_arch.DAG3, plot_path + '-DAG3', "Teacher")
     
     # loss, accを格納する配列
     Record = RecordDataclass(LOSS_TYPES, ACC_TYPES)
