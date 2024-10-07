@@ -1,3 +1,4 @@
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -8,7 +9,7 @@ class WeightedCombinedLoss(nn.Module):
         # 損失関数とその重みのペアを保持
         self.loss_function_weight_pairs = loss_function_weight_pairs
 
-    def forward(self, *inputs_list, detail=True):
+    def forward(self, *inputs_list, updated_weight, detail=True):
         """
         各損失関数に対応する入力をリストで受け取り、対応する損失関数に渡す
         :param inputs_list: 損失関数ごとに渡す入力をまとめたリスト
@@ -16,10 +17,10 @@ class WeightedCombinedLoss(nn.Module):
         total_loss = 0
         losses = []
         # 損失関数、重み、対応する入力を処理
-        for (loss_fn, weight), inputs in zip(self.loss_function_weight_pairs, inputs_list):
+        for (loss_fn, weight), (inputs), u_weight in zip(self.loss_function_weight_pairs, inputs_list, updated_weight):
             # 各損失関数に動的に対応する入力を渡す
             loss = loss_fn(*inputs)
-            total_loss += weight * loss
+            total_loss += u_weight * loss
             losses.append(loss)
 
         if detail:
@@ -258,3 +259,42 @@ class AlphaLaplacianLoss(nn.Module):
                 # A[j, i] = 1
                 # A[i, j] = A[j, i] = 1
         return A
+    
+class CosineScheduler():
+    """コサイン曲線に従って値を減衰あるいは増加させる
+    """
+    def __init__(self, initial_value, final_value, total_steps):
+        """初期化
+
+        Args:
+            initial_value (_type_):初期値
+            final_value (_type_): 最終的な値
+            total_steps (_type_): 学習エポック数
+        """
+        self.initial_value = initial_value
+        self.final_value = final_value
+        self.total_steps = total_steps
+    
+    def get_decay_value(self, current_step):
+        """コサイン曲線に従って値を減衰させる
+
+        Args:
+            current_step (_type_): 現在のステップ数
+        """
+        if current_step >= self.total_steps:
+            return self.final_value
+        cosine_decay = 0.5 * (1 + math.cos(math.pi * current_step / self.total_steps))
+        decayed_value = self.final_value + (self.initial_value - self.final_value) * cosine_decay
+        return decayed_value
+    
+    def get_increase_value(self, current_step):
+        """コサイン曲線に従って値を増加させる
+
+        Args:
+            current_step (_type_): 現在のステップ数
+        """
+        if current_step >= self.total_steps:
+            return self.final_value
+        cosine_increase = 0.5 * (1 - math.cos(math.pi * current_step / self.total_steps))
+        increased_value = self.initial_value + (self.final_value - self.initial_value) * cosine_increase
+        return increased_value

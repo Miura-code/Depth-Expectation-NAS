@@ -216,7 +216,7 @@ class Architect_Arch(Architect):
         
         return hint_loss
     
-    def unrolled_backward_archkd(self, trn_X, trn_y, val_X, val_y, xi, w_optim, stage=1):
+    def unrolled_backward_archkd(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
         """ First Order!
             Compute unrolled loss and backward its gradients
         Args:
@@ -226,6 +226,20 @@ class Architect_Arch(Architect):
         # logits_guide = self.teacher_net(val_X)
         logits = self.net(val_X)
         losses = self.net.criterion((logits, val_y), ([self.net.alphas()]), detail=True)
+        losses[-1].backward()
+        
+        return losses
+    
+    def unrolled_backward_archkd_updated_weight(self, trn_X, trn_y, val_X, val_y, xi, w_optim, weights):
+        """ First Order!
+            Compute unrolled loss and backward its gradients
+        Args:
+            xi: learning rate for virtual gradient step (same as net lr)
+            w_optim: weights optimizer - for virtual step
+        """
+        # logits_guide = self.teacher_net(val_X)
+        logits = self.net(val_X)
+        losses = self.net.criterion((logits, val_y), ([self.net.alphas()]), updated_weight=weights, detail=True)
         losses[-1].backward()
         
         return losses
