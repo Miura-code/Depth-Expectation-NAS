@@ -138,5 +138,6 @@ class EvaluateRelaxedStageConfig(BaseConfig):
         self.path = os.path.join(f'results/evaluate_stage_KD/{self.dataset}', self.name)
         self.exp_name = '{}'.format(args.save)
         self.path = os.path.join(self.path, self.exp_name)
+        self.plot_path = os.path.join(self.path, 'plots')
 
         self.gpus = parse_gpus(self.gpus)

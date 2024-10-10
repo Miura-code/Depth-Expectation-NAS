@@ -195,7 +195,6 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
             top5.update(prec5.item(), N)
 
             if (i % self.config.print_freq == 0 or i == len(self.train_loader) - 1):
-                self.model.print_alphas(self.logger)
                 printer(f'Train: Epoch: [{epoch}][{i}/{len(self.train_loader) - 1}]\t'
                         f'Step {self.steps}\t'
                         f'lr {round(cur_lr, 5)}\t'

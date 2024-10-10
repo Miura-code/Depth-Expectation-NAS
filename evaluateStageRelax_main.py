@@ -16,6 +16,7 @@ from trainer.evaluateStageRelax_trainer import EvaluateRelaxedStageTrainer
 import utils
 from utils.eval_util import RecordDataclass
 from utils.logging_util import get_std_logging
+from utils.visualize import plot2
 
 LOSS_TYPES = ["training_loss", "validation_loss"]
 LOSS_TYPES_KD = ["training_hard_loss", "training_soft_loss", "training_loss", "validation_loss"]
@@ -32,6 +33,13 @@ def run_task(config):
     Record = RecordDataclass(LOSS_TYPES, ACC_TYPES)
     trainer.resume_alpha(reset=True)
     start_epoch = trainer.start_epoch
+
+    macro_arch = trainer.model.DAG()
+    plot_path = os.path.join(config.plot_path, "model")
+    caption = "Initial DAG"
+    plot2(macro_arch.DAG1, plot_path + '-DAG1', caption)
+    plot2(macro_arch.DAG2, plot_path + '-DAG2', caption)
+    plot2(macro_arch.DAG3, plot_path + '-DAG3', caption)
     
     # ================= start training ==================
     best_top1 = 0.
