@@ -9,7 +9,7 @@ class WeightedCombinedLoss(nn.Module):
         # 損失関数とその重みのペアを保持
         self.loss_function_weight_pairs = loss_function_weight_pairs
 
-    def forward(self, *inputs_list, updated_weight, detail=True):
+    def forward(self, *inputs_list, detail=True):
         """
         各損失関数に対応する入力をリストで受け取り、対応する損失関数に渡す
         :param inputs_list: 損失関数ごとに渡す入力をまとめたリスト
@@ -17,10 +17,10 @@ class WeightedCombinedLoss(nn.Module):
         total_loss = 0
         losses = []
         # 損失関数、重み、対応する入力を処理
-        for (loss_fn, weight), (inputs), u_weight in zip(self.loss_function_weight_pairs, inputs_list, updated_weight):
+        for (loss_fn, weight), (inputs) in zip(self.loss_function_weight_pairs, inputs_list):
             # 各損失関数に動的に対応する入力を渡す
             loss = loss_fn(*inputs)
-            total_loss += u_weight * loss
+            total_loss += weight * loss
             losses.append(loss)
 
         if detail:

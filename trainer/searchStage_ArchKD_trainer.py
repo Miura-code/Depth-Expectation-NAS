@@ -58,7 +58,6 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         self.arch_criterion = AlphaArchLoss(self.teacher_model.alpha_DAG).to(self.device)
         loss_weight_pair = [(self.hard_criterion, 1.0), (self.arch_criterion, self.config.l)]
         self.criterion = WeightedCombinedLoss(loss_weight_pair).to(self.device)
-        self.lossWeight_scheduler = CosineScheduler(self.config.l, )
         # ================= Student model ==================
         model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw)
         self.model = model.to(self.device)
@@ -124,8 +123,7 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
 
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
-            # archLosses = self.architect.unrolled_backward_archkd(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
-            archLosses = self.architect.unrolled_backward_archkd_updated_weight(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            archLosses = self.architect.unrolled_backward_archkd(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
             arch_hard_loss = archLosses[0]
             arch_alphaloss = archLosses[1]
             arch_loss = archLosses[-1]
