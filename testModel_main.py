@@ -11,7 +11,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from models.augment_cellcnn import AugmentCellCNN
-from models.augment_stage import AugmentStage
+from models.augment_stage import AugmentStage, EvaluateRelaxedStageController
 import utils
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm
@@ -58,11 +58,16 @@ def main():
                                                sampler=test_sampler,
                                                num_workers=config.workers,
                                                pin_memory=True)
+    
+    criterion = nn.CrossEntropyLoss().to(device)
 
     # ================= load model from timm ==================
     use_aux = config.aux_weight > 0.
     if config.stage:
-        model = AugmentStage(input_size, input_channels, config.init_channels, n_classes, config.layers, use_aux, config.genotype, config.DAG, spec_cell=config.spec_cell).to(device)
+        if config.relax:
+            model = EvaluateRelaxedStageController(input_size, input_channels, config.init_channels, n_classes, config.layers, criterion, genotype=config.genotype, device_ids=config.gpus, spec_cell=config.spec_cell, slide_window=config.slide_window, auxiliary=use_aux).to(device)
+        else:
+            model = AugmentStage(input_size, input_channels, config.init_channels, n_classes, config.layers, use_aux, config.genotype, config.DAG, spec_cell=config.spec_cell).to(device)
     else:
         model = AugmentCellCNN(input_size, input_channels, config.init_channels, n_classes, config.layers, use_aux, config.genotype).to(device)
     # ================= load checkpoint ==================
@@ -73,7 +78,6 @@ def main():
     mac, params = utils.measurement_utils.count_ModelSize_byptflops(model, (3,32,32))
     logger.info("param size = {}MB, mac = {}".format(params, mac))
 
-    criterion = nn.CrossEntropyLoss().to(device)
     # ================= Test model ==================
     time_keeper = TimeKeeper()
     test_top1, test_top5 = validate(test_loader, model, criterion)

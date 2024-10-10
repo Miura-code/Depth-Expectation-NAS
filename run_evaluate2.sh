@@ -104,7 +104,10 @@ elif [ ${arch} = "stage" ]; then
             --resume_path $path \
             --stage \
             --spec_cell \
-            --advanced
+            --depth_coef 0 \
+            --slide_window 8 \
+            --advanced \
+            --relax
     else
         echo ""
     fi

@@ -33,6 +33,10 @@ class TestConfig(BaseConfig):
         parser.add_argument('--layers', type=int, default=20, help='# of layers')
         parser.add_argument('--aux_weight', type=float, default=0.4, help='auxiliary loss weight for testing searched cell architecture')
         parser.add_argument('--spec_cell', action='store_true', help='Use stage specified cell architecture at each stage')
+        
+        parser.add_argument('--relax', action='store_true', help='relaxed archtecture parameter space')
+        parser.add_argument('--slide_window', type=int, default=3, help='sliding window size')
+        parser.add_argument('--depth_coef', type=float, default=1.0, help='coefficient of depth loss for architecture loss')
         # ================= test settings ==================
         parser.add_argument('--stage', action='store_true', help='test stage level architecture')
         parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
