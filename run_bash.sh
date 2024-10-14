@@ -28,7 +28,7 @@ for seed in 0 1 2 3 4 5; do
     for i in "${!dagdirs[@]}"; do
         dag_path=${dagdirs[i]}
         resume_path=${resumedirs[i]}
-        l=$(echo "$dag" | sed -n 's|.*ARCH_KD/l\([^/]*\)-2-h.*|\1|p')
+        l=$(echo "$dag_path" | sed -n 's|.*ARCH-KD/l\([^/]*\)-2-h.*|\1|p')
         bash run_evaluate2.sh train stage ${experiment_name} none none BASELINE_BEST ${dag_path} s${seed}l${l}-h_das_teacher ArchHint_KD_mimic_only_teacher_archtecture ${seed} ${resume_path}
         bash run_evaluate2.sh test stage BASELINE_BEST ${dag_path} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/${experiment_name}/s${seed}l${l}-h_das_teacher/best.pth.tar
     done

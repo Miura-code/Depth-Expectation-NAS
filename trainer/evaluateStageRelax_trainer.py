@@ -96,7 +96,7 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
         self.alpha_optim = None
 
-    def resume_alpha(self, reset=False, model_path=None):
+    def resume_alpha(self, reset=False, model_path=None, discrete=False):
         if model_path is None and not self.resume_path:
             self.start_epoch = 0
             self.logger.info("--> No loaded checkpoint!")
