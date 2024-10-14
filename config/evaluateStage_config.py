@@ -116,6 +116,7 @@ class EvaluateRelaxedStageConfig(BaseConfig):
         parser.add_argument('--teacher_path', type=str, default=None)
         parser.add_argument('--aux_weight', type=float, default=0.4, help='auxiliary loss weight')
         parser.add_argument('--drop_path_prob', type=float, default=0.2, help='drop path prob')
+        parser.add_argument('--discrete', action='store_true', help='Use stage specified cell architecture at each stage')
         # ================= details ==================
         parser.add_argument('--description', type=str, default='', help='experiment details')
         # ================= others ==================

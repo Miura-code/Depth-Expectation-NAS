@@ -323,7 +323,7 @@ def load_DAG(path):
         
     return dag
 
-def parse_dag_to_alpha(dag, n_big_nodes, n_ops=len(PRIMITIVES3), K=2, window=3, device='cpu'):
+def parse_dag_to_alpha(dag, n_big_nodes=6, n_ops=len(PRIMITIVES3), K=2, window=3, device='cpu'):
     alpha = []
     dags = [dag.DAG1, dag.DAG2, dag.DAG3]
     for j, DAG in enumerate(dags):
@@ -336,5 +336,4 @@ def parse_dag_to_alpha(dag, n_big_nodes, n_ops=len(PRIMITIVES3), K=2, window=3, 
             for k in range(K):
                 alpha[-1][DAG[i][k][1]][PRIMITIVES2.index(DAG[i][k][0])] = torch.tensor(1.0)
     return alpha
-            
-    
+ 

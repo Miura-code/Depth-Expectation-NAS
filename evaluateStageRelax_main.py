@@ -31,7 +31,7 @@ def run_task(config):
     # ================= define trainer ==================
     trainer = EvaluateRelaxedStageTrainer(config)
     Record = RecordDataclass(LOSS_TYPES, ACC_TYPES)
-    trainer.resume_alpha(reset=True)
+    trainer.resume_alpha(reset=True, discrete=config.discrete)
     start_epoch = trainer.start_epoch
 
     macro_arch = trainer.model.DAG()

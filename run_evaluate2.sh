@@ -86,7 +86,8 @@ elif [ ${arch} = "stage" ]; then
             --nonkd \
             --depth_coef 0 \
             --slide_window 8 \
-            --advanced
+            --advanced \
+            --discrete
     elif [ ${type} = "test" ]; then
         ## セルレベル構造のテスト
         genotype=$3

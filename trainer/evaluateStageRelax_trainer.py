@@ -11,6 +11,7 @@ import torch.nn as nn
 import torchvision
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
+from genotypes.genotypes import parse_dag_to_alpha
 from models.augment_stage import EvaluateRelaxedStageController
 from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 from utils.eval_util import validate
@@ -100,15 +101,19 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
         if model_path is None and not self.resume_path:
             self.start_epoch = 0
             self.logger.info("--> No loaded checkpoint!")
+        elif discrete:
+            self.resume_alpha_discrete(reset, model_path)
         elif reset or self.config.checkpoint_reset:
             model_path = model_path or self.resume_path
             checkpoint = torch.load(model_path, map_location=self.device)
 
             current_state_dict = self.model.state_dict()
+            count = 0
             for name, param in self.model.named_parameters():
                 if 'alpha' in name:
                     if name in checkpoint['model']:
-                        current_state_dict[name] = checkpoint['model'][name]
+                        self.model.alpha_DAG[count] = current_state_dict[name] = checkpoint['model'][name]
+                        count += 1
             self.model.load_state_dict(current_state_dict, strict=True)
 
             self.start_epoch = 0
@@ -121,7 +126,8 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
             for name, param in self.model.named_parameters():
                 if 'alpha' in name:
                     if name in checkpoint['model']:
-                        current_state_dict[name] = checkpoint['model'][name]
+                        self.model.alpha_DAG[count] = current_state_dict[name] = checkpoint['model'][name]
+                        count += 1
             self.model.load_state_dict(current_state_dict, strict=True)
 
             self.start_epoch = checkpoint['epoch']
@@ -130,6 +136,28 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
             self.logger.info(f"--> Loaded checkpoint '{model_path}'(epoch {self.start_epoch})")
 
         self.freeze_alphaParams()
+
+    def resume_alpha_discrete(self, reset=False, model_path=None):
+        model_path = model_path or self.resume_path
+        checkpoint = torch.load(model_path, map_location=self.device)
+        current_state_dict = self.model.state_dict()
+        
+        discrete_alpha_list = parse_dag_to_alpha(self.config.DAG, n_ops=self.model.alpha_DAG[0][0].size(0), window=self.sw, device=self.device)
+
+        count = 0
+        for name, param in self.model.named_parameters():
+            if 'alpha' in name:
+                self.model.alpha_DAG[count] = current_state_dict[name] = discrete_alpha_list[count]
+                count += 1
+        self.model.load_state_dict(current_state_dict, strict=True)
+        if reset or self.config.checkpoint_reset:
+            self.start_epoch = 0
+        else:
+            self.start_epoch = checkpoint['epoch']
+            self.steps = checkpoint['steps']
+            self.w_optim.load_state_dict(checkpoint['w_optim'])
+        self.logger.info(f"--> Loaded DISCRETED checkpoint '{model_path}'(Reseted epoch {self.start_epoch})")
+        
     
     def freeze_alphaParams(self):
         for name, param in self.model.named_parameters():
