@@ -6,6 +6,7 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 from collections import OrderedDict
+import logging
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -281,9 +282,24 @@ class EvaluateRelaxedStageController(SearchStageController):
         super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=stem_multiplier, device_ids=device_ids, spec_cell=spec_cell, slide_window=slide_window)
        
         self.net = EvaluateRelaxedStage(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell, slide_window=self.window, auxiliary=auxiliary)
-          
+    
+    def print_alphas(self, logger):
+        org_formatters = []
+        for handler in logger.handlers:
+            org_formatters.append(handler.formatter)
+            handler.setFormatter(logging.Formatter("%(message)s"))
+        
+        logger.info("####### ALPHA #######")
+        logger.info("# Alpha - DAG")
+        for alpha in self.alpha_DAG:
+            logger.info(alpha)
+        logger.info("#####################")
+
+        for handler, formatter in zip(logger.handlers, org_formatters):
+            handler.setFormatter(formatter)
+
     def forward(self, x):
-        weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
+        weights_DAG = [alpha for alpha in self.alpha_DAG]
 
         if len(self.device_ids) == 1:
             return self.net(x, weights_DAG)

@@ -12,6 +12,7 @@ import torch.nn as nn
 import torchvision
 
 from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm
 
 import teacher_models
 from utils.loss import KD_Loss, SoftTargetKLLoss
@@ -26,7 +27,6 @@ from utils.data_prefetcher import data_prefetcher
 from models.search_stage import SearchStageController, SearchStageController_FullCascade, SearchStageControllerPartialConnection
 from models.architect import Architect
 from utils.visualize import showModelOnTensorboard
-
 
 class SearchStageTrainer_WithSimpleKD():
     def __init__(self, config) -> None:

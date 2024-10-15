@@ -85,6 +85,53 @@ class SearchStageConfig(BaseConfig):
         utils.create_exp_dir(self.DAG_path)
         utils.create_exp_dir(self.plot_path)
 
+class TestSearchStageConfig(BaseConfig):
+    def build_parser(self):
+        parser = get_parser("Search Dag config")
+        # ================= file settings ==================
+        parser.add_argument('--save', type=str, default='EXP', help='experiment name')
+        # ================= dataset settings ==================
+        parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
+        parser.add_argument('--batch_size', type=int, default=64, help='batch size')
+        parser.add_argument('--train_portion', type=float, default=0.5, help='portion of training data')
+        parser.add_argument('--cutout_length', type=int, default=0, help='cutout length')
+        parser.add_argument('--advanced', action='store_true', help='advanced data transform. apply resize (224,224)')
+        # ================= model settings ==================
+        parser.add_argument('--init_channels', type=int, default=16)
+        parser.add_argument('--share_stage', action='store_true', help='Search shared stage architecture at each stage')
+        parser.add_argument('--spec_cell', action='store_true', help='Use stage specified cell architecture at each stage')
+        parser.add_argument('--layers', type=int, default=20, help='# of layers')  # 20 layers
+        parser.add_argument('--genotype', required=True, help='Cell genotype')
+        parser.add_argument('--DAG', required=True, help='DAG genotype')        
+        parser.add_argument('--resume_path', required=True, type=str)
+        parser.add_argument('--checkpoint_reset', action='store_true', help='reset resumed model to be as epoch 0')
+        parser.add_argument('--discrete', action='store_true', help='Use stage specified cell architecture at each stage')
+        parser.add_argument('--slide_window', type=int, default=3, help='sliding window size')
+        # ================= details ==================
+        parser.add_argument('--description', type=str, default='', help='experiment details')
+        # ================= others ==================
+        parser.add_argument('--workers', type=int, default=4, help='# of workers')
+        parser.add_argument('--gpus', default='0', help='gpu device ids separated by comma. '
+                            '`all` indicates use all gpus.')
+        parser.add_argument('--seed', type=int, default=2, help='random seed')
+        
+        return parser
+    
+    def __init__(self):
+        parser = self.build_parser()
+        args = parser.parse_args()
+        super().__init__(**vars(args))
+
+        self.data_path = '../data/'
+        self.genotype = gt.from_str(self.genotype)
+        self.DAG = gt.from_str(self.DAG)
+        self.gpus = parse_gpus(self.gpus)
+
+        directory, _ = os.path.split(args.resume_path)
+        directory = directory.rstrip(os.path.sep)
+        self.path = os.path.join(directory, "test")
+        self.path = '{}/{}-{}-{}'.format(self.path, args.save, "discrete" if self.discrete else "relax", time.strftime("%Y%m%d-%H%M%S"))
+
 
 class SearchDistributionConfig(BaseConfig):
     def build_parser(self):
