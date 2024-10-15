@@ -14,10 +14,11 @@ experiment_name=ARCH-KD
 #     bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path l${l}-2-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture 0 ${l}
 # done
 
-resume_path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.01-2-h_das_teacher/best.pth.tar
-dag=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.01-2-h_das_teacher/DAG/EP50-best.pickle
+bash run_search.sh train stage ORIGINAL none none s0-baselinebest BASELINE_BEST noKD_original_H-DAS_model_baselinebest-cell 0
 
-bash run_search3.sh ArchKD test stage $resume_path BASELINE_BEST $dag 
+# for seed in 0 1 2 3 4;do
+#     bash run_evaluate.sh train stage ORIGINAL none none BASELINE_BEST BASELINE_BEST_STAGE s${seed}-baselinebestcell noKD_original_H-DAS_model_baselinebest-cell-stage $seed
+# done
 
 # dagdirs=(
 #     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.01-2-h_das_teacher/DAG/EP50-best.pickle
