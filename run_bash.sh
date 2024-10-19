@@ -16,9 +16,12 @@ experiment_name=ARCH-KD
 
 # bash run_search.sh train stage ORIGINAL none none s0-baselinebest BASELINE_BEST noKD_original_H-DAS_model_baselinebest-cell 0
 
-# for seed in 0 1 2 3 4;do
-#     bash run_evaluate.sh train stage ORIGINAL none none BASELINE_BEST BASELINE_BEST_STAGE s${seed}-baselinebestcell noKD_original_H-DAS_model_baselinebest-cell-stage $seed
-# done
+dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ORIGINAL/s0-baselinebest/DAG
+dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+for seed in 0 1 2 3 4;do
+    bash run_evaluate.sh train stage ORIGINAL none none BASELINE_BEST $dag s${seed}-eval-baselinebest noKD_original_H-DAS_model_baselinebest-cell-stage $seed
+    bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/ORIGINAL/s${seed}-eval-baselinebest/best.pth.tar
+done
 
 dagdirs=(
     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.01-2-h_das_teacher/DAG/EP50-best.pickle
