@@ -14,31 +14,31 @@ experiment_name=ARCH-KD
 #     bash run_search3.sh ArchKD train stage ${experiment_name} h_das_224baseline $teacher_path l${l}-2-h_das_teacher BASELINE_BEST ArchHint_KD_mimic_only_teacher_archtecture 0 ${l}
 # done
 
-bash run_search.sh train stage ORIGINAL none none s0-baselinebest BASELINE_BEST noKD_original_H-DAS_model_baselinebest-cell 0
+# bash run_search.sh train stage ORIGINAL none none s0-baselinebest BASELINE_BEST noKD_original_H-DAS_model_baselinebest-cell 0
 
 # for seed in 0 1 2 3 4;do
 #     bash run_evaluate.sh train stage ORIGINAL none none BASELINE_BEST BASELINE_BEST_STAGE s${seed}-baselinebestcell noKD_original_H-DAS_model_baselinebest-cell-stage $seed
 # done
 
-# dagdirs=(
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.01-2-h_das_teacher/DAG/EP50-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.001-2-h_das_teacher/DAG/EP45-best.pickle
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.0001-2-h_das_teacher/DAG/EP49-best.pickle
-# )
-# resumedirs=(
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.01-2-h_das_teacher/best.pth.tar
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.001-2-h_das_teacher/best.pth.tar
-#     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.0001-2-h_das_teacher/best.pth.tar
-# )
-# for seed in 0 1 2 3; do
-#     for i in "${!dagdirs[@]}"; do
-#         dag_path=${dagdirs[i]}
-#         resume_path=${resumedirs[i]}
-#         l=$(echo "$dag_path" | sed -n 's|.*ARCH-KD/l\([^/]*\)-2-h.*|\1|p')
-#         bash run_evaluate2.sh train stage ${experiment_name} none none BASELINE_BEST ${dag_path} s${seed}l${l}-relax ArchHint_KD_mimic_only_teacher_archtecture ${seed} ${resume_path}
-#         bash run_evaluate2.sh test stage BASELINE_BEST ${dag_path} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/${experiment_name}/s${seed}l${l}-relax/best.pth.tar
-#     done
-# done
+dagdirs=(
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.01-2-h_das_teacher/DAG/EP50-best.pickle
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.001-2-h_das_teacher/DAG/EP45-best.pickle
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.0001-2-h_das_teacher/DAG/EP49-best.pickle
+)
+resumedirs=(
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.01-2-h_das_teacher/best.pth.tar
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.001-2-h_das_teacher/best.pth.tar
+    /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/ARCH-KD/l0.0001-2-h_das_teacher/best.pth.tar
+)
+for seed in 0 1 2 3; do
+    for i in "${!dagdirs[@]}"; do
+        dag_path=${dagdirs[i]}
+        resume_path=${resumedirs[i]}
+        l=$(echo "$dag_path" | sed -n 's|.*ARCH-KD/l\([^/]*\)-2-h.*|\1|p')
+        bash run_evaluate2.sh train stage ${experiment_name} none none BASELINE_BEST ${dag_path} s${seed}l${l}-relax ArchHint_KD_mimic_only_teacher_archtecture ${seed} ${resume_path}
+        bash run_evaluate2.sh test stage BASELINE_BEST ${dag_path} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/${experiment_name}/s${seed}l${l}-relax/best.pth.tar
+    done
+done
 
 # dirs=(
 #     /home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/${experiment_name}/s0-freezeOtherLayer/DAG
