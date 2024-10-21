@@ -56,8 +56,9 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         # ================= define criteria ==================
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
         self.arch_criterion = AlphaArchLoss(self.teacher_model.alpha_DAG).to(self.device)
-        loss_weight_pair = [(self.hard_criterion, 1.0), (self.arch_criterion, self.config.l)]
-        self.criterion = WeightedCombinedLoss(loss_weight_pair).to(self.device)
+        self.loss_functions = [self.hard_criterion, self.arch_criterion]
+        self.loss_weights = [1.0, self.config.l]
+        self.criterion = WeightedCombinedLoss(functions=self.loss_functions, weights=self.loss_weights).to(self.device)
         # ================= Student model ==================
         model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw)
         self.model = model.to(self.device)
@@ -71,6 +72,8 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
        
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
         self.architect = Architect_Arch(self.model, self.teacher_model, self.config.w_momentum, self.config.w_weight_decay)
+        
+        self.lossWeight_scheduler = CosineScheduler(initial_value=self.config.l, final_value=self.config.final_l, total_steps=self.total_epochs)
     
     def load_teacher(self, n_classes):
         """
@@ -104,6 +107,7 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         arch_depth_losses = AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
+        cur_arch_weights = [self.loss_weights[0], self.lossWeight_scheduler.get_increase_value(current_step=epoch)]
 
         # 構造パラメータを表示
         # self.model.print_alphas(self.logger)
@@ -123,7 +127,8 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
 
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
-            archLosses = self.architect.unrolled_backward_archkd(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            archLosses = self.architect.unrolled_backward_archkd(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim, cur_arch_weights)
+            # archLosses = self.architect.unrolled_backward_archkd_updated_weight(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
             arch_hard_loss = archLosses[0]
             arch_alphaloss = archLosses[1]
             arch_loss = archLosses[-1]
