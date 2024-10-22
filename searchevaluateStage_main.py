@@ -59,7 +59,7 @@ def run_task(config):
     best_top1 = 0.
     for epoch in tqdm(range(start_epoch, trainer.total_epochs)):
         if epoch == trainer.search_epochs:
-            trainer.freeze_alphaParams()
+            trainer.switch_evaluation()
         train_top1, train_hardloss, train_softloss, train_loss, arch_train_hardloss, arch_train_softloss, arch_train_loss, arch_depth_loss = trainer.train_epoch(epoch, printer=logger.info)
         val_top1, val_loss = trainer.val_epoch(epoch, printer=logger.info)
         trainer.lr_scheduler.step()

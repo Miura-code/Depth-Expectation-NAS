@@ -148,7 +148,21 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
                 param.requires_grad = False
                 print(param)
         self.logger.info(f"--> Loaded alpha parameters are Freezed")
-    
+
+    def discrete_alpha(self):
+        self.logger.info(f"Discrete alpha is not implimented yet. Execute relax alpha value")
+        return
+
+    def switch_evaluation(self):
+        # ================= re-define data loader ==================
+        input_size, input_channels, n_classes, train_data = get_data(
+            self.config.dataset, self.config.data_path, cutout_length=self.config.cutout_length, validation=False, advanced=self.config.advanced
+        )
+        self.train_loader, self.valid_loader = split_dataloader(train_data, 0.9, self.config.batch_size, self.config.workers)
+        self.freeze_alphaParams()
+        if self.config.discrete:
+            self.discrete_alpha()
+
     def train_epoch(self, epoch, printer=print):
         top1 = AverageMeter()
         top5 = AverageMeter()
