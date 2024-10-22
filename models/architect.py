@@ -19,7 +19,7 @@ class Architect():
         self.w_momentum = w_momentum
         self.w_weight_decay = w_weight_decay
     
-    def unrolled_backward(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
+    def unrolled_backward(self, trn_X, trn_y, val_X, val_y, xi, w_optim, weights=None):
         """ First Order!
             Compute unrolled loss and backward its gradients
         Args:
@@ -28,10 +28,11 @@ class Architect():
         """
         logits_guide = self.teacher_net(val_X)
         logits = self.net(val_X)
-        hard_loss, soft_loss, loss = self.net.criterion(logits, logits_guide, val_y, True)
-        loss.backward()
+        # hard_loss, soft_loss, loss = self.net.criterion(logits, logits_guide, val_y, True)
+        losses = self.net.criterion((logits, val_y), updated_weight=weights, detail=True)
+        losses[-1].backward()
         
-        return hard_loss, soft_loss, loss
+        return losses
 
         logits_guide = self.v_teacher_net(val_X)
         logits = self.v_net(val_X)
@@ -186,7 +187,7 @@ class Architect_Hint(Architect):
     
 
 class Architect_Arch(Architect):
-    def __init__(self, net, teacher_net, w_momentum, w_weight_decay, teacher_feature_extractor=None, Regressor=None):
+    def __init__(self, net, teacher_net=None, w_momentum=None, w_weight_decay=None, teacher_feature_extractor=None, Regressor=None):
         # super().__init__(net, teacher_net, w_momentum, w_weight_decay)
         self.net = net
         self.teacher_net = teacher_net

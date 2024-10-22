@@ -65,9 +65,11 @@ elif [ ${arch} = "stage" ]; then
         seed=${10}
         dataset=cifar100
         lambda=${11}
+        min_lambda=${12}
         T=10
         batch_size=64
         epoch=50
+        eval_epoch=100
         train_portion=0.5 # searchの場合train_portionは0.5が最大値
         python searchStage_main.py \
             --type $method \
@@ -76,19 +78,21 @@ elif [ ${arch} = "stage" ]; then
             --teacher_name $teacher_model\
             --teacher_path $teacher_path \
             --l $lambda\
+            --final_l $min_lambda \
             --T $T \
             --dataset $dataset\
             --batch_size $batch_size \
             --epochs $epoch \
+            --eval_epochs $eval_epoch \
             --train_portion $train_portion \
             --seed $seed \
             --save $save \
             --spec_cell \
             --description $description \
             --depth_coef 0 \
-            --slide_window 8 \
-            --advanced
-            # --nonkd \
+            --slide_window 3 \
+            --advanced \
+            --nonkd
             # --cascade
             # --pcdarts
     elif [ ${type} = "test" ]; then

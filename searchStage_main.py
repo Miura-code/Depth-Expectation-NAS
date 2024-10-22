@@ -5,6 +5,7 @@ from config.searchStage_config import SearchStageConfig
 import searchStage_ArchHint_main
 import searchStage_Hint_main
 import searchStage_KD_main
+import searchevaluateStage_main
 
 def main():
     config = SearchStageConfig()
@@ -12,6 +13,8 @@ def main():
         searchStage_KD_main.run_task(config)
     elif config.type == "ArchHINT":
         searchStage_ArchHint_main.run_task(config)
+    elif config.type == "SearchEval":
+        searchevaluateStage_main.run_task(config)
     else:
         raise NotImplementedError("実装されていない学習手法です")
 
