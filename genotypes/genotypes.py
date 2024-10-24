@@ -333,7 +333,11 @@ def parse_dag_to_alpha(dag, n_big_nodes=6, n_ops=len(PRIMITIVES3), K=2, window=3
                 alpha.append(torch.zeros(i + 2, n_ops, device=device))
             else:
                 alpha.append(torch.zeros(window, n_ops, device=device))
+            offset = i + 2 - window
             for k in range(K):
-                alpha[-1][DAG[i][k][1]][PRIMITIVES2.index(DAG[i][k][0])] = torch.tensor(1.0)
+                if i + 2 < window:
+                    alpha[-1][DAG[i][k][1]][PRIMITIVES2.index(DAG[i][k][0])] = torch.tensor(1.0)
+                else:
+                    alpha[-1][DAG[i][k][1] - offset][PRIMITIVES2.index(DAG[i][k][0])] = torch.tensor(1.0)
     return alpha
  

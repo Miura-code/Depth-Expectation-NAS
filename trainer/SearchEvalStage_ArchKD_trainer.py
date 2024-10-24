@@ -150,7 +150,18 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         self.logger.info(f"--> Loaded alpha parameters are Freezed")
 
     def discrete_alpha(self):
-        self.logger.info(f"Discrete alpha is not implimented yet. Execute relax alpha value")
+        # self.logger.info(f"Discrete alpha is not implimented yet. Execute relax alpha value")
+        current_DAG = self.model.DAG()
+        current_state_dict = self.model.state_dict()
+        discrete_alpha_list = parse_dag_to_alpha(current_DAG, n_ops=self.model.alpha_DAG[0][0].size(0), window=self.sw, device=self.device)
+        count = 0
+        for name, param in self.model.named_parameters():
+            if 'alpha' in name:
+                self.model.alpha_DAG[count] = current_state_dict[name] = discrete_alpha_list[count]
+                count += 1
+        self.model.load_state_dict(current_state_dict, strict=True)
+        self.logger.info(f"--> Archtecture parameters are DISCRETED")
+
         return
 
     def switch_evaluation(self):
@@ -159,9 +170,10 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
             self.config.dataset, self.config.data_path, cutout_length=self.config.cutout_length, validation=False, advanced=self.config.advanced
         )
         self.train_loader, self.valid_loader = split_dataloader(train_data, 0.9, self.config.batch_size, self.config.workers)
-        self.freeze_alphaParams()
         if self.config.discrete:
             self.discrete_alpha()
+            self.model.print_alphas(self.logger)
+        self.freeze_alphaParams()
 
     def train_epoch(self, epoch, printer=print):
         top1 = AverageMeter()
@@ -217,7 +229,7 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
                 self.alpha_optim.step()
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
-            logits = self.model(trn_X)
+            logits = self.model(trn_X, fix=False if epoch < self.search_epochs else True)
             # teacher_guide = self.teacher_model(trn_X)
            
             hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)

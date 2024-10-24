@@ -38,7 +38,7 @@ def resume_model(model, model_path=None, device='cpu', printer=print):
 
 def resume_alpha_discrete(model, DAG, model_path=None, device='cpu', sw=10, printer=print):
     current_state_dict = model.state_dict()
-    
+
     discrete_alpha_list = parse_dag_to_alpha(DAG, n_ops=model.alpha_DAG[0][0].size(0), window=sw, device=device)
 
     count = 0

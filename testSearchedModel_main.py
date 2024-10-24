@@ -96,7 +96,7 @@ def validate(model, valid_loader, criterion, device):
             X, y = X.to(device, non_blocking=True), y.to(device, non_blocking=True)
             N = X.size(0)
 
-            logits = model(X)
+            logits = model(X, fix=config.discrete)
             loss = criterion(logits, y)
 
             prec1, prec5 = accuracy(logits, y, topk=(1,5))

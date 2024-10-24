@@ -176,8 +176,11 @@ class SearchStageController(nn.Module):
                 self._alphas.append((n, p))
         self.net = SearchStage(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell, slide_window=self.window)
           
-    def forward(self, x):
-        weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
+    def forward(self, x, fix=False):
+        if fix:
+            weights_DAG = [alpha for alpha in self.alpha_DAG]
+        else:
+            weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
 
         if len(self.device_ids) == 1:
             return self.net(x, weights_DAG)
