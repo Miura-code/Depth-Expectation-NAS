@@ -268,3 +268,42 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
         
         return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg, arch_hard_losses.avg, arch_soft_losses.avg, arch_losses.avg, arch_depth_losses.avg
+    
+    def val_epoch(self, epoch, printer):
+        top1 = AverageMeter()
+        top5 = AverageMeter()
+        losses = AverageMeter()
+
+        self.model.eval()
+        prefetcher = data_prefetcher(self.valid_loader)
+        X, y = prefetcher.next()
+        i = 0
+
+        with torch.no_grad():
+            while X is not None:
+                N = X.size(0)
+                i += 1
+
+                logits = self.model(X, fix=False if epoch < self.search_epochs else True)
+                loss = self.hard_criterion(logits, y)
+
+                prec1, prec5 = accuracy(logits, y, topk=(1, 5))
+                losses.update(loss.item(), N)
+                top1.update(prec1.item(), N)
+                top5.update(prec5.item(), N)
+                
+                if i % self.config.print_freq == 0 or i == len(self.valid_loader) - 1:
+                    printer(f'Valid: Epoch: [{epoch}][{i}/{len(self.valid_loader)}]\t'
+                            f'Step {self.steps}\t'
+                            f'Loss {losses.avg:.4f}\t'
+                            f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})')
+                
+                X, y = prefetcher.next()
+
+        self.writer.add_scalar('val/loss', losses.avg, self.steps)
+        self.writer.add_scalar('val/top1', top1.avg, self.steps)
+        self.writer.add_scalar('val/top5', top5.avg, self.steps)
+
+        printer("Valid: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
+        
+        return top1.avg, losses.avg
