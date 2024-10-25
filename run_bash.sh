@@ -6,10 +6,10 @@ teacher_path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthL
 
 experiment_name=SEARCHEVALnoDL
 for seed in 0 1 2;do
-    bash run_search3.sh SearchEval train stage ${experiment_name} none none s${seed}-relaxEval BASELINE_BEST Search_and_Evaluate_continuesly_noDepthLoss_nonKD_sw3 ${seed} 0 0
-    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s${seed}-relaxEval/DAG
+    bash run_search3.sh SearchEval train stage ${experiment_name} none none s${seed}-discreteEval BASELINE_BEST Search_and_Evaluate_continuesly_noDepthLoss_nonKD_sw3 ${seed} 0 0
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s$seed-discreteEval/DAG
     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s${seed}-relaxEval/best.pth.tar
+    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s${seed}-discreteEval/best.pth.tar
     python testSearchedModel_main.py \
     --save test \
     --genotype BASELINE_BEST \

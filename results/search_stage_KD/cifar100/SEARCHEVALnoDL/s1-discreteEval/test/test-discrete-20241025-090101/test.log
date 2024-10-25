@@ -1,0 +1,31 @@
+10/25 09:01:01AM parser.py:28 [INFO] 
+10/25 09:01:01AM parser.py:29 [INFO] Parameters:
+10/25 09:01:01AM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 4), ('skip_connect', 3)], [('skip_connect', 4), ('skip_connect', 3)], [('skip_connect', 4), ('skip_connect', 5)]], DAG1_concat=range(6, 8), DAG2=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG2_concat=range(6, 8), DAG3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG3_concat=range(6, 8))
+10/25 09:01:01AM parser.py:31 [INFO] ADVANCED=True
+10/25 09:01:01AM parser.py:31 [INFO] BATCH_SIZE=64
+10/25 09:01:01AM parser.py:31 [INFO] CHECKPOINT_RESET=False
+10/25 09:01:01AM parser.py:31 [INFO] CUTOUT_LENGTH=0
+10/25 09:01:01AM parser.py:31 [INFO] DATA_PATH=../data/
+10/25 09:01:01AM parser.py:31 [INFO] DATASET=cifar100
+10/25 09:01:01AM parser.py:31 [INFO] DESCRIPTION=
+10/25 09:01:01AM parser.py:31 [INFO] DISCRETE=True
+10/25 09:01:01AM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+10/25 09:01:01AM parser.py:31 [INFO] GPUS=[0]
+10/25 09:01:01AM parser.py:31 [INFO] INIT_CHANNELS=16
+10/25 09:01:01AM parser.py:31 [INFO] LAYERS=20
+10/25 09:01:01AM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+10/25 09:01:01AM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s1-discreteEval/test/test-discrete-20241025-090101
+10/25 09:01:01AM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s1-discreteEval/best.pth.tar
+10/25 09:01:01AM parser.py:31 [INFO] SAVE=test
+10/25 09:01:01AM parser.py:31 [INFO] SEED=0
+10/25 09:01:01AM parser.py:31 [INFO] SHARE_STAGE=False
+10/25 09:01:01AM parser.py:31 [INFO] SLIDE_WINDOW=3
+10/25 09:01:01AM parser.py:31 [INFO] SPEC_CELL=True
+10/25 09:01:01AM parser.py:31 [INFO] TRAIN_PORTION=0.5
+10/25 09:01:01AM parser.py:31 [INFO] WORKERS=4
+10/25 09:01:01AM parser.py:32 [INFO] 
+10/25 09:01:01AM testSearchedModel_main.py:41 [INFO] Logger is set - test start
+10/25 09:01:03AM params_util.py:51 [INFO] --> Loaded DISCRETED checkpoint '/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s1-discreteEval/best.pth.tar'
+10/25 09:01:03AM params_util.py:60 [INFO] --> Loaded alpha parameters are Freezed
+10/25 09:01:08AM testSearchedModel_main.py:81 [INFO] Test Prec(@1, @5) = (6.4400%, 25.8200%)
+10/25 09:01:08AM testSearchedModel_main.py:82 [INFO] Time to Test = (1729814463.806418, 1729814468.618616, 4.812198162078857)
