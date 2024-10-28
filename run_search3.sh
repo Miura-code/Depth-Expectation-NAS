@@ -92,8 +92,7 @@ elif [ ${arch} = "stage" ]; then
             --depth_coef 0 \
             --slide_window 3 \
             --advanced \
-            --nonkd \
-            --discrete
+            --nonkd
             # --cascade
             # --pcdarts
     elif [ ${type} = "test" ]; then
