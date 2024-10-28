@@ -146,7 +146,6 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         for name, param in self.model.named_parameters():
             if 'alpha' in name:
                 param.requires_grad = False
-                print(param)
         self.logger.info(f"--> Loaded alpha parameters are Freezed")
 
     def discrete_alpha(self):

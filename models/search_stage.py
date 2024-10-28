@@ -197,7 +197,7 @@ class SearchStageController(nn.Module):
         logits = self.forward(X)
         return self.criterion(logits, y)
     
-    def print_alphas(self, logger):
+    def print_alphas(self, logger, fix=False):
         org_formatters = []
         for handler in logger.handlers:
             org_formatters.append(handler.formatter)
@@ -206,7 +206,10 @@ class SearchStageController(nn.Module):
         logger.info("####### ALPHA #######")
         logger.info("# Alpha - DAG")
         for alpha in self.alpha_DAG:
-            logger.info(F.softmax(alpha, dim=-1))
+            if fix:
+                logger.info(alpha)
+            else:
+                logger.info(F.softmax(alpha, dim=-1))
         logger.info("#####################")
 
         for handler, formatter in zip(logger.handlers, org_formatters):
