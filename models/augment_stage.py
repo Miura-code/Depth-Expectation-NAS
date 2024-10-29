@@ -106,6 +106,7 @@ class AugmentStage(nn.Module):
         self.cells = nn.ModuleList()
 
         lenDAG1, lenDAG2, lenDAG3 = len(self.DAG.DAG1), len(self.DAG.DAG2), len(self.DAG.DAG3)
+        self.aux_head = nn.Identity()
 
         for i in range(n_layers):
             # if i in [0,1,2,3,4,5]:
