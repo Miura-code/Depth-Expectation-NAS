@@ -171,8 +171,8 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         self.train_loader, self.valid_loader = split_dataloader(train_data, 0.9, self.config.batch_size, self.config.workers)
         if self.config.discrete:
             self.discrete_alpha()
-            self.model.print_alphas(self.logger)
         self.freeze_alphaParams()
+        self.model.print_alphas(self.logger, fix=True)
 
     def train_epoch(self, epoch, printer=print):
         top1 = AverageMeter()
