@@ -1,0 +1,41 @@
+10/30 06:22:56AM parser.py:28 [INFO] 
+10/30 06:22:56AM parser.py:29 [INFO] Parameters:
+10/30 06:22:56AM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 3), ('skip_connect', 1)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG1_concat=range(6, 8), DAG2=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 6)]], DAG2_concat=range(6, 8), DAG3=[[('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG3_concat=range(6, 8))
+10/30 06:22:56AM parser.py:31 [INFO] ADVANCED=True
+10/30 06:22:56AM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+10/30 06:22:56AM parser.py:31 [INFO] AMP_SYNC_BN=True
+10/30 06:22:56AM parser.py:31 [INFO] AUX_WEIGHT=0.0
+10/30 06:22:56AM parser.py:31 [INFO] BATCH_SIZE=128
+10/30 06:22:56AM parser.py:31 [INFO] CIFAR=True
+10/30 06:22:56AM parser.py:31 [INFO] CUTOUT_LENGTH=0
+10/30 06:22:56AM parser.py:31 [INFO] DATA_PATH=../data/
+10/30 06:22:56AM parser.py:31 [INFO] DATASET=cifar100
+10/30 06:22:56AM parser.py:31 [INFO] DEPTH_COEF=1.0
+10/30 06:22:56AM parser.py:31 [INFO] DESCRIPTION=
+10/30 06:22:56AM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+10/30 06:22:56AM parser.py:31 [INFO] GPUS=[0]
+10/30 06:22:56AM parser.py:31 [INFO] INIT_CHANNELS=16
+10/30 06:22:56AM parser.py:31 [INFO] LAYERS=20
+10/30 06:22:56AM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+10/30 06:22:56AM parser.py:31 [INFO] MODEL_NAME=None
+10/30 06:22:56AM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s3-noAux16ch2/test/test-20241030-062256
+10/30 06:22:56AM parser.py:31 [INFO] PRINT_FREQ=50
+10/30 06:22:56AM parser.py:31 [INFO] RELAX=False
+10/30 06:22:56AM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s3-noAux16ch2/best.pth.tar
+10/30 06:22:56AM parser.py:31 [INFO] SAVE=test
+10/30 06:22:56AM parser.py:31 [INFO] SEED=0
+10/30 06:22:56AM parser.py:31 [INFO] SLIDE_WINDOW=3
+10/30 06:22:56AM parser.py:31 [INFO] SPEC_CELL=True
+10/30 06:22:56AM parser.py:31 [INFO] STAGE=True
+10/30 06:22:56AM parser.py:31 [INFO] TRAIN_PORTION=1.0
+10/30 06:22:56AM parser.py:31 [INFO] WORKERS=4
+10/30 06:22:56AM parser.py:32 [INFO] 
+10/30 06:22:56AM testModel_main.py:43 [INFO] Logger is set - test start
+10/30 06:22:59AM testModel_main.py:76 [INFO] --> Loaded checkpoint '/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s3-noAux16ch2/best.pth.tar'
+10/30 06:22:59AM testModel_main.py:77 [INFO] param size = 0.652428MB
+10/30 06:22:59AM testModel_main.py:79 [INFO] param size = 652.43 kMB, mac = 10.11 MMac
+10/30 06:23:01AM testModel_main.py:116 [INFO] Test: Step 000/078 Prec@(1,5) (77.3%, 93.0%)
+10/30 06:23:03AM testModel_main.py:116 [INFO] Test: Step 050/078 Prec@(1,5) (67.9%, 90.5%)
+10/30 06:23:04AM testModel_main.py:116 [INFO] Test: Step 078/078 Prec@(1,5) (68.0%, 90.2%)
+10/30 06:23:04AM testModel_main.py:87 [INFO] Test Prec(@1, @5) = (68.0500%, 90.1900%)
+10/30 06:23:04AM testModel_main.py:88 [INFO] Time to Test = (1730236979.879636, 1730236984.870313, 4.9906768798828125)
