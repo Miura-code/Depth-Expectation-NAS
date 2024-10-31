@@ -16,7 +16,7 @@ experiment_name=SEARCHEVALnoDL
 #     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s${seed}-discrete-noAux16ch-reset/best.pth.tar
 # done
 
-for seed in 0;do
+for seed in 0 1 2;do
     bash run_search3.sh SearchEval train stage $experiment_name none none s$seed-relaxEval2 BASELINE_BEST search_and_evaluate_on_SearchingModel_relaxed_arch_parameters $seed 0.1 0
 done
 
