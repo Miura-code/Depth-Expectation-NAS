@@ -9,6 +9,7 @@
 import os
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torchvision
 
 from torch.utils.tensorboard import SummaryWriter
@@ -142,7 +143,15 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
 
         return model
     
-    def freeze_alphaParams(self):
+    def freeze_alphaParams(self, analog=False):
+        current_state_dict = self.model.state_dict()
+        count = 0
+        for name, param in self.model.named_parameters():
+            if 'alpha' in name:
+                if analog:
+                    self.model.alpha_DAG[count] = current_state_dict[name] = F.softmax(param, dim=-1)
+                    count += 1
+        self.model.load_state_dict(current_state_dict, strict=True)
         for name, param in self.model.named_parameters():
             if 'alpha' in name:
                 param.requires_grad = False
@@ -171,7 +180,7 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         self.train_loader, self.valid_loader = split_dataloader(train_data, 0.9, self.config.batch_size, self.config.workers)
         if self.config.discrete:
             self.discrete_alpha()
-        self.freeze_alphaParams()
+        self.freeze_alphaParams(analog=not(self.config.discrete))
         self.model.print_alphas(self.logger, fix=True)
 
     def train_epoch(self, epoch, printer=print):
