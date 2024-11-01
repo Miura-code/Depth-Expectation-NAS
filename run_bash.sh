@@ -16,8 +16,20 @@ experiment_name=SEARCHEVALnoDL
 #     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s${seed}-discrete-noAux16ch-reset/best.pth.tar
 # done
 
-for seed in 0;do
-    bash run_search3.sh SearchEval train stage $experiment_name none none s$seed-relaxEval2 BASELINE_BEST search_and_evaluate_on_SearchingModel_relaxed_arch_parameters $seed 0.1 0
+for seed in 0 1 2 3 4;do
+    bash run_search3.sh SearchEval train stage $experiment_name none none s$seed-relaxEval BASELINE_BEST search_and_evaluate_on_SearchingModel_relaxed_arch_parameters $seed 0.1 0
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-relaxEval/DAG
+    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s${seed}-relaxEval/best.pth.tar
+    python testSearchedModel_main.py \
+        --resume_path $path \
+        --genotype BASELINE_BEST \
+        --DAG $dag \
+        --save test \
+        --seed 0 \
+        --spec_cell \
+        --slide_window 3 \
+        --advanced
 done
 
 # minl=0.004
