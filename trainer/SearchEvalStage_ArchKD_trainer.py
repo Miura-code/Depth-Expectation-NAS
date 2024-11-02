@@ -15,7 +15,7 @@ import torchvision
 from torch.utils.tensorboard import SummaryWriter
 
 from genotypes.genotypes import parse_dag_to_alpha
-from models.search_stage import SearchStageController, SearchStageController_FullCascade, SearchStageControllerPartialConnection
+from models.search_stage import SearchStage, SearchStageController, SearchStageController_FullCascade, SearchStageControllerPartialConnection
 import teacher_models
 from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 from utils.loss import AlphaArchLoss, CosineScheduler, KD_Loss, SoftTargetKLLoss, WeightedCombinedLoss
@@ -171,6 +171,18 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         self.logger.info(f"--> Archtecture parameters are DISCRETED")
 
         return
+    
+    def reset_model(self, input_size):
+        net = SearchStage(input_size, self.model.net.C_in, self.model.net.C, self.model.net.n_classes, self.model.net.n_layers, self.model.net.genotype, self.model.net.n_big_nodes, spec_cell=self.config.spec_cell, slide_window=self.sw)
+        self.model.net = net
+        self.model = self.model.to(self.device)
+        self.w_optim = torch.optim.SGD(self.model.weights(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
+        self.alpha_optim = torch.optim.Adam(self.model.alphas(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
+       
+        self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
+        self.architect = Architect_Arch(self.model, self.teacher_model, self.config.w_momentum, self.config.w_weight_decay)
+        
+        self.logger.info(f"--> Network parameter is reseted excluding archtecture parameters.")
 
     def switch_evaluation(self):
         # ================= re-define data loader ==================
@@ -178,6 +190,8 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
             self.config.dataset, self.config.data_path, cutout_length=self.config.cutout_length, validation=False, advanced=self.config.advanced
         )
         self.train_loader, self.valid_loader = split_dataloader(train_data, 0.9, self.config.batch_size, self.config.workers)
+        if self.config.reset:
+            self.reset_model(input_size)
         if self.config.discrete:
             self.discrete_alpha()
         self.freeze_alphaParams(analog=not(self.config.discrete))
