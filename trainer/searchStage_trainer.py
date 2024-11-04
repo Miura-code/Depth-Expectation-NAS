@@ -66,8 +66,6 @@ class SearchStageTrainer_WithSimpleKD():
         self.logger = self.config.logger
         self.writer = SummaryWriter(log_dir=os.path.join(self.config.path, "tb"))
         self.writer.add_text('config', config.as_markdown(), 0)
-
-        self.construct_model()
     
     def construct_model(self):
         # ================= define data loader ==================

@@ -7,10 +7,10 @@
 
 import os
 from trainer.searchStage_ArchKD_trainer import SearchStageTrainer_ArchKD
+from trainer.searchStage_BetaConcat_trainer import SearchStageTrainer_BetaConcat
 import utils
 from utils.logging_util import get_std_logging
 from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
-from trainer.searchShareStage_trainer import SearchShareStageTrainer
 from genotypes.genotypes import save_DAG
 from utils.visualize import plot2, png2gif
 from utils.eval_util import RecordDataclass
@@ -36,9 +36,12 @@ def run_task(config):
         trainer = SearchStageTrainer_WithSimpleKD(config)
     elif config.type == "ArchKD":
         trainer = SearchStageTrainer_ArchKD(config)
+    elif config.type == "Pruning":
+        trainer = SearchStageTrainer_BetaConcat(config)
     else:
         raise NotImplementedError("実装されていない学習手法です")
     
+    trainer.construct_model()
     trainer.resume_model()
     start_epoch = trainer.start_epoch
     # ================= record initial genotype ==================
@@ -112,12 +115,3 @@ def run_task(config):
     png2gif(config.plot_path, config.DAG_path, file_name="DAG3_history", pattern="*DAG3*")
     
     trainer.writer.add_text('result/acc', utils.ListToMarkdownTable(["best_val_acc"], [best_top1]), 0)
-
-
-def main():
-    config = SearchStageConfig()
-    run_task(config)
-
-
-if __name__ == "__main__":
-    main()

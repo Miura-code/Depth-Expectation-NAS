@@ -311,6 +311,32 @@ def parse_concat(beta):
     _, index = torch.topk(beta, 1, dim=0)
     return range(index + 4, index + 6)
 
+def parse_beta(beta, n_big_nodes):
+    """
+    parse continuous beta ti discrete concat
+    beta is ParameterList:
+    ParameterList [
+        Parameter(1, 1),
+        Parameter(1, 1),
+        ...
+    ]
+
+    concat is list:
+    range(2, 4)
+    range(5, 7)
+    ...
+    range(6, 8)
+    """
+    _, index = torch.topk(beta, 1, dim=0)
+    count = 0
+    for i in range(2, n_big_nodes + 1):
+            for j in range(i+1, n_big_nodes + 2):
+                if index == count:
+                    return [i, j]
+                else:
+                    count += 1
+    raise AssertionError("BETA パラメータの解析に失敗しました。")
+    
 def save_DAG(DAG, path, is_best=False):
     if is_best:
         path = path + '-best'

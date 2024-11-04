@@ -123,7 +123,6 @@ class AlphaArchLoss_Temprature(nn.Module):
         for alpha, target_alpha in zip(alphaDAG, self.soft_target_alpha):
             loss = loss + torch.sum((target_alpha - alpha) ** 2)
         return (self.T **2)  * loss
-        
     
 class AlphaLaplacianLoss(nn.Module):
 
@@ -300,3 +299,87 @@ class CosineScheduler():
         cosine_increase = 0.5 * (1 - math.cos(math.pi * current_step / self.total_steps))
         increased_value = self.initial_value + (self.final_value - self.initial_value) * cosine_increase
         return increased_value
+    
+class L1loss_alpha(nn.Module):
+    def __init__(self, n_node, theta):
+        """
+        Args:
+            theta (list or torch.Tensor): 各ステージのセル一つ分の計算コスト(FLOPSやパラメータ数,各ステージごとの比率でも可)
+        """
+        super(L1loss_alpha, self).__init__()
+        self.n_node = n_node
+        self.theta = torch.tensor(theta, dtype=torch.float32)
+
+    def forward(self, alpha):
+        """Forward pass loss .
+        Args:
+            alpha ([type]): 構造パラメータalpha
+        """
+        loss = 0
+        for s in range(3):
+            # スライスしたベクトルのL2ノルムを計算し、対応する重みでスケーリング
+            for a in alpha[s][2:-2]:
+                loss += self.theta[s] * torch.norm(a, p=2)
+        return loss
+    
+class L1loss_beta(nn.Module):
+    def __init__(self, n_node:int, theta:list):
+        """
+        Args:
+            theta (list or torch.Tensor): 各ステージのセル一つ分の計算コスト(FLOPSやパラメータ数,各ステージごとの比率でも可)
+        """
+        super(L1loss_beta, self).__init__()
+        self.n_node = n_node
+        self.theta = torch.tensor(theta, dtype=torch.float32)
+
+    def forward(self, beta):
+        """Forward pass loss .
+        Args:
+            alpha ([type]): 構造パラメータalpha
+        """
+        loss = 0
+        for s in range(3):
+            # スライスしたベクトルのL2ノルムを計算し、対応する重みでスケーリング
+            loss += self.theta[s] * torch.norm(beta[s], p=2)
+        return loss
+    
+class CellComp_beta(nn.Module):
+    def __init__(self, n_node, theta):
+        """
+        Args:
+            theta (list or torch.Tensor): 各ステージのセル一つ分の計算コスト(FLOPSやパラメータ数,各ステージごとの比率でも可)
+        """
+        super(CellComp_beta, self).__init__()
+        self.n_node = n_node
+        self.theta = torch.tensor(theta, dtype=torch.float32)
+
+    def forward(self, beta):
+        """Forward pass loss .
+        Args:
+            beta ([type]): 構造パラメータbeta
+        """
+        loss = 0
+        for s in range(3):
+            m = 0
+            for i in range(2, self.n_node-1):
+                for j in range(i+1, self.n_node):
+                    loss += self.theta[s] * j * beta[s][m]
+                    m += 1
+            # スライスしたベクトルのL2ノルムを計算し、対応する重みでスケーリング
+        return loss
+    
+if __name__ == "__main__":
+    alpha_DAG = nn.ParameterList()
+    n = 8
+    for _ in range(3):
+        # for i in range(6):
+        #     # sliding window
+        #     # if i + 2 < 10:
+        #     #     alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(i + 2, 3)))
+        #     # else:
+        #     #     alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(10, 3)))
+        alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(int((n-2)*(n-3)/2))))
+    Loss = CellComp_beta(n, theta=[1,1,1])
+    print(alpha_DAG)
+    loss = Loss([alpha for alpha in alpha_DAG])
+    print(loss)
