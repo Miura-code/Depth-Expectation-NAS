@@ -1838,3 +1838,50 @@
 10/31 01:05:42午前 evaluateStage_trainer.py:183 [INFO] Valid: [ 99/99] Final Prec@1 65.6000%
 10/31 01:05:42午前 evaluateStage_main.py:74 [INFO] Until now, best Prec@1 = 66.3600%
 10/31 01:05:42午前 evaluateStage_main.py:78 [INFO] Final best Prec@1 = 66.3600%
+11/04 02:00:33AM parser.py:28 [INFO] 
+11/04 02:00:33AM parser.py:29 [INFO] Parameters:
+11/04 02:00:33AM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 3)], [('skip_connect', 4), ('skip_connect', 3)], [('skip_connect', 4), ('skip_connect', 3)], [('skip_connect', 4), ('skip_connect', 6)]], DAG1_concat=range(6, 8), DAG2=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG2_concat=range(6, 8), DAG3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG3_concat=range(6, 8))
+11/04 02:00:33AM parser.py:31 [INFO] T=10.0
+11/04 02:00:33AM parser.py:31 [INFO] ADVANCED=True
+11/04 02:00:33AM parser.py:31 [INFO] AUX_WEIGHT=0.0
+11/04 02:00:33AM parser.py:31 [INFO] BATCH_SIZE=64
+11/04 02:00:33AM parser.py:31 [INFO] CUTOUT_LENGTH=16
+11/04 02:00:33AM parser.py:31 [INFO] DATA_PATH=../data/
+11/04 02:00:33AM parser.py:31 [INFO] DATASET=cifar100
+11/04 02:00:33AM parser.py:31 [INFO] DESCRIPTION=evaluate_without_auxiliary_head_and_init_channel-16_droppathprob-0
+11/04 02:00:33AM parser.py:31 [INFO] DROP_PATH_PROB=0.0
+11/04 02:00:33AM parser.py:31 [INFO] EPOCHS=100
+11/04 02:00:33AM parser.py:31 [INFO] EXP_NAME=s0-discrete-noAux16ch-reset
+11/04 02:00:33AM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+11/04 02:00:33AM parser.py:31 [INFO] GPUS=[0]
+11/04 02:00:33AM parser.py:31 [INFO] GRAD_CLIP=5.0
+11/04 02:00:33AM parser.py:31 [INFO] INIT_CHANNELS=16
+11/04 02:00:33AM parser.py:31 [INFO] L=0.5
+11/04 02:00:33AM parser.py:31 [INFO] LAYERS=20
+11/04 02:00:33AM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+11/04 02:00:33AM parser.py:31 [INFO] LR=0.025
+11/04 02:00:33AM parser.py:31 [INFO] LR_MIN=0.001
+11/04 02:00:33AM parser.py:31 [INFO] MOMENTUM=0.9
+11/04 02:00:33AM parser.py:31 [INFO] NAME=SEARCHEVALnoDL
+11/04 02:00:33AM parser.py:31 [INFO] NONKD=True
+11/04 02:00:33AM parser.py:31 [INFO] PATH=results/evaluate_stage_KD/cifar100/SEARCHEVALnoDL/s0-discrete-noAux16ch-reset
+11/04 02:00:33AM parser.py:31 [INFO] PRINT_FREQ=50
+11/04 02:00:33AM parser.py:31 [INFO] RESUME_PATH=None
+11/04 02:00:33AM parser.py:31 [INFO] SAVE=s0-discrete-noAux16ch-reset
+11/04 02:00:33AM parser.py:31 [INFO] SEED=0
+11/04 02:00:33AM parser.py:31 [INFO] SPEC_CELL=True
+11/04 02:00:33AM parser.py:31 [INFO] TEACHER_NAME=none
+11/04 02:00:33AM parser.py:31 [INFO] TEACHER_PATH=none
+11/04 02:00:33AM parser.py:31 [INFO] TRAIN_PORTION=0.9
+11/04 02:00:33AM parser.py:31 [INFO] WEIGHT_DECAY=0.0003
+11/04 02:00:33AM parser.py:31 [INFO] WORKERS=4
+11/04 02:00:33AM parser.py:32 [INFO] 
+11/04 02:00:34AM evaluateStage_trainer.py:82 [INFO] --> No loaded checkpoint!
+11/04 02:00:39AM evaluateStage_trainer.py:141 [INFO] Train: Epoch: [0][50/703]	Step 50	lr 0.025	Loss 4.4469 (4.5911)	Prec@(1,5) (1.9%, 7.6%)	
+11/04 02:00:43AM evaluateStage_trainer.py:141 [INFO] Train: Epoch: [0][100/703]	Step 100	lr 0.025	Loss 4.5751 (4.5649)	Prec@(1,5) (2.5%, 9.9%)	
+11/04 02:00:47AM evaluateStage_trainer.py:141 [INFO] Train: Epoch: [0][150/703]	Step 150	lr 0.025	Loss 4.2953 (4.4939)	Prec@(1,5) (2.9%, 11.6%)	
+11/04 02:00:51AM evaluateStage_trainer.py:141 [INFO] Train: Epoch: [0][200/703]	Step 200	lr 0.025	Loss 4.0664 (4.4052)	Prec@(1,5) (3.5%, 14.1%)	
+11/04 02:00:55AM evaluateStage_trainer.py:141 [INFO] Train: Epoch: [0][250/703]	Step 250	lr 0.025	Loss 3.8765 (4.3306)	Prec@(1,5) (4.3%, 16.3%)	
+11/04 02:00:59AM evaluateStage_trainer.py:141 [INFO] Train: Epoch: [0][300/703]	Step 300	lr 0.025	Loss 3.9841 (4.2815)	Prec@(1,5) (4.8%, 17.8%)	
+11/04 02:01:03AM evaluateStage_trainer.py:141 [INFO] Train: Epoch: [0][350/703]	Step 350	lr 0.025	Loss 4.0901 (4.2348)	Prec@(1,5) (5.3%, 19.3%)	
+11/04 02:01:07AM evaluateStage_trainer.py:141 [INFO] Train: Epoch: [0][400/703]	Step 400	lr 0.025	Loss 3.6882 (4.1896)	Prec@(1,5) (5.8%, 20.8%)	
