@@ -143,22 +143,23 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
 
         return model
     
-    def freeze_alphaParams(self, analog=False):
-        current_state_dict = self.model.state_dict()
-        count = 0
-        for name, param in self.model.named_parameters():
-            if 'alpha' in name:
-                if analog:
+    def freeze_alphaParams(self):
+        if self.config.discrete:
+            self.discrete_alpha()
+        else:
+            current_state_dict = self.model.state_dict()
+            count = 0
+            for name, param in self.model.named_parameters():
+                if 'alpha' in name:
                     self.model.alpha_DAG[count] = current_state_dict[name] = F.softmax(param, dim=-1)
                     count += 1
-        self.model.load_state_dict(current_state_dict, strict=True)
+            self.model.load_state_dict(current_state_dict, strict=True)
         for name, param in self.model.named_parameters():
             if 'alpha' in name:
                 param.requires_grad = False
         self.logger.info(f"--> Loaded alpha parameters are Freezed")
 
     def discrete_alpha(self):
-        # self.logger.info(f"Discrete alpha is not implimented yet. Execute relax alpha value")
         current_DAG = self.model.DAG()
         current_state_dict = self.model.state_dict()
         discrete_alpha_list = parse_dag_to_alpha(current_DAG, n_ops=self.model.alpha_DAG[0][0].size(0), window=self.sw, device=self.device)
@@ -173,28 +174,35 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         return
     
     def reset_model(self, input_size):
-        net = SearchStage(input_size, self.model.net.C_in, self.model.net.C, self.model.net.n_classes, self.model.net.n_layers, self.model.net.genotype, self.model.net.n_big_nodes, spec_cell=self.config.spec_cell, slide_window=self.sw)
-        self.model.net = net
-        self.model = self.model.to(self.device)
+        current_alpha = self.model.alpha_DAG
+
+        model = self.Controller(input_size, self.model.net.C_in, self.config.init_channels, self.model.net.n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw)
+        self.model = model.to(self.device)
+
+        current_state_dict = self.model.state_dict()
+        count = 0
+        for name, param in self.model.named_parameters():
+            if 'alpha' in name:
+                self.model.alpha_DAG[count] = current_state_dict[name] = current_alpha[count]
+                count += 1
+        self.model.load_state_dict(current_state_dict, strict=True)
+
         self.w_optim = torch.optim.SGD(self.model.weights(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
         self.alpha_optim = torch.optim.Adam(self.model.alphas(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
-       
-        self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
+        self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.val_epoch, eta_min=self.config.w_lr_min)
         self.architect = Architect_Arch(self.model, self.teacher_model, self.config.w_momentum, self.config.w_weight_decay)
-        
-        self.logger.info(f"--> Network parameter is reseted excluding archtecture parameters.")
+    
+        self.logger.info(f"--> Network parameter is reseted.")
 
     def switch_evaluation(self):
         # ================= re-define data loader ==================
         input_size, input_channels, n_classes, train_data = get_data(
-            self.config.dataset, self.config.data_path, cutout_length=self.config.cutout_length, validation=False, advanced=self.config.advanced
+            self.config.dataset, self.config.data_path, cutout_length=16, validation=False, advanced=self.config.advanced
         )
         self.train_loader, self.valid_loader = split_dataloader(train_data, 0.9, self.config.batch_size, self.config.workers)
         if self.config.reset:
             self.reset_model(input_size)
-        if self.config.discrete:
-            self.discrete_alpha()
-        self.freeze_alphaParams(analog=not(self.config.discrete))
+        self.freeze_alphaParams()
         self.model.print_alphas(self.logger, fix=True)
 
     def train_epoch(self, epoch, printer=print):
