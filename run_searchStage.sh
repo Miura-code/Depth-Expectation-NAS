@@ -11,6 +11,7 @@ if [ ${type} = "train" ]; then
     epoch=50
     eval_epoch=100
     train_portion=0.5 # searchの場合train_portionは0.5が最大値
+    macs="8.18 2.49 1.88"
 
     name=$3
     teacher_model=$4
@@ -27,7 +28,7 @@ if [ ${type} = "train" ]; then
     slide_window=${15}
     discrete=${16}
     reset=${17}
-    beta_criterion=${18}
+    arch_criterion=${18}
     
     python searchStage_main.py \
         --type $method \
@@ -49,7 +50,8 @@ if [ ${type} = "train" ]; then
         --slide_window $slide_window \
         --discrete $discrete\
         --reset $reset\
-        --beta_criterion $beta_criterion\
+        --arch_criterion $arch_criterion\
+        --stage_macs $macs \
         --spec_cell 1\
         --genotype $genotype \
         --teacher_name $teacher_model\

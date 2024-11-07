@@ -783,7 +783,7 @@ class SearchStageDistributionBetaController(SearchStageController):
         # 3 stages
         # initialize architecture parameter(alpha)
         for _ in range(3):
-            self.beta.append(nn.Parameter(1e-3 * torch.randn(int((self.n_big_nodes-2)*(self.n_big_nodes-3)/2))))
+            self.beta.append(nn.Parameter(1e-3 * torch.randn(int((self.n_big_nodes)*(self.n_big_nodes-1)/2))))
             
         self._betas = []
         for n, p in self.named_parameters():
@@ -843,11 +843,14 @@ class SearchStageDistributionBetaController(SearchStageController):
         concat = []
         for i in range(3):
             concat.append(gt.parse_beta(self.beta[i], n_big_nodes=self.n_big_nodes))
-
         return gt.Genotype2(DAG1=gene_DAG1, DAG1_concat=concat[0],
                             DAG2=gene_DAG2, DAG2_concat=concat[1],
                             DAG3=gene_DAG3, DAG3_concat=concat[2])
 
     def betas(self):
         for n, p in self._betas:
+            yield p
+            
+    def archparams(self):
+        for n, p in self._alphas+self._betas:
             yield p

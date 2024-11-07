@@ -226,7 +226,7 @@ class Architect_Arch(Architect):
         """
         # logits_guide = self.teacher_net(val_X)
         logits = self.net(val_X)
-        losses = self.net.criterion((logits, val_y), ([self.net.alphas()]), updated_weight=weights, detail=True)
+        losses = self.net.criterion((logits, val_y), ([self.net.alpha_DAG]), updated_weight=weights, detail=True)
         losses[-1].backward()
         
         return losses

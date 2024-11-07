@@ -8,7 +8,8 @@ from models.search_stage import SearchStageDistributionBetaController
 from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 
 import utils
-from utils.loss import AlphaArchLoss, CellComp_beta, CosineScheduler, KD_Loss, L1loss_beta, SoftTargetKLLoss, WeightedCombinedLoss
+import utils.measurement_utils
+from utils.loss import CellLength_beta, CosineScheduler, Lp_loss_beta, WeightedCombinedLoss
 from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, accuracy, validate
 from utils.data_prefetcher import data_prefetcher
@@ -31,11 +32,14 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer_WithSimpleKD):
         self.train_loader, self.valid_loader = split_dataloader(train_data, self.config.train_portion, self.config.batch_size, self.config.workers)
         print("---------- init student model ----------")
         # ================= define criteria ==================
+        mac_ratio = torch.tensor(
+            utils.measurement_utils.MACs_float_to_ratio(self.config.stage_macs)
+        )
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
-        if self.config.beta_criterion == "l2":
-            self.beta_criterioin = L1loss_beta(self.config.layers//3, [1,1,1]).to(self.device)
-        elif self.config.beta_criterion == "length":
-            self.beta_criterioin = CellComp_beta(self.config.layers//3, [1,1,1]).to(self.device)
+        if self.config.arch_criterion == "l2":
+            self.beta_criterioin = Lp_loss_beta(self.config.layers//3, mac_ratio).to(self.device)
+        elif self.config.arch_criterion == "length":
+            self.beta_criterioin = CellLength_beta(self.config.layers//3, mac_ratio).to(self.device)
 
         self.loss_functions = [self.hard_criterion, self.beta_criterioin]
         self.loss_weights = [1.0, self.config.g]
@@ -43,13 +47,13 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer_WithSimpleKD):
         # ================= Student model ==================
         model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw)
         self.model = model.to(self.device)
-
         # showModelOnTensorboard(self.writer, self.model, self.train_loader)
         print("---------- init student model end! ----------")
+        # mac, params = utils.measurement_utils.count_ModelSize_byptflops(model, (input_channels,input_size,input_size), path=os.path.join(self.ckpt_path, "model_flops_info.txt"))
         # ================= build Optimizer ==================
         print("---------- get optimizer ----------")
         self.w_optim = torch.optim.SGD(self.model.weights(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
-        self.alpha_optim = torch.optim.Adam(self.model.alphas(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
+        self.alpha_optim = torch.optim.Adam(self.model.archparams(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
        
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
         self.architect = Architect_Arch(self.model, None, self.config.w_momentum, self.config.w_weight_decay)
@@ -131,7 +135,7 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer_WithSimpleKD):
                         f'Loss {losses.val:.4f} ({losses.avg:.4f})\t'
                         f'Arch Loss {arch_losses.val:.4f} ({arch_losses.avg:.4f})\t'
                         f'Arch Hard Loss {arch_hard_losses.val:.4f} ({arch_hard_losses.avg:.4f})\t'
-                        f'Arch Alpha Loss {arch_soft_losses.val:.4f} ({arch_soft_losses.avg:.4f})\t'
+                        f'Arch Beta Loss {arch_soft_losses.val:.4f} ({arch_soft_losses.avg:.4f})\t'
                         f'Arch depth Loss {arch_depth_losses.val:.4f} ({arch_depth_losses.avg:.4f})\t'
                         f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})\t'
                         )

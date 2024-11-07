@@ -301,7 +301,7 @@ class CosineScheduler():
         return increased_value
     
 class L1loss_alpha(nn.Module):
-    def __init__(self, n_node, theta):
+    def __init__(self, n_node, theta, p=1):
         """
         Args:
             theta (list or torch.Tensor): 各ステージのセル一つ分の計算コスト(FLOPSやパラメータ数,各ステージごとの比率でも可)
@@ -309,28 +309,34 @@ class L1loss_alpha(nn.Module):
         super(L1loss_alpha, self).__init__()
         self.n_node = n_node
         self.theta = torch.tensor(theta, dtype=torch.float32)
+        self.p = p
 
     def forward(self, alpha):
         """Forward pass loss .
         Args:
             alpha ([type]): 構造パラメータalpha
         """
+        alpha = [alpha[0 * self.n_node: 1 * self.n_node],
+            alpha[1 * self.n_node: 2 * self.n_node],
+            alpha[2 * self.n_node: 3 * self.n_node]
+        ]
         loss = 0
-        for s in range(3):
+        for s, al in enumerate(alpha):
             # スライスしたベクトルのL2ノルムを計算し、対応する重みでスケーリング
-            for a in alpha[s][2:-2]:
-                loss += self.theta[s] * torch.norm(a, p=2)
+            for a in al[2:-2]:
+                loss += self.theta[s] * torch.norm(a, p=self.p)
         return loss
     
-class L1loss_beta(nn.Module):
-    def __init__(self, n_node:int, theta:list):
+class Lp_loss_beta(nn.Module):
+    def __init__(self, n_node:int, theta:list, p=1):
         """
         Args:
             theta (list or torch.Tensor): 各ステージのセル一つ分の計算コスト(FLOPSやパラメータ数,各ステージごとの比率でも可)
         """
-        super(L1loss_beta, self).__init__()
+        super(Lp_loss_beta, self).__init__()
         self.n_node = n_node
         self.theta = torch.tensor(theta, dtype=torch.float32)
+        self.p = p
 
     def forward(self, beta):
         """Forward pass loss .
@@ -338,20 +344,21 @@ class L1loss_beta(nn.Module):
             alpha ([type]): 構造パラメータalpha
         """
         loss = 0
-        for s in range(3):
+        for s, be in enumerate(beta):
             # スライスしたベクトルのL2ノルムを計算し、対応する重みでスケーリング
-            loss += self.theta[s] * torch.norm(beta[s], p=2)
+            loss += self.theta[s] * torch.norm(be, p=self.p)
         return loss
     
-class CellComp_beta(nn.Module):
-    def __init__(self, n_node, theta):
+class CellLength_beta(nn.Module):
+    def __init__(self, n_node, theta, p=1):
         """
         Args:
             theta (list or torch.Tensor): 各ステージのセル一つ分の計算コスト(FLOPSやパラメータ数,各ステージごとの比率でも可)
         """
-        super(CellComp_beta, self).__init__()
+        super(CellLength_beta, self).__init__()
         self.n_node = n_node
         self.theta = torch.tensor(theta, dtype=torch.float32)
+        self.p = p
 
     def forward(self, beta):
         """Forward pass loss .
@@ -359,27 +366,31 @@ class CellComp_beta(nn.Module):
             beta ([type]): 構造パラメータbeta
         """
         loss = 0
-        for s in range(3):
+        for s, be in enumerate(beta):
             m = 0
             for i in range(2, self.n_node-1):
                 for j in range(i+1, self.n_node):
-                    loss += self.theta[s] * j * beta[s][m]
+                    loss += self.theta[s] * j * torch.norm(be[m], p=self.p)
                     m += 1
-            # スライスしたベクトルのL2ノルムを計算し、対応する重みでスケーリング
         return loss
     
 if __name__ == "__main__":
     alpha_DAG = nn.ParameterList()
-    n = 8
+    n = n_big_nodes = 8
+    sw = 15
     for _ in range(3):
-        # for i in range(6):
-        #     # sliding window
-        #     # if i + 2 < 10:
-        #     #     alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(i + 2, 3)))
-        #     # else:
-        #     #     alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(10, 3)))
-        alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(int((n-2)*(n-3)/2))))
-    Loss = CellComp_beta(n, theta=[1,1,1])
+        for i in range(n):
+            if i + 2 < sw:
+                alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(i + 2, 3)))
+            else:
+                alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(sw, 3)))
+        # alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(int((n-2)*(n-3)/2))))
+    Loss = L1loss_alpha(n, theta=[1,1,1])
     print(alpha_DAG)
-    loss = Loss([alpha for alpha in alpha_DAG])
+    
+    aa = [alpha_DAG[0 * n_big_nodes: 1 * n_big_nodes],
+    alpha_DAG[1 * n_big_nodes: 2 * n_big_nodes],
+    alpha_DAG[2 * n_big_nodes: 3 * n_big_nodes]]
+    print(aa)
+    loss = Loss(aa)
     print(loss)

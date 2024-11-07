@@ -2,22 +2,29 @@
 teacher_path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s0-BaselineBestCell/best.pth.tar
 genotype=BASELINE_BEST
 
-experiment_name=SEARCHEVALnoDL
+experiment_name=Pruning
 
-for seed in 1 2 3 4;do
-    bash run_searchStage.sh train SearchEval \
-    $experiment_name none none s$seed-discreteEval-reset\
+for seed in 0;do
+    bash run_searchStage.sh train ArchKD \
+    $experiment_name h_das_224baseline $teacher_path s$seed-L1Alpha\
     $genotype \
-    search_and_evaluation_discrete_reset \
-    $seed 0 1 0.0001 \
-    1 0 3 1 1\
-    length
-    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-reset/DAG
-    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-reset/best.pth.tar
-    bash run_searchStage.sh test SearchEval \
-    $path $genotype $dag \
-    3 1
+    search_wtih_cell-length-constriction \
+    $seed 0 1 1 \
+    1 0 10 0 0\
+    alphal1
+    # bash run_searchStage.sh train Pruning \
+    # $experiment_name none none s$seed-L1Beta\
+    # $genotype \
+    # search_wtih_beta-L2-constriction \
+    # $seed 0 1 1 \
+    # 1 0 10 0 0\
+    # l2
+    # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-length-test/DAG
+    # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-length-test/best.pth.tar
+    # bash run_searchStage.sh test Pruning \
+    # $path $genotype $dag \
+    # 10 0
 done
 
 # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s0-BaselineBestCell/DAG

@@ -329,10 +329,10 @@ def parse_beta(beta, n_big_nodes):
     """
     _, index = torch.topk(beta, 1, dim=0)
     count = 0
-    for i in range(2, n_big_nodes + 1):
-            for j in range(i+1, n_big_nodes + 2):
+    for i in range(0, n_big_nodes-1):
+            for j in range(i+1, n_big_nodes):
                 if index == count:
-                    return [i, j]
+                    return [i+2, j+2]
                 else:
                     count += 1
     raise AssertionError("BETA パラメータの解析に失敗しました。")

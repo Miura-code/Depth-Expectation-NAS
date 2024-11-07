@@ -165,7 +165,7 @@ class SearchBigDAG_BETA(SearchBigDAG):
                 states.append(self.DAG[j + self.n_big_nodes](s_cur, s_cur))
         
         s_out = list()
-        for i in range(4, self.n_big_nodes + 1):
+        for i in range(2, self.n_big_nodes + 1):
             for j in range(i+1, self.n_big_nodes + 2):
                 s_out.append(torch.cat([states[i], states[j]], dim=1))
         

@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import torchvision.transforms as transforms
-from utils import SETTING
+from utils import setting
 
 class Cutout(object):
     def __init__(self, length):
@@ -44,32 +44,31 @@ class GrayToRGB:
 
 def data_transforms(dataset, cutout_length):
     dataset = dataset.lower()
-    stat_setting = SETTING()
     if dataset == 'cifar10':
-        MEAN = stat_setting.CIFAR10_MEAN
-        STD = stat_setting.CIFAR10_STD
+        MEAN = setting.CIFAR10_MEAN
+        STD = setting.CIFAR10_STD
         transf = [
             transforms.RandomCrop(32, padding=4, fill=128),
             transforms.RandomHorizontalFlip()
         ]
     elif dataset == 'cifar100':
-        MEAN = stat_setting.CIFAR100_MEAN
-        STD = stat_setting.CIFAR100_STD
+        MEAN = setting.CIFAR100_MEAN
+        STD = setting.CIFAR100_STD
         transf = [
             transforms.RandomCrop(32, padding=4, fill=128),
             transforms.RandomHorizontalFlip()
         ]
     elif dataset == 'mnist':
-        MEAN = stat_setting.MNIST_MEAN
-        STD = stat_setting.MNIST_STD
+        MEAN = setting.MNIST_MEAN
+        STD = setting.MNIST_STD
         transf = [
             transforms.Resize(size=(32, 32)),
             transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
             GrayToRGB()
         ]
     elif dataset == 'fashionmnist':
-        MEAN = stat_setting.FASHIONMNIST_MEAN
-        STD = stat_setting.FASHIONMNIST_STD
+        MEAN = setting.FASHIONMNIST_MEAN
+        STD = setting.FASHIONMNIST_STD
         transf = [
             transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
             transforms.RandomVerticalFlip()
@@ -93,32 +92,31 @@ def data_transforms(dataset, cutout_length):
 
 def data_transforms_advanced(dataset, cutout_length):
     dataset = dataset.lower()
-    stat_setting = SETTING()
     if dataset == 'cifar10':
-        MEAN = stat_setting.CIFAR10_MEAN
-        STD = stat_setting.CIFAR10_STD
+        MEAN = setting.CIFAR10_MEAN
+        STD = setting.CIFAR10_STD
         transf = [
             transforms.RandomRotation(15),
             transforms.RandomHorizontalFlip()
         ]
     elif dataset == 'cifar100':
-        MEAN = stat_setting.CIFAR100_MEAN
-        STD = stat_setting.CIFAR100_STD
+        MEAN = setting.CIFAR100_MEAN
+        STD = setting.CIFAR100_STD
         transf = [
             transforms.RandomRotation(15),
             transforms.RandomHorizontalFlip()
         ]
     elif dataset == 'mnist':
-        MEAN = stat_setting.MNIST_MEAN
-        STD = stat_setting.MNIST_STD
+        MEAN = setting.MNIST_MEAN
+        STD = setting.MNIST_STD
         transf = [
             transforms.Resize(size=(32, 32)),
             transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
             GrayToRGB()
         ]
     elif dataset == 'fashionmnist':
-        MEAN = stat_setting.FASHIONMNIST_MEAN
-        STD = stat_setting.FASHIONMNIST_STD
+        MEAN = setting.FASHIONMNIST_MEAN
+        STD = setting.FASHIONMNIST_STD
         transf = [
             transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
             transforms.RandomVerticalFlip()

@@ -51,7 +51,8 @@ class SearchStageConfig(BaseConfig):
         parser.add_argument('--slide_window', type=int, default=3, help='sliding window size')
         parser.add_argument('--discrete', type=int, default=0, help='Use stage specified cell architecture at each stage')
         parser.add_argument('--reset', type=int, default=0, help='Reset network parameters when searching is finished.')
-        parser.add_argument('--beta_criterion', type=str, default='l2', help='Constraint Criteria for Parameter Beta. [l2, length]')
+        parser.add_argument('--arch_criterion', type=str, default='l2', help='Constraint Criteria for Parameter Beta. [l2, length, alphal1]')
+        parser.add_argument('--stage_macs', nargs="*", type=float, default=[0.33, 0.33, 0.33], help='MACs or percentage of MACs at each stage')
         # ================= model settings ==================
         parser.add_argument('--init_channels', type=int, default=16)
         parser.add_argument('--share_stage', type=int, default=0, help='Search shared stage architecture at each stage')

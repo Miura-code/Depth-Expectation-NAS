@@ -6,27 +6,17 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 
-import os
 import torch
 import torch.nn as nn
 import torchvision
 
-from torch.utils.tensorboard import SummaryWriter
-
 from genotypes.genotypes import parse_dag_to_alpha
 import teacher_models
 from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
-from utils.loss import AlphaArchLoss, CosineScheduler, KD_Loss, SoftTargetKLLoss, WeightedCombinedLoss
+from utils.loss import AlphaArchLoss, CosineScheduler, KD_Loss, L1loss_alpha, SoftTargetKLLoss, WeightedCombinedLoss
 import utils
-from utils.data_util import get_data, split_dataloader
-from utils.file_management import load_teacher_checkpoint_state
-from utils.params_util import collect_params
-from utils.eval_util import AverageMeter, accuracy, validate
-
-from utils.data_prefetcher import data_prefetcher
 
 from models.architect import Architect, Architect_Arch
-from utils.visualize import showModelOnTensorboard
 
 
 class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
@@ -35,10 +25,10 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
     
     def construct_model(self):
         # ================= define data loader ==================
-        input_size, input_channels, n_classes, train_data = get_data(
+        input_size, input_channels, n_classes, train_data = utils.get_data(
             self.config.dataset, self.config.data_path, cutout_length=self.config.cutout_length, validation=False, advanced=self.config.advanced
         )
-        self.train_loader, self.valid_loader = split_dataloader(train_data, self.config.train_portion, self.config.batch_size, self.config.workers)
+        self.train_loader, self.valid_loader = utils.split_dataloader(train_data, self.config.train_portion, self.config.batch_size, self.config.workers)
         # ================= Teacher Model ==================
         print("---------- load teacher model ----------")
         teacher_model = self.load_teacher(n_classes)
@@ -55,7 +45,13 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         print("---------- init student model ----------")
         # ================= define criteria ==================
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
-        self.arch_criterion = AlphaArchLoss(self.teacher_model.alpha_DAG).to(self.device)
+        if self.config.arch_criterion == "alphal1":
+            mac_ratio = torch.tensor(
+                utils.MACs_float_to_ratio(self.config.stage_macs)
+            )
+            self.arch_criterion = L1loss_alpha(self.config.layers//3, mac_ratio).to(self.device)
+        else:
+            self.arch_criterion = AlphaArchLoss(self.teacher_model.alpha_DAG).to(self.device)
         self.loss_functions = [self.hard_criterion, self.arch_criterion]
         self.loss_weights = [1.0, self.config.l]
         self.criterion = WeightedCombinedLoss(functions=self.loss_functions, weights=self.loss_weights).to(self.device)
@@ -87,7 +83,7 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
                         tring to load from torchvision.models".format(e))
             model = torchvision.models.__dict__[self.config.teacher_name](num_classes = n_classes)
 
-        _, _ = load_teacher_checkpoint_state(model=model, optimizer=None, checkpoint_path=self.config.teacher_path)
+        _, _ = utils.load_teacher_checkpoint_state(model=model, optimizer=None, checkpoint_path=self.config.teacher_path)
         
         for name, param in model.named_parameters():
             param.requires_grad = False
@@ -96,15 +92,15 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         return model
     
     def train_epoch(self, epoch, printer=print):
-        top1 = AverageMeter()
-        top5 = AverageMeter()
-        losses = AverageMeter()
-        hard_losses = AverageMeter()
-        soft_losses = AverageMeter()
-        arch_losses = AverageMeter()
-        arch_hard_losses = AverageMeter()
-        arch_soft_losses = AverageMeter()
-        arch_depth_losses = AverageMeter()
+        top1 = utils.AverageMeter()
+        top5 = utils.AverageMeter()
+        losses = utils.AverageMeter()
+        hard_losses = utils.AverageMeter()
+        soft_losses = utils.AverageMeter()
+        arch_losses = utils.AverageMeter()
+        arch_hard_losses = utils.AverageMeter()
+        arch_soft_losses = utils.AverageMeter()
+        arch_depth_losses = utils.AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
         cur_arch_weights = [self.loss_weights[0], self.lossWeight_scheduler.get_increase_value(current_step=epoch)]
@@ -115,8 +111,8 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         self.model.train()
         self.teacher_model.train()
 
-        prefetcher_trn = data_prefetcher(self.train_loader)
-        prefetcher_val = data_prefetcher(self.valid_loader)
+        prefetcher_trn = utils.data_prefetcher(self.train_loader)
+        prefetcher_val = utils.data_prefetcher(self.valid_loader)
         trn_X, trn_y = prefetcher_trn.next()
         val_X, val_y = prefetcher_val.next()
         i = 0
@@ -154,7 +150,7 @@ class SearchStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
             self.w_optim.step()
 
-            prec1, prec5 = accuracy(logits, trn_y, topk=(1, 5))
+            prec1, prec5 = utils.accuracy(logits, trn_y, topk=(1, 5))
             # 学習過程の記録用
             losses.update(loss.item(), N)
             hard_losses.update(hard_loss.item(), N)
