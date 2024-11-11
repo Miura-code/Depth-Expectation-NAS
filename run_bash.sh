@@ -4,7 +4,7 @@ genotype=BASELINE_BEST
 
 experiment_name=Pruning
 
-for seed in 0 1 2;do
+for seed in 4;do
     bash run_searchStage.sh train SearchEval \
     $experiment_name none none s$seed-discreteEval-reset\
     $genotype \
@@ -13,12 +13,12 @@ for seed in 0 1 2;do
     1 0 3 1 1\
     length
 
-    # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-reset/DAG
-    # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-reset/best.pth.tar
-    # bash run_searchStage.sh test SearchEval \
-    # $path $genotype $dag \
-    # 3 1
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-reset/DAG
+    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-reset/best.pth.tar
+    bash run_searchStage.sh test SearchEval \
+    $path $genotype $dag \
+    3 1
 done
 
 # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s0-BaselineBestCell/DAG

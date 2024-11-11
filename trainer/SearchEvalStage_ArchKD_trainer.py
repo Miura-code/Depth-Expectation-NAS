@@ -51,8 +51,9 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
             self.Controller = SearchStageController
             
         """get the train parameters"""
-        self.total_epochs = self.config.epochs + self.config.eval_epochs
+        self.eval_epochs = self.config.eval_epochs
         self.search_epochs = self.config.epochs
+        self.total_epochs = self.search_epochs + self.eval_epochs
         self.train_batch_size = self.config.batch_size
         self.val_batch_size = self.config.batch_size
         self.global_batch_size = self.world_size * self.train_batch_size
@@ -189,7 +190,7 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
 
         self.w_optim = torch.optim.SGD(self.model.weights(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
         self.alpha_optim = torch.optim.Adam(self.model.alphas(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
-        self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.val_epoch, eta_min=self.config.w_lr_min)
+        self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.eval_epochs, eta_min=self.config.w_lr_min)
         self.architect = Architect_Arch(self.model, self.teacher_model, self.config.w_momentum, self.config.w_weight_decay)
     
         self.logger.info(f"--> Network parameter is reseted.")
