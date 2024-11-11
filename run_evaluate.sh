@@ -66,9 +66,9 @@ elif [ ${arch} = "stage" ]; then
         epoch=100
         train_portion=0.9
         seed=${10}
-        init_channels=16
-        aux_weight=0
-        droppath=0
+        init_channels=32
+        aux_weight=0.4
+        droppath=0.2
         python evaluateStage_main.py \
             --name $name \
             --genotype $genotype \
@@ -95,9 +95,8 @@ elif [ ${arch} = "stage" ]; then
         dag=$4
         path=$5
         seed=0
-        init_channels=16
-        aux_weight=0
-        echo $path
+        init_channels=32
+        aux_weight=0.4
 
         python testModel_main.py \
             --save test \

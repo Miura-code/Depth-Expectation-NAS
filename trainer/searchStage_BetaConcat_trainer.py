@@ -36,7 +36,7 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer_WithSimpleKD):
             utils.measurement_utils.MACs_float_to_ratio(self.config.stage_macs)
         )
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
-        if self.config.arch_criterion == "l2":
+        if self.config.arch_criterion == "l1":
             self.beta_criterioin = Lp_loss_beta(self.config.layers//3, mac_ratio).to(self.device)
         elif self.config.arch_criterion == "length":
             self.beta_criterioin = CellLength_beta(self.config.layers//3, mac_ratio).to(self.device)

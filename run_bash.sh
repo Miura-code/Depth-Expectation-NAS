@@ -4,27 +4,48 @@ genotype=BASELINE_BEST
 
 experiment_name=Pruning
 
-for seed in 0;do
+for seed in 1 2 3 4;do
     bash run_searchStage.sh train ArchKD \
-    $experiment_name h_das_224baseline $teacher_path s$seed-L1Alpha\
+    $experiment_name h_das_224baseline $teacher_path s$seed-L1Alpha-sw3\
     $genotype \
-    search_wtih_cell-length-constriction \
+    search_wtih_alpha-L1-constriction \
     $seed 0 1 1 \
-    1 0 10 0 0\
+    1 0 3 0 0\
     alphal1
-    # bash run_searchStage.sh train Pruning \
-    # $experiment_name none none s$seed-L1Beta\
-    # $genotype \
-    # search_wtih_beta-L2-constriction \
-    # $seed 0 1 1 \
-    # 1 0 10 0 0\
-    # l2
-    # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-length-test/DAG
-    # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-length-test/best.pth.tar
-    # bash run_searchStage.sh test Pruning \
-    # $path $genotype $dag \
-    # 10 0
+
+    bash run_searchStage.sh train Pruning \
+    $experiment_name none none s$seed-LengthBeta-sw3\
+    $genotype \
+    search_wtih_beta-cell-length-constriction \
+    $seed 0 1 1 \
+    1 0 3 0 0\
+    length
+
+    bash run_searchStage.sh train Pruning \
+    $experiment_name none none s$seed-L1Beta-sw3\
+    $genotype \
+    search_wtih_beta-L2-constriction \
+    $seed 0 1 1 \
+    1 0 3 0 0\
+    l1
+
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-L1Alpha-sw3/DAG
+    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    bash run_evaluate.sh train stage $experiment_name none none BASELINE_BEST $dag s$seed-L1Alpha-sw3 evaluate 0
+    path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-L1Alpha-sw3/best.pth.tar
+    bash run_evaluate.sh test stage BASELINE_BEST ${dag} $path
+
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-LengthBeta-sw3/DAG
+    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    bash run_evaluate.sh train stage $experiment_name none none BASELINE_BEST $dag s$seed-LengthBeta-sw3 evaluate 0
+    path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-LengthBeta-sw3/best.pth.tar
+    bash run_evaluate.sh test stage BASELINE_BEST ${dag} $path
+
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-L1Beta-sw3/DAG
+    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    bash run_evaluate.sh train stage $experiment_name none none BASELINE_BEST $dag s$seed-L1Beta-sw3 evaluate 0
+    path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-L1Beta-sw3/best.pth.tar
+    bash run_evaluate.sh test stage BASELINE_BEST ${dag} $path
 done
 
 # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s0-BaselineBestCell/DAG
