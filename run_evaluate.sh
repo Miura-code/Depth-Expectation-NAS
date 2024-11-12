@@ -89,6 +89,7 @@ elif [ ${arch} = "stage" ]; then
             --aux_weight $aux_weight\
             --drop_path_prob $droppath\
             --spec_cell \
+            --layers $layer \
             --nonkd \
             --advanced
     elif [ ${type} = "test" ]; then
@@ -100,6 +101,7 @@ elif [ ${arch} = "stage" ]; then
         seed=0
         init_channels=32
         aux_weight=0.4
+        layer=32
 
         python testModel_main.py \
             --save test \
@@ -114,6 +116,7 @@ elif [ ${arch} = "stage" ]; then
             --layers $layer \
             --aux_weight $aux_weight\
             --spec_cell \
+            --layers $layer \
             --advanced
     else
         echo ""

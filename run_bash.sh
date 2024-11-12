@@ -5,31 +5,31 @@ genotype=BASELINE_BEST
 experiment_name=noDepthLoss
 
 for seed in 0 1 2 3 4;do
-    bash run_searchStage.sh train KD \
-    $experiment_name none none s$seed-L32\
-    $genotype \
-    search_stage_32-layer-network \
-    $seed 0 0 0\
-    1 0 3 0 0\
-    none
+    for g in 10 5 1 0.5 0.1;do
+        for method in alphal1 l1 length;do
+            bash run_searchStage.sh train Pruning \
+            $experiment_name none none s$seed-$method-sw3-g$g\
+            $genotype \
+            search_with_L1-Alpha-constraint_slidewindow-3 \
+            $seed 0 0 0\
+            1 0 3 0 0\
+            $method
 
-    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-L29/DAG
-    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-L29/best.pth.tar    
-    
-    bash run_evaluate.sh train stage $experiment_name none none \
-    $genotype $dag \
-    s$seed-L32 \
-    evaluate_search_stage_32-layer-network \
-    0
+            dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g$g/DAG
+            dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+            path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g$g/best.pth.tar
 
-    bash run_evaluate.sh test stage \
-    $genotype $dag \
-    /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-L32/best.pth.tar
-    
-    # bash run_searchStage.sh test KD \
-    # $path $genotype $dag \
-    # 3 1
+            bash run_evaluate.sh train stage Pruning \
+            none none \
+            $genotype $dag \
+            s$seed-$method-sw3-g$g \
+            search_with_L1-Alpha-constraint_slidewindow-3 \
+            0
+
+            path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g$g/best.pth.tar
+            bash run_evaluate.sh test stage $genotype $dag $path
+        done
+    done
 done
 
 # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s0-BaselineBestCell/DAG
