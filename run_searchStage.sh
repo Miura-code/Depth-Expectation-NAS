@@ -12,6 +12,7 @@ if [ ${type} = "train" ]; then
     eval_epoch=100
     train_portion=0.5 # searchの場合train_portionは0.5が最大値
     macs="8.18 2.49 1.88"
+    layer=32
 
     name=$3
     teacher_model=$4
@@ -53,6 +54,7 @@ if [ ${type} = "train" ]; then
         --arch_criterion $arch_criterion\
         --stage_macs $macs \
         --spec_cell 1\
+        --layers $layer \
         --genotype $genotype \
         --teacher_name $teacher_model\
         --teacher_path $teacher_path \

@@ -63,12 +63,13 @@ elif [ ${arch} = "stage" ]; then
         dataset=cifar100
         lambda=0.5
         T=10
-        epoch=100
+        epoch=2
         train_portion=0.9
         seed=${10}
         init_channels=32
         aux_weight=0.4
         droppath=0.2
+        layer=32
         python evaluateStage_main.py \
             --name $name \
             --genotype $genotype \
@@ -77,6 +78,7 @@ elif [ ${arch} = "stage" ]; then
             --teacher_path $teacher_path \
             --l $lambda\
             --T $T \
+            --layers $layer\
             --dataset $dataset \
             --epochs $epoch \
             --train_portion $train_portion \
@@ -94,6 +96,7 @@ elif [ ${arch} = "stage" ]; then
         genotype=$3
         dag=$4
         path=$5
+        layer=32
         seed=0
         init_channels=32
         aux_weight=0.4
@@ -108,6 +111,7 @@ elif [ ${arch} = "stage" ]; then
             --resume_path $path \
             --stage \
             --init_channels $init_channels\
+            --layers $layer \
             --aux_weight $aux_weight\
             --spec_cell \
             --advanced

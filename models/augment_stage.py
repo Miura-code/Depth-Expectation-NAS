@@ -170,9 +170,9 @@ class AugmentStage(nn.Module):
         s0 = s1 = self.stem(x)
         aux_logits = None
         s0 = s1 = self.bigDAG1(s0, s1)
-        s0 = s1 = self.cells[6](s0, s1) # reduction
+        s0 = s1 = self.cells[1 * self.n_layers // 3](s0, s1) # reduction
         s0 = s1 = self.bigDAG2(s0, s1) 
-        s0 = s1 = self.cells[13](s0, s1) # reduction
+        s0 = s1 = self.cells[2 * self.n_layers // 3](s0, s1) # reduction
         aux_logits = self.aux_head(s1)
         s0 = s1 = self.bigDAG3(s0, s1)
 
