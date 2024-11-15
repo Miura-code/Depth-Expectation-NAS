@@ -2,30 +2,30 @@
 teacher_path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s0-BaselineBestCell/best.pth.tar
 genotype=BASELINE_BEST
 
-experiment_name=noDepthLoss
+experiment_name=Pruning
 
-for seed in 0 1 2 3 4;do
-    # bash run_searchStage.sh train KD \
-    # $experiment_name none none s$seed-L32\
-    # $genotype \
-    # search_stage_32-layer-network \
-    # $seed 0 0 0\
-    # 1 0 3 0 0\
-    # none
+for seed in 0;do
+    bash run_searchStage.sh train Pruning \
+    $experiment_name none none s$seed-sw3-g0\
+    $genotype \
+    search_stage_32-layer-network \
+    $seed 0 0 0\
+    1 0 3 0 0\
+    l1
 
-    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-L32/DAG
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-sw3-g0/DAG
     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
     # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-L29/best.pth.tar    
     
-    # bash run_evaluate.sh train stage $experiment_name none none \
-    # $genotype $dag \
-    # s$seed-L32 \
-    # evaluate_search_stage_32-layer-network \
-    # 0
+    bash run_evaluate.sh train stage $experiment_name none none \
+    $genotype $dag \
+    s$seed-sw3-g0 \
+    evaluate_search_stage_32-layer-network \
+    0
 
     bash run_evaluate.sh test stage \
     $genotype $dag \
-    /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-L32/best.pth.tar
+    /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-sw3-g0/best.pth.tar
     
     # bash run_searchStage.sh test KD \
     # $path $genotype $dag \
