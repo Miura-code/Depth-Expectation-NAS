@@ -72,7 +72,6 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer_WithSimpleKD):
         arch_depth_losses = AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
-        cur_arch_weights = [self.loss_weights[0], self.lossWeight_scheduler.get_increase_value(current_step=epoch)]
 
         # 構造パラメータを表示
         # self.model.print_alphas(self.logger)
@@ -91,7 +90,7 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer_WithSimpleKD):
 
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
-            archLosses = self.architect.unrolled_backward_betaConstraint(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim, cur_arch_weights)
+            archLosses = self.architect.unrolled_backward_betaConstraint(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
             arch_hard_loss = archLosses[0]
             arch_alphaloss = archLosses[1]
             arch_loss = archLosses[-1]

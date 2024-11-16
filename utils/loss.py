@@ -345,7 +345,7 @@ class Lp_loss_beta(nn.Module):
         """
         loss = 0
         for s, be in enumerate(beta):
-            # スライスしたベクトルのL2ノルムを計算し、対応する重みでスケーリング
+            # スライスしたベクトルのLpノルムを計算し、対応する重みでスケーリング
             loss += self.theta[s] * torch.norm(be, p=self.p)
         return loss
     
