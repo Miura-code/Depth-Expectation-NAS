@@ -71,8 +71,6 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
         self.logger = self.config.logger
         self.writer = SummaryWriter(log_dir=os.path.join(self.config.path, "tb"))
         self.writer.add_text('config', config.as_markdown(), 0)
-
-        self.construct_model()
     
     def construct_model(self):
         # ================= define data loader ==================
@@ -146,7 +144,7 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
     
     def freeze_alphaParams(self):
         if self.config.discrete:
-            self.discrete_alpha()
+            self._discrete_alpha()
         else:
             current_state_dict = self.model.state_dict()
             count = 0
@@ -160,7 +158,7 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
                 param.requires_grad = False
         self.logger.info(f"--> Loaded alpha parameters are Freezed")
 
-    def discrete_alpha(self):
+    def _discrete_alpha(self):
         current_DAG = self.model.DAG()
         current_state_dict = self.model.state_dict()
         discrete_alpha_list = parse_dag_to_alpha(current_DAG, n_ops=self.model.alpha_DAG[0][0].size(0), window=self.sw, device=self.device)

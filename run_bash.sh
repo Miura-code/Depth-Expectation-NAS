@@ -2,55 +2,34 @@
 teacher_path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s0-BaselineBestCell/best.pth.tar
 genotype=BASELINE_BEST
 
-experiment_name=Pruning
+experiment_name=Curriculum
 
-for seed in 0 1 2 3 4;do
-    for g in 15 20;do
-        for method in l1 length;do
-            bash run_searchStage.sh train Pruning \
-            $experiment_name none none s$seed-$method-sw3-g$g\
-            $genotype \
-            search_with_L1-Alpha-constraint_slidewindow-3 \
-            $seed 0 0 $g\
-            1 0 3 0 0\
-            $method
+for seed in 0;do
+    bash run_searchStage.sh train SearchEvalCurriculum \
+    $experiment_name none none s$seed-test\
+    $genotype \
+    search_eval_beta_concat_currisulum_betal1-criterion_ \
+    $seed 0 0 1\
+    1 0 12 1 0\
+    length
 
-            # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g$g/DAG
-            # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-            # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g$g/best.pth.tar
+    # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-sw3-g0/DAG
+    # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    # # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-L29/best.pth.tar    
+    
+    # bash run_evaluate.sh train stage $experiment_name none none \
+    # $genotype $dag \
+    # s$seed-sw3-g0 \
+    # evaluate_search_stage_32-layer-network \
+    # 0
 
-            # bash run_evaluate.sh train stage Pruning \
-            # none none \
-            # $genotype $dag \
-            # s$seed-$method-sw3-g$g \
-            # search_with_L1-Alpha-constraint_slidewindow-3 \
-            # 0
-
-            # path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g$g/best.pth.tar
-            # bash run_evaluate.sh test stage $genotype $dag $path
-        done
-        bash run_searchStage.sh train ArchKD \
-        $experiment_name h_das_224baseline $teacher_path s$seed-alphal1-sw3-g$g\
-        $genotype \
-        search_with_L1-Alpha-constraint_slidewindow-3 \
-        $seed $g $g $g\
-        1 0 3 0 0\
-        alphal1
-
-        # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-alphal1-sw3-g$g/DAG
-        # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-        # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-alphal1-sw3-g$g/best.pth.tar
-
-        # bash run_evaluate.sh train stage ArchKD \
-        # none none \
-        # $genotype $dag \
-        # s$seed-alphal1-sw3-g$g \
-        # search_with_L1-Alpha-constraint_slidewindow-3 \
-        # 0
-
-        # path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-alphal1-sw3-g$g/best.pth.tar
-        # bash run_evaluate.sh test stage $genotype $dag $path
-    done
+    # bash run_evaluate.sh test stage \
+    # $genotype $dag \
+    # /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s$seed-sw3-g0/best.pth.tar
+    
+    # bash run_searchStage.sh test KD \
+    # $path $genotype $dag \
+    # 3 1
 done
 
 # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s0-BaselineBestCell/DAG

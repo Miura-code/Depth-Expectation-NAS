@@ -40,6 +40,7 @@ class SearchStageConfig(BaseConfig):
         parser.add_argument('--epochs', type=int, default=50, help='# of training epochs')
         parser.add_argument('--hint_epochs', nargs="*", type=int, default=[16, 32], help='# of training epochs')
         parser.add_argument('--eval_epochs', type=int, default=100, help='# of training epochs')
+        parser.add_argument('--curriculum_epochs', nargs="*", type=int, default=[40, 10], help='# of each curriculum epochs')
         parser.add_argument('--T', type=float, default=10, help='temperature of softmax with temperature')
         parser.add_argument('--l', type=float, default=0.0001, help='ratio between soft target loss and hard target loss')
         parser.add_argument('--g', type=float, default=0.0001, help='Constraint weights for number of cells')

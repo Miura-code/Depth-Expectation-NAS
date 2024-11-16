@@ -123,7 +123,36 @@ def parse(alpha, k, window=3):
                 node_gene.append((prim, edge_idx.item()))
             else:
                 node_gene.append((prim, edge_idx.item() + (i + 2 - window)))
+        gene.append(node_gene)
 
+    return gene
+
+def parse_sub(alpha, k, window=3):
+    """
+    windowサイズ以上にパラメータがある場合のgene作成
+    """
+
+    gene = []
+    assert PRIMITIVES2[-1] == 'none' # assume last PRIMITIVE is 'none'
+
+    # 1) Convert the mixed op to discrete edge (single op) by choosing top-1 weight edge
+    # 2) Choose top-k edges per node by edge score (top-1 weight in edge)
+    for i, edges in enumerate(alpha):
+        # edges: Tensor(n_edges, n_ops)
+        if i + 2 < window:
+            _edges = edges[:, :-1]
+        else:
+            _edges = edges[-window:, :-1]
+        edge_max, primitive_indices = torch.topk(_edges, 1)
+        topk_edge_values, topk_edge_indices = torch.topk(edge_max.view(-1), k)
+        node_gene = []
+        for edge_idx in topk_edge_indices:
+            prim_idx = primitive_indices[edge_idx]
+            prim = PRIMITIVES2[prim_idx]
+            if i + 2 < window:
+                node_gene.append((prim, edge_idx.item()))
+            else:
+                node_gene.append((prim, edge_idx.item() + (i + 2 - window)))
         gene.append(node_gene)
 
     return gene
@@ -313,19 +342,7 @@ def parse_concat(beta):
 
 def parse_beta(beta, n_big_nodes):
     """
-    parse continuous beta ti discrete concat
-    beta is ParameterList:
-    ParameterList [
-        Parameter(1, 1),
-        Parameter(1, 1),
-        ...
-    ]
-
-    concat is list:
-    range(2, 4)
-    range(5, 7)
-    ...
-    range(6, 8)
+    連続空間にあるベータ構造パラメータを離散化する
     """
     _, index = torch.topk(beta, 1, dim=0)
     count = 0
@@ -336,6 +353,7 @@ def parse_beta(beta, n_big_nodes):
                 else:
                     count += 1
     raise AssertionError("BETA パラメータの解析に失敗しました。")
+
     
 def save_DAG(DAG, path, is_best=False):
     if is_best:

@@ -835,14 +835,23 @@ class SearchStageDistributionBetaController(SearchStageController):
         for handler, formatter in zip(logger.handlers, org_formatters):
             handler.setFormatter(formatter)
     
-    def DAG(self):
-        gene_DAG1 = gt.parse(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2, window=self.window)
-        gene_DAG2 = gt.parse(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2, window=self.window)
-        gene_DAG3 = gt.parse(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2, window=self.window)
+    def DAG(self, _curri=False):
+        if _curri:
+            window = 3
+        else:
+            window = self.window
+            
+        gene_DAG1 = gt.parse_sub(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2, window=window)
+        gene_DAG2 = gt.parse_sub(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2, window=window)
+        gene_DAG3 = gt.parse_sub(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2, window=window)
 
-        concat = []
-        for i in range(3):
-            concat.append(gt.parse_beta(self.beta[i], n_big_nodes=self.n_big_nodes))
+        if _curri:
+            concat = [[self.n_big_nodes, self.n_big_nodes + 1]] * 3
+        else:
+            concat = []
+            for i in range(3):
+                concat.append(gt.parse_beta_sub(self.beta[i], n_big_nodes=self.n_big_nodes))
+        
         return gt.Genotype2(DAG1=gene_DAG1, DAG1_concat=concat[0],
                             DAG2=gene_DAG2, DAG2_concat=concat[1],
                             DAG3=gene_DAG3, DAG3_concat=concat[2])
@@ -854,3 +863,30 @@ class SearchStageDistributionBetaController(SearchStageController):
     def archparams(self):
         for n, p in self._alphas+self._betas:
             yield p
+            
+class SearchStageDistributionBetaCurriculumController(SearchStageDistributionBetaController):
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False, slide_window=3):
+        super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=stem_multiplier, device_ids=device_ids, spec_cell=spec_cell, slide_window=slide_window)
+        
+        self._curri = True
+        
+    def DAG(self):
+        if self._curri:
+            window = 3
+        else:
+            window = self.window
+            
+        gene_DAG1 = gt.parse_sub(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2, window=window)
+        gene_DAG2 = gt.parse_sub(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2, window=window)
+        gene_DAG3 = gt.parse_sub(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2, window=window)
+
+        if self._curri:
+            concat = [[self.n_big_nodes, self.n_big_nodes + 1]] * 3
+        else:
+            concat = []
+            for i in range(3):
+                concat.append(gt.parse_beta_sub(self.beta[i], n_big_nodes=self.n_big_nodes))
+        
+        return gt.Genotype2(DAG1=gene_DAG1, DAG1_concat=concat[0],
+                            DAG2=gene_DAG2, DAG2_concat=concat[1],
+                            DAG3=gene_DAG3, DAG3_concat=concat[2])

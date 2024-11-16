@@ -9,7 +9,7 @@ def main():
     config = SearchStageConfig()
     if config.type == "ArchHINT":
         searchStage_ArchHint_main.run_task(config)
-    elif config.type == "SearchEval":
+    elif "SearchEval" in config.type:
         searchevaluateStage_main.run_task(config)
     else:
         trainer_runner.run_task(config)
