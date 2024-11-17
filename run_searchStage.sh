@@ -31,6 +31,7 @@ if [ ${type} = "train" ]; then
     discrete=${16}
     reset=${17}
     arch_criterion=${18}
+    curri_epoch=${19}
     
     python searchStage_main.py \
         --type $method \

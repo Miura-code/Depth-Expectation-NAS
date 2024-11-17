@@ -153,6 +153,7 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
                     self.model.alpha_DAG[count] = current_state_dict[name] = F.softmax(param, dim=-1)
                     count += 1
             self.model.load_state_dict(current_state_dict, strict=True)
+        
         for name, param in self.model.named_parameters():
             if 'alpha' in name:
                 param.requires_grad = False

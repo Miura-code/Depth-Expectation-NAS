@@ -1,7 +1,9 @@
 import os
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
+from genotypes.genotypes import parse_dag_to_alpha, parse_dag_to_beta
 from models.search_stage import SearchStageDistributionBetaCurriculumController
 from trainer.SearchEvalStage_ArchKD_trainer import SearchEvaluateStageTrainer_ArchKD
 from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
@@ -24,7 +26,6 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
         
         self.eval_epochs = self.config.eval_epochs
         self.curri_epochs = self.config.curriculum_epochs
-        self.curriculum_counter = 0
         self.search_epochs = sum(self.curri_epochs)
         self.total_epochs = self.search_epochs + self.eval_epochs
     
@@ -64,6 +65,69 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
         self.architect = Architect_Arch(self.model, None, self.config.w_momentum, self.config.w_weight_decay)
             
+    def freeze_alphaParams(self):
+        if self.config.discrete:
+            self._discrete_alpha()
+        else:
+            current_state_dict = self.model.state_dict()
+            count = b_count =  0
+            for name, param in self.model.named_parameters():
+                if 'alpha' in name:
+                    self.model.alpha_DAG[count] = current_state_dict[name] = F.softmax(param, dim=-1)
+                    count += 1
+                if 'beta' in name:
+                    self.model.beta[b_count] = current_state_dict[name] = F.softmax(param, dim=0)
+                    b_count += 1
+            self.model.load_state_dict(current_state_dict, strict=True)
+        
+        for name, param in self.model.named_parameters():
+            if 'alpha' in name or 'beta' in name:
+                param.requires_grad = False
+        self.logger.info(f"--> Loaded alpha parameters are Freezed")
+
+    def _discrete_alpha(self):
+        current_DAG = self.model.DAG()
+        current_state_dict = self.model.state_dict()
+        discrete_alpha_list = parse_dag_to_alpha(current_DAG, n_ops=self.model.alpha_DAG[0][0].size(0), window=self.sw, device=self.device)
+        discrete_beta_list = parse_dag_to_beta(current_DAG, self.model.n_big_nodes, device=self.device)
+        count = b_count = 0
+        for name, param in self.model.named_parameters():
+            if 'alpha' in name:
+                self.model.alpha_DAG[count] = current_state_dict[name] = discrete_alpha_list[count]
+                count += 1
+            if 'beta' in name:
+                self.model.beta[b_count] = current_state_dict[name] = discrete_beta_list[b_count]
+                b_count += 1
+        self.model.load_state_dict(current_state_dict, strict=True)
+        self.logger.info(f"--> Archtecture parameters are DISCRETED")
+
+        return
+    
+    def reset_model(self, input_size):
+        current_alpha = self.model.alpha_DAG
+        current_beta = self.model.beta
+
+        model = self.Controller(input_size, self.model.net.C_in, self.config.init_channels, self.model.net.n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw)
+        self.model = model.to(self.device)
+
+        current_state_dict = self.model.state_dict()
+        count = b_count = 0
+        for name, param in self.model.named_parameters():
+            if 'alpha' in name:
+                self.model.alpha_DAG[count] = current_state_dict[name] = current_alpha[count]
+                count += 1
+            if 'beta' in name:
+                self.model.beta[b_count] = current_state_dict[name] = current_beta[count]
+                b_count += 1
+        self.model.load_state_dict(current_state_dict, strict=True)
+
+        self.w_optim = torch.optim.SGD(self.model.weights(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
+        self.alpha_optim = torch.optim.Adam(self.model.archparams(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
+        self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.eval_epochs, eta_min=self.config.w_lr_min)
+        self.architect = Architect_Arch(self.model, None, self.config.w_momentum, self.config.w_weight_decay)
+            
+        self.logger.info(f"--> Network parameter is reseted.")        
+            
     def train_epoch(self, epoch, printer=print):
         top1 = AverageMeter()
         top5 = AverageMeter()
@@ -76,12 +140,6 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
         arch_depth_losses = AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
-
-        if epoch == self.curri_epochs[self.curriculum_counter]+1:
-            printer("--> Curriculum B part begins")
-            self.model._curri = False
-            self.loss_weights = [self.loss_weights[0], self.config.g]
-            self.curriculum_counter += 1
         
         self.model.train()
 
@@ -116,7 +174,7 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
             
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
-            logits = self.model(trn_X)
+            logits = self.model(trn_X, fix=False if epoch < self.search_epochs else True)
            
             hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
             loss.backward()
@@ -152,5 +210,10 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
             val_X, val_y = prefetcher_val.next()
         
         printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
-        
+        if epoch == self.curri_epochs[self.curriculum_counter]-1:
+            printer("--> Curriculum A part finished")
+            self.model._curri = False
+            self.loss_weights = [self.loss_weights[0], self.config.g]
+            self.curriculum_counter += 1
+            
         return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg, arch_hard_losses.avg, arch_soft_losses.avg, arch_losses.avg, arch_depth_losses.avg

@@ -385,3 +385,18 @@ def parse_dag_to_alpha(dag, n_big_nodes=6, n_ops=len(PRIMITIVES3), K=2, window=3
                     alpha[-1][DAG[i][k][1] - offset][PRIMITIVES2.index(DAG[i][k][0])] = torch.tensor(1.0)
     return alpha
  
+def parse_dag_to_beta(dag, n_big_nodes, device='cpu'):
+    beta = []
+    concats = [dag.DAG1_concat, dag.DAG2_concat, dag.DAG3_concat]
+    for concat in concats:
+        beta.append(torch.zeros(int((n_big_nodes)*(n_big_nodes-1)/2), device=device))
+        offset = 0
+        for i in range(2, n_big_nodes + 1):
+            for j in range(i+1, n_big_nodes + 2):
+                if (i in concat) and (j in concat):
+                    beta[-1][offset] = torch.tensor(1.0)
+                offset += 1
+    
+    return beta
+    
+    

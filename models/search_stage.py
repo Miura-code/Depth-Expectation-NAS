@@ -835,22 +835,15 @@ class SearchStageDistributionBetaController(SearchStageController):
         for handler, formatter in zip(logger.handlers, org_formatters):
             handler.setFormatter(formatter)
     
-    def DAG(self, _curri=False):
-        if _curri:
-            window = 3
-        else:
-            window = self.window
+    def DAG(self):
             
-        gene_DAG1 = gt.parse_sub(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2, window=window)
-        gene_DAG2 = gt.parse_sub(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2, window=window)
-        gene_DAG3 = gt.parse_sub(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2, window=window)
+        gene_DAG1 = gt.parse(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2, window=self.window)
+        gene_DAG2 = gt.parse(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2, window=self.window)
+        gene_DAG3 = gt.parse(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2, window=self.window)
 
-        if _curri:
-            concat = [[self.n_big_nodes, self.n_big_nodes + 1]] * 3
-        else:
-            concat = []
-            for i in range(3):
-                concat.append(gt.parse_beta_sub(self.beta[i], n_big_nodes=self.n_big_nodes))
+        concat = []
+        for i in range(3):
+            concat.append(gt.parse_beta(self.beta[i], n_big_nodes=self.n_big_nodes))
         
         return gt.Genotype2(DAG1=gene_DAG1, DAG1_concat=concat[0],
                             DAG2=gene_DAG2, DAG2_concat=concat[1],
@@ -885,7 +878,7 @@ class SearchStageDistributionBetaCurriculumController(SearchStageDistributionBet
         else:
             concat = []
             for i in range(3):
-                concat.append(gt.parse_beta_sub(self.beta[i], n_big_nodes=self.n_big_nodes))
+                concat.append(gt.parse_beta(self.beta[i], n_big_nodes=self.n_big_nodes))
         
         return gt.Genotype2(DAG1=gene_DAG1, DAG1_concat=concat[0],
                             DAG2=gene_DAG2, DAG2_concat=concat[1],

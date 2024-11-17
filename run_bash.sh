@@ -4,15 +4,33 @@ genotype=BASELINE_BEST
 
 experiment_name=Curriculum
 
+g=10
+
 for seed in 0;do
     bash run_searchStage.sh train SearchEvalCurriculum \
-    $experiment_name none none s$seed-test\
+    $experiment_name none none s$seed-g$g-30-20\
     $genotype \
     search_eval_beta_concat_currisulum_betal1-criterion_ \
-    $seed 0 0 1\
+    $seed 0 0 $g\
     1 0 12 1 0\
-    length
+    length "30 20"
 
+    bash run_searchStage.sh train SearchEvalCurriculum \
+    $experiment_name none none s$seed-g$g-50-0\
+    $genotype \
+    search_eval_beta_concat_currisulum_betal1-criterion_ \
+    $seed 0 0 $g\
+    1 0 12 1 0\
+    length "50 0"
+
+    bash run_searchStage.sh train SearchEvalCurriculum \
+    $experiment_name none none s$seed-g$g-0-50\
+    $genotype \
+    search_eval_beta_concat_currisulum_betal1-criterion_ \
+    $seed 0 0 $g\
+    1 0 12 1 0\
+    length "0 50"
+    
     # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-sw3-g0/DAG
     # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
     # # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-L29/best.pth.tar    
