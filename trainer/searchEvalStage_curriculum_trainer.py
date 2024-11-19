@@ -176,6 +176,7 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
                 d_depth1 = self.cal_depth(alpha[0 * self.n_nodes: 1 * self.n_nodes], self.n_nodes, self.sw)
                 d_depth2 = self.cal_depth(alpha[1 * self.n_nodes: 2 * self.n_nodes], self.n_nodes, self.sw)
                 d_depth3 = self.cal_depth(alpha[2 * self.n_nodes: 3 * self.n_nodes], self.n_nodes, self.sw)
+                depth = (d_depth1 + d_depth2 + d_depth3)
                 depth_loss = -self.depth_coef * (d_depth1 + d_depth2 + d_depth3)
                 depth_loss.backward()
                 self.alpha_optim.step()
@@ -198,7 +199,7 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
                 arch_losses.update(arch_loss.item(), N)
                 arch_hard_losses.update(arch_hard_loss.item(), N)
                 arch_soft_losses.update(arch_alphaloss.item(), N)
-                arch_depth_losses.update(depth_loss.item(), N)
+                arch_depth_losses.update(depth.item(), N)
             top1.update(prec1.item(), N)
             top5.update(prec5.item(), N)
 
