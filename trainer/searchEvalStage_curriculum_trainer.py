@@ -28,6 +28,8 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
         self.curri_epochs = self.config.curriculum_epochs
         self.search_epochs = sum(self.curri_epochs)
         self.total_epochs = self.search_epochs + self.eval_epochs
+        
+        self.curriculum_counter = 0
     
     def construct_model(self):
         # ================= define data loader ==================
@@ -138,6 +140,12 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
         arch_hard_losses = AverageMeter()
         arch_soft_losses = AverageMeter()
         arch_depth_losses = AverageMeter()
+        
+        if epoch == self.curri_epochs[self.curriculum_counter]:
+            printer("--> Curriculum part A finished. Part B begins!")
+            self.model._curri = False
+            self.loss_weights = [self.loss_weights[0], self.config.g]
+            self.curriculum_counter += 1
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
         
@@ -210,10 +218,6 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
             val_X, val_y = prefetcher_val.next()
         
         printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
-        if epoch == self.curri_epochs[self.curriculum_counter]-1:
-            printer("--> Curriculum A part finished")
-            self.model._curri = False
-            self.loss_weights = [self.loss_weights[0], self.config.g]
-            self.curriculum_counter += 1
+        
             
         return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg, arch_hard_losses.avg, arch_soft_losses.avg, arch_losses.avg, arch_depth_losses.avg

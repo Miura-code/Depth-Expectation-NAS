@@ -54,7 +54,7 @@ def resume_alpha_discrete(model, DAG, model_path=None, device='cpu', sw=10, prin
 
 def freeze_alphaParams(model, printer=print):
     for name, param in model.named_parameters():
-        if 'alpha' in name:
+        if 'alpha' in name or 'beta' in name:
             param.requires_grad = False
             print(param)
     printer(f"--> Loaded alpha parameters are Freezed")

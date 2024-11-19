@@ -11,7 +11,8 @@ import torch
 import torch.nn as nn
 import numpy as np
 from config.searchStage_config import TestSearchStageConfig
-from models.search_stage import SearchStageController
+from genotypes.genotypes import save_DAG
+from models.search_stage import SearchStageController, SearchStageDistributionBetaController, SearchStageDistributionBetaCurriculumController
 import utils
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm
@@ -24,6 +25,7 @@ from utils.measurement_utils import TimeKeeper
 import utils.measurement_utils
 
 from utils.params_util import freeze_alphaParams, resume_alpha_discrete, resume_model
+from utils.visualize import plot2
 
 
 config = TestSearchStageConfig()
@@ -60,12 +62,29 @@ def main():
     criterion = nn.CrossEntropyLoss().to(device)
 
     # ================= set search tranier ==================
-    model = SearchStageController(input_size, input_channels, config.init_channels, n_classes, config.layers, criterion, genotype=config.genotype, device_ids=config.gpus, spec_cell=config.spec_cell, slide_window=config.slide_window)
+    if config.type == "SearchEvalCurriculum":
+        model = SearchStageDistributionBetaCurriculumController(input_size, input_channels, config.init_channels, n_classes, config.layers, criterion, genotype=config.genotype, device_ids=config.gpus, spec_cell=config.spec_cell, slide_window=config.slide_window)
+    else:
+        model = SearchStageController(input_size, input_channels, config.init_channels, n_classes, config.layers, criterion, genotype=config.genotype, device_ids=config.gpus, spec_cell=config.spec_cell, slide_window=config.slide_window)    # 
+    
     model = model.to(device)
     # ================= load checkpoint ==================
     model = resume_model(model, model_path=config.resume_path, device=device)
+    model._curri = False
+
+    previous_arch = macro_arch = model.DAG()
+    DAG_path = os.path.join(config.path, "dag")
+    plot_path = os.path.join(config.path, "plot")
+    caption = "Initial DAG"
+    plot2(macro_arch.DAG1, plot_path + '-DAG1', caption, concat=macro_arch.DAG1_concat)
+    plot2(macro_arch.DAG2, plot_path + '-DAG2', caption, concat=macro_arch.DAG2_concat)
+    plot2(macro_arch.DAG3, plot_path + '-DAG3', caption, concat=macro_arch.DAG3_concat)
+    save_DAG(macro_arch, DAG_path)
+
+    model.print_alphas(logger, fix=True)
+
     if config.discrete:
-        model = resume_alpha_discrete(model, config.DAG, model_path=config.resume_path, device=device, printer=logger.info, sw=config.slide_window)
+        model = resume_alpha_discrete(model, macro_arch, model_path=config.resume_path, device=device, printer=logger.info, sw=config.slide_window)
     model = freeze_alphaParams(model, printer=logger.info)
 
     # logger.info("param size = %fMB", utils.measurement_utils.count_parameters_in_MB(model))

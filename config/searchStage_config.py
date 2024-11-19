@@ -15,7 +15,7 @@ import genotypes.genotypes as gt
 class SearchStageConfig(BaseConfig):
     def build_parser(self):
         parser = get_parser("Search Dag config")
-        parser.add_argument('--type', default="KD", help='candidate=[KD, ArchHINT, SearchEval]')
+        parser.add_argument('--type', default="KD", help='candidate=[KD, ArchHINT, SearchEval, SearchEvalCurriculum]')
         # ================= file settings ==================
         parser.add_argument('--name', required=True)
         parser.add_argument('--save', type=str, default='EXP', help='experiment name')
@@ -98,6 +98,7 @@ class TestSearchStageConfig(BaseConfig):
         parser = get_parser("Test Searched model config")
         # ================= file settings ==================
         parser.add_argument('--save', type=str, default='EXP', help='experiment name')
+        parser.add_argument('--type', default="KD", help='candidate=[KD, ArchHINT, SearchEval, SearchEvalCurriculum]')
         # ================= dataset settings ==================
         parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
         parser.add_argument('--batch_size', type=int, default=64, help='batch size')

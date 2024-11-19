@@ -44,9 +44,9 @@ def run_task(config):
     DAG_path = os.path.join(config.DAG_path, "EP00")
     plot_path = os.path.join(config.plot_path, "EP00")
     caption = "Initial DAG"
-    plot2(macro_arch.DAG1, plot_path + '-DAG1', caption)
-    plot2(macro_arch.DAG2, plot_path + '-DAG2', caption)
-    plot2(macro_arch.DAG3, plot_path + '-DAG3', caption)
+    plot2(macro_arch.DAG1, plot_path + '-DAG1', caption, concat=macro_arch.DAG1_concat)
+    plot2(macro_arch.DAG2, plot_path + '-DAG2', caption, concat=macro_arch.DAG2_concat)
+    plot2(macro_arch.DAG3, plot_path + '-DAG3', caption, concat=macro_arch.DAG3_concat)
     save_DAG(macro_arch, DAG_path)
     
     # loss, accを格納する配列
@@ -68,9 +68,9 @@ def run_task(config):
             plot_path = os.path.join(config.plot_path, "EP{:02d}".format(epoch + 1))
             DAG_path = os.path.join(config.DAG_path, "EP{:02d}".format(epoch + 1))
             caption = "Epoch {}".format(epoch + 1)
-            plot2(macro_arch.DAG1, plot_path + '-DAG1', caption)
-            plot2(macro_arch.DAG2, plot_path + '-DAG2', caption)
-            plot2(macro_arch.DAG3, plot_path + '-DAG3', caption)
+            plot2(macro_arch.DAG1, plot_path + '-DAG1', caption, concat=macro_arch.DAG1_concat)
+            plot2(macro_arch.DAG2, plot_path + '-DAG2', caption, concat=macro_arch.DAG2_concat)
+            plot2(macro_arch.DAG3, plot_path + '-DAG3', caption, concat=macro_arch.DAG3_concat)
 
         # ================= write tensorboard ==================
         trainer.writer.add_scalar('train/lr', round(trainer.lr_scheduler.get_last_lr()[0], 5), epoch)

@@ -868,7 +868,7 @@ class SearchStageDistributionBetaCurriculumController(SearchStageDistributionBet
             window = 3
         else:
             window = self.window
-            
+                        
         gene_DAG1 = gt.parse_sub(self.alpha_DAG[0 * self.n_big_nodes: 1 * self.n_big_nodes], k=2, window=window)
         gene_DAG2 = gt.parse_sub(self.alpha_DAG[1 * self.n_big_nodes: 2 * self.n_big_nodes], k=2, window=window)
         gene_DAG3 = gt.parse_sub(self.alpha_DAG[2 * self.n_big_nodes: 3 * self.n_big_nodes], k=2, window=window)
