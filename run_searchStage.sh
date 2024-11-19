@@ -72,6 +72,7 @@ elif [ ${type} = "test" ]; then
     batch_size=64
     seed=0
     train_portion=1.0
+    layer=32
     resume_path=$3
     genotype=$4
     dag=$5
@@ -79,6 +80,7 @@ elif [ ${type} = "test" ]; then
     discrete=${7}
 
     python testSearchedModel_main.py \
+        --type $method \
         --save $save \
         --resume_path $resume_path \
         --genotype $genotype \
@@ -88,6 +90,7 @@ elif [ ${type} = "test" ]; then
         --train_portion $train_portion \
         --seed $seed \
         --spec_cell 1\
+        --layers $layer \
         --slide_window $slide_window \
         --advanced 1\
         --discrete $discrete
