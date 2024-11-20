@@ -141,7 +141,7 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
         arch_soft_losses = AverageMeter()
         arch_depth_losses = AverageMeter()
         
-        if epoch == self.curri_epochs[self.curriculum_counter]:
+        if epoch == self.curri_epochs[self.curriculum_counter] and (not epoch == self.search_epochs):
             printer("--> Curriculum part A finished. Part B begins!")
             self.model._curri = False
             self.loss_weights = [self.loss_weights[0], self.config.g]
