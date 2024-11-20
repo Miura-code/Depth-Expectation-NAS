@@ -73,3 +73,28 @@ def grad_check(model, layer_name):
         print(f"{name}の勾配:\n{param.grad}")
     else:
         print(f"{name}の勾配はありません")
+
+def custom_lr_schedule(epoch, eta_min=0.01, eta_max=0.1):
+    """
+    指定されたスケジューリングに従って学習率を計算。
+
+    Parameters:
+        epoch (int): 現在のエポック数。
+        eta_min (float): 学習率の最小値。
+        eta_max (float): 学習率の最大値。
+
+    Returns:
+        float: 現在のエポックに対応する学習率。
+    """
+    if epoch <= 50:
+        # 0～50エポック: 学習率低下（コサイン曲線）
+        return eta_min + 0.5 * (eta_max - eta_min) * (1 + math.cos(math.pi * epoch / 50))
+    elif epoch <= 60:
+        # 50～60エポック: 学習率上昇（逆コサイン曲線）
+        return eta_min + 0.5 * (eta_max - eta_min) * (1 - math.cos(math.pi * (epoch - 50) / 10))
+    elif epoch <= 150:
+        # 60～150エポック: 学習率低下（コサイン曲線）
+        return eta_min + 0.5 * (eta_max - eta_min) * (1 + math.cos(math.pi * (epoch - 60) / 90))
+    else:
+        # 150エポック以降: 学習率固定（最小値）
+        return eta_min

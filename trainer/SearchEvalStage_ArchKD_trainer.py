@@ -208,10 +208,6 @@ class SearchEvaluateStageTrainer_ArchKD(SearchStageTrainer_WithSimpleKD):
             self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.eval_epochs, eta_min=self.config.w_lr_min)
         self.freeze_alphaParams()
         self.model.print_alphas(self.logger, fix=True)
-        
-        self.w_optim = torch.optim.SGD(self.model.weights(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
-        self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.eval_epochs, eta_min=self.config.w_lr_min)
-
 
     def train_epoch(self, epoch, printer=print):
         top1 = AverageMeter()
