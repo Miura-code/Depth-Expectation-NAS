@@ -22,7 +22,6 @@ for seed in 0;do
     # $seed 0 0 $g\
     # 1 0 12 1 0\
     # length "50 0"
-
     bash run_searchStage.sh train SearchEvalCurriculum \
     $experiment_name none none s$seed-g$g-0-50\
     $genotype \
@@ -61,19 +60,26 @@ done
 #     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s${seed}-discrete-noAux16ch-reset/best.pth.tar
 # done
 
-# for seed in 0 1 2 3 4;do
-#     bash run_search3.sh SearchEval train stage $experiment_name none none s$seed-discreteEval-reset BASELINE_BEST search_and_evaluate_on_SearchingModel_discretized_arch_parameters_reset_ $seed 0.1 0
-#     dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-reset/DAG
-#     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-#     path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s${seed}-discreteEval-reset/best.pth.tar
-#     python testSearchedModel_main.py \
-#         --resume_path $path \
-#         --genotype BASELINE_BEST \
-#         --DAG $dag \
-#         --save test \
-#         --seed 0 \
-#         --spec_cell \
-#         --slide_window 3 \
-#         --discrete \
-#         --advanced
-# done
+for seed in 0 1 2 3 4;do
+    # bash run_searchStage.sh train SearchEval \
+    # $experiment_name none none s$seed-discreteEval-LRreset \
+    # BASELINE_BEST \
+    # search_and_evaluate_on_SearchingModel_discretized_arch_parameters_only_lr_scheduler_reset_ \
+    # $seed 0 0 0\
+    # 1 0 3 1 0 none "0 0"
+
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-LRreset/DAG
+    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-LRreset/best.pth.tar
+    python testSearchedModel_main.py \
+        --resume_path $path \
+        --genotype BASELINE_BEST \
+        --dataset cifar100 \
+        --DAG $dag \
+        --save test \
+        --seed 0 \
+        --spec_cell 1\
+        --slide_window 3 \
+        --discrete 1 \
+        --advanced 1
+done
