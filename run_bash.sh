@@ -60,17 +60,17 @@ done
 #     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s${seed}-discrete-noAux16ch-reset/best.pth.tar
 # done
 
-for seed in 0 1 2 3 4;do
-    # bash run_searchStage.sh train SearchEval \
-    # $experiment_name none none s$seed-discreteEval-LRreset \
-    # BASELINE_BEST \
-    # search_and_evaluate_on_SearchingModel_discretized_arch_parameters_only_lr_scheduler_reset_ \
-    # $seed 0 0 0\
-    # 1 0 3 1 0 none "0 0"
+for seed in 0 1;do
+    bash run_searchStage.sh train SearchEval \
+    $experiment_name none none s$seed-discreteEval-2stageLRscheduler \
+    BASELINE_BEST \
+    search_and_evaluate_on_SearchingModel_discretized_arch_parameters_only_lr_scheduler_reset_ \
+    $seed 0 0 0\
+    1 0 3 1 0 none "0 0"
 
-    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-LRreset/DAG
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-2stageLRscheduler/DAG
     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-LRreset/best.pth.tar
+    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-2stageLRscheduler/best.pth.tar
     python testSearchedModel_main.py \
         --resume_path $path \
         --genotype BASELINE_BEST \
