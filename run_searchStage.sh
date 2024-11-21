@@ -10,10 +10,9 @@ if [ ${type} = "train" ]; then
     batch_size=64
     epoch=50
     eval_epoch=100
-    curri_epoch="30 20"
     train_portion=0.5 # searchの場合train_portionは0.5が最大値
     macs="8.18 2.49 1.88"
-    layer=20
+    layer=32
 
     name=$3
     teacher_model=$4
