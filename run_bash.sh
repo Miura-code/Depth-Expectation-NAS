@@ -2,7 +2,7 @@
 teacher_path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s0-BaselineBestCell/best.pth.tar
 genotype=BASELINE_BEST
 
-experiment_name=Curriculum
+experiment_name=SEARCHEVALnoDL
 
 g=10
 
@@ -62,15 +62,15 @@ g=10
 
 for seed in 0 1;do
     bash run_searchStage.sh train SearchEval \
-    $experiment_name none none s$seed-discreteEval-2stageLRscheduler \
+    $experiment_name none none s$seed-discreteEval-customLRscheduler \
     BASELINE_BEST \
     search_and_evaluate_on_SearchingModel_discretized_arch_parameters_only_lr_scheduler_reset_ \
     $seed 0 0 0\
     1 0 3 1 0 none "0 0"
 
-    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-2stageLRscheduler/DAG
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-customLRscheduler/DAG
     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-2stageLRscheduler/best.pth.tar
+    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-customLRscheduler/best.pth.tar
     python testSearchedModel_main.py \
         --resume_path $path \
         --genotype BASELINE_BEST \
