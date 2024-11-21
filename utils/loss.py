@@ -374,23 +374,80 @@ class CellLength_beta(nn.Module):
                     m += 1
         return loss
     
+class Expected_Depth_Loss_beta(nn.Module):
+    def __init__(self, sw, n_node, theta, device='cpu'):
+        super(Expected_Depth_Loss_beta, self).__init__()
+        self.sw = sw
+        self.n_node = n_node
+        self.device = device
+        self.theta = torch.tensor(theta, dtype=torch.float32).to(device)
+
+    def forward(self, alpha, beta):
+        depth_list = torch.zeros((self.theta.shape[0], self.n_node+2)).to(self.device)
+        alpha = [F.softmax(alpha, dim=-1) for alpha in alpha]
+        beta = [F.softmax(beta, dim=0) for beta in beta]
+
+        loss = 0
+        for s in range(self.theta.shape[0]):
+            alpha_dag = alpha[s * self.n_node: (s+1) * self.n_node]
+            depth_list[s] = self._expectation_dp(alpha_dag, depth_list[s])
+            depth = 0
+            offset = 0
+            for i in range(2, self.n_node + 1):
+                for j in range(i+1, self.n_node + 2):
+                    depth += beta[s][offset] * (depth_list[s][i] + depth_list[s][j])
+                    offset += 1
+            loss += self.theta[s] * depth
+        
+        return loss
+
+    def _expectation_dp(self, alpha, ExpectedDepth):
+
+        for j in range(self.n_node+2):
+            if j == 0 or j == 1:
+                ExpectedDepth[j] = 0
+            elif j < self.sw:
+                for i, w_list in zip(range(j), alpha[j-2]):
+                    ExpectedDepth[j] += sum(w * (ExpectedDepth[i] + 1) for w in w_list)
+            else:
+                for i, w_list in zip(range(j-self.sw, j), alpha[j-2]):
+                    ExpectedDepth[j] += sum(w * (ExpectedDepth[i] + 1) for w in w_list)
+
+        return ExpectedDepth
+        
+
+def alphas(_alphas):
+        for n, p in _alphas:
+            yield p 
+
+        
 if __name__ == "__main__":
     alpha_DAG = nn.ParameterList()
-    n = n_big_nodes = 8
-    sw = 15
+    n = n_big_nodes = 10
+    sw = 3
     for _ in range(3):
         for i in range(n):
             if i + 2 < sw:
-                alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(i + 2, 3)))
+                alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(i + 2, 4)))
             else:
-                alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(sw, 3)))
+                alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(sw, 4)))
         # alpha_DAG.append(nn.Parameter(1e-3 * torch.randn(int((n-2)*(n-3)/2))))
-    Loss = L1loss_alpha(n, theta=[1,1,1])
-    print(alpha_DAG)
+
+    _alphas = []
+    for n, p in alpha_DAG.named_parameters():
+        _alphas.append((n, p))
+    beta = nn.ParameterList()
+    # 3 stages
+    # initialize architecture parameter(alpha)
+    for _ in range(3):
+        beta.append(nn.Parameter(1e-3 * torch.randn(int((n_big_nodes)*(n_big_nodes-1)/2))))
+    _betas = []
+    for n, p in beta.named_parameters():
+        _betas.append((n, p))
+            
+    Loss = Expected_Depth_Loss_beta(sw=sw, n_node=n_big_nodes, theta=[1,1,1])
+    print(alphas(_alphas))
+    print(alphas(_betas))
     
-    aa = [alpha_DAG[0 * n_big_nodes: 1 * n_big_nodes],
-    alpha_DAG[1 * n_big_nodes: 2 * n_big_nodes],
-    alpha_DAG[2 * n_big_nodes: 3 * n_big_nodes]]
-    print(aa)
-    loss = Loss(aa)
+    loss = Loss(alphas(_alphas), alphas(_betas))
     print(loss)

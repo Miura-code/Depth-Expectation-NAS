@@ -9,6 +9,8 @@
 import copy
 import torch
 
+from utils.loss import Expected_Depth_Loss_beta
+
 
 class Architect():
     def __init__(self, net, teacher_net, w_momentum, w_weight_decay):
@@ -197,6 +199,8 @@ class Architect_Arch(Architect):
         self.w_weight_decay = w_weight_decay
         self.teacher_feature_extractor = teacher_feature_extractor
         self.Regressor = Regressor
+
+        self.arch_criterion_type = "expected" if isinstance(self.net.criterion.functions[1], Expected_Depth_Loss_beta) else "beta"
         
     def unrolled_backward_archhint(self, trn_X, trn_y, val_X, val_y, xi, w_optim, stage=1):
         """ First Order!
@@ -239,7 +243,10 @@ class Architect_Arch(Architect):
             w_optim: weights optimizer - for virtual step
         """
         logits = self.net(val_X)
-        losses = self.net.criterion((logits, val_y), ([self.net.betas()]), updated_weight=weights, detail=True)
+        if self.arch_criterion_type == "expected":
+            losses = self.net.criterion((logits, val_y), ([self.net.alphas(), self.net.betas()]), updated_weight=weights, detail=True)
+        elif self.arch_criterion_type == "beta":
+            losses = self.net.criterion((logits, val_y), ([self.net.betas()]), updated_weight=weights, detail=True)
         losses[-1].backward()
         
         return losses
