@@ -200,7 +200,7 @@ class Architect_Arch(Architect):
         self.teacher_feature_extractor = teacher_feature_extractor
         self.Regressor = Regressor
 
-        self.arch_criterion_type = "expected" if isinstance(self.net.criterion.functions[1], Expected_Depth_Loss_beta) else "beta"
+        self.arch_criterion_type = "expected" if isinstance(self.net.criterion.functions[-1], Expected_Depth_Loss_beta) else "beta"
         
     def unrolled_backward_archhint(self, trn_X, trn_y, val_X, val_y, xi, w_optim, stage=1):
         """ First Order!
