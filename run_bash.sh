@@ -4,16 +4,16 @@ genotype=BASELINE_BEST
 
 experiment_name=SEARCHEVALnoDL
 
-# for seed in 0;do
-#     for g in 1 0.1 0.01 0.001;do
-#         for method in expected;do
-#             bash run_searchStage.sh train Pruning \
-#             $experiment_name none none s$seed-$method-sw3-g$g\
-#             $genotype \
-#             search_with_-Beta-expected-Depth-constraint_slidewindow-3 \
-#             $seed 0 0 $g\
-#             1 0 3 0 0\
-#             $method
+for seed in 0;do
+    for g in -100 -10 -1 -0.1 -0.01;do
+        for method in expected;do
+            bash run_searchStage.sh train Pruning \
+            $experiment_name none none s$seed-$method-sw3-g$g\
+            $genotype \
+            search_with_-Beta-expected-Depth-constraint_slidewindow-3 \
+            $seed 0 0 $g\
+            1 0 3 0 0\
+            $method
 
 #             # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g$g/DAG
 #             # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
@@ -64,26 +64,26 @@ experiment_name=SEARCHEVALnoDL
 #     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s${seed}-discrete-noAux16ch-reset/best.pth.tar
 # done
 
-for seed in 2 3 4;do
-    bash run_searchStage.sh train SearchEval \
-    $experiment_name none none s$seed-discreteEval-customLRscheduler \
-    BASELINE_BEST \
-    search_and_evaluate_on_SearchingModel_discretized_arch_parameters_only_lr_scheduler_reset_ \
-    $seed 0 0 0\
-    1 0 3 1 0 none "0 0"
+# for seed in 2 3 4;do
+#     bash run_searchStage.sh train SearchEval \
+#     $experiment_name none none s$seed-discreteEval-custom2LRscheduler \
+#     BASELINE_BEST \
+#     search_and_evaluate_on_SearchingModel_discretized_arch_parameters_only_lr_scheduler_reset_ \
+#     $seed 0 0 0\
+#     1 0 3 1 0 none "0 0"
 
-    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-customLRscheduler/DAG
-    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-customLRscheduler/best.pth.tar
-    python testSearchedModel_main.py \
-        --resume_path $path \
-        --genotype BASELINE_BEST \
-        --dataset cifar100 \
-        --DAG $dag \
-        --save test \
-        --seed 0 \
-        --spec_cell 1\
-        --slide_window 3 \
-        --discrete 1 \
-        --advanced 1
-done
+#     dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-custom2LRscheduler/DAG
+#     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+#     path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-custom2LRscheduler/best.pth.tar
+#     python testSearchedModel_main.py \
+#         --resume_path $path \
+#         --genotype BASELINE_BEST \
+#         --dataset cifar100 \
+#         --DAG $dag \
+#         --save test \
+#         --seed 0 \
+#         --spec_cell 1\
+#         --slide_window 3 \
+#         --discrete 1 \
+#         --advanced 1
+# done
