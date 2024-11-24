@@ -63,12 +63,12 @@ elif [ ${arch} = "stage" ]; then
         dataset=cifar100
         lambda=0.5
         T=10
-        epoch=100
+        epoch=600
         train_portion=0.9
         seed=${10}
-        init_channels=32
-        aux_weight=0.4
-        droppath=0.2
+        init_channels=16
+        aux_weight=0
+        droppath=0
         layer=32
         python evaluateStage_main.py \
             --name $name \
@@ -99,9 +99,8 @@ elif [ ${arch} = "stage" ]; then
         path=$5
         layer=32
         seed=0
-        init_channels=32
-        aux_weight=0.4
-        layer=32
+        init_channels=16
+        aux_weight=0
 
         python testModel_main.py \
             --save test \
