@@ -10,7 +10,7 @@ from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 
 import utils
 import utils.measurement_utils
-from utils.loss import CellLength_beta, CosineScheduler, Lp_loss_beta, WeightedCombinedLoss
+from utils.loss import CellLength_beta, CosineScheduler, Expected_Depth_Loss_beta, Lp_loss_beta, WeightedCombinedLoss
 from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, accuracy
 from utils.data_prefetcher import data_prefetcher
@@ -47,7 +47,8 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
             self.beta_criterioin = Lp_loss_beta(self.config.layers//3, mac_ratio).to(self.device)
         elif self.config.arch_criterion == "length":
             self.beta_criterioin = CellLength_beta(self.config.layers//3, mac_ratio).to(self.device)
-
+        elif self.config.arch_criterion == "expected":
+            self.beta_criterioin = Expected_Depth_Loss_beta(sw=self.sw, n_node=self.config.layers//3, theta=mac_ratio, device=self.device).to(self.device)
         
         self.loss_functions = [self.hard_criterion, self.beta_criterioin]
         # カリキュラム学習のため最初は重みgammaを0とする
