@@ -64,27 +64,20 @@ experiment_name=Curriculum
 #     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s${seed}-discrete-noAux16ch-reset/best.pth.tar
 # done
 
-for seed in 2 3 4;do
-    bash run_searchStage.sh train SearchEvalCurriculum \
-    $experiment_name none none s$seed-$method-sw3-g${g}_30-20 \
-    BASELINE_BEST \
-    search_and_evaluation_curriculum_learning_with_-Beta-expected-Depth-ecpected-constraint_slidewindow-3_ \
-    $seed 0 0 0.001\
-    1 0 3 1 0 \
-    expected "30 20"
+# method=expected
+for seed in 0 1;do
+    # bash run_searchStage.sh train SearchEvalCurriculum \
+    # $experiment_name none none s$seed-$method-sw3-g${g}_50-0 \
+    # BASELINE_BEST \
+    # search_and_evaluation_curriculum_learning_with_-Beta-expected-Depth-ecpected-constraint_slidewindow-3_ \
+    # $seed 0 0 0.001\
+    # 1 0 3 1 0 \
+    # expected "50 0"
 
-    # dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g${g}_30-20/DAG
-    # dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    # path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g${g}_30-20/best.pth.tar
-    # python testSearchedModel_main.py \
-    #     --resume_path $path \
-    #     --genotype BASELINE_BEST \
-    #     --dataset cifar100 \
-    #     --DAG $dag \
-    #     --save test \
-    #     --seed 0 \
-    #     --spec_cell 1\
-    #     --slide_window 3 \
-    #     --discrete 1 \
-    #     --advanced 1
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g${g}_30-20/DAG
+    dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g${g}_30-20/best.pth.tar
+    bash run_searchStage.sh test SearchEvalCurriculum \
+    $path BASELINE_BEST $dag \
+    3 1
 done
