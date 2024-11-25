@@ -64,7 +64,7 @@ experiment_name=Curriculum
 #     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s${seed}-discrete-noAux16ch-reset/best.pth.tar
 # done
 
-for seed in 0 1 2;do
+for seed in 2 3 4;do
     bash run_searchStage.sh train SearchEvalCurriculum \
     $experiment_name none none s$seed-$method-sw3-g${g}_30-20 \
     BASELINE_BEST \
