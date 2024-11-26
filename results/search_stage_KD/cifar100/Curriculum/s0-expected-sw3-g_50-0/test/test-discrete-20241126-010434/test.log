@@ -1,0 +1,168 @@
+11/26 01:04:34AM parser.py:28 [INFO] 
+11/26 01:04:34AM parser.py:29 [INFO] Parameters:
+11/26 01:04:34AM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 2), ('skip_connect', 0)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 5), ('skip_connect', 4)], [('max_pool_3x3', 7), ('skip_connect', 5)], [('max_pool_3x3', 7), ('max_pool_3x3', 8)], [('max_pool_3x3', 7), ('max_pool_3x3', 9)], [('max_pool_3x3', 8), ('max_pool_3x3', 9)]], DAG1_concat=[10, 11], DAG2=[[('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 4)], [('skip_connect', 3), ('skip_connect', 5)], [('skip_connect', 4), ('skip_connect', 5)], [('skip_connect', 5), ('skip_connect', 6)], [('skip_connect', 6), ('skip_connect', 8)], [('skip_connect', 7), ('skip_connect', 8)], [('skip_connect', 8), ('skip_connect', 10)]], DAG2_concat=[10, 11], DAG3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)], [('skip_connect', 5), ('skip_connect', 6)], [('skip_connect', 6), ('skip_connect', 7)], [('skip_connect', 7), ('skip_connect', 8)], [('skip_connect', 8), ('skip_connect', 9)]], DAG3_concat=[10, 11])
+11/26 01:04:34AM parser.py:31 [INFO] ADVANCED=1
+11/26 01:04:34AM parser.py:31 [INFO] BATCH_SIZE=64
+11/26 01:04:34AM parser.py:31 [INFO] CHECKPOINT_RESET=0
+11/26 01:04:34AM parser.py:31 [INFO] CUTOUT_LENGTH=0
+11/26 01:04:34AM parser.py:31 [INFO] DATA_PATH=../data/
+11/26 01:04:34AM parser.py:31 [INFO] DATASET=cifar100
+11/26 01:04:34AM parser.py:31 [INFO] DESCRIPTION=
+11/26 01:04:34AM parser.py:31 [INFO] DISCRETE=1
+11/26 01:04:34AM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+11/26 01:04:34AM parser.py:31 [INFO] GPUS=[0]
+11/26 01:04:34AM parser.py:31 [INFO] INIT_CHANNELS=16
+11/26 01:04:34AM parser.py:31 [INFO] LAYERS=32
+11/26 01:04:34AM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+11/26 01:04:34AM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/Curriculum/s0-expected-sw3-g_50-0/test/test-discrete-20241126-010434
+11/26 01:04:34AM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/Curriculum/s0-expected-sw3-g_50-0/best.pth.tar
+11/26 01:04:34AM parser.py:31 [INFO] SAVE=test
+11/26 01:04:34AM parser.py:31 [INFO] SEED=0
+11/26 01:04:34AM parser.py:31 [INFO] SHARE_STAGE=0
+11/26 01:04:34AM parser.py:31 [INFO] SLIDE_WINDOW=3
+11/26 01:04:34AM parser.py:31 [INFO] SPEC_CELL=1
+11/26 01:04:34AM parser.py:31 [INFO] TRAIN_PORTION=1.0
+11/26 01:04:34AM parser.py:31 [INFO] TYPE=SearchEvalCurriculum
+11/26 01:04:34AM parser.py:31 [INFO] WORKERS=4
+11/26 01:04:34AM parser.py:32 [INFO] 
+11/26 01:04:34AM testSearchedModel_main.py:43 [INFO] Logger is set - test start
+####### ALPHA #######
+# Alpha - DAG
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 0., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 0., 0.],
+        [1., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 0., 0.],
+        [1., 0., 0., 0.],
+        [1., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[1., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [1., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[1., 0., 0., 0.],
+        [1., 0., 0., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+# Beta
+Parameter containing:
+tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 1.], device='cuda:0',
+       requires_grad=True)
+Parameter containing:
+tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 1.], device='cuda:0',
+       requires_grad=True)
+Parameter containing:
+tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 1.], device='cuda:0',
+       requires_grad=True)
+#####################
+11/26 01:04:38AM params_util.py:51 [INFO] --> Loaded DISCRETED checkpoint '/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/Curriculum/s0-expected-sw3-g_50-0/best.pth.tar'
+11/26 01:04:38AM params_util.py:60 [INFO] --> Loaded alpha parameters are Freezed
+11/26 01:04:49AM testSearchedModel_main.py:100 [INFO] Test Prec(@1, @5) = (65.3400%, 88.7100%)
+11/26 01:04:49AM testSearchedModel_main.py:101 [INFO] Time to Test = (1732550678.499598, 1732550689.7990196, 11.299421548843384)
