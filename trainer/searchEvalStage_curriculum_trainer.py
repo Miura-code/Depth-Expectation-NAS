@@ -129,7 +129,12 @@ class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, Searc
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.eval_epochs, eta_min=self.config.w_lr_min)
         self.architect = Architect_Arch(self.model, None, self.config.w_momentum, self.config.w_weight_decay)
             
-        self.logger.info(f"--> Network parameter is reseted.")        
+        self.logger.info(f"--> Network parameter is reseted.")
+
+    def switch_evaluation(self):
+        self.model._curri = False
+        super().switch_evaluation()
+        return 
             
     def train_epoch(self, epoch, printer=print):
         top1 = AverageMeter()
