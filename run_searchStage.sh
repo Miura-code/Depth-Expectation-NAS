@@ -7,12 +7,12 @@ if [ ${type} = "train" ]; then
     # ===== ステージレベル探索　=====
     dataset=cifar100
     T=10
-    batch_size=128
+    batch_size=64
     epoch=50
     eval_epoch=100
     train_portion=0.5 # searchの場合train_portionは0.5が最大値
     macs="8.18 2.49 1.88"
-    layer=32
+    layer=20
 
     name=$3
     teacher_model=$4
@@ -74,7 +74,7 @@ elif [ ${type} = "test" ]; then
     batch_size=64
     seed=0
     train_portion=1.0
-    layer=32
+    layer=20
     resume_path=$3
     genotype=$4
     dag=$5

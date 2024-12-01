@@ -2,7 +2,7 @@
 teacher_path=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s0-BaselineBestCell/best.pth.tar
 genotype=BASELINE_BEST
 
-experiment_name=Curriculum
+experiment_name=SEARCHEVALnoDL
 
 # for seed in 0;do
 #     for g in 0.001;do
@@ -64,20 +64,39 @@ experiment_name=Curriculum
 #     bash run_evaluate.sh test stage BASELINE_BEST ${dag} /home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/$experiment_name/s${seed}-discrete-noAux16ch-reset/best.pth.tar
 # done
 
+# method=expected
+# for seed in 0 1 2;do
+#     bash run_searchStage.sh train SearchEvalCurriculum \
+#     $experiment_name none none s$seed-$method-sw3-g${g}_0-50 \
+#     BASELINE_BEST \
+#     search_and_evaluation_curriculum_learning_with_-Beta-expected-Depth-ecpected-constraint_slidewindow-3_ \
+#     $seed 0 0 0.001\
+#     1 0 3 1 0 \
+#     expected "0 50"
+
+#     dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g${g}_0-50/DAG
+#     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
+#     path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g${g}_0-50/best.pth.tar
+#     bash run_searchStage.sh test SearchEvalCurriculum \
+#     $path BASELINE_BEST $dag \
+#     3 1
+# done
+
+
 method=expected
-for seed in 0 1 2;do
-    bash run_searchStage.sh train SearchEvalCurriculum \
-    $experiment_name none none s$seed-$method-sw3-g${g}_0-50 \
+for seed in 5 6 7 8 9;do
+    bash run_searchStage.sh train SearchEval \
+    $experiment_name none none s$seed-discreteEval-LRreset \
     BASELINE_BEST \
     search_and_evaluation_curriculum_learning_with_-Beta-expected-Depth-ecpected-constraint_slidewindow-3_ \
     $seed 0 0 0.001\
     1 0 3 1 0 \
     expected "0 50"
 
-    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g${g}_0-50/DAG
+    dir=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-LRreset/DAG
     dag=$(find "$dir" -type f -name '*best*' -exec stat --format="%Y %n" {} + | sort -nr | head -n 1 | awk '{print $2}')
-    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-$method-sw3-g${g}_0-50/best.pth.tar
-    bash run_searchStage.sh test SearchEvalCurriculum \
+    path=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/$experiment_name/s$seed-discreteEval-LRreset/best.pth.tar
+    bash run_searchStage.sh test SearchEval \
     $path BASELINE_BEST $dag \
     3 1
 done
