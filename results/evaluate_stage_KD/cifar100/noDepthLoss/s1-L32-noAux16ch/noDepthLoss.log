@@ -1,0 +1,740 @@
+12/01 11:07:00PM parser.py:28 [INFO] 
+12/01 11:07:00PM parser.py:29 [INFO] Parameters:
+12/01 11:07:00PM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 6)], [('skip_connect', 6), ('skip_connect', 5)], [('skip_connect', 6), ('max_pool_3x3', 8)], [('skip_connect', 7), ('skip_connect', 8)], [('skip_connect', 8), ('skip_connect', 9)]], DAG1_concat=range(10, 12), DAG2=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 3)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)], [('skip_connect', 5), ('skip_connect', 6)], [('skip_connect', 6), ('skip_connect', 7)], [('skip_connect', 7), ('skip_connect', 8)], [('skip_connect', 8), ('skip_connect', 9)]], DAG2_concat=range(10, 12), DAG3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 4)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)], [('skip_connect', 5), ('skip_connect', 6)], [('skip_connect', 6), ('skip_connect', 7)], [('skip_connect', 7), ('skip_connect', 8)], [('skip_connect', 8), ('skip_connect', 9)]], DAG3_concat=range(10, 12))
+12/01 11:07:00PM parser.py:31 [INFO] T=10.0
+12/01 11:07:00PM parser.py:31 [INFO] ADVANCED=True
+12/01 11:07:00PM parser.py:31 [INFO] AUX_WEIGHT=0.0
+12/01 11:07:00PM parser.py:31 [INFO] BATCH_SIZE=256
+12/01 11:07:00PM parser.py:31 [INFO] CUTOUT_LENGTH=16
+12/01 11:07:00PM parser.py:31 [INFO] DATA_PATH=../data/
+12/01 11:07:00PM parser.py:31 [INFO] DATASET=cifar100
+12/01 11:07:00PM parser.py:31 [INFO] DESCRIPTION=search_and_evaluate_on_SearchingModel_discretized_arch_parameters_only_lr_scheduler_reset_
+12/01 11:07:00PM parser.py:31 [INFO] DROP_PATH_PROB=0.0
+12/01 11:07:00PM parser.py:31 [INFO] EPOCHS=100
+12/01 11:07:00PM parser.py:31 [INFO] EXP_NAME=s1-L32-noAux16ch
+12/01 11:07:00PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+12/01 11:07:00PM parser.py:31 [INFO] GPUS=[0]
+12/01 11:07:00PM parser.py:31 [INFO] GRAD_CLIP=5.0
+12/01 11:07:00PM parser.py:31 [INFO] INIT_CHANNELS=16
+12/01 11:07:00PM parser.py:31 [INFO] L=0.5
+12/01 11:07:00PM parser.py:31 [INFO] LAYERS=32
+12/01 11:07:00PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+12/01 11:07:00PM parser.py:31 [INFO] LR=0.025
+12/01 11:07:00PM parser.py:31 [INFO] LR_MIN=0.001
+12/01 11:07:00PM parser.py:31 [INFO] MOMENTUM=0.9
+12/01 11:07:00PM parser.py:31 [INFO] NAME=noDepthLoss
+12/01 11:07:00PM parser.py:31 [INFO] NONKD=True
+12/01 11:07:00PM parser.py:31 [INFO] PATH=results/evaluate_stage_KD/cifar100/noDepthLoss/s1-L32-noAux16ch
+12/01 11:07:00PM parser.py:31 [INFO] PRINT_FREQ=50
+12/01 11:07:00PM parser.py:31 [INFO] RESUME_PATH=None
+12/01 11:07:00PM parser.py:31 [INFO] SAVE=s1-L32-noAux16ch
+12/01 11:07:00PM parser.py:31 [INFO] SEED=1
+12/01 11:07:00PM parser.py:31 [INFO] SPEC_CELL=True
+12/01 11:07:00PM parser.py:31 [INFO] TEACHER_NAME=none
+12/01 11:07:00PM parser.py:31 [INFO] TEACHER_PATH=none
+12/01 11:07:00PM parser.py:31 [INFO] TRAIN_PORTION=0.9
+12/01 11:07:00PM parser.py:31 [INFO] WEIGHT_DECAY=0.0003
+12/01 11:07:00PM parser.py:31 [INFO] WORKERS=4
+12/01 11:07:00PM parser.py:32 [INFO] 
+12/01 11:07:01PM evaluateStage_trainer.py:79 [INFO] --> No loaded checkpoint!
+12/01 11:07:19PM evaluateStage_trainer.py:138 [INFO] Train: Epoch: [0][50/175]	Step 50	lr 0.025	Loss 4.5335 (4.6084)	Prec@(1,5) (1.5%, 6.3%)	
+12/01 11:07:34PM evaluateStage_trainer.py:138 [INFO] Train: Epoch: [0][100/175]	Step 100	lr 0.025	Loss 4.4667 (4.5649)	Prec@(1,5) (2.0%, 8.1%)	
+12/01 11:07:48PM evaluateStage_trainer.py:138 [INFO] Train: Epoch: [0][150/175]	Step 150	lr 0.025	Loss 4.2254 (4.4864)	Prec@(1,5) (2.9%, 11.3%)	
+12/01 11:07:55PM evaluateStage_trainer.py:138 [INFO] Train: Epoch: [0][175/175]	Step 175	lr 0.025	Loss 4.2142 (4.4382)	Prec@(1,5) (3.5%, 13.0%)	
+12/01 11:07:57PM evaluateStage_trainer.py:145 [INFO] Train: [  0/99] Final Prec@1 3.4622%
+12/01 11:08:00PM evaluateStage_trainer.py:180 [INFO] Valid: [  0/99] Final Prec@1 6.7000%
+12/01 11:08:01午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 6.7000%
+12/01 11:08:16午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [1][50/175]	Step 226	lr 0.02499	Loss 3.8989 (3.9814)	Prec@(1,5) (9.3%, 28.3%)	
+12/01 11:08:31午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [1][100/175]	Step 276	lr 0.02499	Loss 3.7827 (3.8993)	Prec@(1,5) (10.4%, 30.8%)	
+12/01 11:08:45午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [1][150/175]	Step 326	lr 0.02499	Loss 3.6966 (3.8296)	Prec@(1,5) (11.6%, 32.6%)	
+12/01 11:08:53午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [1][175/175]	Step 351	lr 0.02499	Loss 3.7193 (3.8042)	Prec@(1,5) (11.9%, 33.3%)	
+12/01 11:08:53午後 evaluateStage_trainer.py:145 [INFO] Train: [  1/99] Final Prec@1 11.9356%
+12/01 11:08:56午後 evaluateStage_trainer.py:180 [INFO] Valid: [  1/99] Final Prec@1 14.1800%
+12/01 11:08:56午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 14.1800%
+12/01 11:09:12午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [2][50/175]	Step 402	lr 0.02498	Loss 3.4599 (3.5385)	Prec@(1,5) (15.6%, 41.2%)	
+12/01 11:09:26午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [2][100/175]	Step 452	lr 0.02498	Loss 3.3551 (3.4927)	Prec@(1,5) (16.4%, 42.1%)	
+12/01 11:09:41午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [2][150/175]	Step 502	lr 0.02498	Loss 3.3281 (3.4478)	Prec@(1,5) (17.3%, 43.3%)	
+12/01 11:09:48午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [2][175/175]	Step 527	lr 0.02498	Loss 3.2103 (3.4313)	Prec@(1,5) (17.6%, 43.8%)	
+12/01 11:09:49午後 evaluateStage_trainer.py:145 [INFO] Train: [  2/99] Final Prec@1 17.6111%
+12/01 11:09:51午後 evaluateStage_trainer.py:180 [INFO] Valid: [  2/99] Final Prec@1 15.0800%
+12/01 11:09:52午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 15.0800%
+12/01 11:10:07午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [3][50/175]	Step 578	lr 0.02495	Loss 3.3507 (3.2364)	Prec@(1,5) (20.9%, 48.4%)	
+12/01 11:10:22午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [3][100/175]	Step 628	lr 0.02495	Loss 3.1612 (3.1922)	Prec@(1,5) (21.6%, 50.0%)	
+12/01 11:10:37午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [3][150/175]	Step 678	lr 0.02495	Loss 2.9248 (3.1694)	Prec@(1,5) (22.0%, 50.6%)	
+12/01 11:10:44午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [3][175/175]	Step 703	lr 0.02495	Loss 3.0870 (3.1603)	Prec@(1,5) (22.2%, 51.0%)	
+12/01 11:10:44午後 evaluateStage_trainer.py:145 [INFO] Train: [  3/99] Final Prec@1 22.2111%
+12/01 11:10:47午後 evaluateStage_trainer.py:180 [INFO] Valid: [  3/99] Final Prec@1 21.2000%
+12/01 11:10:48午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 21.2000%
+12/01 11:11:03午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [4][50/175]	Step 754	lr 0.02491	Loss 2.7613 (2.9760)	Prec@(1,5) (26.2%, 56.1%)	
+12/01 11:11:18午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [4][100/175]	Step 804	lr 0.02491	Loss 2.7873 (2.9583)	Prec@(1,5) (26.2%, 56.2%)	
+12/01 11:11:32午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [4][150/175]	Step 854	lr 0.02491	Loss 2.9058 (2.9399)	Prec@(1,5) (26.5%, 56.6%)	
+12/01 11:11:40午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [4][175/175]	Step 879	lr 0.02491	Loss 2.9667 (2.9291)	Prec@(1,5) (26.6%, 56.8%)	
+12/01 11:11:40午後 evaluateStage_trainer.py:145 [INFO] Train: [  4/99] Final Prec@1 26.6089%
+12/01 11:11:43午後 evaluateStage_trainer.py:180 [INFO] Valid: [  4/99] Final Prec@1 24.9400%
+12/01 11:11:43午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 24.9400%
+12/01 11:11:59午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [5][50/175]	Step 930	lr 0.02485	Loss 2.5689 (2.7675)	Prec@(1,5) (29.8%, 60.8%)	
+12/01 11:12:13午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [5][100/175]	Step 980	lr 0.02485	Loss 2.8834 (2.7521)	Prec@(1,5) (30.0%, 61.1%)	
+12/01 11:12:28午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [5][150/175]	Step 1030	lr 0.02485	Loss 2.6932 (2.7438)	Prec@(1,5) (30.1%, 61.3%)	
+12/01 11:12:35午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [5][175/175]	Step 1055	lr 0.02485	Loss 2.7489 (2.7310)	Prec@(1,5) (30.4%, 61.6%)	
+12/01 11:12:36午後 evaluateStage_trainer.py:145 [INFO] Train: [  5/99] Final Prec@1 30.4156%
+12/01 11:12:38午後 evaluateStage_trainer.py:180 [INFO] Valid: [  5/99] Final Prec@1 27.1200%
+12/01 11:12:39午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 27.1200%
+12/01 11:12:55午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [6][50/175]	Step 1106	lr 0.02479	Loss 2.6642 (2.5954)	Prec@(1,5) (33.5%, 65.2%)	
+12/01 11:13:09午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [6][100/175]	Step 1156	lr 0.02479	Loss 2.6096 (2.5968)	Prec@(1,5) (33.6%, 65.0%)	
+12/01 11:13:24午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [6][150/175]	Step 1206	lr 0.02479	Loss 2.6287 (2.5935)	Prec@(1,5) (33.4%, 65.2%)	
+12/01 11:13:31午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [6][175/175]	Step 1231	lr 0.02479	Loss 2.5555 (2.5873)	Prec@(1,5) (33.6%, 65.4%)	
+12/01 11:13:31午後 evaluateStage_trainer.py:145 [INFO] Train: [  6/99] Final Prec@1 33.5667%
+12/01 11:13:34午後 evaluateStage_trainer.py:180 [INFO] Valid: [  6/99] Final Prec@1 30.5000%
+12/01 11:13:35午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 30.5000%
+12/01 11:13:50午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [7][50/175]	Step 1282	lr 0.02471	Loss 2.3787 (2.4478)	Prec@(1,5) (36.2%, 67.8%)	
+12/01 11:14:05午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [7][100/175]	Step 1332	lr 0.02471	Loss 2.4327 (2.4305)	Prec@(1,5) (36.5%, 68.4%)	
+12/01 11:14:20午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [7][150/175]	Step 1382	lr 0.02471	Loss 2.5466 (2.4408)	Prec@(1,5) (36.4%, 68.1%)	
+12/01 11:14:27午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [7][175/175]	Step 1407	lr 0.02471	Loss 2.4714 (2.4349)	Prec@(1,5) (36.5%, 68.2%)	
+12/01 11:14:27午後 evaluateStage_trainer.py:145 [INFO] Train: [  7/99] Final Prec@1 36.5378%
+12/01 11:14:30午後 evaluateStage_trainer.py:180 [INFO] Valid: [  7/99] Final Prec@1 31.0200%
+12/01 11:14:30午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 31.0200%
+12/01 11:14:46午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [8][50/175]	Step 1458	lr 0.02462	Loss 2.2701 (2.3362)	Prec@(1,5) (38.3%, 70.6%)	
+12/01 11:15:00午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [8][100/175]	Step 1508	lr 0.02462	Loss 2.4786 (2.3399)	Prec@(1,5) (38.5%, 70.8%)	
+12/01 11:15:15午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [8][150/175]	Step 1558	lr 0.02462	Loss 2.2515 (2.3252)	Prec@(1,5) (38.6%, 71.0%)	
+12/01 11:15:22午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [8][175/175]	Step 1583	lr 0.02462	Loss 2.0338 (2.3188)	Prec@(1,5) (38.8%, 71.0%)	
+12/01 11:15:23午後 evaluateStage_trainer.py:145 [INFO] Train: [  8/99] Final Prec@1 38.7578%
+12/01 11:15:26午後 evaluateStage_trainer.py:180 [INFO] Valid: [  8/99] Final Prec@1 33.9800%
+12/01 11:15:26午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 33.9800%
+12/01 11:15:41午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [9][50/175]	Step 1634	lr 0.02452	Loss 2.2785 (2.2080)	Prec@(1,5) (40.8%, 73.2%)	
+12/01 11:15:56午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [9][100/175]	Step 1684	lr 0.02452	Loss 2.1333 (2.2081)	Prec@(1,5) (41.3%, 73.2%)	
+12/01 11:16:11午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [9][150/175]	Step 1734	lr 0.02452	Loss 2.0980 (2.2082)	Prec@(1,5) (41.4%, 73.3%)	
+12/01 11:16:18午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [9][175/175]	Step 1759	lr 0.02452	Loss 2.0910 (2.2008)	Prec@(1,5) (41.6%, 73.4%)	
+12/01 11:16:18午後 evaluateStage_trainer.py:145 [INFO] Train: [  9/99] Final Prec@1 41.5889%
+12/01 11:16:21午後 evaluateStage_trainer.py:180 [INFO] Valid: [  9/99] Final Prec@1 35.2200%
+12/01 11:16:22午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 35.2200%
+12/01 11:16:37午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [10][50/175]	Step 1810	lr 0.02441	Loss 1.9859 (2.0963)	Prec@(1,5) (43.8%, 75.5%)	
+12/01 11:16:52午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [10][100/175]	Step 1860	lr 0.02441	Loss 2.3260 (2.1057)	Prec@(1,5) (43.7%, 75.3%)	
+12/01 11:17:06午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [10][150/175]	Step 1910	lr 0.02441	Loss 2.2851 (2.1082)	Prec@(1,5) (43.5%, 75.3%)	
+12/01 11:17:13午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [10][175/175]	Step 1935	lr 0.02441	Loss 2.0484 (2.1098)	Prec@(1,5) (43.5%, 75.3%)	
+12/01 11:17:14午後 evaluateStage_trainer.py:145 [INFO] Train: [ 10/99] Final Prec@1 43.4711%
+12/01 11:17:17午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 10/99] Final Prec@1 35.8800%
+12/01 11:17:17午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 35.8800%
+12/01 11:17:32午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [11][50/175]	Step 1986	lr 0.02429	Loss 2.2371 (1.9990)	Prec@(1,5) (45.9%, 77.5%)	
+12/01 11:17:47午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [11][100/175]	Step 2036	lr 0.02429	Loss 2.0906 (2.0193)	Prec@(1,5) (45.7%, 77.2%)	
+12/01 11:18:02午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [11][150/175]	Step 2086	lr 0.02429	Loss 2.0786 (2.0245)	Prec@(1,5) (45.7%, 77.1%)	
+12/01 11:18:09午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [11][175/175]	Step 2111	lr 0.02429	Loss 1.8905 (2.0188)	Prec@(1,5) (45.8%, 77.1%)	
+12/01 11:18:09午後 evaluateStage_trainer.py:145 [INFO] Train: [ 11/99] Final Prec@1 45.7933%
+12/01 11:18:12午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 11/99] Final Prec@1 39.8200%
+12/01 11:18:13午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 39.8200%
+12/01 11:18:28午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [12][50/175]	Step 2162	lr 0.02416	Loss 1.8205 (1.9173)	Prec@(1,5) (47.6%, 78.9%)	
+12/01 11:18:43午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [12][100/175]	Step 2212	lr 0.02416	Loss 2.0446 (1.9242)	Prec@(1,5) (47.7%, 79.0%)	
+12/01 11:18:57午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [12][150/175]	Step 2262	lr 0.02416	Loss 1.8514 (1.9303)	Prec@(1,5) (47.4%, 78.9%)	
+12/01 11:19:04午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [12][175/175]	Step 2287	lr 0.02416	Loss 2.2283 (1.9339)	Prec@(1,5) (47.4%, 78.8%)	
+12/01 11:19:05午後 evaluateStage_trainer.py:145 [INFO] Train: [ 12/99] Final Prec@1 47.3844%
+12/01 11:19:08午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 12/99] Final Prec@1 40.0600%
+12/01 11:19:08午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 40.0600%
+12/01 11:19:24午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [13][50/175]	Step 2338	lr 0.02401	Loss 2.0206 (1.8454)	Prec@(1,5) (49.7%, 80.6%)	
+12/01 11:19:38午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [13][100/175]	Step 2388	lr 0.02401	Loss 1.9426 (1.8640)	Prec@(1,5) (49.0%, 80.1%)	
+12/01 11:19:53午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [13][150/175]	Step 2438	lr 0.02401	Loss 2.0392 (1.8688)	Prec@(1,5) (48.9%, 80.1%)	
+12/01 11:20:00午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [13][175/175]	Step 2463	lr 0.02401	Loss 1.9022 (1.8686)	Prec@(1,5) (48.9%, 80.0%)	
+12/01 11:20:00午後 evaluateStage_trainer.py:145 [INFO] Train: [ 13/99] Final Prec@1 48.8800%
+12/01 11:20:03午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 13/99] Final Prec@1 42.5800%
+12/01 11:20:04午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 42.5800%
+12/01 11:20:19午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [14][50/175]	Step 2514	lr 0.02386	Loss 1.9995 (1.7939)	Prec@(1,5) (50.1%, 81.3%)	
+12/01 11:20:34午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [14][100/175]	Step 2564	lr 0.02386	Loss 1.8989 (1.7995)	Prec@(1,5) (50.3%, 81.1%)	
+12/01 11:20:48午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [14][150/175]	Step 2614	lr 0.02386	Loss 1.9290 (1.8063)	Prec@(1,5) (50.1%, 80.9%)	
+12/01 11:20:56午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [14][175/175]	Step 2639	lr 0.02386	Loss 1.7522 (1.8043)	Prec@(1,5) (50.3%, 81.0%)	
+12/01 11:20:56午後 evaluateStage_trainer.py:145 [INFO] Train: [ 14/99] Final Prec@1 50.2711%
+12/01 11:20:59午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 14/99] Final Prec@1 43.2600%
+12/01 11:20:59午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 43.2600%
+12/01 11:21:15午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [15][50/175]	Step 2690	lr 0.02369	Loss 1.8005 (1.7077)	Prec@(1,5) (52.4%, 82.6%)	
+12/01 11:21:29午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [15][100/175]	Step 2740	lr 0.02369	Loss 1.7041 (1.7245)	Prec@(1,5) (52.0%, 82.4%)	
+12/01 11:21:44午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [15][150/175]	Step 2790	lr 0.02369	Loss 1.8424 (1.7291)	Prec@(1,5) (52.0%, 82.4%)	
+12/01 11:21:52午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [15][175/175]	Step 2815	lr 0.02369	Loss 1.7606 (1.7341)	Prec@(1,5) (52.0%, 82.3%)	
+12/01 11:21:52午後 evaluateStage_trainer.py:145 [INFO] Train: [ 15/99] Final Prec@1 51.9844%
+12/01 11:21:55午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 15/99] Final Prec@1 44.1800%
+12/01 11:21:55午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 44.1800%
+12/01 11:22:11午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [16][50/175]	Step 2866	lr 0.02352	Loss 1.7847 (1.6415)	Prec@(1,5) (54.1%, 83.6%)	
+12/01 11:22:25午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [16][100/175]	Step 2916	lr 0.02352	Loss 1.6560 (1.6584)	Prec@(1,5) (53.6%, 83.5%)	
+12/01 11:22:40午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [16][150/175]	Step 2966	lr 0.02352	Loss 1.8899 (1.6751)	Prec@(1,5) (53.3%, 83.1%)	
+12/01 11:22:47午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [16][175/175]	Step 2991	lr 0.02352	Loss 1.6785 (1.6764)	Prec@(1,5) (53.4%, 83.1%)	
+12/01 11:22:48午後 evaluateStage_trainer.py:145 [INFO] Train: [ 16/99] Final Prec@1 53.4156%
+12/01 11:22:50午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 16/99] Final Prec@1 45.2600%
+12/01 11:22:51午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 45.2600%
+12/01 11:23:06午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [17][50/175]	Step 3042	lr 0.02333	Loss 1.6498 (1.6048)	Prec@(1,5) (55.1%, 84.9%)	
+12/01 11:23:21午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [17][100/175]	Step 3092	lr 0.02333	Loss 1.7320 (1.6250)	Prec@(1,5) (54.6%, 84.2%)	
+12/01 11:23:36午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [17][150/175]	Step 3142	lr 0.02333	Loss 1.7893 (1.6291)	Prec@(1,5) (54.4%, 84.2%)	
+12/01 11:23:43午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [17][175/175]	Step 3167	lr 0.02333	Loss 1.6771 (1.6307)	Prec@(1,5) (54.3%, 84.1%)	
+12/01 11:23:43午後 evaluateStage_trainer.py:145 [INFO] Train: [ 17/99] Final Prec@1 54.3089%
+12/01 11:23:46午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 17/99] Final Prec@1 47.5000%
+12/01 11:23:46午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 47.5000%
+12/01 11:24:02午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [18][50/175]	Step 3218	lr 0.02313	Loss 1.6993 (1.5492)	Prec@(1,5) (56.6%, 85.1%)	
+12/01 11:24:17午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [18][100/175]	Step 3268	lr 0.02313	Loss 1.5904 (1.5613)	Prec@(1,5) (56.2%, 85.1%)	
+12/01 11:24:31午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [18][150/175]	Step 3318	lr 0.02313	Loss 1.6304 (1.5744)	Prec@(1,5) (56.0%, 84.9%)	
+12/01 11:24:39午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [18][175/175]	Step 3343	lr 0.02313	Loss 1.6822 (1.5828)	Prec@(1,5) (55.6%, 84.7%)	
+12/01 11:24:39午後 evaluateStage_trainer.py:145 [INFO] Train: [ 18/99] Final Prec@1 55.6156%
+12/01 11:24:42午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 18/99] Final Prec@1 46.2200%
+12/01 11:24:42午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 47.5000%
+12/01 11:24:57午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [19][50/175]	Step 3394	lr 0.02292	Loss 1.5352 (1.5089)	Prec@(1,5) (57.3%, 86.0%)	
+12/01 11:25:12午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [19][100/175]	Step 3444	lr 0.02292	Loss 1.3954 (1.5141)	Prec@(1,5) (57.2%, 85.9%)	
+12/01 11:25:27午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [19][150/175]	Step 3494	lr 0.02292	Loss 1.6769 (1.5252)	Prec@(1,5) (57.1%, 85.9%)	
+12/01 11:25:34午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [19][175/175]	Step 3519	lr 0.02292	Loss 1.5686 (1.5318)	Prec@(1,5) (56.9%, 85.8%)	
+12/01 11:25:34午後 evaluateStage_trainer.py:145 [INFO] Train: [ 19/99] Final Prec@1 56.8889%
+12/01 11:25:37午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 19/99] Final Prec@1 46.9400%
+12/01 11:25:37午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 47.5000%
+12/01 11:25:53午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [20][50/175]	Step 3570	lr 0.02271	Loss 1.5748 (1.4465)	Prec@(1,5) (59.2%, 86.8%)	
+12/01 11:26:07午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [20][100/175]	Step 3620	lr 0.02271	Loss 1.5166 (1.4865)	Prec@(1,5) (58.0%, 86.4%)	
+12/01 11:26:22午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [20][150/175]	Step 3670	lr 0.02271	Loss 1.4181 (1.4860)	Prec@(1,5) (58.0%, 86.3%)	
+12/01 11:26:29午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [20][175/175]	Step 3695	lr 0.02271	Loss 1.5609 (1.4892)	Prec@(1,5) (57.9%, 86.3%)	
+12/01 11:26:30午後 evaluateStage_trainer.py:145 [INFO] Train: [ 20/99] Final Prec@1 57.8778%
+12/01 11:26:32午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 20/99] Final Prec@1 48.4800%
+12/01 11:26:33午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 48.4800%
+12/01 11:26:48午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [21][50/175]	Step 3746	lr 0.02248	Loss 1.4300 (1.4044)	Prec@(1,5) (59.7%, 87.6%)	
+12/01 11:27:03午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [21][100/175]	Step 3796	lr 0.02248	Loss 1.4894 (1.4278)	Prec@(1,5) (59.5%, 87.3%)	
+12/01 11:27:18午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [21][150/175]	Step 3846	lr 0.02248	Loss 1.5393 (1.4428)	Prec@(1,5) (59.0%, 87.0%)	
+12/01 11:27:25午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [21][175/175]	Step 3871	lr 0.02248	Loss 1.4385 (1.4520)	Prec@(1,5) (58.8%, 86.9%)	
+12/01 11:27:25午後 evaluateStage_trainer.py:145 [INFO] Train: [ 21/99] Final Prec@1 58.8600%
+12/01 11:27:28午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 21/99] Final Prec@1 49.6600%
+12/01 11:27:29午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 49.6600%
+12/01 11:27:44午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [22][50/175]	Step 3922	lr 0.02225	Loss 1.3093 (1.3544)	Prec@(1,5) (61.3%, 88.7%)	
+12/01 11:27:59午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [22][100/175]	Step 3972	lr 0.02225	Loss 1.4791 (1.3836)	Prec@(1,5) (60.6%, 88.1%)	
+12/01 11:28:13午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [22][150/175]	Step 4022	lr 0.02225	Loss 1.4693 (1.4082)	Prec@(1,5) (60.1%, 87.7%)	
+12/01 11:28:21午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [22][175/175]	Step 4047	lr 0.02225	Loss 1.3418 (1.4079)	Prec@(1,5) (60.1%, 87.7%)	
+12/01 11:28:21午後 evaluateStage_trainer.py:145 [INFO] Train: [ 22/99] Final Prec@1 60.1178%
+12/01 11:28:24午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 22/99] Final Prec@1 50.1400%
+12/01 11:28:25午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 50.1400%
+12/01 11:28:40午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [23][50/175]	Step 4098	lr 0.022	Loss 1.3622 (1.3420)	Prec@(1,5) (61.5%, 88.7%)	
+12/01 11:28:55午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [23][100/175]	Step 4148	lr 0.022	Loss 1.3565 (1.3627)	Prec@(1,5) (60.9%, 88.4%)	
+12/01 11:29:09午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [23][150/175]	Step 4198	lr 0.022	Loss 1.2429 (1.3664)	Prec@(1,5) (60.9%, 88.3%)	
+12/01 11:29:17午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [23][175/175]	Step 4223	lr 0.022	Loss 1.4737 (1.3707)	Prec@(1,5) (60.8%, 88.3%)	
+12/01 11:29:17午後 evaluateStage_trainer.py:145 [INFO] Train: [ 23/99] Final Prec@1 60.7978%
+12/01 11:29:20午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 23/99] Final Prec@1 48.0400%
+12/01 11:29:20午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 50.1400%
+12/01 11:29:35午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [24][50/175]	Step 4274	lr 0.02175	Loss 1.2637 (1.2987)	Prec@(1,5) (62.2%, 89.2%)	
+12/01 11:29:50午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [24][100/175]	Step 4324	lr 0.02175	Loss 1.4894 (1.3312)	Prec@(1,5) (61.4%, 88.8%)	
+12/01 11:30:04午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [24][150/175]	Step 4374	lr 0.02175	Loss 1.5276 (1.3363)	Prec@(1,5) (61.4%, 88.7%)	
+12/01 11:30:12午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [24][175/175]	Step 4399	lr 0.02175	Loss 1.3095 (1.3373)	Prec@(1,5) (61.5%, 88.7%)	
+12/01 11:30:12午後 evaluateStage_trainer.py:145 [INFO] Train: [ 24/99] Final Prec@1 61.4533%
+12/01 11:30:15午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 24/99] Final Prec@1 49.0400%
+12/01 11:30:15午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 50.1400%
+12/01 11:30:31午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [25][50/175]	Step 4450	lr 0.02149	Loss 1.3242 (1.2301)	Prec@(1,5) (64.4%, 90.4%)	
+12/01 11:30:45午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [25][100/175]	Step 4500	lr 0.02149	Loss 1.4656 (1.2660)	Prec@(1,5) (63.6%, 89.8%)	
+12/01 11:31:00午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [25][150/175]	Step 4550	lr 0.02149	Loss 1.4057 (1.2914)	Prec@(1,5) (62.8%, 89.4%)	
+12/01 11:31:07午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [25][175/175]	Step 4575	lr 0.02149	Loss 1.3647 (1.3012)	Prec@(1,5) (62.6%, 89.2%)	
+12/01 11:31:07午後 evaluateStage_trainer.py:145 [INFO] Train: [ 25/99] Final Prec@1 62.5689%
+12/01 11:31:10午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 25/99] Final Prec@1 50.9800%
+12/01 11:31:11午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 50.9800%
+12/01 11:31:26午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [26][50/175]	Step 4626	lr 0.02121	Loss 1.3656 (1.2322)	Prec@(1,5) (63.8%, 90.2%)	
+12/01 11:31:41午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [26][100/175]	Step 4676	lr 0.02121	Loss 1.2171 (1.2315)	Prec@(1,5) (63.9%, 90.3%)	
+12/01 11:31:55午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [26][150/175]	Step 4726	lr 0.02121	Loss 1.1360 (1.2602)	Prec@(1,5) (63.2%, 89.9%)	
+12/01 11:32:03午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [26][175/175]	Step 4751	lr 0.02121	Loss 1.2102 (1.2716)	Prec@(1,5) (62.9%, 89.6%)	
+12/01 11:32:03午後 evaluateStage_trainer.py:145 [INFO] Train: [ 26/99] Final Prec@1 62.8978%
+12/01 11:32:06午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 26/99] Final Prec@1 50.2600%
+12/01 11:32:06午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 50.9800%
+12/01 11:32:22午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [27][50/175]	Step 4802	lr 0.02094	Loss 1.2426 (1.1877)	Prec@(1,5) (65.5%, 90.7%)	
+12/01 11:32:36午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [27][100/175]	Step 4852	lr 0.02094	Loss 1.1800 (1.2153)	Prec@(1,5) (64.6%, 90.6%)	
+12/01 11:32:51午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [27][150/175]	Step 4902	lr 0.02094	Loss 1.0750 (1.2283)	Prec@(1,5) (64.2%, 90.4%)	
+12/01 11:32:58午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [27][175/175]	Step 4927	lr 0.02094	Loss 1.1034 (1.2333)	Prec@(1,5) (64.1%, 90.3%)	
+12/01 11:32:58午後 evaluateStage_trainer.py:145 [INFO] Train: [ 27/99] Final Prec@1 64.0733%
+12/01 11:33:01午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 27/99] Final Prec@1 50.3200%
+12/01 11:33:02午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 50.9800%
+12/01 11:33:17午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [28][50/175]	Step 4978	lr 0.02065	Loss 1.2973 (1.1530)	Prec@(1,5) (66.2%, 91.5%)	
+12/01 11:33:32午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [28][100/175]	Step 5028	lr 0.02065	Loss 1.2911 (1.1766)	Prec@(1,5) (65.5%, 91.0%)	
+12/01 11:33:46午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [28][150/175]	Step 5078	lr 0.02065	Loss 1.2471 (1.1944)	Prec@(1,5) (65.2%, 90.7%)	
+12/01 11:33:53午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [28][175/175]	Step 5103	lr 0.02065	Loss 1.2764 (1.2021)	Prec@(1,5) (65.0%, 90.6%)	
+12/01 11:33:54午後 evaluateStage_trainer.py:145 [INFO] Train: [ 28/99] Final Prec@1 64.9867%
+12/01 11:33:57午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 28/99] Final Prec@1 51.2200%
+12/01 11:33:57午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 51.2200%
+12/01 11:34:13午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [29][50/175]	Step 5154	lr 0.02035	Loss 1.0267 (1.1232)	Prec@(1,5) (66.6%, 91.8%)	
+12/01 11:34:27午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [29][100/175]	Step 5204	lr 0.02035	Loss 1.0840 (1.1452)	Prec@(1,5) (66.6%, 91.4%)	
+12/01 11:34:42午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [29][150/175]	Step 5254	lr 0.02035	Loss 1.2636 (1.1615)	Prec@(1,5) (66.2%, 91.1%)	
+12/01 11:34:49午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [29][175/175]	Step 5279	lr 0.02035	Loss 1.1293 (1.1708)	Prec@(1,5) (65.9%, 91.1%)	
+12/01 11:34:50午後 evaluateStage_trainer.py:145 [INFO] Train: [ 29/99] Final Prec@1 65.8822%
+12/01 11:34:52午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 29/99] Final Prec@1 49.6600%
+12/01 11:34:53午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 51.2200%
+12/01 11:35:08午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [30][50/175]	Step 5330	lr 0.02005	Loss 1.1040 (1.1024)	Prec@(1,5) (67.6%, 92.1%)	
+12/01 11:35:23午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [30][100/175]	Step 5380	lr 0.02005	Loss 1.0752 (1.1255)	Prec@(1,5) (67.1%, 91.7%)	
+12/01 11:35:37午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [30][150/175]	Step 5430	lr 0.02005	Loss 1.1740 (1.1393)	Prec@(1,5) (66.6%, 91.5%)	
+12/01 11:35:45午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [30][175/175]	Step 5455	lr 0.02005	Loss 1.3826 (1.1440)	Prec@(1,5) (66.4%, 91.5%)	
+12/01 11:35:45午後 evaluateStage_trainer.py:145 [INFO] Train: [ 30/99] Final Prec@1 66.4511%
+12/01 11:35:48午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 30/99] Final Prec@1 52.1800%
+12/01 11:35:49午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 52.1800%
+12/01 11:36:04午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [31][50/175]	Step 5506	lr 0.01975	Loss 0.9256 (1.0581)	Prec@(1,5) (68.7%, 92.6%)	
+12/01 11:36:19午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [31][100/175]	Step 5556	lr 0.01975	Loss 1.2038 (1.0803)	Prec@(1,5) (68.1%, 92.3%)	
+12/01 11:36:34午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [31][150/175]	Step 5606	lr 0.01975	Loss 1.2395 (1.1049)	Prec@(1,5) (67.5%, 91.9%)	
+12/01 11:36:41午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [31][175/175]	Step 5631	lr 0.01975	Loss 1.0452 (1.1119)	Prec@(1,5) (67.3%, 91.8%)	
+12/01 11:36:41午後 evaluateStage_trainer.py:145 [INFO] Train: [ 31/99] Final Prec@1 67.3044%
+12/01 11:36:44午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 31/99] Final Prec@1 50.4600%
+12/01 11:36:44午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 52.1800%
+12/01 11:37:00午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [32][50/175]	Step 5682	lr 0.01943	Loss 0.9951 (1.0435)	Prec@(1,5) (69.3%, 92.9%)	
+12/01 11:37:14午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [32][100/175]	Step 5732	lr 0.01943	Loss 1.0636 (1.0596)	Prec@(1,5) (68.7%, 92.5%)	
+12/01 11:37:29午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [32][150/175]	Step 5782	lr 0.01943	Loss 1.2866 (1.0736)	Prec@(1,5) (68.1%, 92.3%)	
+12/01 11:37:36午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [32][175/175]	Step 5807	lr 0.01943	Loss 1.0567 (1.0792)	Prec@(1,5) (68.0%, 92.2%)	
+12/01 11:37:37午後 evaluateStage_trainer.py:145 [INFO] Train: [ 32/99] Final Prec@1 68.0200%
+12/01 11:37:39午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 32/99] Final Prec@1 51.4000%
+12/01 11:37:40午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 52.1800%
+12/01 11:37:55午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [33][50/175]	Step 5858	lr 0.01911	Loss 0.8783 (0.9955)	Prec@(1,5) (70.3%, 93.7%)	
+12/01 11:38:10午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [33][100/175]	Step 5908	lr 0.01911	Loss 1.1098 (1.0247)	Prec@(1,5) (69.5%, 93.2%)	
+12/01 11:38:24午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [33][150/175]	Step 5958	lr 0.01911	Loss 1.3198 (1.0416)	Prec@(1,5) (69.1%, 92.9%)	
+12/01 11:38:32午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [33][175/175]	Step 5983	lr 0.01911	Loss 1.0298 (1.0514)	Prec@(1,5) (68.8%, 92.8%)	
+12/01 11:38:32午後 evaluateStage_trainer.py:145 [INFO] Train: [ 33/99] Final Prec@1 68.7889%
+12/01 11:38:35午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 33/99] Final Prec@1 51.0600%
+12/01 11:38:35午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 52.1800%
+12/01 11:38:51午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [34][50/175]	Step 6034	lr 0.01878	Loss 0.8107 (0.9710)	Prec@(1,5) (70.9%, 93.8%)	
+12/01 11:39:05午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [34][100/175]	Step 6084	lr 0.01878	Loss 1.0765 (0.9923)	Prec@(1,5) (70.4%, 93.4%)	
+12/01 11:39:20午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [34][150/175]	Step 6134	lr 0.01878	Loss 1.1139 (1.0111)	Prec@(1,5) (69.8%, 93.2%)	
+12/01 11:39:27午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [34][175/175]	Step 6159	lr 0.01878	Loss 1.1534 (1.0220)	Prec@(1,5) (69.5%, 93.1%)	
+12/01 11:39:27午後 evaluateStage_trainer.py:145 [INFO] Train: [ 34/99] Final Prec@1 69.5044%
+12/01 11:39:30午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 34/99] Final Prec@1 54.0400%
+12/01 11:39:31午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 54.0400%
+12/01 11:39:47午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [35][50/175]	Step 6210	lr 0.01845	Loss 0.9898 (0.9551)	Prec@(1,5) (71.3%, 94.1%)	
+12/01 11:40:01午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [35][100/175]	Step 6260	lr 0.01845	Loss 1.0575 (0.9780)	Prec@(1,5) (70.9%, 93.6%)	
+12/01 11:40:16午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [35][150/175]	Step 6310	lr 0.01845	Loss 0.9968 (0.9951)	Prec@(1,5) (70.4%, 93.4%)	
+12/01 11:40:23午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [35][175/175]	Step 6335	lr 0.01845	Loss 1.1043 (1.0025)	Prec@(1,5) (70.2%, 93.3%)	
+12/01 11:40:23午後 evaluateStage_trainer.py:145 [INFO] Train: [ 35/99] Final Prec@1 70.2222%
+12/01 11:40:26午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 35/99] Final Prec@1 54.1200%
+12/01 11:40:27午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 54.1200%
+12/01 11:40:42午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [36][50/175]	Step 6386	lr 0.01811	Loss 0.9772 (0.9516)	Prec@(1,5) (71.2%, 93.8%)	
+12/01 11:40:57午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [36][100/175]	Step 6436	lr 0.01811	Loss 1.0173 (0.9630)	Prec@(1,5) (71.1%, 93.7%)	
+12/01 11:41:11午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [36][150/175]	Step 6486	lr 0.01811	Loss 1.1169 (0.9753)	Prec@(1,5) (70.7%, 93.5%)	
+12/01 11:41:19午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [36][175/175]	Step 6511	lr 0.01811	Loss 1.1247 (0.9792)	Prec@(1,5) (70.6%, 93.5%)	
+12/01 11:41:19午後 evaluateStage_trainer.py:145 [INFO] Train: [ 36/99] Final Prec@1 70.5911%
+12/01 11:41:22午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 36/99] Final Prec@1 53.6600%
+12/01 11:41:22午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 54.1200%
+12/01 11:41:38午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [37][50/175]	Step 6562	lr 0.01777	Loss 0.8652 (0.8871)	Prec@(1,5) (73.5%, 94.5%)	
+12/01 11:41:52午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [37][100/175]	Step 6612	lr 0.01777	Loss 0.9877 (0.9111)	Prec@(1,5) (72.7%, 94.4%)	
+12/01 11:42:07午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [37][150/175]	Step 6662	lr 0.01777	Loss 0.8479 (0.9278)	Prec@(1,5) (72.2%, 94.1%)	
+12/01 11:42:14午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [37][175/175]	Step 6687	lr 0.01777	Loss 1.0507 (0.9410)	Prec@(1,5) (71.9%, 94.0%)	
+12/01 11:42:15午後 evaluateStage_trainer.py:145 [INFO] Train: [ 37/99] Final Prec@1 71.8711%
+12/01 11:42:17午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 37/99] Final Prec@1 53.9000%
+12/01 11:42:17午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 54.1200%
+12/01 11:42:33午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [38][50/175]	Step 6738	lr 0.01742	Loss 0.9156 (0.8937)	Prec@(1,5) (72.8%, 94.7%)	
+12/01 11:42:48午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [38][100/175]	Step 6788	lr 0.01742	Loss 0.8209 (0.8990)	Prec@(1,5) (72.8%, 94.6%)	
+12/01 11:43:02午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [38][150/175]	Step 6838	lr 0.01742	Loss 0.9426 (0.9136)	Prec@(1,5) (72.3%, 94.4%)	
+12/01 11:43:10午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [38][175/175]	Step 6863	lr 0.01742	Loss 0.8803 (0.9212)	Prec@(1,5) (72.1%, 94.3%)	
+12/01 11:43:10午後 evaluateStage_trainer.py:145 [INFO] Train: [ 38/99] Final Prec@1 72.1156%
+12/01 11:43:12午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 38/99] Final Prec@1 52.4800%
+12/01 11:43:13午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 54.1200%
+12/01 11:43:28午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [39][50/175]	Step 6914	lr 0.01706	Loss 0.8540 (0.8358)	Prec@(1,5) (74.4%, 95.2%)	
+12/01 11:43:43午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [39][100/175]	Step 6964	lr 0.01706	Loss 0.8321 (0.8500)	Prec@(1,5) (74.1%, 95.0%)	
+12/01 11:43:58午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [39][150/175]	Step 7014	lr 0.01706	Loss 0.9361 (0.8791)	Prec@(1,5) (73.4%, 94.6%)	
+12/01 11:44:05午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [39][175/175]	Step 7039	lr 0.01706	Loss 1.0833 (0.8859)	Prec@(1,5) (73.2%, 94.5%)	
+12/01 11:44:05午後 evaluateStage_trainer.py:145 [INFO] Train: [ 39/99] Final Prec@1 73.2156%
+12/01 11:44:08午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 39/99] Final Prec@1 53.9400%
+12/01 11:44:08午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 54.1200%
+12/01 11:44:23午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [40][50/175]	Step 7090	lr 0.01671	Loss 0.8541 (0.8251)	Prec@(1,5) (75.0%, 95.4%)	
+12/01 11:44:38午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [40][100/175]	Step 7140	lr 0.01671	Loss 0.8851 (0.8329)	Prec@(1,5) (74.7%, 95.3%)	
+12/01 11:44:53午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [40][150/175]	Step 7190	lr 0.01671	Loss 0.9550 (0.8582)	Prec@(1,5) (74.0%, 95.0%)	
+12/01 11:45:00午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [40][175/175]	Step 7215	lr 0.01671	Loss 0.9634 (0.8648)	Prec@(1,5) (73.7%, 95.0%)	
+12/01 11:45:00午後 evaluateStage_trainer.py:145 [INFO] Train: [ 40/99] Final Prec@1 73.7400%
+12/01 11:45:03午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 40/99] Final Prec@1 55.3400%
+12/01 11:45:04午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.3400%
+12/01 11:45:19午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [41][50/175]	Step 7266	lr 0.01635	Loss 0.8134 (0.8142)	Prec@(1,5) (74.9%, 95.8%)	
+12/01 11:45:34午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [41][100/175]	Step 7316	lr 0.01635	Loss 0.8261 (0.8285)	Prec@(1,5) (74.6%, 95.4%)	
+12/01 11:45:49午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [41][150/175]	Step 7366	lr 0.01635	Loss 0.9434 (0.8375)	Prec@(1,5) (74.4%, 95.3%)	
+12/01 11:45:56午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [41][175/175]	Step 7391	lr 0.01635	Loss 0.9211 (0.8457)	Prec@(1,5) (74.2%, 95.2%)	
+12/01 11:45:56午後 evaluateStage_trainer.py:145 [INFO] Train: [ 41/99] Final Prec@1 74.1778%
+12/01 11:45:59午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 41/99] Final Prec@1 54.0000%
+12/01 11:45:59午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.3400%
+12/01 11:46:15午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [42][50/175]	Step 7442	lr 0.01598	Loss 0.8295 (0.7752)	Prec@(1,5) (76.3%, 95.9%)	
+12/01 11:46:29午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [42][100/175]	Step 7492	lr 0.01598	Loss 0.8399 (0.7887)	Prec@(1,5) (76.2%, 95.6%)	
+12/01 11:46:44午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [42][150/175]	Step 7542	lr 0.01598	Loss 0.7607 (0.8052)	Prec@(1,5) (75.6%, 95.5%)	
+12/01 11:46:51午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [42][175/175]	Step 7567	lr 0.01598	Loss 0.9433 (0.8127)	Prec@(1,5) (75.3%, 95.4%)	
+12/01 11:46:52午後 evaluateStage_trainer.py:145 [INFO] Train: [ 42/99] Final Prec@1 75.3022%
+12/01 11:46:54午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 42/99] Final Prec@1 54.2400%
+12/01 11:46:55午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.3400%
+12/01 11:47:10午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [43][50/175]	Step 7618	lr 0.01562	Loss 0.7083 (0.7473)	Prec@(1,5) (77.7%, 96.2%)	
+12/01 11:47:25午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [43][100/175]	Step 7668	lr 0.01562	Loss 0.7222 (0.7557)	Prec@(1,5) (77.2%, 96.0%)	
+12/01 11:47:40午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [43][150/175]	Step 7718	lr 0.01562	Loss 0.7654 (0.7738)	Prec@(1,5) (76.6%, 95.9%)	
+12/01 11:47:47午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [43][175/175]	Step 7743	lr 0.01562	Loss 0.9497 (0.7849)	Prec@(1,5) (76.3%, 95.8%)	
+12/01 11:47:47午後 evaluateStage_trainer.py:145 [INFO] Train: [ 43/99] Final Prec@1 76.2600%
+12/01 11:47:50午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 43/99] Final Prec@1 53.0800%
+12/01 11:47:50午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.3400%
+12/01 11:48:06午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [44][50/175]	Step 7794	lr 0.01525	Loss 0.6543 (0.7090)	Prec@(1,5) (78.4%, 96.5%)	
+12/01 11:48:21午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [44][100/175]	Step 7844	lr 0.01525	Loss 0.6750 (0.7376)	Prec@(1,5) (77.4%, 96.3%)	
+12/01 11:48:35午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [44][150/175]	Step 7894	lr 0.01525	Loss 0.6624 (0.7490)	Prec@(1,5) (77.0%, 96.2%)	
+12/01 11:48:43午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [44][175/175]	Step 7919	lr 0.01525	Loss 0.6763 (0.7599)	Prec@(1,5) (76.7%, 96.1%)	
+12/01 11:48:43午後 evaluateStage_trainer.py:145 [INFO] Train: [ 44/99] Final Prec@1 76.7200%
+12/01 11:48:46午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 44/99] Final Prec@1 55.9200%
+12/01 11:48:46午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.9200%
+12/01 11:49:02午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [45][50/175]	Step 7970	lr 0.01488	Loss 0.7146 (0.6925)	Prec@(1,5) (78.9%, 96.7%)	
+12/01 11:49:16午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [45][100/175]	Step 8020	lr 0.01488	Loss 0.7643 (0.7093)	Prec@(1,5) (78.3%, 96.5%)	
+12/01 11:49:31午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [45][150/175]	Step 8070	lr 0.01488	Loss 0.6272 (0.7293)	Prec@(1,5) (77.6%, 96.3%)	
+12/01 11:49:38午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [45][175/175]	Step 8095	lr 0.01488	Loss 0.7671 (0.7398)	Prec@(1,5) (77.3%, 96.2%)	
+12/01 11:49:39午後 evaluateStage_trainer.py:145 [INFO] Train: [ 45/99] Final Prec@1 77.2444%
+12/01 11:49:42午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 45/99] Final Prec@1 55.8200%
+12/01 11:49:42午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.9200%
+12/01 11:49:57午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [46][50/175]	Step 8146	lr 0.0145	Loss 0.7005 (0.6780)	Prec@(1,5) (78.9%, 96.9%)	
+12/01 11:50:12午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [46][100/175]	Step 8196	lr 0.0145	Loss 0.7598 (0.6983)	Prec@(1,5) (78.3%, 96.7%)	
+12/01 11:50:27午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [46][150/175]	Step 8246	lr 0.0145	Loss 0.7684 (0.7152)	Prec@(1,5) (77.7%, 96.5%)	
+12/01 11:50:34午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [46][175/175]	Step 8271	lr 0.0145	Loss 0.7126 (0.7191)	Prec@(1,5) (77.6%, 96.4%)	
+12/01 11:50:34午後 evaluateStage_trainer.py:145 [INFO] Train: [ 46/99] Final Prec@1 77.6222%
+12/01 11:50:37午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 46/99] Final Prec@1 54.4800%
+12/01 11:50:37午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.9200%
+12/01 11:50:53午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [47][50/175]	Step 8322	lr 0.01413	Loss 0.7158 (0.6319)	Prec@(1,5) (80.5%, 97.4%)	
+12/01 11:51:07午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [47][100/175]	Step 8372	lr 0.01413	Loss 0.6748 (0.6570)	Prec@(1,5) (79.6%, 97.0%)	
+12/01 11:51:22午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [47][150/175]	Step 8422	lr 0.01413	Loss 0.7658 (0.6817)	Prec@(1,5) (78.9%, 96.8%)	
+12/01 11:51:29午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [47][175/175]	Step 8447	lr 0.01413	Loss 0.7326 (0.6918)	Prec@(1,5) (78.5%, 96.7%)	
+12/01 11:51:30午後 evaluateStage_trainer.py:145 [INFO] Train: [ 47/99] Final Prec@1 78.5089%
+12/01 11:51:32午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 47/99] Final Prec@1 55.2400%
+12/01 11:51:32午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.9200%
+12/01 11:51:48午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [48][50/175]	Step 8498	lr 0.01375	Loss 0.6737 (0.6160)	Prec@(1,5) (81.1%, 97.5%)	
+12/01 11:52:03午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [48][100/175]	Step 8548	lr 0.01375	Loss 0.7563 (0.6344)	Prec@(1,5) (80.3%, 97.4%)	
+12/01 11:52:17午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [48][150/175]	Step 8598	lr 0.01375	Loss 0.7744 (0.6575)	Prec@(1,5) (79.7%, 97.1%)	
+12/01 11:52:25午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [48][175/175]	Step 8623	lr 0.01375	Loss 0.8140 (0.6634)	Prec@(1,5) (79.4%, 97.0%)	
+12/01 11:52:25午後 evaluateStage_trainer.py:145 [INFO] Train: [ 48/99] Final Prec@1 79.4289%
+12/01 11:52:28午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 48/99] Final Prec@1 55.3000%
+12/01 11:52:28午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.9200%
+12/01 11:52:44午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [49][50/175]	Step 8674	lr 0.01338	Loss 0.6264 (0.5977)	Prec@(1,5) (81.8%, 97.5%)	
+12/01 11:52:58午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [49][100/175]	Step 8724	lr 0.01338	Loss 0.6333 (0.6131)	Prec@(1,5) (81.1%, 97.5%)	
+12/01 11:53:13午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [49][150/175]	Step 8774	lr 0.01338	Loss 0.7466 (0.6387)	Prec@(1,5) (80.2%, 97.2%)	
+12/01 11:53:20午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [49][175/175]	Step 8799	lr 0.01338	Loss 0.7818 (0.6478)	Prec@(1,5) (79.9%, 97.1%)	
+12/01 11:53:21午後 evaluateStage_trainer.py:145 [INFO] Train: [ 49/99] Final Prec@1 79.8911%
+12/01 11:53:23午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 49/99] Final Prec@1 52.9600%
+12/01 11:53:24午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.9200%
+12/01 11:53:39午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [50][50/175]	Step 8850	lr 0.013	Loss 0.6075 (0.5877)	Prec@(1,5) (81.6%, 97.7%)	
+12/01 11:53:54午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [50][100/175]	Step 8900	lr 0.013	Loss 0.5631 (0.6033)	Prec@(1,5) (81.1%, 97.6%)	
+12/01 11:54:08午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [50][150/175]	Step 8950	lr 0.013	Loss 0.7318 (0.6235)	Prec@(1,5) (80.5%, 97.4%)	
+12/01 11:54:16午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [50][175/175]	Step 8975	lr 0.013	Loss 0.6431 (0.6309)	Prec@(1,5) (80.3%, 97.3%)	
+12/01 11:54:16午後 evaluateStage_trainer.py:145 [INFO] Train: [ 50/99] Final Prec@1 80.2711%
+12/01 11:54:19午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 50/99] Final Prec@1 55.7000%
+12/01 11:54:19午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 55.9200%
+12/01 11:54:35午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [51][50/175]	Step 9026	lr 0.01262	Loss 0.4576 (0.5543)	Prec@(1,5) (82.4%, 98.1%)	
+12/01 11:54:50午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [51][100/175]	Step 9076	lr 0.01262	Loss 0.6570 (0.5723)	Prec@(1,5) (82.0%, 97.9%)	
+12/01 11:55:04午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [51][150/175]	Step 9126	lr 0.01262	Loss 0.5586 (0.5868)	Prec@(1,5) (81.6%, 97.8%)	
+12/01 11:55:12午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [51][175/175]	Step 9151	lr 0.01262	Loss 0.7443 (0.5933)	Prec@(1,5) (81.4%, 97.7%)	
+12/01 11:55:12午後 evaluateStage_trainer.py:145 [INFO] Train: [ 51/99] Final Prec@1 81.3733%
+12/01 11:55:15午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 51/99] Final Prec@1 57.1800%
+12/01 11:55:15午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/01 11:55:31午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [52][50/175]	Step 9202	lr 0.01225	Loss 0.4884 (0.5290)	Prec@(1,5) (83.9%, 98.0%)	
+12/01 11:55:46午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [52][100/175]	Step 9252	lr 0.01225	Loss 0.5933 (0.5469)	Prec@(1,5) (83.0%, 98.0%)	
+12/01 11:56:00午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [52][150/175]	Step 9302	lr 0.01225	Loss 0.6162 (0.5655)	Prec@(1,5) (82.4%, 97.8%)	
+12/01 11:56:08午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [52][175/175]	Step 9327	lr 0.01225	Loss 0.6629 (0.5755)	Prec@(1,5) (82.0%, 97.7%)	
+12/01 11:56:08午後 evaluateStage_trainer.py:145 [INFO] Train: [ 52/99] Final Prec@1 82.0133%
+12/01 11:56:11午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 52/99] Final Prec@1 56.0800%
+12/01 11:56:11午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/01 11:56:27午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [53][50/175]	Step 9378	lr 0.01187	Loss 0.6410 (0.5099)	Prec@(1,5) (84.2%, 98.2%)	
+12/01 11:56:41午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [53][100/175]	Step 9428	lr 0.01187	Loss 0.5953 (0.5268)	Prec@(1,5) (83.8%, 98.0%)	
+12/01 11:56:56午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [53][150/175]	Step 9478	lr 0.01187	Loss 0.5543 (0.5448)	Prec@(1,5) (83.2%, 97.9%)	
+12/01 11:57:03午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [53][175/175]	Step 9503	lr 0.01187	Loss 0.6567 (0.5488)	Prec@(1,5) (83.0%, 97.9%)	
+12/01 11:57:03午後 evaluateStage_trainer.py:145 [INFO] Train: [ 53/99] Final Prec@1 83.0133%
+12/01 11:57:06午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 53/99] Final Prec@1 56.0200%
+12/01 11:57:06午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/01 11:57:22午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [54][50/175]	Step 9554	lr 0.0115	Loss 0.5162 (0.4992)	Prec@(1,5) (84.8%, 98.2%)	
+12/01 11:57:36午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [54][100/175]	Step 9604	lr 0.0115	Loss 0.4672 (0.5065)	Prec@(1,5) (84.4%, 98.3%)	
+12/01 11:57:51午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [54][150/175]	Step 9654	lr 0.0115	Loss 0.5716 (0.5159)	Prec@(1,5) (83.9%, 98.3%)	
+12/01 11:57:58午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [54][175/175]	Step 9679	lr 0.0115	Loss 0.6345 (0.5237)	Prec@(1,5) (83.6%, 98.2%)	
+12/01 11:57:59午後 evaluateStage_trainer.py:145 [INFO] Train: [ 54/99] Final Prec@1 83.5378%
+12/01 11:58:02午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 54/99] Final Prec@1 56.0000%
+12/01 11:58:02午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/01 11:58:17午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [55][50/175]	Step 9730	lr 0.01112	Loss 0.5698 (0.4822)	Prec@(1,5) (85.1%, 98.5%)	
+12/01 11:58:32午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [55][100/175]	Step 9780	lr 0.01112	Loss 0.4769 (0.4918)	Prec@(1,5) (84.7%, 98.3%)	
+12/01 11:58:47午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [55][150/175]	Step 9830	lr 0.01112	Loss 0.5529 (0.5002)	Prec@(1,5) (84.3%, 98.3%)	
+12/01 11:58:54午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [55][175/175]	Step 9855	lr 0.01112	Loss 0.5276 (0.5065)	Prec@(1,5) (84.1%, 98.3%)	
+12/01 11:58:54午後 evaluateStage_trainer.py:145 [INFO] Train: [ 55/99] Final Prec@1 84.0356%
+12/01 11:58:57午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 55/99] Final Prec@1 56.0000%
+12/01 11:58:57午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/01 11:59:13午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [56][50/175]	Step 9906	lr 0.01075	Loss 0.4068 (0.4411)	Prec@(1,5) (86.4%, 98.7%)	
+12/01 11:59:27午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [56][100/175]	Step 9956	lr 0.01075	Loss 0.4609 (0.4594)	Prec@(1,5) (85.8%, 98.6%)	
+12/01 11:59:42午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [56][150/175]	Step 10006	lr 0.01075	Loss 0.5510 (0.4763)	Prec@(1,5) (85.2%, 98.5%)	
+12/01 11:59:49午後 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [56][175/175]	Step 10031	lr 0.01075	Loss 0.5423 (0.4826)	Prec@(1,5) (84.9%, 98.4%)	
+12/01 11:59:50午後 evaluateStage_trainer.py:145 [INFO] Train: [ 56/99] Final Prec@1 84.9000%
+12/01 11:59:53午後 evaluateStage_trainer.py:180 [INFO] Valid: [ 56/99] Final Prec@1 56.1200%
+12/01 11:59:53午後 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/02 12:00:08午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [57][50/175]	Step 10082	lr 0.01038	Loss 0.3517 (0.4192)	Prec@(1,5) (86.9%, 98.9%)	
+12/02 12:00:23午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [57][100/175]	Step 10132	lr 0.01038	Loss 0.4603 (0.4312)	Prec@(1,5) (86.5%, 98.8%)	
+12/02 12:00:38午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [57][150/175]	Step 10182	lr 0.01038	Loss 0.5163 (0.4453)	Prec@(1,5) (86.0%, 98.7%)	
+12/02 12:00:45午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [57][175/175]	Step 10207	lr 0.01038	Loss 0.5062 (0.4538)	Prec@(1,5) (85.7%, 98.7%)	
+12/02 12:00:45午前 evaluateStage_trainer.py:145 [INFO] Train: [ 57/99] Final Prec@1 85.6667%
+12/02 12:00:48午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 57/99] Final Prec@1 57.0400%
+12/02 12:00:48午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/02 12:01:04午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [58][50/175]	Step 10258	lr 0.01002	Loss 0.4567 (0.4211)	Prec@(1,5) (87.0%, 98.9%)	
+12/02 12:01:19午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [58][100/175]	Step 10308	lr 0.01002	Loss 0.3630 (0.4278)	Prec@(1,5) (86.7%, 98.9%)	
+12/02 12:01:33午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [58][150/175]	Step 10358	lr 0.01002	Loss 0.4407 (0.4333)	Prec@(1,5) (86.5%, 98.9%)	
+12/02 12:01:41午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [58][175/175]	Step 10383	lr 0.01002	Loss 0.4417 (0.4391)	Prec@(1,5) (86.3%, 98.8%)	
+12/02 12:01:41午前 evaluateStage_trainer.py:145 [INFO] Train: [ 58/99] Final Prec@1 86.2933%
+12/02 12:01:44午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 58/99] Final Prec@1 56.7600%
+12/02 12:01:44午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/02 12:01:59午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [59][50/175]	Step 10434	lr 0.00965	Loss 0.5235 (0.3996)	Prec@(1,5) (87.7%, 99.0%)	
+12/02 12:02:14午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [59][100/175]	Step 10484	lr 0.00965	Loss 0.5552 (0.4098)	Prec@(1,5) (87.2%, 99.0%)	
+12/02 12:02:29午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [59][150/175]	Step 10534	lr 0.00965	Loss 0.4571 (0.4196)	Prec@(1,5) (86.9%, 98.9%)	
+12/02 12:02:36午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [59][175/175]	Step 10559	lr 0.00965	Loss 0.3885 (0.4254)	Prec@(1,5) (86.7%, 98.9%)	
+12/02 12:02:36午前 evaluateStage_trainer.py:145 [INFO] Train: [ 59/99] Final Prec@1 86.6622%
+12/02 12:02:39午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 59/99] Final Prec@1 55.9600%
+12/02 12:02:39午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/02 12:02:55午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [60][50/175]	Step 10610	lr 0.00929	Loss 0.3952 (0.3711)	Prec@(1,5) (88.4%, 99.1%)	
+12/02 12:03:10午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [60][100/175]	Step 10660	lr 0.00929	Loss 0.3763 (0.3818)	Prec@(1,5) (88.2%, 99.1%)	
+12/02 12:03:24午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [60][150/175]	Step 10710	lr 0.00929	Loss 0.4888 (0.3922)	Prec@(1,5) (87.8%, 98.9%)	
+12/02 12:03:31午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [60][175/175]	Step 10735	lr 0.00929	Loss 0.4798 (0.3963)	Prec@(1,5) (87.6%, 98.9%)	
+12/02 12:03:32午前 evaluateStage_trainer.py:145 [INFO] Train: [ 60/99] Final Prec@1 87.5667%
+12/02 12:03:35午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 60/99] Final Prec@1 56.5000%
+12/02 12:03:35午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.1800%
+12/02 12:03:50午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [61][50/175]	Step 10786	lr 0.00894	Loss 0.3595 (0.3564)	Prec@(1,5) (88.9%, 99.3%)	
+12/02 12:04:05午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [61][100/175]	Step 10836	lr 0.00894	Loss 0.2933 (0.3692)	Prec@(1,5) (88.4%, 99.2%)	
+12/02 12:04:20午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [61][150/175]	Step 10886	lr 0.00894	Loss 0.4102 (0.3783)	Prec@(1,5) (88.1%, 99.1%)	
+12/02 12:04:27午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [61][175/175]	Step 10911	lr 0.00894	Loss 0.4884 (0.3841)	Prec@(1,5) (88.0%, 99.1%)	
+12/02 12:04:27午前 evaluateStage_trainer.py:145 [INFO] Train: [ 61/99] Final Prec@1 87.9689%
+12/02 12:04:30午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 61/99] Final Prec@1 57.3200%
+12/02 12:04:31午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.3200%
+12/02 12:04:46午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [62][50/175]	Step 10962	lr 0.00858	Loss 0.3096 (0.3293)	Prec@(1,5) (90.0%, 99.4%)	
+12/02 12:05:01午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [62][100/175]	Step 11012	lr 0.00858	Loss 0.2920 (0.3361)	Prec@(1,5) (89.7%, 99.3%)	
+12/02 12:05:16午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [62][150/175]	Step 11062	lr 0.00858	Loss 0.3512 (0.3472)	Prec@(1,5) (89.3%, 99.2%)	
+12/02 12:05:23午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [62][175/175]	Step 11087	lr 0.00858	Loss 0.3217 (0.3558)	Prec@(1,5) (89.0%, 99.2%)	
+12/02 12:05:23午前 evaluateStage_trainer.py:145 [INFO] Train: [ 62/99] Final Prec@1 89.0022%
+12/02 12:05:26午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 62/99] Final Prec@1 56.8600%
+12/02 12:05:26午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.3200%
+12/02 12:05:42午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [63][50/175]	Step 11138	lr 0.00823	Loss 0.3337 (0.3117)	Prec@(1,5) (90.4%, 99.4%)	
+12/02 12:05:56午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [63][100/175]	Step 11188	lr 0.00823	Loss 0.3986 (0.3211)	Prec@(1,5) (90.2%, 99.4%)	
+12/02 12:06:11午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [63][150/175]	Step 11238	lr 0.00823	Loss 0.4053 (0.3372)	Prec@(1,5) (89.7%, 99.3%)	
+12/02 12:06:18午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [63][175/175]	Step 11263	lr 0.00823	Loss 0.3617 (0.3404)	Prec@(1,5) (89.6%, 99.2%)	
+12/02 12:06:19午前 evaluateStage_trainer.py:145 [INFO] Train: [ 63/99] Final Prec@1 89.5533%
+12/02 12:06:21午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 63/99] Final Prec@1 57.6200%
+12/02 12:06:22午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.6200%
+12/02 12:06:38午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [64][50/175]	Step 11314	lr 0.00789	Loss 0.3556 (0.3045)	Prec@(1,5) (90.6%, 99.6%)	
+12/02 12:06:52午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [64][100/175]	Step 11364	lr 0.00789	Loss 0.3671 (0.3086)	Prec@(1,5) (90.5%, 99.5%)	
+12/02 12:07:07午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [64][150/175]	Step 11414	lr 0.00789	Loss 0.3542 (0.3140)	Prec@(1,5) (90.3%, 99.5%)	
+12/02 12:07:14午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [64][175/175]	Step 11439	lr 0.00789	Loss 0.3458 (0.3163)	Prec@(1,5) (90.2%, 99.5%)	
+12/02 12:07:14午前 evaluateStage_trainer.py:145 [INFO] Train: [ 64/99] Final Prec@1 90.2067%
+12/02 12:07:17午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 64/99] Final Prec@1 57.5000%
+12/02 12:07:18午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.6200%
+12/02 12:07:33午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [65][50/175]	Step 11490	lr 0.00755	Loss 0.3074 (0.2851)	Prec@(1,5) (91.5%, 99.5%)	
+12/02 12:07:48午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [65][100/175]	Step 11540	lr 0.00755	Loss 0.2847 (0.2900)	Prec@(1,5) (91.3%, 99.5%)	
+12/02 12:08:02午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [65][150/175]	Step 11590	lr 0.00755	Loss 0.2868 (0.3014)	Prec@(1,5) (90.7%, 99.5%)	
+12/02 12:08:10午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [65][175/175]	Step 11615	lr 0.00755	Loss 0.3909 (0.3041)	Prec@(1,5) (90.6%, 99.5%)	
+12/02 12:08:10午前 evaluateStage_trainer.py:145 [INFO] Train: [ 65/99] Final Prec@1 90.5889%
+12/02 12:08:13午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 65/99] Final Prec@1 57.3600%
+12/02 12:08:13午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.6200%
+12/02 12:08:28午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [66][50/175]	Step 11666	lr 0.00722	Loss 0.2538 (0.2700)	Prec@(1,5) (91.8%, 99.6%)	
+12/02 12:08:43午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [66][100/175]	Step 11716	lr 0.00722	Loss 0.2634 (0.2781)	Prec@(1,5) (91.5%, 99.6%)	
+12/02 12:08:58午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [66][150/175]	Step 11766	lr 0.00722	Loss 0.3196 (0.2835)	Prec@(1,5) (91.3%, 99.6%)	
+12/02 12:09:05午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [66][175/175]	Step 11791	lr 0.00722	Loss 0.2887 (0.2865)	Prec@(1,5) (91.3%, 99.6%)	
+12/02 12:09:05午前 evaluateStage_trainer.py:145 [INFO] Train: [ 66/99] Final Prec@1 91.2533%
+12/02 12:09:08午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 66/99] Final Prec@1 57.5600%
+12/02 12:09:08午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 57.6200%
+12/02 12:09:24午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [67][50/175]	Step 11842	lr 0.00689	Loss 0.2856 (0.2439)	Prec@(1,5) (92.8%, 99.7%)	
+12/02 12:09:39午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [67][100/175]	Step 11892	lr 0.00689	Loss 0.2072 (0.2557)	Prec@(1,5) (92.2%, 99.7%)	
+12/02 12:09:53午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [67][150/175]	Step 11942	lr 0.00689	Loss 0.2824 (0.2623)	Prec@(1,5) (92.1%, 99.6%)	
+12/02 12:10:01午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [67][175/175]	Step 11967	lr 0.00689	Loss 0.2836 (0.2644)	Prec@(1,5) (92.0%, 99.6%)	
+12/02 12:10:01午前 evaluateStage_trainer.py:145 [INFO] Train: [ 67/99] Final Prec@1 91.9533%
+12/02 12:10:04午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 67/99] Final Prec@1 58.2800%
+12/02 12:10:04午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.2800%
+12/02 12:10:20午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [68][50/175]	Step 12018	lr 0.00657	Loss 0.1927 (0.2433)	Prec@(1,5) (92.8%, 99.6%)	
+12/02 12:10:34午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [68][100/175]	Step 12068	lr 0.00657	Loss 0.3773 (0.2520)	Prec@(1,5) (92.5%, 99.6%)	
+12/02 12:10:49午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [68][150/175]	Step 12118	lr 0.00657	Loss 0.3234 (0.2594)	Prec@(1,5) (92.2%, 99.6%)	
+12/02 12:10:56午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [68][175/175]	Step 12143	lr 0.00657	Loss 0.3166 (0.2619)	Prec@(1,5) (92.1%, 99.6%)	
+12/02 12:10:57午前 evaluateStage_trainer.py:145 [INFO] Train: [ 68/99] Final Prec@1 92.0600%
+12/02 12:11:00午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 68/99] Final Prec@1 57.7400%
+12/02 12:11:00午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.2800%
+12/02 12:11:15午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [69][50/175]	Step 12194	lr 0.00625	Loss 0.2225 (0.2222)	Prec@(1,5) (93.8%, 99.7%)	
+12/02 12:11:30午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [69][100/175]	Step 12244	lr 0.00625	Loss 0.2685 (0.2322)	Prec@(1,5) (93.3%, 99.7%)	
+12/02 12:11:45午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [69][150/175]	Step 12294	lr 0.00625	Loss 0.2334 (0.2399)	Prec@(1,5) (93.0%, 99.7%)	
+12/02 12:11:52午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [69][175/175]	Step 12319	lr 0.00625	Loss 0.2252 (0.2422)	Prec@(1,5) (92.9%, 99.7%)	
+12/02 12:11:52午前 evaluateStage_trainer.py:145 [INFO] Train: [ 69/99] Final Prec@1 92.9156%
+12/02 12:11:55午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 69/99] Final Prec@1 58.0200%
+12/02 12:11:55午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.2800%
+12/02 12:12:11午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [70][50/175]	Step 12370	lr 0.00595	Loss 0.2116 (0.1997)	Prec@(1,5) (94.2%, 99.8%)	
+12/02 12:12:25午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [70][100/175]	Step 12420	lr 0.00595	Loss 0.1861 (0.2095)	Prec@(1,5) (93.9%, 99.8%)	
+12/02 12:12:40午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [70][150/175]	Step 12470	lr 0.00595	Loss 0.2641 (0.2139)	Prec@(1,5) (93.8%, 99.8%)	
+12/02 12:12:47午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [70][175/175]	Step 12495	lr 0.00595	Loss 0.2235 (0.2191)	Prec@(1,5) (93.6%, 99.7%)	
+12/02 12:12:47午前 evaluateStage_trainer.py:145 [INFO] Train: [ 70/99] Final Prec@1 93.5756%
+12/02 12:12:50午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 70/99] Final Prec@1 58.0600%
+12/02 12:12:50午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.2800%
+12/02 12:13:06午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [71][50/175]	Step 12546	lr 0.00565	Loss 0.1706 (0.1922)	Prec@(1,5) (94.6%, 99.8%)	
+12/02 12:13:21午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [71][100/175]	Step 12596	lr 0.00565	Loss 0.2016 (0.2028)	Prec@(1,5) (94.3%, 99.8%)	
+12/02 12:13:35午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [71][150/175]	Step 12646	lr 0.00565	Loss 0.1857 (0.2091)	Prec@(1,5) (94.0%, 99.8%)	
+12/02 12:13:43午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [71][175/175]	Step 12671	lr 0.00565	Loss 0.1460 (0.2088)	Prec@(1,5) (94.1%, 99.8%)	
+12/02 12:13:43午前 evaluateStage_trainer.py:145 [INFO] Train: [ 71/99] Final Prec@1 94.0756%
+12/02 12:13:46午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 71/99] Final Prec@1 58.9000%
+12/02 12:13:46午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.9000%
+12/02 12:14:02午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [72][50/175]	Step 12722	lr 0.00535	Loss 0.1818 (0.1905)	Prec@(1,5) (94.7%, 99.8%)	
+12/02 12:14:16午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [72][100/175]	Step 12772	lr 0.00535	Loss 0.2028 (0.1934)	Prec@(1,5) (94.6%, 99.8%)	
+12/02 12:14:31午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [72][150/175]	Step 12822	lr 0.00535	Loss 0.2160 (0.1979)	Prec@(1,5) (94.4%, 99.7%)	
+12/02 12:14:38午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [72][175/175]	Step 12847	lr 0.00535	Loss 0.1884 (0.1994)	Prec@(1,5) (94.4%, 99.7%)	
+12/02 12:14:39午前 evaluateStage_trainer.py:145 [INFO] Train: [ 72/99] Final Prec@1 94.3711%
+12/02 12:14:41午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 72/99] Final Prec@1 57.5200%
+12/02 12:14:42午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.9000%
+12/02 12:14:57午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [73][50/175]	Step 12898	lr 0.00506	Loss 0.1957 (0.1780)	Prec@(1,5) (95.1%, 99.8%)	
+12/02 12:15:12午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [73][100/175]	Step 12948	lr 0.00506	Loss 0.2270 (0.1800)	Prec@(1,5) (95.1%, 99.8%)	
+12/02 12:15:26午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [73][150/175]	Step 12998	lr 0.00506	Loss 0.2241 (0.1822)	Prec@(1,5) (95.0%, 99.8%)	
+12/02 12:15:34午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [73][175/175]	Step 13023	lr 0.00506	Loss 0.2388 (0.1844)	Prec@(1,5) (94.9%, 99.8%)	
+12/02 12:15:34午前 evaluateStage_trainer.py:145 [INFO] Train: [ 73/99] Final Prec@1 94.8467%
+12/02 12:15:37午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 73/99] Final Prec@1 58.2800%
+12/02 12:15:37午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.9000%
+12/02 12:15:52午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [74][50/175]	Step 13074	lr 0.00479	Loss 0.2213 (0.1738)	Prec@(1,5) (95.4%, 99.8%)	
+12/02 12:16:07午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [74][100/175]	Step 13124	lr 0.00479	Loss 0.1638 (0.1775)	Prec@(1,5) (95.2%, 99.8%)	
+12/02 12:16:21午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [74][150/175]	Step 13174	lr 0.00479	Loss 0.1623 (0.1786)	Prec@(1,5) (95.2%, 99.8%)	
+12/02 12:16:29午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [74][175/175]	Step 13199	lr 0.00479	Loss 0.1896 (0.1798)	Prec@(1,5) (95.1%, 99.8%)	
+12/02 12:16:29午前 evaluateStage_trainer.py:145 [INFO] Train: [ 74/99] Final Prec@1 95.0956%
+12/02 12:16:32午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 74/99] Final Prec@1 57.8600%
+12/02 12:16:32午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.9000%
+12/02 12:16:47午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [75][50/175]	Step 13250	lr 0.00451	Loss 0.1669 (0.1617)	Prec@(1,5) (95.7%, 99.8%)	
+12/02 12:17:02午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [75][100/175]	Step 13300	lr 0.00451	Loss 0.1716 (0.1651)	Prec@(1,5) (95.6%, 99.8%)	
+12/02 12:17:17午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [75][150/175]	Step 13350	lr 0.00451	Loss 0.1726 (0.1710)	Prec@(1,5) (95.3%, 99.9%)	
+12/02 12:17:24午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [75][175/175]	Step 13375	lr 0.00451	Loss 0.1404 (0.1700)	Prec@(1,5) (95.4%, 99.9%)	
+12/02 12:17:24午前 evaluateStage_trainer.py:145 [INFO] Train: [ 75/99] Final Prec@1 95.3778%
+12/02 12:17:27午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 75/99] Final Prec@1 58.6400%
+12/02 12:17:27午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 58.9000%
+12/02 12:17:43午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [76][50/175]	Step 13426	lr 0.00425	Loss 0.1763 (0.1471)	Prec@(1,5) (96.2%, 99.9%)	
+12/02 12:17:57午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [76][100/175]	Step 13476	lr 0.00425	Loss 0.1558 (0.1525)	Prec@(1,5) (96.0%, 99.9%)	
+12/02 12:18:12午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [76][150/175]	Step 13526	lr 0.00425	Loss 0.1901 (0.1553)	Prec@(1,5) (95.9%, 99.9%)	
+12/02 12:18:19午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [76][175/175]	Step 13551	lr 0.00425	Loss 0.2030 (0.1570)	Prec@(1,5) (95.8%, 99.9%)	
+12/02 12:18:20午前 evaluateStage_trainer.py:145 [INFO] Train: [ 76/99] Final Prec@1 95.7822%
+12/02 12:18:22午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 76/99] Final Prec@1 59.4000%
+12/02 12:18:23午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.4000%
+12/02 12:18:38午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [77][50/175]	Step 13602	lr 0.004	Loss 0.1776 (0.1344)	Prec@(1,5) (96.7%, 99.9%)	
+12/02 12:18:53午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [77][100/175]	Step 13652	lr 0.004	Loss 0.1083 (0.1355)	Prec@(1,5) (96.7%, 99.9%)	
+12/02 12:19:08午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [77][150/175]	Step 13702	lr 0.004	Loss 0.1446 (0.1388)	Prec@(1,5) (96.6%, 99.9%)	
+12/02 12:19:15午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [77][175/175]	Step 13727	lr 0.004	Loss 0.1809 (0.1420)	Prec@(1,5) (96.5%, 99.9%)	
+12/02 12:19:15午前 evaluateStage_trainer.py:145 [INFO] Train: [ 77/99] Final Prec@1 96.4756%
+12/02 12:19:18午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 77/99] Final Prec@1 59.2200%
+12/02 12:19:18午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.4000%
+12/02 12:19:34午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [78][50/175]	Step 13778	lr 0.00375	Loss 0.1482 (0.1346)	Prec@(1,5) (96.6%, 99.9%)	
+12/02 12:19:48午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [78][100/175]	Step 13828	lr 0.00375	Loss 0.1322 (0.1382)	Prec@(1,5) (96.5%, 99.9%)	
+12/02 12:20:03午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [78][150/175]	Step 13878	lr 0.00375	Loss 0.1292 (0.1400)	Prec@(1,5) (96.4%, 99.9%)	
+12/02 12:20:10午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [78][175/175]	Step 13903	lr 0.00375	Loss 0.1158 (0.1395)	Prec@(1,5) (96.5%, 99.9%)	
+12/02 12:20:11午前 evaluateStage_trainer.py:145 [INFO] Train: [ 78/99] Final Prec@1 96.4956%
+12/02 12:20:13午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 78/99] Final Prec@1 58.5400%
+12/02 12:20:14午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.4000%
+12/02 12:20:29午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [79][50/175]	Step 13954	lr 0.00352	Loss 0.1608 (0.1259)	Prec@(1,5) (97.1%, 99.9%)	
+12/02 12:20:44午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [79][100/175]	Step 14004	lr 0.00352	Loss 0.0971 (0.1274)	Prec@(1,5) (97.0%, 99.9%)	
+12/02 12:20:58午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [79][150/175]	Step 14054	lr 0.00352	Loss 0.1232 (0.1284)	Prec@(1,5) (96.9%, 99.9%)	
+12/02 12:21:06午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [79][175/175]	Step 14079	lr 0.00352	Loss 0.1182 (0.1309)	Prec@(1,5) (96.8%, 99.9%)	
+12/02 12:21:06午前 evaluateStage_trainer.py:145 [INFO] Train: [ 79/99] Final Prec@1 96.7778%
+12/02 12:21:09午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 79/99] Final Prec@1 59.4600%
+12/02 12:21:09午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.4600%
+12/02 12:21:25午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [80][50/175]	Step 14130	lr 0.00329	Loss 0.1480 (0.1276)	Prec@(1,5) (96.9%, 99.9%)	
+12/02 12:21:40午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [80][100/175]	Step 14180	lr 0.00329	Loss 0.1191 (0.1240)	Prec@(1,5) (97.0%, 99.9%)	
+12/02 12:21:54午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [80][150/175]	Step 14230	lr 0.00329	Loss 0.1415 (0.1250)	Prec@(1,5) (96.9%, 99.9%)	
+12/02 12:22:02午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [80][175/175]	Step 14255	lr 0.00329	Loss 0.1322 (0.1263)	Prec@(1,5) (96.9%, 99.9%)	
+12/02 12:22:02午前 evaluateStage_trainer.py:145 [INFO] Train: [ 80/99] Final Prec@1 96.8778%
+12/02 12:22:05午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 80/99] Final Prec@1 58.8600%
+12/02 12:22:05午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.4600%
+12/02 12:22:20午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [81][50/175]	Step 14306	lr 0.00308	Loss 0.1270 (0.1174)	Prec@(1,5) (97.3%, 99.9%)	
+12/02 12:22:35午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [81][100/175]	Step 14356	lr 0.00308	Loss 0.1457 (0.1214)	Prec@(1,5) (97.2%, 99.9%)	
+12/02 12:22:50午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [81][150/175]	Step 14406	lr 0.00308	Loss 0.1256 (0.1219)	Prec@(1,5) (97.1%, 99.9%)	
+12/02 12:22:57午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [81][175/175]	Step 14431	lr 0.00308	Loss 0.1062 (0.1226)	Prec@(1,5) (97.0%, 99.9%)	
+12/02 12:22:57午前 evaluateStage_trainer.py:145 [INFO] Train: [ 81/99] Final Prec@1 97.0378%
+12/02 12:23:00午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 81/99] Final Prec@1 58.8000%
+12/02 12:23:00午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.4600%
+12/02 12:23:16午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [82][50/175]	Step 14482	lr 0.00287	Loss 0.1029 (0.1076)	Prec@(1,5) (97.5%, 100.0%)	
+12/02 12:23:30午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [82][100/175]	Step 14532	lr 0.00287	Loss 0.0996 (0.1112)	Prec@(1,5) (97.4%, 100.0%)	
+12/02 12:23:45午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [82][150/175]	Step 14582	lr 0.00287	Loss 0.1167 (0.1139)	Prec@(1,5) (97.3%, 100.0%)	
+12/02 12:23:52午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [82][175/175]	Step 14607	lr 0.00287	Loss 0.0934 (0.1139)	Prec@(1,5) (97.3%, 100.0%)	
+12/02 12:23:52午前 evaluateStage_trainer.py:145 [INFO] Train: [ 82/99] Final Prec@1 97.3289%
+12/02 12:23:55午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 82/99] Final Prec@1 59.0200%
+12/02 12:23:56午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.4600%
+12/02 12:24:11午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [83][50/175]	Step 14658	lr 0.00267	Loss 0.1158 (0.1071)	Prec@(1,5) (97.6%, 99.9%)	
+12/02 12:24:26午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [83][100/175]	Step 14708	lr 0.00267	Loss 0.1436 (0.1074)	Prec@(1,5) (97.6%, 99.9%)	
+12/02 12:24:40午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [83][150/175]	Step 14758	lr 0.00267	Loss 0.1355 (0.1093)	Prec@(1,5) (97.5%, 99.9%)	
+12/02 12:24:48午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [83][175/175]	Step 14783	lr 0.00267	Loss 0.1239 (0.1109)	Prec@(1,5) (97.5%, 99.9%)	
+12/02 12:24:48午前 evaluateStage_trainer.py:145 [INFO] Train: [ 83/99] Final Prec@1 97.4689%
+12/02 12:24:51午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 83/99] Final Prec@1 59.5000%
+12/02 12:24:51午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5000%
+12/02 12:25:07午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [84][50/175]	Step 14834	lr 0.00248	Loss 0.1035 (0.1009)	Prec@(1,5) (97.7%, 100.0%)	
+12/02 12:25:21午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [84][100/175]	Step 14884	lr 0.00248	Loss 0.1220 (0.1043)	Prec@(1,5) (97.6%, 99.9%)	
+12/02 12:25:36午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [84][150/175]	Step 14934	lr 0.00248	Loss 0.1196 (0.1061)	Prec@(1,5) (97.5%, 100.0%)	
+12/02 12:25:43午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [84][175/175]	Step 14959	lr 0.00248	Loss 0.1088 (0.1063)	Prec@(1,5) (97.5%, 100.0%)	
+12/02 12:25:44午前 evaluateStage_trainer.py:145 [INFO] Train: [ 84/99] Final Prec@1 97.5200%
+12/02 12:25:46午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 84/99] Final Prec@1 58.7600%
+12/02 12:25:46午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5000%
+12/02 12:26:02午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [85][50/175]	Step 15010	lr 0.00231	Loss 0.1194 (0.1055)	Prec@(1,5) (97.5%, 99.9%)	
+12/02 12:26:17午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [85][100/175]	Step 15060	lr 0.00231	Loss 0.1092 (0.1027)	Prec@(1,5) (97.7%, 99.9%)	
+12/02 12:26:31午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [85][150/175]	Step 15110	lr 0.00231	Loss 0.1037 (0.1025)	Prec@(1,5) (97.8%, 99.9%)	
+12/02 12:26:38午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [85][175/175]	Step 15135	lr 0.00231	Loss 0.1043 (0.1014)	Prec@(1,5) (97.8%, 100.0%)	
+12/02 12:26:39午前 evaluateStage_trainer.py:145 [INFO] Train: [ 85/99] Final Prec@1 97.8422%
+12/02 12:26:42午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 85/99] Final Prec@1 59.2600%
+12/02 12:26:42午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5000%
+12/02 12:26:57午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [86][50/175]	Step 15186	lr 0.00214	Loss 0.0823 (0.0940)	Prec@(1,5) (97.9%, 100.0%)	
+12/02 12:27:12午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [86][100/175]	Step 15236	lr 0.00214	Loss 0.0733 (0.0949)	Prec@(1,5) (98.0%, 100.0%)	
+12/02 12:27:27午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [86][150/175]	Step 15286	lr 0.00214	Loss 0.0867 (0.0983)	Prec@(1,5) (97.8%, 100.0%)	
+12/02 12:27:34午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [86][175/175]	Step 15311	lr 0.00214	Loss 0.0983 (0.0989)	Prec@(1,5) (97.8%, 100.0%)	
+12/02 12:27:34午前 evaluateStage_trainer.py:145 [INFO] Train: [ 86/99] Final Prec@1 97.7822%
+12/02 12:27:37午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 86/99] Final Prec@1 58.3000%
+12/02 12:27:37午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5000%
+12/02 12:27:53午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [87][50/175]	Step 15362	lr 0.00199	Loss 0.0965 (0.0896)	Prec@(1,5) (98.3%, 100.0%)	
+12/02 12:28:07午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [87][100/175]	Step 15412	lr 0.00199	Loss 0.1122 (0.0927)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:28:22午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [87][150/175]	Step 15462	lr 0.00199	Loss 0.1109 (0.0922)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:28:29午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [87][175/175]	Step 15487	lr 0.00199	Loss 0.0878 (0.0927)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:28:29午前 evaluateStage_trainer.py:145 [INFO] Train: [ 87/99] Final Prec@1 98.1022%
+12/02 12:28:32午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 87/99] Final Prec@1 58.9600%
+12/02 12:28:32午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5000%
+12/02 12:28:48午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [88][50/175]	Step 15538	lr 0.00184	Loss 0.0708 (0.0919)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:29:02午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [88][100/175]	Step 15588	lr 0.00184	Loss 0.1012 (0.0894)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:29:17午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [88][150/175]	Step 15638	lr 0.00184	Loss 0.0962 (0.0906)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:29:24午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [88][175/175]	Step 15663	lr 0.00184	Loss 0.1124 (0.0918)	Prec@(1,5) (98.0%, 100.0%)	
+12/02 12:29:25午前 evaluateStage_trainer.py:145 [INFO] Train: [ 88/99] Final Prec@1 98.0311%
+12/02 12:29:27午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 88/99] Final Prec@1 59.4800%
+12/02 12:29:27午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5000%
+12/02 12:29:43午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [89][50/175]	Step 15714	lr 0.00171	Loss 0.1289 (0.0904)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:29:58午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [89][100/175]	Step 15764	lr 0.00171	Loss 0.0998 (0.0895)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:30:12午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [89][150/175]	Step 15814	lr 0.00171	Loss 0.0906 (0.0891)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:30:20午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [89][175/175]	Step 15839	lr 0.00171	Loss 0.0842 (0.0892)	Prec@(1,5) (98.1%, 100.0%)	
+12/02 12:30:20午前 evaluateStage_trainer.py:145 [INFO] Train: [ 89/99] Final Prec@1 98.1378%
+12/02 12:30:23午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 89/99] Final Prec@1 59.5800%
+12/02 12:30:23午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:30:39午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [90][50/175]	Step 15890	lr 0.00159	Loss 0.0779 (0.0897)	Prec@(1,5) (98.3%, 99.9%)	
+12/02 12:30:53午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [90][100/175]	Step 15940	lr 0.00159	Loss 0.0908 (0.0866)	Prec@(1,5) (98.3%, 100.0%)	
+12/02 12:31:08午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [90][150/175]	Step 15990	lr 0.00159	Loss 0.0732 (0.0850)	Prec@(1,5) (98.3%, 100.0%)	
+12/02 12:31:15午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [90][175/175]	Step 16015	lr 0.00159	Loss 0.0981 (0.0856)	Prec@(1,5) (98.3%, 100.0%)	
+12/02 12:31:16午前 evaluateStage_trainer.py:145 [INFO] Train: [ 90/99] Final Prec@1 98.2778%
+12/02 12:31:18午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 90/99] Final Prec@1 58.8600%
+12/02 12:31:19午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:31:34午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [91][50/175]	Step 16066	lr 0.00148	Loss 0.0671 (0.0794)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:31:49午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [91][100/175]	Step 16116	lr 0.00148	Loss 0.1104 (0.0829)	Prec@(1,5) (98.3%, 100.0%)	
+12/02 12:32:03午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [91][150/175]	Step 16166	lr 0.00148	Loss 0.1071 (0.0840)	Prec@(1,5) (98.3%, 100.0%)	
+12/02 12:32:11午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [91][175/175]	Step 16191	lr 0.00148	Loss 0.0746 (0.0847)	Prec@(1,5) (98.2%, 100.0%)	
+12/02 12:32:11午前 evaluateStage_trainer.py:145 [INFO] Train: [ 91/99] Final Prec@1 98.2178%
+12/02 12:32:14午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 91/99] Final Prec@1 58.9800%
+12/02 12:32:14午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:32:29午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [92][50/175]	Step 16242	lr 0.00138	Loss 0.0757 (0.0820)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:32:44午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [92][100/175]	Step 16292	lr 0.00138	Loss 0.0890 (0.0812)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:32:58午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [92][150/175]	Step 16342	lr 0.00138	Loss 0.0952 (0.0825)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:33:06午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [92][175/175]	Step 16367	lr 0.00138	Loss 0.0592 (0.0830)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:33:06午前 evaluateStage_trainer.py:145 [INFO] Train: [ 92/99] Final Prec@1 98.4044%
+12/02 12:33:09午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 92/99] Final Prec@1 59.0800%
+12/02 12:33:09午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:33:25午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [93][50/175]	Step 16418	lr 0.00129	Loss 0.0844 (0.0786)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:33:39午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [93][100/175]	Step 16468	lr 0.00129	Loss 0.0806 (0.0806)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:33:54午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [93][150/175]	Step 16518	lr 0.00129	Loss 0.0623 (0.0818)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:34:01午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [93][175/175]	Step 16543	lr 0.00129	Loss 0.0716 (0.0823)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:34:01午前 evaluateStage_trainer.py:145 [INFO] Train: [ 93/99] Final Prec@1 98.3689%
+12/02 12:34:04午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 93/99] Final Prec@1 58.9200%
+12/02 12:34:04午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:34:20午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [94][50/175]	Step 16594	lr 0.00121	Loss 0.0796 (0.0781)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:34:35午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [94][100/175]	Step 16644	lr 0.00121	Loss 0.1160 (0.0773)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:34:49午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [94][150/175]	Step 16694	lr 0.00121	Loss 0.1307 (0.0796)	Prec@(1,5) (98.4%, 100.0%)	
+12/02 12:34:56午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [94][175/175]	Step 16719	lr 0.00121	Loss 0.0827 (0.0791)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:34:57午前 evaluateStage_trainer.py:145 [INFO] Train: [ 94/99] Final Prec@1 98.4667%
+12/02 12:34:59午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 94/99] Final Prec@1 59.1600%
+12/02 12:35:00午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:35:15午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [95][50/175]	Step 16770	lr 0.00115	Loss 0.0741 (0.0765)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:35:30午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [95][100/175]	Step 16820	lr 0.00115	Loss 0.0859 (0.0778)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:35:44午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [95][150/175]	Step 16870	lr 0.00115	Loss 0.0653 (0.0777)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:35:51午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [95][175/175]	Step 16895	lr 0.00115	Loss 0.0767 (0.0769)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:35:52午前 evaluateStage_trainer.py:145 [INFO] Train: [ 95/99] Final Prec@1 98.5667%
+12/02 12:35:54午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 95/99] Final Prec@1 59.2400%
+12/02 12:35:55午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:36:10午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [96][50/175]	Step 16946	lr 0.00109	Loss 0.0668 (0.0737)	Prec@(1,5) (98.7%, 100.0%)	
+12/02 12:36:25午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [96][100/175]	Step 16996	lr 0.00109	Loss 0.0572 (0.0742)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:36:39午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [96][150/175]	Step 17046	lr 0.00109	Loss 0.0739 (0.0751)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:36:47午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [96][175/175]	Step 17071	lr 0.00109	Loss 0.0757 (0.0752)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:36:47午前 evaluateStage_trainer.py:145 [INFO] Train: [ 96/99] Final Prec@1 98.5956%
+12/02 12:36:50午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 96/99] Final Prec@1 58.9400%
+12/02 12:36:50午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:37:05午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [97][50/175]	Step 17122	lr 0.00105	Loss 0.0731 (0.0749)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:37:20午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [97][100/175]	Step 17172	lr 0.00105	Loss 0.0710 (0.0754)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:37:35午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [97][150/175]	Step 17222	lr 0.00105	Loss 0.0743 (0.0759)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:37:42午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [97][175/175]	Step 17247	lr 0.00105	Loss 0.0958 (0.0769)	Prec@(1,5) (98.5%, 100.0%)	
+12/02 12:37:42午前 evaluateStage_trainer.py:145 [INFO] Train: [ 97/99] Final Prec@1 98.5067%
+12/02 12:37:45午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 97/99] Final Prec@1 58.8800%
+12/02 12:37:45午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:38:01午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [98][50/175]	Step 17298	lr 0.00102	Loss 0.0887 (0.0696)	Prec@(1,5) (98.8%, 100.0%)	
+12/02 12:38:15午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [98][100/175]	Step 17348	lr 0.00102	Loss 0.0664 (0.0735)	Prec@(1,5) (98.7%, 100.0%)	
+12/02 12:38:30午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [98][150/175]	Step 17398	lr 0.00102	Loss 0.0719 (0.0742)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:38:37午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [98][175/175]	Step 17423	lr 0.00102	Loss 0.0595 (0.0742)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:38:37午前 evaluateStage_trainer.py:145 [INFO] Train: [ 98/99] Final Prec@1 98.6511%
+12/02 12:38:40午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 98/99] Final Prec@1 59.0000%
+12/02 12:38:40午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:38:56午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [99][50/175]	Step 17474	lr 0.00101	Loss 0.0871 (0.0720)	Prec@(1,5) (98.8%, 100.0%)	
+12/02 12:39:10午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [99][100/175]	Step 17524	lr 0.00101	Loss 0.0585 (0.0724)	Prec@(1,5) (98.7%, 100.0%)	
+12/02 12:39:25午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [99][150/175]	Step 17574	lr 0.00101	Loss 0.0771 (0.0735)	Prec@(1,5) (98.6%, 100.0%)	
+12/02 12:39:32午前 evaluateStage_trainer.py:138 [INFO] Train: Epoch: [99][175/175]	Step 17599	lr 0.00101	Loss 0.0909 (0.0736)	Prec@(1,5) (98.7%, 100.0%)	
+12/02 12:39:33午前 evaluateStage_trainer.py:145 [INFO] Train: [ 99/99] Final Prec@1 98.6644%
+12/02 12:39:36午前 evaluateStage_trainer.py:180 [INFO] Valid: [ 99/99] Final Prec@1 59.4800%
+12/02 12:39:36午前 evaluateStage_main.py:75 [INFO] Until now, best Prec@1 = 59.5800%
+12/02 12:39:36午前 evaluateStage_main.py:79 [INFO] Final best Prec@1 = 59.5800%
