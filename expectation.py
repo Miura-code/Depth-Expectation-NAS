@@ -1,4 +1,9 @@
 from collections import defaultdict
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import matplotlib.pyplot as plt
+
 
 # 再帰的に期待値を計算する関数
 def calculate_e(j, alpha, expectations, coefficient_counts, n_loop):
@@ -95,41 +100,129 @@ def calculate_e_with_recursive_count(j, alpha, coefficient_counts):
 
     return coefficient_counts
 
+def loss(alpha, beta):
+    depth_list = torch.zeros((1, n_big_nodes+2))
+    alpha = [alpha for alpha in alpha]
+    beta = [F.softmax(beta, dim=0) for beta in beta]
+
+    alpha_dag = alpha[0 * n_big_nodes: (0+1) * n_big_nodes]
+    depth_list[0] = _expectation_dp(alpha_dag, depth_list[0])
+    depth = 0
+    offset = 0
+    for i in range(2, n_big_nodes + 1):
+        for j in range(i+1, n_big_nodes + 2):
+            depth += beta[0][offset] * (depth_list[0][i] + depth_list[0][j])
+            offset += 1
+
+    return depth.item(), depth_list
+
+def _expectation_dp(alpha, ExpectedDepth):
+    for j in range(n_big_nodes+2):
+        if j == 0 or j == 1:
+            ExpectedDepth[j] = 0
+        elif j < window:
+            edge_max, _ = torch.topk(alpha[j-2][:,:-1], 1)
+            edge_max = F.softmax(edge_max, dim=0)
+            for i in range(j):
+                ExpectedDepth[j] += edge_max[i][0] * (ExpectedDepth[i] + 1)
+        else:
+            edge_max, _ = torch.topk(alpha[j-2][:,:-1], 1)
+            edge_max = F.softmax(edge_max, dim=0)
+            for s, i in enumerate(range(j-window, j)):
+                ExpectedDepth[j] += edge_max[s][0] * (ExpectedDepth[i] + 1)
+
+    return ExpectedDepth
+
 # メイン部分
 def main():
-    # 入力: 係数 alpha を設定
-    alpha = {
-        (0, 2): 0.1, (1, 2): 0.2,
-        (0, 3): 0.3, (1, 3): 0.4, (2, 3): 0.5,
-        (1, 4): 0.6, (2, 4): 0.7, (3, 4): 0.8,
-        (2, 5): 0.9, (3, 5): 1.0, (4, 5): 1.1,
-        (3, 6): 1.2, (4, 6): 1.3, (5, 6): 1.4
-    }
+    beta = nn.ParameterList()
+    for _ in range(1):
+        beta.append(nn.Parameter(1.0 * torch.ones(int((n_big_nodes)*(n_big_nodes-1)/2))))
 
-    n = 5  # 最大 N の値
+    alpha = nn.ParameterList()
+    for _ in range(1):
+        for i in range(n_big_nodes):
+            # sliding window
+            if i + 2 < window:
+                alpha.append(nn.Parameter(1.0 * torch.ones(i + 2, n_ops)))
+            else:
+                alpha.append(nn.Parameter(1.0 * torch.ones(window, n_ops)))
+
+    # d = [0, 0]
+    # for i, edges in enumerate(alpha):
+    #     print(edges[:, :-1])
+    #     input()
+    #     edge_max, _ = torch.topk(edges[:, :-1], 1)
+    #     edge_max = F.softmax(edge_max, dim=0)
+    #     if i < window - 2:
+    #         dd = 0
+    #         for j in range(i + 2):
+    #             dd += edge_max[j][0] * (d[j] + 1)
+    #         dd /= (i + 2)
+    #     else:
+    #         dd = 0
+    #         for s, j in enumerate(range(i - 1, i + 2)):
+    #             dd += edge_max[s][0] * (d[j] + 1)
+    #         dd /= window
+    #     if i >= 3:
+    #         dd *= (1 + i * beta[i - 3])[0]
+    #     d.append(dd)
+
+    depth_expectation, depthList = loss(alpha, beta)
+
+    # alphaの特定の値を大きくしてlossの変化を調べる
+    alpha_values = []
+    depth_values = [[],[]]
+
+    scaling_factors = torch.linspace(1, 1.1, steps=10)  # スケールの範囲
+    base_alpha = [param.detach().clone() for param in alpha]
+    base_beta = [param.detach().clone() for param in beta]
+
+    for scale in scaling_factors:
+        # alphaの特定の値をスケールアップ
+        # base_alpha[1][0][0].data *= scale
+        # base_alpha[2][0][0].data *= scale
+        # print(base_alpha[1].data)
+
+        base_beta[0][0].data *= scale
+        print(beta[0].data)
+
+        # lossを計算
+        depth_expectation, _ = loss(base_alpha, base_beta)
+        depth_values[0].append(depth_expectation)
+
+    base_alpha = [param.detach().clone() for param in alpha]
+    base_beta = [param.detach().clone() for param in beta]
+
+    for scale in scaling_factors:
+        # base_alpha[5][0][0].data *= scale
+        # alpha[1][1][0].data *= scale
+        # alpha[1][2][0].data *= scale
+        # print(base_alpha[5].data)
+
+        base_beta[0][-1].data *= scale
+        print(beta[0].data)
+
+        # lossを計算
+        depth_expectation, _ = loss(base_alpha, base_beta)
+        alpha_values.append(scale.item())
+        depth_values[1].append(depth_expectation)
+
+    # プロット
+    plt.figure(figsize=(8, 6))
+    plt.plot(alpha_values, depth_values[0], marker='o', label="Beta[0]")
+    plt.plot(alpha_values, depth_values[1], marker='o', label="Beta[14]")
+    plt.xlabel("Beta Scaling Factor")
+    plt.ylabel("Depth Expectation")
+    plt.title("Effect of Scaling Beta on Depth Expectation")
+    plt.legend()
+    plt.grid()
+    plt.savefig("./assets/Expectation_beta_0-15.png")
+
     
 
-    # 各 E[X_j] を計算
-    for j in range(2, n + 1):
-        expectations = {}  # 期待値を格納
-        coefficient_counts = defaultdict(int)  # 係数の出現回数
-
-        print("----- {} -----".format(j))
-        # calculate_e(j, alpha, expectations, coefficient_counts, 0)
-        coefficient_counts = calculate_e_with_recursive_count(j, alpha, coefficient_counts)
-
-
-        # 結果表示
-        print("期待値 E[X_j]:")
-        for j, value in expectations.items():
-            print(f"E[X_{j}] = {value:.4f}")
-
-        print("\n各係数の出現回数:")
-        for key, count in coefficient_counts.items():
-            print(f"alpha_{key} 出現回数: {count}")
-
-        # print("係数の合計: {}".format(sum(coefficient_counts.items())))
-        print(sum(coefficient_counts.values()))
-
 if __name__ == "__main__":
+    n_big_nodes = 6
+    window=3
+    n_ops=4
     main()
