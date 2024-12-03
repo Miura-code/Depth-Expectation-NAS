@@ -384,7 +384,7 @@ class Expected_Depth_Loss_beta(nn.Module):
 
     def forward(self, alpha, beta):
         depth_list = torch.zeros((self.theta.shape[0], self.n_node+2)).to(self.device)
-        alpha = [F.softmax(alpha, dim=-1) for alpha in alpha]
+        alpha = [alpha for alpha in alpha]
         beta = [F.softmax(beta, dim=0) for beta in beta]
 
         loss = 0
@@ -407,11 +407,15 @@ class Expected_Depth_Loss_beta(nn.Module):
             if j == 0 or j == 1:
                 ExpectedDepth[j] = 0
             elif j < self.sw:
-                for i, w_list in zip(range(j), alpha[j-2]):
-                    ExpectedDepth[j] += sum(w * (ExpectedDepth[i] + 1) for w in w_list)
+                edge_max, _ = torch.topk(alpha[j-2][:,:-1], 1)
+                edge_max = F.softmax(edge_max, dim=0)
+                for i in range(j):
+                    ExpectedDepth[j] += edge_max[i][0] * (ExpectedDepth[i] + 1)
             else:
-                for i, w_list in zip(range(j-self.sw, j), alpha[j-2]):
-                    ExpectedDepth[j] += sum(w * (ExpectedDepth[i] + 1) for w in w_list)
+                edge_max, _ = torch.topk(alpha[j-2][:,:-1], 1)
+                edge_max = F.softmax(edge_max, dim=0)
+                for s, i in enumerate(range(j-self.sw, j)):
+                    ExpectedDepth[j] += edge_max[s][0] * (ExpectedDepth[i] + 1)
 
         return ExpectedDepth
         
