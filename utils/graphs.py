@@ -1,3 +1,4 @@
+from collections import defaultdict
 from matplotlib import pyplot as plt
 import networkx as nx
 import numpy as np
@@ -7,6 +8,9 @@ import torch.nn.functional as F
 
 import genotypes.genotypes as gt
 from utils import visualize
+import thop
+from thop.profile import register_hooks
+from thop.vision.basic_hooks import zero_ops
 
 class Graph_Utilities():
     def __init__(self):
@@ -227,3 +231,70 @@ class Graph_Utilities():
         sim = F.cosine_similarity(vec1, vec2, dim = -1)
 
         return sim
+
+# 逆グラフを作成する
+def create_reverse_graph(graph):
+    reverse_graph = defaultdict(list)
+    for node, neighbors in graph.items():
+        for neighbor in neighbors:
+            reverse_graph[neighbor].append(node)
+    return reverse_graph
+
+# 最後のノードに到達可能なノードを探す
+def find_unreachable_nodes(graph, last_node):
+    # 逆グラフを作成
+    reverse_graph = create_reverse_graph(graph)
+    
+    # 到達可能なノードを探索
+    reachable = set()
+    queue = deque([last_node])
+    
+    while queue:
+        current = queue.popleft()
+        if current in reachable:
+            continue
+        reachable.add(current)
+        for neighbor in reverse_graph[current]:
+            queue.append(neighbor)
+    
+    # 全ノードから到達可能なノードを引く
+    all_nodes = set(graph.keys())
+    unreachable_nodes = all_nodes - reachable
+    return list(unreachable_nodes)
+
+def make_StageGraph(dag, concat):
+    """
+    nwtworkXを使ったグラフを作成する
+    Args:
+        genotype: グラフ情報
+    Return:
+        G
+    """
+    G = nx.DiGraph()
+    G.add_nodes_from([0, 1])
+    for k, edges in enumerate(dag):
+        G.add_node(k+2)
+        G.add_edges_from([(edges[0][1], k+2, {"ops": edges[0][0]}), (edges[1][1], k+2, {"ops": edges[1][0]})])
+
+    output_node = k+1+2
+    G.add_node(output_node)
+    G.add_edges_from([(concat[0], output_node), (concat[1], output_node)])
+    
+    return G
+
+# 最後のノードに到達しないノードを検出
+def find_unreachable_nodes(G, last_node):
+    """最後のノードに到達しないノードを検出
+    Args:
+        G (nx.DiGraph()): networkXのグラフ
+        last_node (int): 最後のノード番号
+    """
+    # 最後のノードに到達可能なノードを取得
+    reachable = nx.ancestors(G, last_node)
+    reachable.add(last_node)  # 自身を追加
+
+    # 全ノードから到達可能ノードを引く
+    all_nodes = set(G.nodes())
+    unreachable_nodes = all_nodes - reachable
+    unreachable_nodes = [node-2 for node in unreachable_nodes]
+    return unreachable_nodes
