@@ -8,7 +8,7 @@ experiment_name=Pruning
 genotype=$1
 DAG=$2
 channels=16
-layers=32
+layers=20
 python cal_macs_main.py \
     --genotype $genotype\
     --DAG $DAG\
