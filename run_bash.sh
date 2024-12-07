@@ -22,7 +22,8 @@ experiment_name=Curriculum
     
 
 for seed in 0;do
-    for g in -0.001 -0.01 -0.1 -1;do
+    for g in 0.001 0.01 0.1 1;do
+    # for g in 0.001;do
         for method in expected;do
             bash run_searchStage.sh train SearchEvalCurriculum \
             $experiment_name none none s$seed-${method}2-sw3-g${g}_30-20\
