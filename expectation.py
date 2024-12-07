@@ -122,14 +122,24 @@ def _expectation_dp(alpha, ExpectedDepth):
             ExpectedDepth[j] = 0
         elif j < window:
             edge_max, _ = torch.topk(alpha[j-2][:,:-1], 1)
+            # print("alpha[{}] : {}".format(j-2, alpha[j-2]))
+            # print("edge_max : ", edge_max)
             edge_max = F.softmax(edge_max, dim=0)
+            # print("edge_max : ", edge_max)
+            # input()
             for i in range(j):
-                ExpectedDepth[j] += edge_max[i][0] * (ExpectedDepth[i] + 1)
+                ExpectedDepth[j] += edge_max[i][0] * ExpectedDepth[i]
+            ExpectedDepth[j] += 1
         else:
             edge_max, _ = torch.topk(alpha[j-2][:,:-1], 1)
+            # print("alpha[{}] : {}".format(j-2, alpha[j-2]))
+            # print("edge_max : ", edge_max)
             edge_max = F.softmax(edge_max, dim=0)
+            # print("edge_max : ", edge_max)
+            # input()
             for s, i in enumerate(range(j-window, j)):
-                ExpectedDepth[j] += edge_max[s][0] * (ExpectedDepth[i] + 1)
+                ExpectedDepth[j] += edge_max[s][0] * (ExpectedDepth[i])
+            ExpectedDepth[j] += 1
 
     return ExpectedDepth
 
@@ -148,81 +158,80 @@ def main():
             else:
                 alpha.append(nn.Parameter(1.0 * torch.ones(window, n_ops)))
 
-    # d = [0, 0]
-    # for i, edges in enumerate(alpha):
-    #     print(edges[:, :-1])
-    #     input()
-    #     edge_max, _ = torch.topk(edges[:, :-1], 1)
-    #     edge_max = F.softmax(edge_max, dim=0)
-    #     if i < window - 2:
-    #         dd = 0
-    #         for j in range(i + 2):
-    #             dd += edge_max[j][0] * (d[j] + 1)
-    #         dd /= (i + 2)
-    #     else:
-    #         dd = 0
-    #         for s, j in enumerate(range(i - 1, i + 2)):
-    #             dd += edge_max[s][0] * (d[j] + 1)
-    #         dd /= window
-    #     if i >= 3:
-    #         dd *= (1 + i * beta[i - 3])[0]
-    #     d.append(dd)
-
-    depth_expectation, depthList = loss(alpha, beta)
-
     # alphaの特定の値を大きくしてlossの変化を調べる
-    alpha_values = []
-    depth_values = [[],[]]
+    depth_values = []
 
     scaling_factors = torch.linspace(1, 1.1, steps=10)  # スケールの範囲
-    base_alpha = [param.detach().clone() for param in alpha]
-    base_beta = [param.detach().clone() for param in beta]
-
-    for scale in scaling_factors:
-        # alphaの特定の値をスケールアップ
-        # base_alpha[1][0][0].data *= scale
-        # base_alpha[2][0][0].data *= scale
-        # print(base_alpha[1].data)
-
-        base_beta[0][0].data *= scale
-        print(beta[0].data)
-
-        # lossを計算
-        depth_expectation, _ = loss(base_alpha, base_beta)
-        depth_values[0].append(depth_expectation)
-
-    base_alpha = [param.detach().clone() for param in alpha]
-    base_beta = [param.detach().clone() for param in beta]
-
-    for scale in scaling_factors:
-        # base_alpha[5][0][0].data *= scale
-        # alpha[1][1][0].data *= scale
-        # alpha[1][2][0].data *= scale
-        # print(base_alpha[5].data)
-
-        base_beta[0][-1].data *= scale
-        print(beta[0].data)
-
-        # lossを計算
-        depth_expectation, _ = loss(base_alpha, base_beta)
-        alpha_values.append(scale.item())
-        depth_values[1].append(depth_expectation)
-
     # プロット
     plt.figure(figsize=(8, 6))
-    plt.plot(alpha_values, depth_values[0], marker='o', label="Beta[0]")
-    plt.plot(alpha_values, depth_values[1], marker='o', label="Beta[14]")
+    
+    
+    # m = 0
+    # # for l in range(int((n_big_nodes)*(n_big_nodes-1)/2)):
+    # for l in range(1,2):
+    # # for l in [1,2,3,4,5]:
+    #     depth_values.append([])
+        
+    #     for scale in scaling_factors:
+    #         print("scale = {}".format(scale))
+    #         for m in [0, 1]:
+    #             base_alpha = [param.detach().clone() for param in alpha]
+    #             base_beta = [param.detach().clone() for param in beta]
+    #             print("m = {}".format(m))
+    #             # alphaの特定の値をスケールアップ
+    #             base_alpha[l][m][0].data *= scale
+    #             print("base_alpha[{}].data : {}".format(l, base_alpha[l].data))
+
+    #             # base_beta[0][l] *= scale
+    #             # print(base_beta[0].data)
+
+    #             # lossを計算
+    #             depth_expectation, _ = loss(base_alpha, base_beta)
+    #             depth_values[-1].append(depth_expectation)
+
+    #             print(depth_values)
+    #         # plt.plot(scaling_factors, depth_values[-1], marker='o', label="Alpha[{}][{}]".format(l,m))
+
+    m=2
+    for l in range(1,n_big_nodes):
+    # for l in [1,2,3,4,5]:
+        depth_values.append([])
+        base_alpha = [param.detach().clone() for param in alpha]
+        base_beta = [param.detach().clone() for param in beta]
+        for scale in scaling_factors:
+            print("scale = {}".format(scale))
+           
+            # alphaの特定の値をスケールアップ
+            # base_alpha[l][m][0].data *= scale
+            # print("base_alpha[{}].data : {}".format(l, base_alpha[l].data))
+
+            base_beta[0][l] *= scale
+            print(base_beta[0].data)
+
+            # lossを計算
+            depth_expectation, _ = loss(base_alpha, base_beta)
+            depth_values[-1].append(depth_expectation)
+
+        plt.plot(scaling_factors, depth_values[-1], marker='o', label="Alpha[{}][{}]".format(l,m))
+
+    # plt.xlabel("Alpha Scaling Factor")
+    # plt.ylabel("Depth Expectation")
+    # plt.title("Effect of Scaling Alpha on Depth Expectation")
+    # plt.legend()
+    # plt.grid()
+    # plt.savefig("./assets/Expectation_alpha_m={}.png".format(m))
+    
     plt.xlabel("Beta Scaling Factor")
     plt.ylabel("Depth Expectation")
     plt.title("Effect of Scaling Beta on Depth Expectation")
     plt.legend()
     plt.grid()
-    plt.savefig("./assets/Expectation_beta_0-15.png")
+    plt.savefig("./assets/Expectation_beta_.png")
 
     
 
 if __name__ == "__main__":
-    n_big_nodes = 6
+    n_big_nodes = 10
     window=3
     n_ops=4
     main()
