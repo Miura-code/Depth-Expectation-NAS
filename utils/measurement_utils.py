@@ -48,9 +48,9 @@ def count_ModelSize_exclude_extra(mac, params, ret_dict, ignore_layer, dead_cell
     ex_params = sum([ret_dict[layer][1] for layer in ignore_layer])
 
     for s, dead_cell in enumerate(dead_cells):
-        print([s*11+cell for cell in  dead_cell])
+        # print([s*11+cell for cell in  dead_cell])
         for cell in dead_cell:
-            print(ret_dict["cells"][2]["{}".format(s*11+cell)][0])
+            # print(ret_dict["cells"][2]["{}".format(s*11+cell)][0])
             ex_mac += ret_dict["cells"][2]["{}".format(s*11+cell)][0]
             ex_params += ret_dict["cells"][2]["{}".format(s*11+cell)][1]
 

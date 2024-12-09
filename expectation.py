@@ -163,7 +163,7 @@ def main():
 
     scaling_factors = torch.linspace(1, 1.1, steps=10)  # スケールの範囲
     # プロット
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 6))
     
     
     # m = 0
@@ -193,7 +193,8 @@ def main():
     #         # plt.plot(scaling_factors, depth_values[-1], marker='o', label="Alpha[{}][{}]".format(l,m))
 
     m=2
-    for l in range(1,n_big_nodes):
+    # for l in range(1,n_big_nodes):
+    for l in range(int((n_big_nodes)*(n_big_nodes-1)/2)):
     # for l in [1,2,3,4,5]:
         depth_values.append([])
         base_alpha = [param.detach().clone() for param in alpha]
@@ -212,7 +213,8 @@ def main():
             depth_expectation, _ = loss(base_alpha, base_beta)
             depth_values[-1].append(depth_expectation)
 
-        plt.plot(scaling_factors, depth_values[-1], marker='o', label="Alpha[{}][{}]".format(l,m))
+        # plt.plot(scaling_factors, depth_values[-1], marker='o', label="Beta[{}][{}]".format(l,m))
+        plt.plot(scaling_factors, depth_values[-1], marker='o', label="Beta[{}]".format(l))
 
     # plt.xlabel("Alpha Scaling Factor")
     # plt.ylabel("Depth Expectation")
@@ -224,9 +226,10 @@ def main():
     plt.xlabel("Beta Scaling Factor")
     plt.ylabel("Depth Expectation")
     plt.title("Effect of Scaling Beta on Depth Expectation")
-    plt.legend()
+    # plt.legend()
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=10, ncol=3)
     plt.grid()
-    plt.savefig("./assets/Expectation_beta_.png")
+    plt.savefig("./assets/Expectation_beta_.png", bbox_inches='tight')
 
     
 

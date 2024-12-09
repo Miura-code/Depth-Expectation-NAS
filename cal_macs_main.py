@@ -43,7 +43,9 @@ class Config(BaseConfig):
         super().__init__(**vars(args))
 
         self.data_path = '../data/'
+        self.genotype_name = self.genotype
         self.genotype = gt.from_str(self.genotype)
+        self.DAG_name = self.DAG
         self.DAG = gt.from_str(self.DAG)
 
         self.gpus = parse_gpus(self.gpus)
@@ -60,6 +62,9 @@ def main(config):
 
     model = AugmentStage(input_size, input_channels, config.init_channels, n_classes, config.layers, use_aux, config.genotype, config.DAG, spec_cell=config.spec_cell)
     model = model.to(config.device)
+
+    print("model archtecture -> genotype='{}'".format(config.genotype_name))
+    print("model archtecture -> DAG='{}'".format(config.DAG_name))
 
     last_node = len(config.DAG.DAG1)+2
 
