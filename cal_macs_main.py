@@ -16,6 +16,7 @@ class Config(BaseConfig):
     def build_parser(self):
         parser = get_parser("Calculate network macs config")
         # ======== model settings ============
+        parser.add_argument('--path', default="", help='path')
         parser.add_argument('--genotype', required=True, help='Cell genotype')
         parser.add_argument('--DAG', required=True, help='DAG genotype')
         parser.add_argument('--init_channels', type=int, default=32)
@@ -47,6 +48,9 @@ class Config(BaseConfig):
         self.genotype = gt.from_str(self.genotype)
         self.DAG_name = self.DAG
         self.DAG = gt.from_str(self.DAG)
+
+        if self.path == "":
+            self.path = os.path.dirname(self.DAG_name)
 
         self.gpus = parse_gpus(self.gpus)
         self.device = utils.set_seed_gpu(self.seed, self.gpus)
@@ -80,13 +84,13 @@ def main(config):
     
     inputs = torch.randn(1,3,32,32) if config.advanced else torch.randn(1,3,16,16)
     inputs = inputs.to(config.device)
-    mac, params, ret_dict = utils.measurement_utils.count_ModelSize_bythop(model, inputs)
+    mac, params, ret_dict = utils.measurement_utils.count_ModelSize_bythop(model, inputs, path=os.path.join(config.path,"thop_info.json"))
     print("param size = {}MB, mac = {}".format(params, mac))
 
     ignore_layer = [
         "stem0", "stem1", "cells"
     ]
-    mac, params = count_ModelSize_exclude_extra(mac, params, ret_dict, ignore_layer, [dead_cell1, dead_cell2, dead_cell3])
+    mac, params = count_ModelSize_exclude_extra(config.layers//3, mac, params, ret_dict, ignore_layer, [dead_cell1, dead_cell2, dead_cell3])
     print("param size = {}MB, mac = {}".format(params, mac))
 
 

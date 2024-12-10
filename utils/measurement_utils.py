@@ -5,7 +5,7 @@ import time
 from ptflops import get_model_complexity_info
 from thop import profile
 from thop import clever_format
-
+from icecream import ic
 
 class TimeKeeper():
     def __init__(self):
@@ -43,16 +43,18 @@ def count_ModelSize_bythop(model, inputSize, path="./thop_info.json"):
 
     return macs, params, ret_dict
 
-def count_ModelSize_exclude_extra(mac, params, ret_dict, ignore_layer, dead_cells):
+def count_ModelSize_exclude_extra(n_big_node, mac, params, ret_dict, ignore_layer, dead_cells):
     ex_mac = sum([ret_dict[layer][0] for layer in ignore_layer])
     ex_params = sum([ret_dict[layer][1] for layer in ignore_layer])
 
     for s, dead_cell in enumerate(dead_cells):
-        # print([s*11+cell for cell in  dead_cell])
+        ex_mac += ret_dict["bigDAG{}".format(s+1)][2]["cells"][0]
+        ex_params += ret_dict["bigDAG{}".format(s+1)][2]["cells"][1]
         for cell in dead_cell:
-            # print(ret_dict["cells"][2]["{}".format(s*11+cell)][0])
-            ex_mac += ret_dict["cells"][2]["{}".format(s*11+cell)][0]
-            ex_params += ret_dict["cells"][2]["{}".format(s*11+cell)][1]
+            ex_mac += ret_dict["bigDAG{}".format(s+1)][2]["bigDAG"][2]["{}".format(cell)][0]
+            ex_mac += ret_dict["bigDAG{}".format(s+1)][2]["bigDAG"][2]["{}".format(n_big_node+cell)][0]
+            ex_params += ret_dict["bigDAG{}".format(s+1)][2]["bigDAG"][2]["{}".format(cell)][1]
+            ex_params += ret_dict["bigDAG{}".format(s+1)][2]["bigDAG"][2]["{}".format(n_big_node+cell)][1]
 
     mac -= ex_mac
     params -= ex_params
