@@ -1,0 +1,57 @@
+12/15 08:05:08PM parser.py:28 [INFO] 
+12/15 08:05:08PM parser.py:29 [INFO] Parameters:
+12/15 08:05:08PM parser.py:31 [INFO] DAG_PATH=results/search_stage_KD/cifar100/Curriculum/s4-expected2-sw3-g0.001_50-0/DAG
+12/15 08:05:08PM parser.py:31 [INFO] T=10.0
+12/15 08:05:08PM parser.py:31 [INFO] ADVANCED=1
+12/15 08:05:08PM parser.py:31 [INFO] ALPHA_LR=0.0003
+12/15 08:05:08PM parser.py:31 [INFO] ALPHA_WEIGHT_DECAY=0.001
+12/15 08:05:08PM parser.py:31 [INFO] ARCH_CRITERION=expected
+12/15 08:05:08PM parser.py:31 [INFO] BATCH_SIZE=64
+12/15 08:05:08PM parser.py:31 [INFO] CASCADE=0
+12/15 08:05:08PM parser.py:31 [INFO] CHECKPOINT_RESET=False
+12/15 08:05:08PM parser.py:31 [INFO] CURRICULUM_EPOCHS=[50, 0]
+12/15 08:05:08PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+12/15 08:05:08PM parser.py:31 [INFO] DATA_PATH=../data/
+12/15 08:05:08PM parser.py:31 [INFO] DATASET=cifar100
+12/15 08:05:08PM parser.py:31 [INFO] DEPTH_COEF=0.0
+12/15 08:05:08PM parser.py:31 [INFO] DESCRIPTION=search_and_evaluation_curriculum_learning_with_-Beta-expected-Depth-ecpected-constraint_slidewindow-3
+12/15 08:05:08PM parser.py:31 [INFO] DISCRETE=1
+12/15 08:05:08PM parser.py:31 [INFO] EPOCHS=50
+12/15 08:05:08PM parser.py:31 [INFO] EVAL_EPOCHS=100
+12/15 08:05:08PM parser.py:31 [INFO] EXP_NAME=s4-expected2-sw3-g0.001_50-0
+12/15 08:05:08PM parser.py:31 [INFO] FINAL_L=0.0
+12/15 08:05:08PM parser.py:31 [INFO] G=0.001
+12/15 08:05:08PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+12/15 08:05:08PM parser.py:31 [INFO] GPUS=[0]
+12/15 08:05:08PM parser.py:31 [INFO] HINT_EPOCHS=[16, 32]
+12/15 08:05:08PM parser.py:31 [INFO] INIT_CHANNELS=16
+12/15 08:05:08PM parser.py:31 [INFO] L=0.0
+12/15 08:05:08PM parser.py:31 [INFO] LAYERS=32
+12/15 08:05:08PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+12/15 08:05:08PM parser.py:31 [INFO] NAME=Curriculum
+12/15 08:05:08PM parser.py:31 [INFO] NONKD=1
+12/15 08:05:08PM parser.py:31 [INFO] PATH=results/search_stage_KD/cifar100/Curriculum/s4-expected2-sw3-g0.001_50-0
+12/15 08:05:08PM parser.py:31 [INFO] PCDARTS=0
+12/15 08:05:08PM parser.py:31 [INFO] PLOT_PATH=results/search_stage_KD/cifar100/Curriculum/s4-expected2-sw3-g0.001_50-0/plots
+12/15 08:05:08PM parser.py:31 [INFO] PRINT_FREQ=100
+12/15 08:05:08PM parser.py:31 [INFO] RESET=0
+12/15 08:05:08PM parser.py:31 [INFO] RESUME_PATH=None
+12/15 08:05:08PM parser.py:31 [INFO] SAVE=s4-expected2-sw3-g0.001_50-0
+12/15 08:05:08PM parser.py:31 [INFO] SEED=4
+12/15 08:05:08PM parser.py:31 [INFO] SHARE_STAGE=0
+12/15 08:05:08PM parser.py:31 [INFO] SLIDE_WINDOW=3
+12/15 08:05:08PM parser.py:31 [INFO] SPEC_CELL=1
+12/15 08:05:08PM parser.py:31 [INFO] STAGE_MACS=[8.18, 2.49, 1.88]
+12/15 08:05:08PM parser.py:31 [INFO] TEACHER_NAME=none
+12/15 08:05:08PM parser.py:31 [INFO] TEACHER_PATH=none
+12/15 08:05:08PM parser.py:31 [INFO] TRAIN_PORTION=0.5
+12/15 08:05:08PM parser.py:31 [INFO] TYPE=SearchEvalCurriculum
+12/15 08:05:08PM parser.py:31 [INFO] W_GRAD_CLIP=5.0
+12/15 08:05:08PM parser.py:31 [INFO] W_LR=0.025
+12/15 08:05:08PM parser.py:31 [INFO] W_LR_MIN=0.001
+12/15 08:05:08PM parser.py:31 [INFO] W_MOMENTUM=0.9
+12/15 08:05:08PM parser.py:31 [INFO] W_WEIGHT_DECAY=0.0003
+12/15 08:05:08PM parser.py:31 [INFO] WORKERS=4
+12/15 08:05:08PM parser.py:32 [INFO] 
+12/15 08:05:10PM searchStage_trainer.py:134 [INFO] --> No loaded checkpoint!
+12/15 08:06:05PM searchEvalStage_curriculum_trainer.py:213 [INFO] Train: Epoch: [0][100/390]	Step 100	lr 0.025	Loss 4.4193 (4.5091)	Arch Loss 4.3473 (4.4980)	Arch Hard Loss 4.3473 (4.4980)	Arch Beta Loss 6.1914 (6.1930)	Arch depth Loss -0.0014 (-0.0003)	Prec@(1,5) (2.5%, 10.9%)	
