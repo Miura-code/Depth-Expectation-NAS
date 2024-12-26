@@ -54,7 +54,7 @@ class Architect():
         # return hard_loss, soft_loss, loss
         return loss
     
-    def unrolled_backward_NONKD(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
+    def unrolled_backward_NONKD(self, trn_X, trn_y, val_X, val_y, xi, w_optim, weights=None):
         """ First Order!
             Compute unrolled loss and backward its gradients
         Args:
@@ -62,10 +62,10 @@ class Architect():
             w_optim: weights optimizer - for virtual step
         """
         logits = self.net(val_X)
-        loss = self.net.criterion.hard_criteria(logits, val_y)
-        loss.backward()
+        losses = self.net.criterion((logits, val_y), updated_weight=weights, detail=True)
+        losses[-1].backward()
         
-        return loss
+        return losses
 
     def unrolled_backward_2nd(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
         """ Second Order!

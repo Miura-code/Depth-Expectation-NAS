@@ -25,7 +25,6 @@ if [ ${type} = "train" ]; then
     lambda=${10}
     min_lambda=${11}
     gamma=${12}
-
     nonkd=${13}
     depth_coef=${14}
     slide_window=${15}

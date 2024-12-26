@@ -6,6 +6,7 @@
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 import os
+from trainer.searchDistribution_trainer import SearchDistributionTrainer
 from trainer.searchStage_ArchKD_trainer import SearchStageTrainer_ArchKD
 from trainer.searchStage_BetaConcat_trainer import SearchStageTrainer_BetaConcat
 import utils
@@ -38,6 +39,8 @@ def run_task(config):
         trainer = SearchStageTrainer_ArchKD(config)
     elif config.type == "Pruning":
         trainer = SearchStageTrainer_BetaConcat(config)
+    elif config.type == "Distribution":
+        trainer = SearchDistributionTrainer(config)
     else:
         raise NotImplementedError("実装されていない学習手法です")
     

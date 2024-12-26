@@ -427,12 +427,48 @@ class SearchStageControllerPartialConnection(SearchStageController):
             yield n, p
 
 class SearchDistributionDag(SearchStage):
-    def __init__(self, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier, slide_window=3):
-        super().__init__(C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier, slide_window)
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=4, cell_multiplier=4, spec_cell=False, slide_window=3):
+        super().__init__(input_size, C_in, C, n_classes, n_layers, genotype, n_big_nodes, stem_multiplier=stem_multiplier, cell_multiplier=cell_multiplier, spec_cell=spec_cell, slide_window=slide_window)
 
-        self.bigDAG1 = SearchBigDAG_CS(n_big_nodes, self.cells, 0, n_layers // 3, 4 * C, window=self.window)
-        self.bigDAG2 = SearchBigDAG_CS(n_big_nodes, self.cells, n_layers // 3 + 1, 2 * n_layers // 3, 8 * C, window=self.window)
-        self.bigDAG3 = SearchBigDAG_CS(n_big_nodes, self.cells, 2 * n_layers // 3 + 1, n_layers, 16 * C, window=self.window)
+        C_pp, C_p, C_cur = cell_multiplier * C, cell_multiplier * C, C
+        self.cells = nn.ModuleList()
+        for i in range(n_layers):
+            if i in range(n_layers // 3):
+                reduction = False
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+            if i in [n_layers // 3]:
+                self.bigDAG1 = SearchBigDAG_CS(n_big_nodes, self.cells, 0, n_layers // 3, stem_multiplier*C_cur, stem_multiplier*C_cur, cell_multiplier * C_cur, window=self.window)
+               
+                reduction = True
+                C_pp = C_p = 2*cell.multiplier*C_cur
+                C_cur *= 2
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+            if i in range(n_layers // 3 + 1, 2 * n_layers // 3):
+                reduction = False
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+            if i in [2 * n_layers // 3]:
+                self.bigDAG2 = SearchBigDAG_CS(n_big_nodes, self.cells, n_layers // 3 + 1, 2 * n_layers // 3, C_pp, C_p, cell_multiplier * C_cur, window=self.window)
+
+                reduction = True
+                C_pp = C_p = 2*cell.multiplier*C_cur
+                C_cur *= 2
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+            if i in range(2 * n_layers // 3 + 1, n_layers):
+                reduction = False
+                cell = GetCell(genotype, C_pp, C_p, C_cur, reduction) if not spec_cell else Get_StageSpecified_Cell(genotype, C_pp, C_p, C_cur, False, reduction, i, n_layers)
+                self.cells.append(cell)
+
+            C_pp, C_p = cell_multiplier*C_cur, cell_multiplier*C_cur
+
+
+        # self.bigDAG1 = SearchBigDAG(n_big_nodes, self.cells, 0, n_layers // 3, 4 * C)
+        # self.bigDAG2 = SearchBigDAG(n_big_nodes, self.cells, n_layers // 3 + 1, 2 * n_layers // 3, 8 * C)
+        self.bigDAG3 = SearchBigDAG_CS(n_big_nodes, self.cells, 2 * n_layers // 3 + 1, n_layers, C_pp, C_p, cell_multiplier * C_cur, window=self.window)
+
     
     def forward(self, x, weights_DAG, weights_concat):
         s0 = s1 = self.stem(x)
@@ -448,25 +484,29 @@ class SearchDistributionDag(SearchStage):
         return logits
 
 class SearchDistributionController(SearchStageController):
-    def __init__(self, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, slide_window=3):
-        
-        super().__init__(C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=stem_multiplier, device_ids=device_ids, slide_window=slide_window)
-        
+    def __init__(self, input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=4, device_ids=None, spec_cell=False, slide_window=3):   
+
+        super().__init__(input_size, C_in, C, n_classes, n_layers, criterion, genotype, stem_multiplier=stem_multiplier, device_ids=device_ids, spec_cell=spec_cell, slide_window=slide_window)
         # alpha_concat = beta: for changeable stage length
         self.alpha_concat = nn.ParameterList()
         for _ in range(3):
-            self.alpha_concat.append(nn.Parameter(1e-3 * torch.randn(5, 1)))
+            self.alpha_concat.append(nn.Parameter(1e-3 * torch.randn(self.n_big_nodes-3, 1)))
         
         self._alphas = []
         for n, p in self.named_parameters():
             if 'alpha' in n:
                 self._alphas.append((n, p))
         
-        self.net = SearchDistributionDag(C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier, slide_window)
+        self.net = SearchDistributionDag(input_size, C_in, C, n_classes, n_layers, genotype, self.n_big_nodes, stem_multiplier=stem_multiplier, spec_cell=spec_cell, slide_window=self.window)
     
-    def forward(self, x):
-        weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
-        weights_concat = [F.softmax(beta, dim=0) for beta in self.alpha_concat]
+    def forward(self, x, fix=False):
+        if fix:
+            weights_DAG = [alpha for alpha in self.alpha_DAG]
+            weights_concat = [beta for beta in self.alpha_concat]
+        else:
+            weights_DAG = [F.softmax(alpha, dim=-1) for alpha in self.alpha_DAG]
+            weights_concat = [F.softmax(beta, dim=0) for beta in self.alpha_concat]
+       
         if len(self.device_ids) == 1:
             return self.net(x, weights_DAG, weights_concat)
 
@@ -479,7 +519,7 @@ class SearchDistributionController(SearchStageController):
                                              devices=self.device_ids)
         return nn.parallel.gather(outputs, self.device_ids[0])
     
-    def print_alphas(self, logger):
+    def print_alphas(self, logger, fix=False):
         org_formatters = []
         for handler in logger.handlers:
             org_formatters.append(handler.formatter)
@@ -488,10 +528,16 @@ class SearchDistributionController(SearchStageController):
         logger.info("####### ALPHA #######")
         logger.info("# Alpha - DAG")
         for alpha in self.alpha_DAG:
-            logger.info(F.softmax(alpha, dim=-1))
+            if fix:
+                logger.info(alpha)
+            else:
+                logger.info(F.softmax(alpha, dim=-1))
         logger.info("# Alpha - Concat")
         for beta in self.alpha_concat:
-            logger.info(F.softmax(beta, dim=0))
+            if fix:
+                logger.info(beta)
+            else:
+                logger.info(F.softmax(beta, dim=0))
         logger.info("#####################")
 
         for handler, formatter in zip(logger.handlers, org_formatters):

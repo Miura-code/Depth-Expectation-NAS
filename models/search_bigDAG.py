@@ -124,8 +124,8 @@ class SearchBigDAG_FullCascade(SearchBigDAG):
         return s_out
    
 class SearchBigDAG_CS(SearchBigDAG):
-    def __init__(self, n_big_nodes, cells, start_p, end_p, C, window=3):
-        super().__init__(n_big_nodes, cells, start_p, end_p, C, window)
+    def __init__(self, n_big_nodes, cells, start_p, end_p, C_pp, C_p, C, window=3):
+        super().__init__(n_big_nodes, cells, start_p, end_p, C_pp, C_p, C, window=window)
     
     def forward(self, s0, s1, w_dag, w_concat):
         s0 = self.preproc0(s0)
@@ -141,7 +141,7 @@ class SearchBigDAG_CS(SearchBigDAG):
                 states.append(self.DAG[j + self.n_big_nodes](s_cur, s_cur))
         
         s_out = list()
-        for i in range(self.n_big_nodes - 4, self.n_big_nodes + 1):
+        for i in range(4, self.n_big_nodes + 1):
             s_out.append(torch.cat(states[i: i + 2], dim=1))
         
         ss = sum([wc * so for (wc, so) in zip(w_concat, s_out)])
