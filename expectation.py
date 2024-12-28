@@ -3,6 +3,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
+import japanize_matplotlib
+import numpy as np
+
 
 
 # 再帰的に期待値を計算する関数
@@ -162,44 +165,20 @@ def main():
     depth_values = []
 
     scaling_factors = torch.linspace(1, 1.1, steps=10)  # スケールの範囲
+    # scales = [1]
+    # for s in scaling_factors[1:]:
+    #     scales.append(scales[-1]*s)
     # プロット
     plt.figure(figsize=(10, 6))
     
-    
-    # m = 0
-    # # for l in range(int((n_big_nodes)*(n_big_nodes-1)/2)):
-    # for l in range(1,2):
-    # # for l in [1,2,3,4,5]:
-    #     depth_values.append([])
-        
-    #     for scale in scaling_factors:
-    #         print("scale = {}".format(scale))
-    #         for m in [0, 1]:
-    #             base_alpha = [param.detach().clone() for param in alpha]
-    #             base_beta = [param.detach().clone() for param in beta]
-    #             print("m = {}".format(m))
-    #             # alphaの特定の値をスケールアップ
-    #             base_alpha[l][m][0].data *= scale
-    #             print("base_alpha[{}].data : {}".format(l, base_alpha[l].data))
-
-    #             # base_beta[0][l] *= scale
-    #             # print(base_beta[0].data)
-
-    #             # lossを計算
-    #             depth_expectation, _ = loss(base_alpha, base_beta)
-    #             depth_values[-1].append(depth_expectation)
-
-    #             print(depth_values)
-    #         # plt.plot(scaling_factors, depth_values[-1], marker='o', label="Alpha[{}][{}]".format(l,m))
-
-    m=2
     # for l in range(1,n_big_nodes):
     for l in range(int((n_big_nodes)*(n_big_nodes-1)/2)):
     # for l in [1,2,3,4,5]:
         depth_values.append([])
-        base_alpha = [param.detach().clone() for param in alpha]
-        base_beta = [param.detach().clone() for param in beta]
+        
         for scale in scaling_factors:
+            base_alpha = [param.detach().clone() for param in alpha]
+            base_beta = [param.detach().clone() for param in beta]
             print("scale = {}".format(scale))
            
             # alphaの特定の値をスケールアップ
@@ -213,28 +192,37 @@ def main():
             depth_expectation, _ = loss(base_alpha, base_beta)
             depth_values[-1].append(depth_expectation)
 
-        # plt.plot(scaling_factors, depth_values[-1], marker='o', label="Beta[{}][{}]".format(l,m))
+        # plt.plot(scaling_factors, depth_values[-1], marker='o', label="Alpha[j-{}][{}]".format(3-m, l))
         plt.plot(scaling_factors, depth_values[-1], marker='o', label="Beta[{}]".format(l))
 
-    # plt.xlabel("Alpha Scaling Factor")
-    # plt.ylabel("Depth Expectation")
-    # plt.title("Effect of Scaling Alpha on Depth Expectation")
-    # plt.legend()
-    # plt.grid()
-    # plt.savefig("./assets/Expectation_alpha_m={}.png".format(m))
+    # plt.xlabel("α の倍率", fontsize=18)
+    # plt.ylabel("ステージの深さ期待値", fontsize=18)
+    # # plt.title("Effect of Scaling Alpha on Depth Expectation")
+    # plt.rcParams["font.size"] = 15
+    # plt.tick_params(labelsize=13)
+    # plt.yticks([])
     
-    plt.xlabel("Beta Scaling Factor")
-    plt.ylabel("Depth Expectation")
-    plt.title("Effect of Scaling Beta on Depth Expectation")
+    # plt.legend(loc="lower left")
+    # # plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=15, ncol=1)
+    # plt.grid()
+    # plt.savefig("./assets/Expectation_alpha_m={}.png".format(m), bbox_inches='tight')
+    
+    plt.xlabel("β の倍率", fontsize=18)
+    plt.ylabel("ステージの深さ期待値", fontsize=18)
+    # plt.title("Effect of Scaling Beta on Depth Expectation")
     # plt.legend()
-    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=10, ncol=3)
+    plt.rcParams["font.size"] = 15
+    plt.tick_params(labelsize=13)
+    plt.yticks([])
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=15, ncol=1)
     plt.grid()
     plt.savefig("./assets/Expectation_beta_.png", bbox_inches='tight')
 
     
 
 if __name__ == "__main__":
-    n_big_nodes = 10
+    n_big_nodes = 5
+    m=1
     window=3
     n_ops=4
     main()
