@@ -171,8 +171,8 @@ def main():
     # プロット
     plt.figure(figsize=(10, 6))
     
-    # for l in range(1,n_big_nodes):
-    for l in range(int((n_big_nodes)*(n_big_nodes-1)/2)):
+    for l in range(1,n_big_nodes):
+    # for l in range(int((n_big_nodes)*(n_big_nodes-1)/2)):
     # for l in [1,2,3,4,5]:
         depth_values.append([])
         
@@ -182,47 +182,48 @@ def main():
             print("scale = {}".format(scale))
            
             # alphaの特定の値をスケールアップ
-            # base_alpha[l][m][0].data *= scale
-            # print("base_alpha[{}].data : {}".format(l, base_alpha[l].data))
+            base_alpha[l][m][0].data *= scale
+            print("base_alpha[{}].data : {}".format(l, base_alpha[l].data))
 
-            base_beta[0][l] *= scale
-            print(base_beta[0].data)
+            # base_beta[0][l] *= scale
+            # print(base_beta[0].data)
 
             # lossを計算
             depth_expectation, _ = loss(base_alpha, base_beta)
             depth_values[-1].append(depth_expectation)
 
-        # plt.plot(scaling_factors, depth_values[-1], marker='o', label="Alpha[j-{}][{}]".format(3-m, l))
-        plt.plot(scaling_factors, depth_values[-1], marker='o', label="Beta[{}]".format(l))
+        plt.plot(scaling_factors, depth_values[-1], marker='o', label="Alpha[j-{}][{}]".format(3-m, l))
+        # plt.plot(scaling_factors, depth_values[-1], marker='o', label="Beta[{}]".format(l))
 
-    # plt.xlabel("α の倍率", fontsize=18)
-    # plt.ylabel("ステージの深さ期待値", fontsize=18)
-    # # plt.title("Effect of Scaling Alpha on Depth Expectation")
-    # plt.rcParams["font.size"] = 15
-    # plt.tick_params(labelsize=13)
-    # plt.yticks([])
-    
-    # plt.legend(loc="lower left")
-    # # plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=15, ncol=1)
-    # plt.grid()
-    # plt.savefig("./assets/Expectation_alpha_m={}.png".format(m), bbox_inches='tight')
-    
-    plt.xlabel("β の倍率", fontsize=18)
+    plt.xlabel("スケーリング係数s", fontsize=18)
     plt.ylabel("ステージの深さ期待値", fontsize=18)
-    # plt.title("Effect of Scaling Beta on Depth Expectation")
-    # plt.legend()
+    # plt.title("Effect of Scaling Alpha on Depth Expectation")
     plt.rcParams["font.size"] = 15
     plt.tick_params(labelsize=13)
-    plt.yticks([])
-    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=15, ncol=1)
+    # plt.yticks([])
+    
+    plt.legend()
+    # plt.legend(loc="lower left")
+    # plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=15, ncol=1)
     plt.grid()
-    plt.savefig("./assets/Expectation_beta_.png", bbox_inches='tight')
+    plt.savefig("./assets/Expectation_alpha_m={}.png".format(m), bbox_inches='tight')
+    
+    # plt.xlabel("スケーリング係数s", fontsize=18)
+    # plt.ylabel("ステージの深さ期待値", fontsize=18)
+    # # plt.title("Effect of Scaling Beta on Depth Expectation")
+    # # plt.legend()
+    # plt.rcParams["font.size"] = 15
+    # plt.tick_params(labelsize=13)
+    # # plt.yticks([])
+    # plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=15, ncol=1)
+    # plt.grid()
+    # plt.savefig("./assets/Expectation_beta_.png", bbox_inches='tight')
 
     
 
 if __name__ == "__main__":
-    n_big_nodes = 5
-    m=1
+    n_big_nodes = 10
+    m=2
     window=3
     n_ops=4
     main()
