@@ -65,11 +65,11 @@ elif [ ${arch} = "stage" ]; then
         lambda=0.5
         T=10
         batch_size=64
-        hint_epoch=(10 20 30)
+        hint_epoch=(0 1 50)
         epoch=50
         train_portion=0.5 # searchの場合train_portionは0.5が最大値
         seed=$9
-        python searchStage_Hint_main.py \
+        python searchStage_ArchHint_main.py \
             --name $name \
             --genotype $genotype \
             --teacher_name $teacher_model\

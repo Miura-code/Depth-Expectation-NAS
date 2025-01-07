@@ -83,10 +83,10 @@ elif [ ${arch} = "stage" ]; then
             --save $save \
             --spec_cell \
             --description $description \
-            --depth_coef 0 \
-            --slide_window 8 \
+            --depth_coef 1.0 \
+            --slide_window 3 \
+            --nonkd \
             --advanced
-            # --nonkd \
             # --cascade
             # --pcdarts
     elif [ ${type} = "test" ]; then

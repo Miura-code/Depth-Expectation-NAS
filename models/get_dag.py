@@ -28,7 +28,8 @@ class GetStage(nn.Module):
         elif start_p == len(DAG.DAG1) + len(DAG.DAG2) + 2:
             gene = DAG.DAG3
             self.concat = DAG.DAG3_concat
-
+            
+        self.dag_length = len(gene)
         self.bigDAG = gt.to_dag(C, gene, False)
 
         for k in range(start_p, end_p + 1):
@@ -39,9 +40,9 @@ class GetStage(nn.Module):
         s1 = self.preproc1(s1)
 
         states = [s0, s1]
-        for i in range(6):
+        for i in range(self.dag_length):
             edges = self.bigDAG[i]
-            cell = self.bigDAG[6 + i]
+            cell = self.bigDAG[self.dag_length + i]
             s_cur = sum(op(states[op.s_idx]) for op in edges)
             states.append(cell(s_cur, s_cur))
         

@@ -1,6 +1,7 @@
 .vscode
 .VSCodeCounter
 augments
+.sh
 
 *.pyc
 *.cpython-39.pyc

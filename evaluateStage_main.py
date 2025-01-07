@@ -36,6 +36,7 @@ def run_task(config):
     else:
         trainer = EvaluateStageTrainer_WithSimpleKD(config)
         Record = RecordDataclass(LOSS_TYPES_KD, ACC_TYPES)
+    trainer.construct_model()
     trainer.resume_model()
     start_epoch = trainer.start_epoch
     

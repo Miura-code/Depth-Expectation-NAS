@@ -12,6 +12,7 @@ import torch.nn as nn
 import torchvision
 
 from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm
 
 import teacher_models
 from utils.loss import KD_Loss, SoftTargetKLLoss
@@ -26,7 +27,6 @@ from utils.data_prefetcher import data_prefetcher
 from models.search_stage import SearchStageController, SearchStageController_FullCascade, SearchStageControllerPartialConnection
 from models.architect import Architect
 from utils.visualize import showModelOnTensorboard
-
 
 class SearchStageTrainer_WithSimpleKD():
     def __init__(self, config) -> None:
@@ -66,8 +66,6 @@ class SearchStageTrainer_WithSimpleKD():
         self.logger = self.config.logger
         self.writer = SummaryWriter(log_dir=os.path.join(self.config.path, "tb"))
         self.writer.add_text('config', config.as_markdown(), 0)
-
-        self.construct_model()
     
     def construct_model(self):
         # ================= define data loader ==================
@@ -134,7 +132,7 @@ class SearchStageTrainer_WithSimpleKD():
         if model_path is None and not self.resume_path:
             self.start_epoch = 0
             self.logger.info("--> No loaded checkpoint!")
-        elif reset or self.checkpoint_reset:
+        elif reset:
             model_path = model_path or self.resume_path
             checkpoint = torch.load(model_path, map_location=self.device)
 
@@ -151,6 +149,9 @@ class SearchStageTrainer_WithSimpleKD():
             self.w_optim.load_state_dict(checkpoint['w_optim'])
             self.alpha_optim.load_state_dict(checkpoint['alpha_optim'])
             self.logger.info(f"--> Loaded checkpoint '{model_path}'(epoch {self.start_epoch})")
+            
+        for _ in range(self.start_epoch):
+            self.lr_scheduler.step()
         
     def save_checkpoint(self, epoch, is_best=False):
         if epoch % self.save_epoch == 0:

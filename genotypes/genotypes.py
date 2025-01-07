@@ -37,6 +37,11 @@ PRIMITIVES2 = [
     'none'
 ]
 
+PRIMITIVES3 = [
+    'skip_connect', # identity
+    'none'
+]
+
 
 def to_dag(C_in, gene, reduction):
     """ generate discrete ops from gene """
@@ -118,7 +123,36 @@ def parse(alpha, k, window=3):
                 node_gene.append((prim, edge_idx.item()))
             else:
                 node_gene.append((prim, edge_idx.item() + (i + 2 - window)))
+        gene.append(node_gene)
 
+    return gene
+
+def parse_sub(alpha, k, window=3):
+    """
+    windowサイズ以上にパラメータがある場合のgene作成
+    """
+
+    gene = []
+    assert PRIMITIVES2[-1] == 'none' # assume last PRIMITIVE is 'none'
+
+    # 1) Convert the mixed op to discrete edge (single op) by choosing top-1 weight edge
+    # 2) Choose top-k edges per node by edge score (top-1 weight in edge)
+    for i, edges in enumerate(alpha):
+        # edges: Tensor(n_edges, n_ops)
+        if i + 2 < window:
+            _edges = edges[:, :-1]
+        else:
+            _edges = edges[-window:, :-1]
+        edge_max, primitive_indices = torch.topk(_edges, 1)
+        topk_edge_values, topk_edge_indices = torch.topk(edge_max.view(-1), k)
+        node_gene = []
+        for edge_idx in topk_edge_indices:
+            prim_idx = primitive_indices[edge_idx]
+            prim = PRIMITIVES2[prim_idx]
+            if i + 2 < window:
+                node_gene.append((prim, edge_idx.item()))
+            else:
+                node_gene.append((prim, edge_idx.item() + (i + 2 - window)))
         gene.append(node_gene)
 
     return gene
@@ -306,6 +340,21 @@ def parse_concat(beta):
     _, index = torch.topk(beta, 1, dim=0)
     return range(index + 4, index + 6)
 
+def parse_beta(beta, n_big_nodes):
+    """
+    連続空間にあるベータ構造パラメータを離散化する
+    """
+    _, index = torch.topk(beta, 1, dim=0)
+    count = 0
+    for i in range(0, n_big_nodes-1):
+            for j in range(i+1, n_big_nodes):
+                if index == count:
+                    return [i+2, j+2]
+                else:
+                    count += 1
+    raise AssertionError("BETA パラメータの解析に失敗しました。")
+
+    
 def save_DAG(DAG, path, is_best=False):
     if is_best:
         path = path + '-best'
@@ -317,3 +366,37 @@ def load_DAG(path):
         dag = pickle.load(rh)
         
     return dag
+
+def parse_dag_to_alpha(dag, n_big_nodes=6, n_ops=len(PRIMITIVES3), K=2, window=3, device='cpu'):
+    alpha = []
+    dags = [dag.DAG1, dag.DAG2, dag.DAG3]
+    for j, DAG in enumerate(dags):
+        for i in range(len(DAG)):
+            # sliding window
+            if i + 2 < window:
+                alpha.append(torch.zeros(i + 2, n_ops, device=device))
+            else:
+                alpha.append(torch.zeros(window, n_ops, device=device))
+            offset = i + 2 - window
+            for k in range(K):
+                if i + 2 < window:
+                    alpha[-1][DAG[i][k][1]][PRIMITIVES2.index(DAG[i][k][0])] = torch.tensor(1.0)
+                else:
+                    alpha[-1][DAG[i][k][1] - offset][PRIMITIVES2.index(DAG[i][k][0])] = torch.tensor(1.0)
+    return alpha
+ 
+def parse_dag_to_beta(dag, n_big_nodes, device='cpu'):
+    beta = []
+    concats = [dag.DAG1_concat, dag.DAG2_concat, dag.DAG3_concat]
+    for concat in concats:
+        beta.append(torch.zeros(int((n_big_nodes)*(n_big_nodes-1)/2), device=device))
+        offset = 0
+        for i in range(2, n_big_nodes + 1):
+            for j in range(i+1, n_big_nodes + 2):
+                if (i in concat) and (j in concat):
+                    beta[-1][offset] = torch.tensor(1.0)
+                offset += 1
+    
+    return beta
+    
+    

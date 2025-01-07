@@ -393,3 +393,33 @@ NonVArch_BASELINE = Genotype2(
         [('skip_connect', 6), ('skip_connect', 5)]
         ], 
     DAG3_concat=range(6, 8))
+
+NoDepthLoss_BEST = Genotype2(
+    DAG1=[
+        [('skip_connect', 1), ('skip_connect', 0)],
+        [('skip_connect', 0), ('skip_connect', 1)],
+        [('skip_connect', 1), ('skip_connect', 3)],
+        [('skip_connect', 3), ('skip_connect', 4)],
+        [('skip_connect', 3), ('skip_connect', 4)],
+        [('skip_connect', 4), ('skip_connect', 6)]
+    ], 
+    DAG1_concat=range(6, 8), 
+    DAG2=[
+        [('skip_connect', 0), ('skip_connect', 1)], 
+        [('skip_connect', 1), ('skip_connect', 0)], 
+        [('skip_connect', 1), ('skip_connect', 2)], 
+        [('skip_connect', 3), ('skip_connect', 2)],
+        [('skip_connect', 3), ('skip_connect', 4)], 
+        [('skip_connect', 4), ('skip_connect', 5)]
+        ], 
+    DAG2_concat=range(6, 8), 
+    DAG3=[
+        [('skip_connect', 0), ('skip_connect', 1)], 
+        [('skip_connect', 0), ('skip_connect', 1)], 
+        [('skip_connect', 1), ('skip_connect', 2)], 
+        [('skip_connect', 2), ('skip_connect', 3)], 
+        [('skip_connect', 3), ('skip_connect', 4)], 
+        [('skip_connect', 4), ('skip_connect', 5)]
+        ], 
+    DAG3_concat=range(6, 8)
+)

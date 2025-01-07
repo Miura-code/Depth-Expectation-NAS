@@ -1,10 +1,26 @@
 import os
 import random
+import warnings
 import torch
+from torch.optim.lr_scheduler import _LRScheduler
 import numpy as np
 import shutil
-from utils import setting
 import torch.backends.cudnn as cudnn
+
+from utils import setting
+from .data_prefetcher import *
+from .data_util import *
+from .eval_util import *
+from .file_management import *
+from .graphs  import *
+from .imagenet_loader import *
+from .logging_util import *
+from .loss import *
+from .measurement_utils import *
+from .params_util import *
+from .parser import *
+from .preproc import *
+from .visualize import *
 
 class SETTING():
     def __init__(self):
@@ -50,3 +66,12 @@ def ListToMarkdownTable(name_list, value_list):
       text += "|{}|{}|  \n".format(attr, value)
 
   return text
+
+def grad_check(model, layer_name):
+  for name, param in model.named_parameters():
+    if layer_name not in name:
+      continue
+    if param.grad is not None:
+        print(f"{name}の勾配:\n{param.grad}")
+    else:
+        print(f"{name}の勾配はありません")

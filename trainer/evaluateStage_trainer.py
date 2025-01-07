@@ -48,9 +48,6 @@ class EvaluateStageTrainer():
         self.writer = SummaryWriter(log_dir=os.path.join(self.config.path, "tb"))
         self.writer.add_text('config', config.as_markdown(), 0)
 
-        self.construct_model()
-
-
     def construct_model(self):
         # ================= define data loader ==================
         input_size, input_channels, n_classes, train_data, valid_data = get_data(
