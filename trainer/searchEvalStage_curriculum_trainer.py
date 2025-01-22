@@ -5,8 +5,8 @@ import torch.nn.functional as F
 
 from genotypes.genotypes import parse_dag_to_alpha, parse_dag_to_beta
 from models.search_stage import SearchStageDistributionBetaCurriculumController
-from trainer.SearchEvalStage_ArchKD_trainer import SearchEvaluateStageTrainer_ArchKD
-from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
+from trainer.SearchEvalStage_trainer import SearchEvaluateStageTrainer
+from trainer.searchStage_trainer import SearchStageTrainer
 
 import utils
 import utils.measurement_utils
@@ -18,7 +18,7 @@ from utils.data_prefetcher import data_prefetcher
 from models.architect import Architect_Arch
 
 
-class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer_ArchKD, SearchStageTrainer_WithSimpleKD):
+class SearchEvalStageTrainer_Curriculum(SearchEvaluateStageTrainer, SearchStageTrainer):
     def __init__(self, config) -> None:
         super().__init__(config)
         

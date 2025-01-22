@@ -1,17 +1,10 @@
-# Copyright (c) Malong LLC
-# All rights reserved.
-#
-# Contact: github@malongtech.com
-#
-# This source code is licensed under the LICENSE file in the root directory of this source tree.
+# Contact: https://github.com/Miura-code
 
 import os
 from trainer.searchDistribution_trainer import SearchDistributionTrainer
-from trainer.searchStage_ArchKD_trainer import SearchStageTrainer_ArchKD
 from trainer.searchStage_BetaConcat_trainer import SearchStageTrainer_BetaConcat
 import utils
 from utils.logging_util import get_std_logging
-from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
 from genotypes.genotypes import save_DAG
 from utils.visualize import plot2, png2gif
 from utils.eval_util import RecordDataclass
@@ -33,11 +26,7 @@ def run_task(config):
     utils.set_seed_gpu(config.seed, config.gpus)
     
     # ================= define trainer ==================
-    if config.type == "KD":
-        trainer = SearchStageTrainer_WithSimpleKD(config)
-    elif config.type == "ArchKD":
-        trainer = SearchStageTrainer_ArchKD(config)
-    elif config.type == "Pruning":
+    if config.type == "Pruning":
         trainer = SearchStageTrainer_BetaConcat(config)
     elif config.type == "Distribution":
         trainer = SearchDistributionTrainer(config)

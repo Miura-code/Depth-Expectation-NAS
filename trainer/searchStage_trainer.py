@@ -9,26 +9,21 @@
 import os
 import torch
 import torch.nn as nn
-import torchvision
 
 from torch.utils.tensorboard import SummaryWriter
-from tqdm import tqdm
 
-import teacher_models
-from utils.loss import KD_Loss, SoftTargetKLLoss
+from utils.loss import WeightedCombinedLoss
 import utils
 from utils.data_util import get_data, split_dataloader
-from utils.file_management import load_teacher_checkpoint_state
-from utils.params_util import collect_params
-from utils.eval_util import AverageMeter, accuracy, validate
+from utils.eval_util import AverageMeter, accuracy
 
 from utils.data_prefetcher import data_prefetcher
 
-from models.search_stage import SearchStageController, SearchStageController_FullCascade, SearchStageControllerPartialConnection
+from models.search_stage import SearchStageController
 from models.architect import Architect
 from utils.visualize import showModelOnTensorboard
 
-class SearchStageTrainer_WithSimpleKD():
+class SearchStageTrainer():
     def __init__(self, config) -> None:
         self.config = config
 
@@ -37,15 +32,9 @@ class SearchStageTrainer_WithSimpleKD():
         self.save_epoch = 1
         self.ckpt_path = self.config.path
         self.device = utils.set_seed_gpu(config.seed, config.gpus)
-        # self.Controller = SearchStageControllerPartialConnection if self.config.pcdarts else SearchStageController
         self.sw = self.config.slide_window
-        if self.config.pcdarts:
-            self.Controller = SearchStageControllerPartialConnection
-        elif self.config.cascade:
-            self.Controller = SearchStageController_FullCascade
-            self.sw = self.config.layers // 3
-        else:
-            self.Controller = SearchStageController
+
+        self.Controller = SearchStageController
             
         """get the train parameters"""
         self.total_epochs = self.config.epochs
@@ -77,26 +66,13 @@ class SearchStageTrainer_WithSimpleKD():
         print("---------- init model ----------")
         # ================= define criteria ==================
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
-        self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
-        self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
+        self.loss_functions = [self.hard_criterion]
+        self.loss_weights = [1.0]
+        self.criterion = WeightedCombinedLoss(functions=self.loss_functions, weights=self.loss_weights).to(self.device)
         # ================= Student model ==================
         model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw)
         self.model = model.to(self.device)
         # ================= Teacher Model ==================
-        if not self.config.nonkd:
-            teacher_model = self.load_teacher(n_classes)
-            self.teacher_model = teacher_model.to(self.device)
-
-            validate(self.valid_loader, 
-                    self.teacher_model,
-                    self.hard_criterion, 
-                    self.device, 
-                    print_freq=100000,
-                    printer=self.logger.info, 
-                    model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
-            showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)
-        else:
-            self.teacher_model = None
 
         showModelOnTensorboard(self.writer, self.model, self.train_loader)
         print("---------- init model end! ----------")
@@ -107,27 +83,8 @@ class SearchStageTrainer_WithSimpleKD():
         self.alpha_optim = torch.optim.Adam(self.model.alphas(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
 
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
-        self.architect = Architect(self.model, self.teacher_model, self.config.w_momentum, self.config.w_weight_decay)
+        self.architect = Architect(self.model, self.config.w_momentum, self.config.w_weight_decay)
     
-    def load_teacher(self, n_classes):
-        """
-            load pretrained teacher model
-            and Freeze all parameter to be not learnable
-        """
-        try:
-            model = teacher_models.__dict__[self.config.teacher_name](num_classes = n_classes)
-        except (RuntimeError, KeyError) as e:
-            self.logger.info("model loading error!: {}\n \
-                        tring to load from torchvision.models".format(e))
-        model = torchvision.models.__dict__[self.config.teacher_name](num_classes = n_classes)
-
-        _, _ = load_teacher_checkpoint_state(model=model, optimizer=None, checkpoint_path=self.config.teacher_path)
-        
-        for name, param in model.named_parameters():
-            param.requires_grad = False
-        self.logger.info(f"--> Loaded teacher model '{self.config.teacher_name}' from '{self.config.teacher_path}' and Freezed parameters)")
-        
-        return model
     def resume_model(self, reset=False, model_path=None):
         if model_path is None and not self.resume_path:
             self.start_epoch = 0
@@ -202,9 +159,7 @@ class SearchStageTrainer_WithSimpleKD():
 
         self.model.print_alphas(self.logger)
         self.model.train()
-        if not self.config.nonkd:
-            self.teacher_model.train()
-
+    
         prefetcher_trn = data_prefetcher(self.train_loader)
         prefetcher_val = data_prefetcher(self.valid_loader)
         trn_X, trn_y = prefetcher_trn.next()
@@ -217,12 +172,7 @@ class SearchStageTrainer_WithSimpleKD():
 
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
-            if self.config.nonkd:
-                # === (Not KD for optimizing architecture params) ===
-                arch_loss = arch_hard_loss = arch_soft_loss = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
-            else:
-                # === KD for optimizing architecture params ===
-                arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            arch_hard_loss, arch_soft_loss, arch_loss = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
             self.alpha_optim.step()
 
             self.alpha_optim.zero_grad()
@@ -238,16 +188,8 @@ class SearchStageTrainer_WithSimpleKD():
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
             logits = self.model(trn_X)
-            
-            # hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
-            if self.config.nonkd:
-                # === (Not KD for optimizing network params) ===
-                hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
-            else:
-                # === KD for optimizing network params ===
-                with torch.no_grad():
-                    teacher_guide = self.teacher_model(trn_X)
-                hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, trn_y, True)
+        
+            hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
             loss.backward()
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
             self.w_optim.step()

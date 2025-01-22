@@ -1,3 +1,6 @@
+# Contact: https://github.com/Miura-code
+# tensorboardの学習データから各条件のエポック毎の平均を計算する
+
 import pandas as pd
 import glob
 from utils.parser import get_parser, parse_gpus, BaseConfig

@@ -19,11 +19,11 @@ class EvaluateStageConfig(BaseConfig):
         parser.add_argument('--name', required=True)
         parser.add_argument('--save', type=str, default='EXP', help='experiment name')
         # ================= model settings ==================
-        parser.add_argument('--genotype', required=True, help='Cell genotype')
+        parser.add_argument('--genotype', required=True, default="BASELINE_BEST", help='Cell genotype')
         parser.add_argument('--DAG', required=True, help='DAG genotype')
         parser.add_argument('--init_channels', type=int, default=32)
         parser.add_argument('--layers', type=int, default=20, help='# of layers')
-        parser.add_argument('--spec_cell', action='store_true', help='Use stage specified cell architecture at each stage')
+        parser.add_argument('--spec_cell', type=int, default=1, help='Use stage specified cell architecture at each stage')
         parser.add_argument('--resume_path', type=str, default=None)
         parser.add_argument('--teacher_name', type=str, default='densenet121', help='teacher model name')
         parser.add_argument('--teacher_path', type=str, default=None)
@@ -38,17 +38,17 @@ class EvaluateStageConfig(BaseConfig):
         parser.add_argument('--grad_clip', type=float, default=5.,
                             help='gradient clipping for weights')
         # ================= dataset settings ==================
-        parser.add_argument('--dataset', type=str, default='cifar10', help='CIFAR10')
+        parser.add_argument('--dataset', type=str, default='cifar100', help='CIFAR10')
         parser.add_argument('--batch_size', type=int, default=64, help='batch size')
         parser.add_argument('--train_portion', type=float, default=0.9, help='portion of training data')
         parser.add_argument('--cutout_length', type=int, default=16, help='cutout length')
-        parser.add_argument('--advanced', action='store_true', help='advanced data transform. apply resize (224,224)')
+        parser.add_argument('--advanced', type=int, default=1, help='advanced data transform. apply resize (224,224)')
         # ================= training settings ==================
         parser.add_argument('--epochs', type=int, default=50, help='# of training epochs')
         parser.add_argument('--T', type=float, default=10, help='temperature of softmax with temperature')
         parser.add_argument('--l', type=float, default=0.5, help='ratio between soft target loss and hard target loss')
         parser.add_argument('--print_freq', type=int, default=50, help='print frequency')
-        parser.add_argument('--nonkd', action='store_true', help='execute KD learning')
+        parser.add_argument('--nonkd', type=int, default=1, help='execute KD learning')
         # ================= description ==================
         parser.add_argument('--description', type=str, default='', help='experiment details')
         # ================= others ==================        

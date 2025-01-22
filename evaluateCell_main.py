@@ -1,9 +1,3 @@
-# Copyright (c) Malong LLC
-# All rights reserved.
-#
-# Contact: github@malongtech.com
-#
-# This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 '''
 H^c-DAS
@@ -11,7 +5,6 @@ search specific cells of different stages.
 '''
 import os
 from config.evaluateCell_config import EvaluateCellConfig
-from trainTeacher_main import Config
 
 from genotypes.genotypes import save_DAG
 from trainer.evaluateCell_KD_trainer import EvaluateCellTrainer_WithSimpleKD

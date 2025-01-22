@@ -1,32 +1,18 @@
-# Copyright (c) Malong LLC
-# All rights reserved.
-#
-# Contact: github@malongtech.com
-#
-# This source code is licensed under the LICENSE file in the root directory of this source tree.
+# Contact: https://github.com/Miura-code
 
-import os
-import time
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.backends.cudnn as cudnn
 
 from utils.data_util import get_data, split_dataloader
 from utils.eval_util import AverageMeter, accuracy
 from utils.data_prefetcher import data_prefetcher
 from models.search_stage import SearchDistributionController
-from models.architect import Architect, Architect_Arch
-from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
+from models.architect import Architect
+from trainer.searchStage_trainer import SearchStageTrainer
 from utils.loss import WeightedCombinedLoss
 
-"""
-search length-specify macro-architectures
-Modified by searchDAG_trainer
-"""
-
-
-class SearchDistributionTrainer(SearchStageTrainer_WithSimpleKD):
+class SearchDistributionTrainer(SearchStageTrainer):
     def __init__(self, config):
         super().__init__(config)
 
@@ -108,7 +94,7 @@ class SearchDistributionTrainer(SearchStageTrainer_WithSimpleKD):
 
             # architect step (alpha)
             self.alpha_optim.zero_grad()
-            archLosses = self.architect.unrolled_backward_NONKD(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
+            archLosses = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
             arch_hard_loss = archLosses[0]
             arch_loss = archLosses[-1]
             self.alpha_optim.step()

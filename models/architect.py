@@ -13,11 +13,9 @@ from utils.loss import Expected_Depth_Loss_beta
 
 
 class Architect():
-    def __init__(self, net, teacher_net, w_momentum, w_weight_decay):
+    def __init__(self, net, w_momentum, w_weight_decay):
         self.net = net
-        self.teacher_net = teacher_net
         self.v_net = copy.deepcopy(net)
-        self.v_teacher_net = copy.deepcopy(teacher_net)
         self.w_momentum = w_momentum
         self.w_weight_decay = w_weight_decay
     
@@ -28,9 +26,7 @@ class Architect():
             xi: learning rate for virtual gradient step (same as net lr)
             w_optim: weights optimizer - for virtual step
         """
-        logits_guide = self.teacher_net(val_X)
         logits = self.net(val_X)
-        # hard_loss, soft_loss, loss = self.net.criterion(logits, logits_guide, val_y, True)
         losses = self.net.criterion((logits, val_y), updated_weight=weights, detail=True)
         losses[-1].backward()
         
@@ -53,19 +49,6 @@ class Architect():
 
         # return hard_loss, soft_loss, loss
         return loss
-    
-    def unrolled_backward_NONKD(self, trn_X, trn_y, val_X, val_y, xi, w_optim, weights=None):
-        """ First Order!
-            Compute unrolled loss and backward its gradients
-        Args:
-            xi: learning rate for virtual gradient step (same as net lr)
-            w_optim: weights optimizer - for virtual step
-        """
-        logits = self.net(val_X)
-        losses = self.net.criterion((logits, val_y), updated_weight=weights, detail=True)
-        losses[-1].backward()
-        
-        return losses
 
     def unrolled_backward_2nd(self, trn_X, trn_y, val_X, val_y, xi, w_optim):
         """ Second Order!
@@ -156,84 +139,6 @@ class Architect():
         
         hessian = [(p - n) / 2. * eps for p, n in zip(dalpha_pos, dalpha_neg)]
         return hessian
-
-class Architect_Hint(Architect):
-    def __init__(self, net, teacher_net, w_momentum, w_weight_decay, teacher_feature_extractor, Regressor):
-        super().__init__(net, teacher_net, w_momentum, w_weight_decay)
-        self.net = net
-        self.teacher_net = teacher_net
-        self.v_net = copy.deepcopy(net)
-        self.v_teacher_net = copy.deepcopy(teacher_net)
-        self.w_momentum = w_momentum
-        self.w_weight_decay = w_weight_decay
-        self.teacher_feature_extractor = teacher_feature_extractor
-        self.Regressor = Regressor
-        
-    def unrolled_backward_hint(self, trn_X, trn_y, val_X, val_y, xi, w_optim, stage=1):
-        """ First Order!
-            Compute unrolled loss and backward its gradients
-        Args:
-            xi: learning rate for virtual gradient step (same as net lr)
-            w_optim: weights optimizer - for virtual step
-        """
-        with torch.no_grad():
-            teacher_hint_DICT = self.teacher_feature_extractor(val_X)
-            
-        student_features = self.net.extract_features(val_X, stage=stage)
-        
-        student_guided = self.Regressor(student_features["stage"+str(stage)], stage=stage)
-        hint_loss = self.net.hint_criterion(student_guided, teacher_hint_DICT["stage"+str(stage)])
-        hint_loss.backward()
-        
-        return hint_loss
-    
-
-class Architect_Arch(Architect):
-    def __init__(self, net, teacher_net=None, w_momentum=None, w_weight_decay=None, teacher_feature_extractor=None, Regressor=None):
-        # super().__init__(net, teacher_net, w_momentum, w_weight_decay)
-        self.net = net
-        self.teacher_net = teacher_net
-        # self.v_net = copy.deepcopy(net)
-        # self.v_teacher_net = copy.deepcopy(teacher_net)
-        self.w_momentum = w_momentum
-        self.w_weight_decay = w_weight_decay
-        self.teacher_feature_extractor = teacher_feature_extractor
-        self.Regressor = Regressor
-
-        self.arch_criterion_type = "expected" if isinstance(self.net.criterion.functions[-1], Expected_Depth_Loss_beta) else "beta"
-        
-    def unrolled_backward_archhint(self, trn_X, trn_y, val_X, val_y, xi, w_optim, stage=1):
-        """ First Order!
-            Compute unrolled loss and backward its gradients
-        Args:
-            xi: learning rate for virtual gradient step (same as net lr)
-            w_optim: weights optimizer - for virtual step
-        """
-        with torch.no_grad():
-            teacher_hint_DICT = self.teacher_feature_extractor(val_X)
-            
-        student_features = self.net.extract_features(val_X, stage=stage)
-        
-        student_guided = self.Regressor(student_features["stage"+str(stage)], stage=stage)
-        hint_loss = self.net.hint_criterion(self.net.alphas_list(), self.teacher_net.alpha_DAG)
-        # hint_loss = self.net.hint_criterion(self.net.alphas_list())
-        hint_loss.backward()
-        
-        return hint_loss
-    
-    def unrolled_backward_archkd(self, trn_X, trn_y, val_X, val_y, xi, w_optim, weights=None):
-        """ First Order!
-            Compute unrolled loss and backward its gradients
-        Args:
-            xi: learning rate for virtual gradient step (same as net lr)
-            w_optim: weights optimizer - for virtual step
-        """
-        # logits_guide = self.teacher_net(val_X)
-        logits = self.net(val_X)
-        losses = self.net.criterion((logits, val_y), ([self.net.alpha_DAG]), updated_weight=weights, detail=True)
-        losses[-1].backward()
-        
-        return losses
     
     def unrolled_backward_betaConstraint(self, trn_X, trn_y, val_X, val_y, xi, w_optim, weights=None):
         """ First Order!
@@ -250,18 +155,3 @@ class Architect_Arch(Architect):
         losses[-1].backward()
         
         return losses
-    
-    # def unrolled_backward_archkd_updated_weight(self, trn_X, trn_y, val_X, val_y, xi, w_optim, weights):
-    #     """ First Order!
-    #         Compute unrolled loss and backward its gradients
-    #     Args:
-    #         xi: learning rate for virtual gradient step (same as net lr)
-    #         w_optim: weights optimizer - for virtual step
-    #     """
-    #     # logits_guide = self.teacher_net(val_X)
-    #     logits = self.net(val_X)
-    #     losses = self.net.criterion((logits, val_y), ([self.net.alphas()]), updated_weight=weights, detail=True)
-    #     losses[-1].backward()
-        
-    #     return losses
-            

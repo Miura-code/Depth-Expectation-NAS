@@ -12,7 +12,7 @@ import torch.nn as nn
 import numpy as np
 from config.searchStage_config import TestSearchStageConfig
 from genotypes.genotypes import save_DAG
-from models.search_stage import SearchStageController, SearchStageDistributionBetaController, SearchStageDistributionBetaCurriculumController
+from models.search_stage import SearchStageController, SearchStageDistributionBetaCurriculumController
 import utils
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm

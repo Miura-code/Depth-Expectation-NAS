@@ -2,23 +2,20 @@ import os
 import torch
 import torch.nn as nn
 
-from torch.utils.tensorboard import SummaryWriter
-
 from models.search_stage import SearchStageDistributionBetaController
-from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
+from trainer.searchStage_trainer import SearchStageTrainer
 
 import utils
 import utils.measurement_utils
-from utils.loss import CellLength_beta, CosineScheduler, Expected_Depth_Loss_beta, Lp_loss_beta, WeightedCombinedLoss
+from utils.loss import CellLength_beta, Expected_Depth_Loss_beta, Lp_loss_beta, WeightedCombinedLoss
 from utils.data_util import get_data, split_dataloader
-from utils.eval_util import AverageMeter, accuracy, validate
+from utils.eval_util import AverageMeter, accuracy
 from utils.data_prefetcher import data_prefetcher
-from utils.visualize import showModelOnTensorboard
 
-from models.architect import Architect, Architect_Arch
+from models.architect import Architect
 
 
-class SearchStageTrainer_BetaConcat(SearchStageTrainer_WithSimpleKD):
+class SearchStageTrainer_BetaConcat(SearchStageTrainer):
     def __init__(self, config) -> None:
         super().__init__(config)
         
@@ -58,9 +55,8 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer_WithSimpleKD):
         self.alpha_optim = torch.optim.Adam(self.model.archparams(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
        
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
-        self.architect = Architect_Arch(self.model, None, self.config.w_momentum, self.config.w_weight_decay)
+        self.architect = Architect(self.model, self.config.w_momentum, self.config.w_weight_decay)
         
-        self.lossWeight_scheduler = CosineScheduler(initial_value=self.config.l, final_value=self.config.final_l, total_steps=self.total_epochs)
     
     def train_epoch(self, epoch, printer=print):
         top1 = AverageMeter()

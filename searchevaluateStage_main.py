@@ -1,12 +1,7 @@
-# Copyright (c) Malong LLC
-# All rights reserved.
-#
-# Contact: github@malongtech.com
-#
-# This source code is licensed under the LICENSE file in the root directory of this source tree.
+# Contact: https://github.com/Miura-code
 
 import os
-from trainer.SearchEvalStage_ArchKD_trainer import SearchEvaluateStageTrainer_ArchKD
+from trainer.SearchEvalStage_trainer import SearchEvaluateStageTrainer
 from trainer.searchEvalStage_curriculum_trainer import SearchEvalStageTrainer_Curriculum
 import utils
 from utils.logging_util import get_std_logging
@@ -34,7 +29,7 @@ def run_task(config):
     if config.type == "SearchEvalCurriculum":
         trainer = SearchEvalStageTrainer_Curriculum(config)
     else:
-        trainer = SearchEvaluateStageTrainer_ArchKD(config)
+        trainer = SearchEvaluateStageTrainer(config)
     
     trainer.construct_model()
     trainer.resume_model()
