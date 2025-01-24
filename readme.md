@@ -122,3 +122,13 @@ python evaluateStage_main.py \\
   year={2025}
 }
 ```
+
+## LICENSE
+
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
+- You may not use this work for commercial purposes.
+- You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+- Full license text: https://creativecommons.org/licenses/by-nc/4.0/
+
+Please use this code only for non-commercial purposes.

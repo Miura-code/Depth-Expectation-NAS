@@ -1,3 +1,10 @@
+# This code is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+# You may use, distribute, and modify this code for non-commercial purposes only.
+# Attribution is required. For more details, see:
+# https://creativecommons.org/licenses/by-nc/4.0/
+#
+# Copyright © Shun Miura, 2025
+
 from collections import defaultdict
 import torch
 import torch.nn as nn

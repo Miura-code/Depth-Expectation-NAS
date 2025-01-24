@@ -1,4 +1,11 @@
-# Contact: https://github.com/Miura-code
+# Copyright (c) Malong LLC
+# All rights reserved.
+#
+# Contact: github@malongtech.com
+#
+# This source code is licensed under the LICENSE file in the root directory of this source tree.
+
+# Modifications made by Shun Miura(https://github.com/Miura-code)
 
 import os
 from trainer.SearchEvalStage_trainer import SearchEvaluateStageTrainer

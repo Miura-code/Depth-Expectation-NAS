@@ -1,15 +1,13 @@
-from config.augmentCell_config import *
-from config.augmentStage_config import *
-from config.augmentStage_ImageNet_config import *
+# Copyright (c) Malong LLC
+# All rights reserved.
+#
+# Contact: github@malongtech.com
+#
+# This source code is licensed under the LICENSE file in the root directory of this source tree.
+
+# Modifications made by Shun Miura(https://github.com/Miura-code)
 
 from config.searchCell_config import *
 from config.evaluateCell_config import *
-
 from config.searchStage_config import *
-from config.searchStage_ImageNet_config import *
-
 from config.test_config import *
-from config.testStage_config import *
-from config.trainTeacher_config import *
-
-from trainTeacher_main import Config

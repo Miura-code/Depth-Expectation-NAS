@@ -1,4 +1,10 @@
-# Contact: https://github.com/Miura-code
+# This code is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+# You may use, distribute, and modify this code for non-commercial purposes only.
+# Attribution is required. For more details, see:
+# https://creativecommons.org/licenses/by-nc/4.0/
+#
+# Copyright © Shun Miura, 2025
+
 # tensorboardの学習データから各条件のエポック毎の平均を計算する
 
 import pandas as pd

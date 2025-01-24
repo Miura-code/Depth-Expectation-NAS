@@ -5,6 +5,10 @@
 #
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
+# Modifications made by Shun Miura(https://github.com/Miura-code)
+
+
+
 """ CNN DAG for architecture search """
 from collections import OrderedDict
 from models.get_cell import GetCell, Get_StageSpecified_Cell

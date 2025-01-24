@@ -5,6 +5,10 @@
 #
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
+# Modifications made by Shun Miura(https://github.com/Miura-code)
+
+
+
 from collections import OrderedDict
 from models.augment_stage import AuxiliaryHead
 import torch.nn as nn
