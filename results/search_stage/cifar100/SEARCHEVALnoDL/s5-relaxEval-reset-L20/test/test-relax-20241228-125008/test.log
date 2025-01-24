@@ -1,0 +1,103 @@
+12/28 12:50:08PM parser.py:28 [INFO] 
+12/28 12:50:08PM parser.py:29 [INFO] Parameters:
+12/28 12:50:08PM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 4), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG1_concat=range(6, 8), DAG2=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG2_concat=range(6, 8), DAG3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)]], DAG3_concat=range(6, 8))
+12/28 12:50:08PM parser.py:31 [INFO] ADVANCED=1
+12/28 12:50:08PM parser.py:31 [INFO] BATCH_SIZE=64
+12/28 12:50:08PM parser.py:31 [INFO] CHECKPOINT_RESET=0
+12/28 12:50:08PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+12/28 12:50:08PM parser.py:31 [INFO] DATA_PATH=../data/
+12/28 12:50:08PM parser.py:31 [INFO] DATASET=cifar100
+12/28 12:50:08PM parser.py:31 [INFO] DESCRIPTION=
+12/28 12:50:08PM parser.py:31 [INFO] DISCRETE=0
+12/28 12:50:08PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+12/28 12:50:08PM parser.py:31 [INFO] GPUS=[0]
+12/28 12:50:08PM parser.py:31 [INFO] INIT_CHANNELS=16
+12/28 12:50:08PM parser.py:31 [INFO] LAYERS=20
+12/28 12:50:08PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+12/28 12:50:08PM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s5-relaxEval-reset/test/test-relax-20241228-125008
+12/28 12:50:08PM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s5-relaxEval-reset/best.pth.tar
+12/28 12:50:08PM parser.py:31 [INFO] SAVE=test
+12/28 12:50:08PM parser.py:31 [INFO] SEED=0
+12/28 12:50:08PM parser.py:31 [INFO] SHARE_STAGE=0
+12/28 12:50:08PM parser.py:31 [INFO] SLIDE_WINDOW=3
+12/28 12:50:08PM parser.py:31 [INFO] SPEC_CELL=1
+12/28 12:50:08PM parser.py:31 [INFO] TRAIN_PORTION=1.0
+12/28 12:50:08PM parser.py:31 [INFO] TYPE=SearchEval
+12/28 12:50:08PM parser.py:31 [INFO] WORKERS=4
+12/28 12:50:08PM parser.py:32 [INFO] 
+12/28 12:50:08PM testSearchedModel_main.py:43 [INFO] Logger is set - test start
+####### ALPHA #######
+# Alpha - DAG
+Parameter containing:
+tensor([[0.2030, 0.2346, 0.3241, 0.2383],
+        [0.1945, 0.2290, 0.3235, 0.2530]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0647, 0.0957, 0.6932, 0.1464],
+        [0.0859, 0.1260, 0.5829, 0.2051],
+        [0.1876, 0.2696, 0.2774, 0.2654]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0954, 0.1137, 0.6505, 0.1405],
+        [0.1634, 0.1879, 0.3283, 0.3205],
+        [0.2176, 0.2269, 0.2372, 0.3182]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.2478, 0.2523, 0.2553, 0.2446],
+        [0.2530, 0.2114, 0.2875, 0.2482],
+        [0.2304, 0.2278, 0.2852, 0.2566]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0559, 0.0593, 0.7996, 0.0852],
+        [0.1039, 0.1050, 0.2808, 0.5104],
+        [0.1436, 0.1712, 0.2831, 0.4021]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.1722, 0.2099, 0.4493, 0.1686],
+        [0.2177, 0.2216, 0.2661, 0.2946],
+        [0.2275, 0.1841, 0.2503, 0.3382]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.2254, 0.1644, 0.4030, 0.2073],
+        [0.2019, 0.1583, 0.3562, 0.2836]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.1388, 0.1264, 0.5419, 0.1928],
+        [0.1334, 0.1194, 0.4554, 0.2917],
+        [0.2372, 0.2632, 0.2730, 0.2267]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.1535, 0.1071, 0.5741, 0.1652],
+        [0.2387, 0.1958, 0.3216, 0.2439],
+        [0.1844, 0.1961, 0.2447, 0.3748]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.1934, 0.2123, 0.3426, 0.2518],
+        [0.2254, 0.2522, 0.3088, 0.2136],
+        [0.2041, 0.2412, 0.2739, 0.2808]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0855, 0.0897, 0.7030, 0.1217],
+        [0.1132, 0.1174, 0.5543, 0.2151],
+        [0.1404, 0.1579, 0.2637, 0.4379]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.1151, 0.1299, 0.6423, 0.1126],
+        [0.1259, 0.1820, 0.3395, 0.3526],
+        [0.1665, 0.1898, 0.2327, 0.4109]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0701, 0.0772, 0.6897, 0.1630],
+        [0.0796, 0.0895, 0.6536, 0.1774]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0508, 0.0482, 0.8019, 0.0992],
+        [0.0595, 0.0576, 0.7495, 0.1334],
+        [0.1309, 0.1279, 0.2644, 0.4768]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0321, 0.0247, 0.8889, 0.0543],
+        [0.0774, 0.0600, 0.2722, 0.5903],
+        [0.1210, 0.0897, 0.2711, 0.5182]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0611, 0.0633, 0.7991, 0.0765],
+        [0.0879, 0.0848, 0.3789, 0.4484],
+        [0.1202, 0.1018, 0.3453, 0.4327]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0290, 0.0277, 0.8955, 0.0479],
+        [0.0338, 0.0308, 0.8301, 0.1053],
+        [0.0470, 0.0450, 0.2193, 0.6888]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0.0403, 0.0349, 0.8805, 0.0443],
+        [0.0249, 0.0256, 0.8160, 0.1335],
+        [0.0537, 0.0393, 0.0741, 0.8329]], device='cuda:0', requires_grad=True)
+#####################
+12/28 12:50:10PM params_util.py:60 [INFO] --> Loaded alpha parameters are Freezed
+12/28 12:50:18PM testSearchedModel_main.py:100 [INFO] Test Prec(@1, @5) = (67.8300%, 90.0900%)
+12/28 12:50:18PM testSearchedModel_main.py:101 [INFO] Time to Test = (1735357810.2906787, 1735357818.3791625, 8.088483810424805)
