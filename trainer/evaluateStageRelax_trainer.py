@@ -13,16 +13,13 @@ from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 from genotypes.genotypes import parse_dag_to_alpha
 from models.augment_stage import EvaluateRelaxedStageController
-from trainer.searchStage_trainer import SearchStageTrainer_WithSimpleKD
-from utils.eval_util import validate
+from trainer.searchStage_trainer import SearchStageTrainer
 import utils
 from utils.data_util import get_data, split_dataloader
-from utils.file_management import load_teacher_checkpoint_state
 from utils.eval_util import AverageMeter, accuracy
-from utils.loss import KD_Loss, SoftTargetKLLoss
 from utils.visualize import showModelOnTensorboard
 
-class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
+class EvaluateRelaxedStageTrainer(SearchStageTrainer):
     def __init__(self, config) -> None:
         self.config = config
 
@@ -41,8 +38,6 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
         self.global_batch_size = self.world_size * self.train_batch_size
         self.max_lr = self.config.w_lr * self.world_size
 
-        self.T = self.config.T
-        self.l = self.config.l
         self.depth_coef = self.config.depth_coef
 
         """construct the whole network"""
@@ -66,28 +61,12 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
         print("init model")
         # ================= define criteria ==================
         self.hard_criterion = nn.CrossEntropyLoss().to(self.device)
-        self.soft_criterion = SoftTargetKLLoss(self.T).to(self.device)
-        self.criterion = KD_Loss(self.soft_criterion, self.hard_criterion, self.l, self.config.T)
+        self.criterion = self.hard_criterion
         self.use_aux = self.config.aux_weight > 0.
         # ================= Student model ==================
         model = self.Controller(input_size, input_channels, self.config.init_channels, n_classes, self.config.layers, self.criterion, genotype=self.config.genotype, device_ids=self.config.gpus, spec_cell=self.config.spec_cell, slide_window=self.sw, auxiliary=self.use_aux)
         self.model = model.to(self.device)
-        # ================= Teacher Model ==================
-        if not self.config.nonkd:
-            teacher_model = self.load_teacher(n_classes)
-            self.teacher_model = teacher_model.to(self.device)
-
-            validate(self.valid_loader, 
-                    self.teacher_model,
-                    self.hard_criterion, 
-                    self.device, 
-                    print_freq=100000,
-                    printer=self.logger.info, 
-                    model_description="{} <- ({})".format(self.config.teacher_name, self.config.teacher_path))
-            showModelOnTensorboard(self.writer, self.teacher_model, self.train_loader)
-        else:
-            self.teacher_model = None
-
+        
         showModelOnTensorboard(self.writer, self.model, self.train_loader)
         print("init model end!")
 
@@ -95,7 +74,6 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
         print("get optimizer")
         self.w_optim = torch.optim.SGD(self.model.weights(), self.config.w_lr, momentum=self.config.w_momentum, weight_decay=self.config.w_weight_decay)
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
-        self.alpha_optim = None
 
     def resume_alpha(self, reset=False, model_path=None, discrete=False):
         if model_path is None and not self.resume_path:
@@ -181,16 +159,12 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
         top1 = AverageMeter()
         top5 = AverageMeter()
         losses = AverageMeter()
-        hard_losses = AverageMeter()
-        soft_losses = AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
 
         self.model.print_alphas(self.logger)
         self.model.train()
-        if not self.config.nonkd:
-            self.teacher_model.train()
-
+     
         i = 0
         for X, y in tqdm(self.train_loader):
             i += 1
@@ -203,15 +177,7 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
             logits, aux_logits = self.model(X)
-            # hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
-            if self.config.nonkd:
-                # === (Not KD for optimizing network params) ===
-                hard_loss = soft_loss = loss = self.hard_criterion(logits, y)
-            else:
-                # === KD for optimizing network params ===
-                with torch.no_grad():
-                    teacher_guide = self.teacher_model(X)
-                hard_loss, soft_loss, loss = self.model.criterion(logits, teacher_guide, y, True)
+            loss = self.hard_criterion(logits, y)
             if self.use_aux:
                 loss += self.config.aux_weight * self.hard_criterion(aux_logits, y)
             loss.backward()
@@ -228,14 +194,12 @@ class EvaluateRelaxedStageTrainer(SearchStageTrainer_WithSimpleKD):
                         f'Step {self.steps}\t'
                         f'lr {round(cur_lr, 5)}\t'
                         f'Loss {losses.val:.4f} ({losses.avg:.4f})\t'
-                        f'Hard Loss {hard_losses.val:.4f} ({hard_losses.avg:.4f})\t'
-                        f'Soft Loss {soft_losses.val:.4f} ({soft_losses.avg:.4f})\t'
                         f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})\t'
                     )
 
         printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
 
-        return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg
+        return top1.avg, losses.avg
     
     def val_epoch(self, epoch, printer):
         top1 = AverageMeter()

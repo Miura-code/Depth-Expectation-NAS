@@ -5,7 +5,7 @@ search specific cells of different stages.
 '''
 import os
 
-from config.evaluateStage_config import EvaluateRelaxedStageConfig, EvaluateStageConfig
+from config.evaluateStage_config import EvaluateRelaxedStageConfig
 from trainer.evaluateStageRelax_trainer import EvaluateRelaxedStageTrainer
 import utils
 from utils.eval_util import RecordDataclass
@@ -13,7 +13,6 @@ from utils.logging_util import get_std_logging
 from utils.visualize import plot2
 
 LOSS_TYPES = ["training_loss", "validation_loss"]
-LOSS_TYPES_KD = ["training_hard_loss", "training_soft_loss", "training_loss", "validation_loss"]
 ACC_TYPES = ["training_accuracy", "validation_accuracy"]
 
 def run_task(config):
@@ -41,7 +40,7 @@ def run_task(config):
         drop_prob = config.drop_path_prob * epoch / config.epochs
         trainer.model.drop_path_prob(drop_prob)
 
-        train_top1, train_hardloss, train_softloss, train_loss = trainer.train_epoch(epoch, printer=logger.info)
+        train_top1, train_loss = trainer.train_epoch(epoch, printer=logger.info)
         val_top1, val_loss = trainer.val_epoch(epoch, printer=logger.info)
 
         # ================= write tensorboard and record data ==================
@@ -50,12 +49,7 @@ def run_task(config):
         trainer.writer.add_scalar('train/top1', train_top1, epoch)
         trainer.writer.add_scalar('val/loss', val_loss, epoch)
         trainer.writer.add_scalar('val/top1', val_top1, epoch)
-        if config.nonkd:
-            Record.add(LOSS_TYPES+ACC_TYPES, [train_loss, val_loss, train_top1, val_top1])
-        else:
-            trainer.writer.add_scalar('train/hardloss', train_hardloss, epoch)
-            trainer.writer.add_scalar('train/softloss', train_softloss, epoch)
-            Record.add(LOSS_TYPES_KD+ACC_TYPES, [train_hardloss, train_softloss, train_loss, val_loss, train_top1, val_top1])
+        Record.add(LOSS_TYPES+ACC_TYPES, [train_loss, val_loss, train_top1, val_top1])
         Record.save(config.path)
         # ================= save checkpoint ==================
         if best_top1 < val_top1:

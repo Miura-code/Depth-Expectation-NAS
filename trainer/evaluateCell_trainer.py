@@ -1,18 +1,7 @@
-# Copyright (c) Malong LLC
-# All rights reserved.
-#
-# Contact: github@malongtech.com
-#
-# This source code is licensed under the LICENSE file in the root directory of this source tree.
-
-import time
-import datetime
 import os
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
 import utils
 from utils.data_util import get_data
@@ -21,9 +10,6 @@ from utils.eval_util import AverageMeter, accuracy
 from models.augment_cellcnn import AugmentCellCNN
 
 from utils.data_prefetcher import data_prefetcher
-
-from utils.visualize import showModelOnTensorboard
-
 
 class EvaluateCellTrainer():
     def __init__(self, config):
@@ -37,9 +23,6 @@ class EvaluateCellTrainer():
         self.train_batch_size = self.config.batch_size
         self.val_batch_size = self.config.batch_size
         self.max_lr = self.config.lr
-
-        self.T = self.config.T
-        self.l = self.config.l
 
         """construct the whole network"""
         self.resume_path = self.config.resume_path

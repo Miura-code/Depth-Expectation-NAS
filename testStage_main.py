@@ -1,9 +1,3 @@
-# Copyright (c) Malong LLC
-# All rights reserved.
-#
-# Contact: github@malongtech.com
-#
-# This source code is licensed under the LICENSE file in the root directory of this source tree.
 
 """ Training augmented macro-architecture(stage) model """
 import os
@@ -13,8 +7,6 @@ import numpy as np
 from config.test_config import TestConfig
 import utils
 import torch.backends.cudnn as cudnn
-from torch.utils.tensorboard import SummaryWriter
-from tqdm import tqdm
 
 from utils.data_util import get_data
 from utils.logging_util import get_std_logging

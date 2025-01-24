@@ -15,13 +15,15 @@
 # Usage
 どのプログラムも多くの引数を受け付けるため、shellスクリプト`.sh`の使用を推奨する。
 ### 継続的学習によるステージ構造の探索と評価 on CIFAR100
-- {experiment_name}<実験名
-- {genotype}<セルレベル構造の構造名(default:"BASELINE_BEST")または`.pickle`ファイルパス
-- {g}<深さ期待値損失の係数γの値（継続的学習の場合はγ=0(default)、深さ期待値損失を使用する場合は0以外の値に変更する。）
-- {layers}<ネットワークのセル数
-- {epoch}<探索段階のエポック数(default:10)
-- {eval_epoch}<評価段階のエポック数(default:100)
-- {curri_eposh}<カリキュラム的探索の分割エポック数(default:0 50)
+|引数名|意味|
+|---|---|
+|{experiment_name}|実験名|
+|{genotype}|セルレベル構造の構造名(default:"BASELINE_BEST")または`.pickle`ファイルパス|
+|{g}|深さ期待値損失の係数γの値（継続的学習の場合はγ=0(default)、深さ期待値損失を使用する場合は0以外の値に変更する。）|
+|{layers}|ネットワークのセル数|
+|{epoch}|探索段階のエポック数(default:10)|
+|{eval_epoch}|評価段階のエポック数(default:100)|
+|{curri_eposh}|カリキュラム的探索の分割エポック数(default:0 50)|
 ```
 python searchStage_main.py \\
     --type SearchEvalCurriculum \\
@@ -48,8 +50,10 @@ python searchStage_main.py \\
 ```
 ### 探索した構造の評価 on CIFAR100
 探索した構造をクロスエントロピー損失でスクラッチから学習する
-- {genotype}<セルレベル構造の構造名(default:"BASELINE_BEST")または`.pickle`ファイルパス
-- {dag}<ステージレベル構造の構造名または`.pickle`ファイルパス
+|引数名|意味|
+|---|---|
+|{genotype}|セルレベル構造の構造名(default:"BASELINE_BEST")または`.pickle`ファイルパス|
+|{dag}|ステージレベル構造の構造名または`.pickle`ファイルパス|
 ```
 python evaluateStage_main.py \\
     --name {name} \\

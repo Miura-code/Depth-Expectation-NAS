@@ -40,8 +40,6 @@ class SearchEvaluateStageTrainer(SearchStageTrainer):
         self.global_batch_size = self.world_size * self.train_batch_size
         self.max_lr = self.config.w_lr * self.world_size
 
-        self.T = self.config.T
-        self.l = self.config.l
         self.depth_coef = self.config.depth_coef
 
         """construct the whole network"""
@@ -77,7 +75,7 @@ class SearchEvaluateStageTrainer(SearchStageTrainer):
         self.alpha_optim = torch.optim.Adam(self.model.alphas(), self.config.alpha_lr, betas=(0.5, 0.999), weight_decay=self.config.alpha_weight_decay)
        
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.w_optim, self.total_epochs, eta_min=self.config.w_lr_min)
-        self.architect = Architect(self.model, self.teacher_model, self.config.w_momentum, self.config.w_weight_decay)
+        self.architect = Architect(self.model, self.config.w_momentum, self.config.w_weight_decay)
 
     
     def freeze_alphaParams(self):
@@ -150,11 +148,7 @@ class SearchEvaluateStageTrainer(SearchStageTrainer):
         top1 = AverageMeter()
         top5 = AverageMeter()
         losses = AverageMeter()
-        hard_losses = AverageMeter()
-        soft_losses = AverageMeter()
         arch_losses = AverageMeter()
-        arch_hard_losses = AverageMeter()
-        arch_soft_losses = AverageMeter()
         arch_depth_losses = AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
@@ -178,8 +172,6 @@ class SearchEvaluateStageTrainer(SearchStageTrainer):
             if epoch < self.search_epochs:
                 self.alpha_optim.zero_grad()
                 archLosses = self.architect.unrolled_backward(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
-                arch_hard_loss = archLosses[0]
-                arch_alphaloss = archLosses[1]
                 arch_loss = archLosses[-1]
                 self.alpha_optim.step()
 
@@ -195,7 +187,7 @@ class SearchEvaluateStageTrainer(SearchStageTrainer):
             # ================= optimize network parameter ==================
             self.w_optim.zero_grad()
             logits = self.model(trn_X, fix=False if epoch < self.search_epochs else True)           
-            hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
+            loss = self.hard_criterion(logits, trn_y)
             loss.backward()
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
             self.w_optim.step()
@@ -203,14 +195,10 @@ class SearchEvaluateStageTrainer(SearchStageTrainer):
             prec1, prec5 = accuracy(logits, trn_y, topk=(1, 5))
             # 学習過程の記録用
             losses.update(loss.item(), N)
-            hard_losses.update(hard_loss.item(), N)
-            soft_losses.update(soft_loss.item(), N)
             top1.update(prec1.item(), N)
             top5.update(prec5.item(), N)
             if epoch < self.search_epochs:
                 arch_losses.update(arch_loss.item(), N)
-                arch_hard_losses.update(arch_hard_loss.item(), N)
-                arch_soft_losses.update(arch_alphaloss.item(), N)
                 arch_depth_losses.update(depth_loss.item(), N)
 
             if i % self.config.print_freq == 0 or i == len(self.train_loader) - 1:
@@ -219,8 +207,6 @@ class SearchEvaluateStageTrainer(SearchStageTrainer):
                         f'lr {round(cur_lr, 5)}\t'
                         f'Loss {losses.val:.4f} ({losses.avg:.4f})\t'
                         f'Arch Loss {arch_losses.val:.4f} ({arch_losses.avg:.4f})\t'
-                        f'Arch Hard Loss {arch_hard_losses.val:.4f} ({arch_hard_losses.avg:.4f})\t'
-                        f'Arch Alpha Loss {arch_soft_losses.val:.4f} ({arch_soft_losses.avg:.4f})\t'
                         f'Arch depth Loss {arch_depth_losses.val:.4f} ({arch_depth_losses.avg:.4f})\t'
                         f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})\t'
                         )
@@ -230,7 +216,7 @@ class SearchEvaluateStageTrainer(SearchStageTrainer):
         
         printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
         
-        return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg, arch_hard_losses.avg, arch_soft_losses.avg, arch_losses.avg, arch_depth_losses.avg
+        return top1.avg, losses.avg, arch_losses.avg, arch_depth_losses.avg
     
     def val_epoch(self, epoch, printer):
         top1 = AverageMeter()

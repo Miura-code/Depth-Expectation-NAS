@@ -62,11 +62,7 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer):
         top1 = AverageMeter()
         top5 = AverageMeter()
         losses = AverageMeter()
-        hard_losses = AverageMeter()
-        soft_losses = AverageMeter()
         arch_losses = AverageMeter()
-        arch_hard_losses = AverageMeter()
-        arch_soft_losses = AverageMeter()
         arch_depth_losses = AverageMeter()
 
         cur_lr = self.lr_scheduler.get_last_lr()[0]
@@ -89,8 +85,6 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer):
             # ================= optimize architecture parameter ==================
             self.alpha_optim.zero_grad()
             archLosses = self.architect.unrolled_backward_betaConstraint(trn_X, trn_y, val_X, val_y, cur_lr, self.w_optim)
-            arch_hard_loss = archLosses[0]
-            arch_alphaloss = archLosses[1]
             arch_loss = archLosses[-1]
             self.alpha_optim.step()
 
@@ -108,19 +102,14 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer):
             self.w_optim.zero_grad()
             logits = self.model(trn_X)
            
-            hard_loss = soft_loss = loss = self.hard_criterion(logits, trn_y)
+            loss = self.hard_criterion(logits, trn_y)
             loss.backward()
             nn.utils.clip_grad_norm_(self.model.weights(), self.config.w_grad_clip)
             self.w_optim.step()
 
             prec1, prec5 = accuracy(logits, trn_y, topk=(1, 5))
             # 学習過程の記録用
-            losses.update(loss.item(), N)
-            hard_losses.update(hard_loss.item(), N)
-            soft_losses.update(soft_loss.item(), N)
             arch_losses.update(arch_loss.item(), N)
-            arch_hard_losses.update(arch_hard_loss.item(), N)
-            arch_soft_losses.update(arch_alphaloss.item(), N)
             arch_depth_losses.update(depth_loss.item(), N)
             top1.update(prec1.item(), N)
             top5.update(prec5.item(), N)
@@ -131,8 +120,6 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer):
                         f'lr {round(cur_lr, 5)}\t'
                         f'Loss {losses.val:.4f} ({losses.avg:.4f})\t'
                         f'Arch Loss {arch_losses.val:.4f} ({arch_losses.avg:.4f})\t'
-                        f'Arch Hard Loss {arch_hard_losses.val:.4f} ({arch_hard_losses.avg:.4f})\t'
-                        f'Arch Beta Loss {arch_soft_losses.val:.4f} ({arch_soft_losses.avg:.4f})\t'
                         f'Arch depth Loss {arch_depth_losses.val:.4f} ({arch_depth_losses.avg:.4f})\t'
                         f'Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})\t'
                         )
@@ -142,4 +129,4 @@ class SearchStageTrainer_BetaConcat(SearchStageTrainer):
         
         printer("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch, self.total_epochs - 1, top1.avg))
         
-        return top1.avg, hard_losses.avg, soft_losses.avg, losses.avg, arch_hard_losses.avg, arch_soft_losses.avg, arch_losses.avg, arch_depth_losses.avg
+        return top1.avg, losses.avg, arch_losses.avg, arch_depth_losses.avg

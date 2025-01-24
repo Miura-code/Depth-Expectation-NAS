@@ -43,8 +43,6 @@ class SearchStageTrainer():
         self.global_batch_size = self.world_size * self.train_batch_size
         self.max_lr = self.config.w_lr * self.world_size
 
-        self.T = self.config.T
-        self.l = self.config.l
         self.depth_coef = self.config.depth_coef
 
         """construct the whole network"""

@@ -1,25 +1,12 @@
-# Copyright (c) Malong LLC
-# All rights reserved.
-#
-# Contact: github@malongtech.com
-#
-# This source code is licensed under the LICENSE file in the root directory of this source tree.
-
 import os
 import torch
 import torch.nn as nn
-import torchvision
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 from models.augment_stage import AugmentStage
-import teacher_models
-from utils.eval_util import validate
-from utils.loss import KD_Loss, SoftTargetKLLoss
 import utils
 from utils.data_util import get_data, split_dataloader
-from utils.file_management import load_teacher_checkpoint_state
 from utils.eval_util import AverageMeter, accuracy
-from utils.visualize import showModelOnTensorboard
 
 class EvaluateStageTrainer():
     def __init__(self, config):
