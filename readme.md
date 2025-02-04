@@ -12,6 +12,19 @@
 - [DARTS](https://github.com/quark0/darts)
 - [PC-DARTS](https://github.com/yuhuixu1993/PC-DARTS)
 
+# Installation
+conda(miniconda3) : 24.5.0
+
+python=3.12.3=h996f2a0_0
+pytorch=2.3.0=py3.12_cuda11.8_cudnn8.7.0_0  
+pytorch-cuda=11.8=h7e8668a_5  
+
+実験で使用したconda環境をインストールするには以下のコマンドを実行  
+[requirement.txt](./requirement.txt)
+```
+conda create --name <env> --file requirement.txt
+```
+
 # Usage
 どのプログラムも多くの引数を受け付けるため、shellスクリプト`.sh`の使用を推奨する。
 ### 継続的学習によるステージ構造の探索と評価 on CIFAR100
