@@ -1,0 +1,68 @@
+12/09 08:12:35PM parser.py:28 [INFO] 
+12/09 08:12:35PM parser.py:29 [INFO] Parameters:
+12/09 08:12:35PM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('max_pool_3x3', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 3), ('skip_connect', 1)]], DAG1_concat=range(3, 5), DAG2=[[('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)]], DAG2_concat=range(3, 5), DAG3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)]], DAG3_concat=range(3, 5))
+12/09 08:12:35PM parser.py:31 [INFO] ADVANCED=1
+12/09 08:12:35PM parser.py:31 [INFO] BATCH_SIZE=64
+12/09 08:12:35PM parser.py:31 [INFO] CHECKPOINT_RESET=0
+12/09 08:12:35PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+12/09 08:12:35PM parser.py:31 [INFO] DATA_PATH=../data/
+12/09 08:12:35PM parser.py:31 [INFO] DATASET=cifar100
+12/09 08:12:35PM parser.py:31 [INFO] DESCRIPTION=
+12/09 08:12:35PM parser.py:31 [INFO] DISCRETE=1
+12/09 08:12:35PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+12/09 08:12:35PM parser.py:31 [INFO] GPUS=[0]
+12/09 08:12:35PM parser.py:31 [INFO] INIT_CHANNELS=16
+12/09 08:12:35PM parser.py:31 [INFO] LAYERS=11
+12/09 08:12:35PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+12/09 08:12:35PM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s6-L11/test/test-discrete-20241209-201235
+12/09 08:12:35PM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s6-L11/best.pth.tar
+12/09 08:12:35PM parser.py:31 [INFO] SAVE=test
+12/09 08:12:35PM parser.py:31 [INFO] SEED=0
+12/09 08:12:35PM parser.py:31 [INFO] SHARE_STAGE=0
+12/09 08:12:35PM parser.py:31 [INFO] SLIDE_WINDOW=3
+12/09 08:12:35PM parser.py:31 [INFO] SPEC_CELL=1
+12/09 08:12:35PM parser.py:31 [INFO] TRAIN_PORTION=1.0
+12/09 08:12:35PM parser.py:31 [INFO] TYPE=SearchEval
+12/09 08:12:35PM parser.py:31 [INFO] WORKERS=4
+12/09 08:12:35PM parser.py:32 [INFO] 
+12/09 08:12:35PM testSearchedModel_main.py:43 [INFO] Logger is set - test start
+####### ALPHA #######
+# Alpha - DAG
+Parameter containing:
+tensor([[1., 0., 0., 0.],
+        [1., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([[0., 0., 1., 0.],
+        [0., 0., 1., 0.],
+        [0., 0., 0., 0.]], device='cuda:0', requires_grad=True)
+#####################
+12/09 08:12:37PM params_util.py:51 [INFO] --> Loaded DISCRETED checkpoint '/home/miura/lab/KD-hdas/results/search_stage_KD/cifar100/SEARCHEVALnoDL/s6-L11/best.pth.tar'
+12/09 08:12:37PM params_util.py:60 [INFO] --> Loaded alpha parameters are Freezed
+12/09 08:12:41PM testSearchedModel_main.py:100 [INFO] Test Prec(@1, @5) = (69.2100%, 90.4500%)
+12/09 08:12:41PM testSearchedModel_main.py:101 [INFO] Time to Test = (1733742757.3559928, 1733742761.9938219, 4.637829065322876)
