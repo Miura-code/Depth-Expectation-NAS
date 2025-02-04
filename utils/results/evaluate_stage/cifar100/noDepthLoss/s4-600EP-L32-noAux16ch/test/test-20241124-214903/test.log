@@ -1,0 +1,41 @@
+11/24 09:49:03PM parser.py:28 [INFO] 
+11/24 09:49:03PM parser.py:29 [INFO] Parameters:
+11/24 09:49:03PM parser.py:31 [INFO] DAG=Genotype2(DAG1=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 0)], [('skip_connect', 3), ('skip_connect', 1)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 6)], [('skip_connect', 6), ('skip_connect', 5)], [('skip_connect', 6), ('skip_connect', 7)], [('skip_connect', 7), ('skip_connect', 8)], [('skip_connect', 8), ('skip_connect', 10)]], DAG1_concat=range(10, 12), DAG2=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 4), ('skip_connect', 3)], [('skip_connect', 4), ('skip_connect', 5)], [('skip_connect', 5), ('skip_connect', 6)], [('skip_connect', 7), ('max_pool_3x3', 8)], [('skip_connect', 7), ('skip_connect', 8)], [('skip_connect', 8), ('skip_connect', 9)]], DAG2_concat=range(10, 12), DAG3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 1), ('skip_connect', 2)], [('skip_connect', 2), ('skip_connect', 3)], [('skip_connect', 3), ('skip_connect', 4)], [('skip_connect', 4), ('skip_connect', 5)], [('skip_connect', 5), ('skip_connect', 6)], [('skip_connect', 6), ('skip_connect', 7)], [('skip_connect', 7), ('skip_connect', 8)], [('skip_connect', 8), ('skip_connect', 9)]], DAG3_concat=range(10, 12))
+11/24 09:49:03PM parser.py:31 [INFO] ADVANCED=True
+11/24 09:49:03PM parser.py:31 [INFO] AMP_OPT_LEVEL=O0
+11/24 09:49:03PM parser.py:31 [INFO] AMP_SYNC_BN=True
+11/24 09:49:03PM parser.py:31 [INFO] AUX_WEIGHT=0.0
+11/24 09:49:03PM parser.py:31 [INFO] BATCH_SIZE=128
+11/24 09:49:03PM parser.py:31 [INFO] CIFAR=True
+11/24 09:49:03PM parser.py:31 [INFO] CUTOUT_LENGTH=0
+11/24 09:49:03PM parser.py:31 [INFO] DATA_PATH=../data/
+11/24 09:49:03PM parser.py:31 [INFO] DATASET=cifar100
+11/24 09:49:03PM parser.py:31 [INFO] DEPTH_COEF=1.0
+11/24 09:49:03PM parser.py:31 [INFO] DESCRIPTION=
+11/24 09:49:03PM parser.py:31 [INFO] GENOTYPE=Genotype3(normal1=[[('sep_conv_5x5', 0), ('sep_conv_3x3', 1)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 0)], [('sep_conv_3x3', 1), ('sep_conv_3x3', 2)], [('sep_conv_3x3', 0), ('sep_conv_5x5', 4)]], normal1_concat=range(2, 6), reduce1=[[('sep_conv_3x3', 0), ('skip_connect', 1)], [('sep_conv_3x3', 1), ('max_pool_3x3', 0)], [('sep_conv_3x3', 2), ('sep_conv_3x3', 1)], [('max_pool_3x3', 0), ('dil_conv_3x3', 1)]], reduce1_concat=range(2, 6), normal2=[[('skip_connect', 0), ('sep_conv_5x5', 1)], [('skip_connect', 0), ('skip_connect', 2)], [('avg_pool_3x3', 0), ('avg_pool_3x3', 2)], [('skip_connect', 0), ('avg_pool_3x3', 2)]], normal2_concat=range(2, 6), reduce2=[[('avg_pool_3x3', 0), ('avg_pool_3x3', 1)], [('avg_pool_3x3', 0), ('skip_connect', 2)], [('skip_connect', 2), ('avg_pool_3x3', 0)], [('skip_connect', 2), ('avg_pool_3x3', 0)]], reduce2_concat=range(2, 6), normal3=[[('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('dil_conv_3x3', 1)], [('skip_connect', 0), ('skip_connect', 1)], [('skip_connect', 0), ('skip_connect', 2)]], normal3_concat=range(2, 6))
+11/24 09:49:03PM parser.py:31 [INFO] GPUS=[0]
+11/24 09:49:03PM parser.py:31 [INFO] INIT_CHANNELS=16
+11/24 09:49:03PM parser.py:31 [INFO] LAYERS=32
+11/24 09:49:03PM parser.py:31 [INFO] LOGGER=<Logger H-DAS (INFO)>
+11/24 09:49:03PM parser.py:31 [INFO] MODEL_NAME=None
+11/24 09:49:03PM parser.py:31 [INFO] PATH=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s4-600EP-L32-noAux16ch/test/test-20241124-214903
+11/24 09:49:03PM parser.py:31 [INFO] PRINT_FREQ=50
+11/24 09:49:03PM parser.py:31 [INFO] RELAX=False
+11/24 09:49:03PM parser.py:31 [INFO] RESUME_PATH=/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s4-600EP-L32-noAux16ch/best.pth.tar
+11/24 09:49:03PM parser.py:31 [INFO] SAVE=test
+11/24 09:49:03PM parser.py:31 [INFO] SEED=0
+11/24 09:49:03PM parser.py:31 [INFO] SLIDE_WINDOW=3
+11/24 09:49:03PM parser.py:31 [INFO] SPEC_CELL=True
+11/24 09:49:03PM parser.py:31 [INFO] STAGE=True
+11/24 09:49:03PM parser.py:31 [INFO] TRAIN_PORTION=1.0
+11/24 09:49:03PM parser.py:31 [INFO] WORKERS=4
+11/24 09:49:03PM parser.py:32 [INFO] 
+11/24 09:49:03PM testModel_main.py:43 [INFO] Logger is set - test start
+11/24 09:49:06PM testModel_main.py:76 [INFO] --> Loaded checkpoint '/home/miura/lab/KD-hdas/results/evaluate_stage_KD/cifar100/noDepthLoss/s4-600EP-L32-noAux16ch/best.pth.tar'
+11/24 09:49:06PM testModel_main.py:77 [INFO] param size = 0.893324MB
+11/24 09:49:07PM testModel_main.py:79 [INFO] param size = 893.32 kMB, mac = 15.27 MMac
+11/24 09:49:09PM testModel_main.py:116 [INFO] Test: Step 000/078 Prec@(1,5) (66.4%, 89.1%)
+11/24 09:49:11PM testModel_main.py:116 [INFO] Test: Step 050/078 Prec@(1,5) (66.1%, 88.6%)
+11/24 09:49:12PM testModel_main.py:116 [INFO] Test: Step 078/078 Prec@(1,5) (66.2%, 88.4%)
+11/24 09:49:12PM testModel_main.py:87 [INFO] Test Prec(@1, @5) = (66.1600%, 88.4300%)
+11/24 09:49:12PM testModel_main.py:88 [INFO] Time to Test = (1732452547.4276915, 1732452552.4390795, 5.011388063430786)
